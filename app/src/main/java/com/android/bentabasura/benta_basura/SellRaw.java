@@ -1,6 +1,7 @@
 package com.android.bentabasura.benta_basura;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,6 +60,7 @@ public class SellRaw extends AppCompatActivity
     String userid;
     StorageReference storageReference;
     ProgressDialog progressDialog;
+    public static final String STORAGE_PATH="Products/Trash/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -284,13 +287,13 @@ public class SellRaw extends AppCompatActivity
 
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();
-        Trash newTrash = new Trash(trashName.getText().toString(),trashQty.getText().toString(),trashPrice.getText().toString(),trashDesc.getText().toString(),trashCategory.getText().toString(),sellerContact.getText().toString(),userid,"TBD");
-        databaseReference.child("Trash").push().setValue(newTrash);
 
-        StorageReference path = storageReference.child("Products").child("Trash").child(userid).child(trashName.getText().toString());
+        StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(trashName.getText().toString() + "." + getImageExt(imageUri));
         path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Trash newTrash = new Trash(trashName.getText().toString(),trashQty.getText().toString(),trashPrice.getText().toString(),trashDesc.getText().toString(),trashCategory.getText().toString(),sellerContact.getText().toString(),userid,"TBD");
+                databaseReference.child("Trash").push().setValue(newTrash);
                 showMessage("Product Uploaded Successfully");
                 progressDialog.dismiss();
                 startActivity(homePage);
@@ -301,5 +304,11 @@ public class SellRaw extends AppCompatActivity
 
     public void showMessage(String message){
         Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
+    }
+    public String getImageExt(Uri uri)
+    {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 }
