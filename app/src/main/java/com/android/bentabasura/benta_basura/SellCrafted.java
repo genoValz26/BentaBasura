@@ -298,6 +298,7 @@ public class SellCrafted extends AppCompatActivity
         path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //Adding the additional information on the real-time db
                 Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),craftCategory.getText().toString(),sellerContact.getText().toString(),userid,"TBD",resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString());
                 String uploadid = databaseReference.push().getKey();
                 databaseReference.child("Craft").child(uploadid).setValue(newCraft);
