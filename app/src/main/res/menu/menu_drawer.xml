@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/acc_divider"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_account"
+            android:icon="@mipmap/ic_account_circle_black_24dp"
+            android:title="My Profile" />
+
+    </group>
+
+    <group android:id="@+id/buy_divider"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/buy"
+            android:icon="@mipmap/ic_shopping_cart_black_24dp"
+            android:title="Buy                                        +" />
+
+        <item android:id="@+id/buy_crafted"
+            android:visible="false"
+            android:title="Crafted Items" />
+
+        <item android:id="@+id/buy_raw"
+            android:visible="false"
+            android:title="Recyclable Items" />
+
+    </group>
+
+    <group android:id="@+id/sell_divider"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/sell"
+            android:icon="@mipmap/ic_attach_money_black_24dp"
+            android:title="Sell                                        +" />
+
+        <item android:id="@+id/sell_crafted"
+            android:visible="false"
+            android:title="Crafted Items" />
+
+        <item android:id="@+id/sell_raw"
+            android:visible="false"
+            android:title="Recyclable Items" />
+
+    </group>
+
+    <group android:id="@+id/others_divider"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/home"
+            android:icon="@mipmap/ic_home_black_24dp"
+            android:title="Home" />
+
+        <item android:id="@+id/history"
+            android:icon="@mipmap/ic_history_black_24dp"
+            android:title="History" />
+        <item android:id="@+id/logout"
+            android:icon="@mipmap/ic_logout"
+            android:title="Logout" />
+
+    </group>
+
+</menu>

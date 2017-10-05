@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "669632243845",
+    "firebase_url": "https://benta-basura.firebaseio.com",
+    "project_id": "benta-basura",
+    "storage_bucket": "benta-basura.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669632243845:android:904ddac9c9443a35",
+        "android_client_info": {
+          "package_name": "com.android.bentabasura.benta_basura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "669632243845-uook6g5as6p73m0pnks6lguocnt6438m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.bentabasura.benta_basura",
+            "certificate_hash": "c5e2d3c858002c0d1e3f7ae72353f60bbe0f74bf"
+          }
+        },
+        {
+          "client_id": "669632243845-am7i3oblfj5in1mhijvuandcdt6i7cev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFeDaYrDwYPMCZKHec5Qd7bEW8JZjmHQc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "669632243845-am7i3oblfj5in1mhijvuandcdt6i7cev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

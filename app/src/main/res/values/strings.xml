@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">BentaBasura</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="email">Email Address</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="takephoto">Take Photo</string>
+    <string name="upload">Gallery</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="cpass">Confirm Password</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="prevNews">Previous</string>
+    <string name="nextNews">Next</string>
+    <string name="search_hint">Search</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_profile">My Profile</string>
+    <string name="title_activity_buycrafted">Buy Crafted Items</string>
+    <string name="title_activity_buyraw">Buy Raw Items</string>
+    <string name="title_activity_sellcrafted">Sell Crafted Items</string>
+    <string name="title_activity_sellraw">Sell Raw Items</string>
+    <string name="title_activity_history">History</string>
+    <string name="title_activity_notifications">Notifications</string>
+    <string name="title_activity_cart">Cart</string>
+
+    <string name="craftName">Craft Name</string>
+    <string name="craftDesc">Description</string>
+    <string name="craftQuantity">Quantity</string>
+    <string name="craftPrice">Price</string>
+    <string name="craftCategory">Category</string>
+    <string name="trashName">Trash Name</string>
+    <string name="trashDesc">Description</string>
+    <string name="trashQuantity">Quantity</string>
+    <string name="trashPrice">Price</string>
+    <string name="trashCategory">Category</string>
+    <string name="resourcesFrom">Resources From User...</string>
+    <string name="sellerContact">Contact,Email,and etc...</string>
+    <string name="Submit">Submit</string>
+    <string name="GoogleSign">Sign in with Google</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

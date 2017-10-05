@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_bentbasura">
+
+    <EditText
+        android:id="@+id/emailTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:background="@drawable/bg_username"
+        android:paddingLeft="55dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:layout_above="@+id/passTxt"
+        android:layout_alignLeft="@+id/passTxt"
+        android:layout_alignStart="@+id/passTxt" />
+
+    <EditText
+        android:id="@+id/passTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:background="@drawable/bg_password"
+        android:paddingLeft="55dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:background="@drawable/bg_btn"
+        android:layout_below="@+id/passTxt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_btn"
+        android:text="@string/register" />
+
+    <Button
+        android:id="@+id/loginGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:paddingLeft="45dp"
+        android:text="@string/GoogleSign"
+        android:background="@drawable/google_btn" />
+
+</RelativeLayout>
