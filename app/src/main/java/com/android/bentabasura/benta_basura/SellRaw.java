@@ -292,11 +292,14 @@ public class SellRaw extends AppCompatActivity
         path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Trash newTrash = new Trash(trashName.getText().toString(),trashQty.getText().toString(),trashPrice.getText().toString(),trashDesc.getText().toString(),trashCategory.getText().toString(),sellerContact.getText().toString(),userid,"TBD");
-                databaseReference.child("Trash").push().setValue(newTrash);
-                showMessage("Product Uploaded Successfully");
-                progressDialog.dismiss();
-                startActivity(homePage);
+
+                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), trashCategory.getText().toString(), sellerContact.getText().toString(), userid, "TBD", taskSnapshot.getDownloadUrl().toString());
+                    String uploadid = databaseReference.push().getKey();
+                    databaseReference.child("Trash").child(uploadid).setValue(newTrash);
+                    showMessage("Product Uploaded Successfully");
+                    progressDialog.dismiss();
+                    startActivity(homePage);
+
             }
         });
 

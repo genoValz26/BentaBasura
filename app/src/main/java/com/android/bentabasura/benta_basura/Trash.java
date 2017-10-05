@@ -5,12 +5,12 @@ package com.android.bentabasura.benta_basura;
  */
 
 public class Trash {
-    private String trashName,trashQuantity,trashPrice,trashDescription,trashCategory,sellerContact,uploadedBy,uploadedDate;
+    private String trashName,trashQuantity,trashPrice,trashDescription,trashCategory,sellerContact,uploadedBy,uploadedDate,imageUrl;
     public Trash()
     {
 
     }
-    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate)
+    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl)
     {
         this.trashName = trashName;
         this.trashQuantity = trashQuantity;
@@ -20,6 +20,7 @@ public class Trash {
         this.sellerContact = sellerContact;
         this.uploadedBy = uploadedBy;
         this.uploadedDate = uploadedDate;
+        this.imageUrl = imageUrl;
     }
 
     public String getTrashName() {
@@ -84,5 +85,13 @@ public class Trash {
 
     public void setUploadedDate(String uploadedDate) {
         this.uploadedDate = uploadedDate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

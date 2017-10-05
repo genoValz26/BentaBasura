@@ -297,10 +297,11 @@ public class SellCrafted extends AppCompatActivity
         StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(craftName.getText().toString() + "." + getImageExt(imageUri));
         path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),craftCategory.getText().toString(),sellerContact.getText().toString(),userid,"TBD",resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString());
-                databaseReference.child("Craft").push().setValue(newCraft);
-                showMessage("Product Uploaded Successfully");
+                String uploadid = databaseReference.push().getKey();
+                databaseReference.child("Craft").child(uploadid).setValue(newCraft);
+                showMessage("Craft Uploaded Successfully");
                 progressDialog.dismiss();
                 startActivity(homePage);
             }
