@@ -7,11 +7,10 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    android:background="@drawable/bg_bentabasura2"
     >
 
     <include
-        layout="@layout/menu_app_bar"
+        layout="@layout/activity_buy_raw_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
