@@ -26,8 +26,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.android.bentabasura.benta_basura.R.id.loginBtn;
 
@@ -41,6 +44,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     FirebaseUser user;
     ProgressDialog progressDialog;
     EditText emailTxt,passTxt;
+    ActiveUser activeUser;
 
     String userid;
     public static final String TAG = "Login";
@@ -69,12 +73,42 @@ public class Login extends AppCompatActivity implements OnClickListener {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        activeUser = ActiveUser.getInstance();
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
-                    Log.d(TAG,"onAuthStateChange:signed_in" + user.getUid());
+                    //If user is already logged-in redirect to homepage
+
+                    progressDialog.setMessage("Already Signed-in.");
+                    progressDialog.show();
+
+                    activeUser.setUserId(user.getUid());
+
+                    databaseReference.child("Users").child(activeUser.getUserId()).addListenerForSingleValueEvent(
+                            new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
+                                    activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
+                                                           dataSnapshot.child("lastname").getValue().toString());
+
+                                    progressDialog.dismiss();
+                                    startActivity(homePage);
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            }
+                    );
+
+
+
+
                 }
                 else{
                     Log.d(TAG,"onAuthStateChange:signed_out");
@@ -150,7 +184,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             checkEmailIsVerified();
-
                             return;
                         }
                         else{
