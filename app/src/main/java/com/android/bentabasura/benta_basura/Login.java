@@ -43,13 +43,14 @@ public class Login extends AppCompatActivity implements OnClickListener {
     DatabaseReference databaseReference;
     FirebaseUser user;
     ProgressDialog progressDialog;
-    EditText emailTxt,passTxt;
+    EditText emailTxt, passTxt;
     ActiveUser activeUser;
 
     String userid;
     public static final String TAG = "Login";
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,46 +76,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         activeUser = ActiveUser.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    //If user is already logged-in redirect to homepage
-
-                    progressDialog.setMessage("Already Signed-in.");
-                    progressDialog.show();
-
-                    activeUser.setUserId(user.getUid());
-
-                    databaseReference.child("Users").child(activeUser.getUserId()).addListenerForSingleValueEvent(
-                            new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                    activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
-                                    activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
-                                                           dataSnapshot.child("lastname").getValue().toString());
-
-                                    progressDialog.dismiss();
-                                    startActivity(homePage);
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            }
-                    );
-
-
-
-
-                }
-                else{
-                    Log.d(TAG,"onAuthStateChange:signed_out");
-                }
-            }
-        }; //Use to get current user State
+        checkIfUserIsLogin();
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -123,13 +85,13 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener(){
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                         showMessage("Something went wrong. Please try again");
                     }
                 })
-                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
     }
@@ -150,24 +112,21 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 break;
         }
     }
-    private void userlogin(){
+
+    private void userlogin() {
         String email = emailTxt.getText().toString().trim();
         String password = passTxt.getText().toString();
-        if(TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             emailTxt.setError("Email is empty!");
             progressDialog.dismiss();
             login.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             return;
-        }
-        else if(!TextUtils.isEmpty(email)&&TextUtils.isEmpty(password))
-        {
+        } else if (!TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
             passTxt.setError("Password is empty!");
             progressDialog.dismiss();
             login.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             return;
-        }
-        else if(TextUtils.isEmpty(email) && TextUtils.isEmpty(password))
-        {
+        } else if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
             emailTxt.setError("Email is empty!");
             passTxt.setError("Password is empty!");
             progressDialog.dismiss();
@@ -178,16 +137,15 @@ public class Login extends AppCompatActivity implements OnClickListener {
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
 
-        firebaseAuth.signInWithEmailAndPassword(email,password)
+        firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             checkEmailIsVerified();
                             return;
-                        }
-                        else{
-                           showMessage("Invalid Credentials");
+                        } else {
+                            showMessage("Invalid Credentials");
                             progressDialog.dismiss();
                             login.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
                             return;
@@ -196,22 +154,19 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 });
     }
 
-    public void checkEmailIsVerified(){
+    public void checkEmailIsVerified() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         userid = user.getUid();
         boolean emailVerified = user.isEmailVerified();
 
-        if(!emailVerified)
-        {
-           showMessage("Verif your Email First!");
+        if (!emailVerified) {
+            showMessage("Verif your Email First!");
             firebaseAuth.signOut();
             progressDialog.dismiss();
 
             return;
-        }
-        else
-        {
-
+        } else {
+            checkIfUserIsLogin();
             showMessage("Welcome!");
             startActivity(homePage);
             progressDialog.dismiss();
@@ -219,25 +174,29 @@ public class Login extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    public void showMessage(String message){
-        Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
+    public void showMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
-    public void onStart(){
-        super.onStart();;
+
+    public void onStart() {
+        super.onStart();
+        ;
         firebaseAuth.addAuthStateListener(mAuthListener);
 
     }
-    public void onStop(){
+
+    public void onStop() {
         super.onStop();
-        if(mAuthListener != null){
+        if (mAuthListener != null) {
             firebaseAuth.removeAuthStateListener(mAuthListener);
         }
     }
-    public void sighnInWithGoogle()
-    {
+
+    public void sighnInWithGoogle() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -267,7 +226,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             user = firebaseAuth.getCurrentUser();
                             userid = user.getUid();
-                            Users newUser= new Users("None","Signed in with Google","None","None","None","None","None");
+                            Users newUser = new Users("None", "Signed in with Google", "None", "None", "None", "None", "None");
                             databaseReference.child("Users").child(userid).setValue(newUser);
                             startActivity(homePage);
                             progressDialog.dismiss();
@@ -282,6 +241,52 @@ public class Login extends AppCompatActivity implements OnClickListener {
                         // ...
                     }
                 });
+    }
+
+    public void checkIfUserIsLogin()
+    {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    //If user is already logged-in redirect to homepage
+
+                    progressDialog.setMessage("Already Signed-in.");
+                    progressDialog.show();
+
+                    activeUser.setUserId(user.getUid());
+
+                    databaseReference.child("Users").child(activeUser.getUserId()).addListenerForSingleValueEvent(
+                            new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
+                                    activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
+                                            dataSnapshot.child("lastname").getValue().toString());
+                                    activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
+                                    activeUser.setAge(dataSnapshot.child("age").getValue().toString());
+
+                                    progressDialog.dismiss();
+                                    startActivity(homePage);
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            }
+                    );
+
+
+
+
+                }
+                else{
+                    Log.d(TAG,"onAuthStateChange:signed_out");
+                }
+            }
+        }; //Use to get current user State
     }
 
 }

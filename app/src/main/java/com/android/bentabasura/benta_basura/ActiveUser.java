@@ -11,6 +11,8 @@ public class ActiveUser {
     private String userId;
     private String email;
     private String fullname;
+    private String gender;
+    private String age;
 
     public static ActiveUser getInstance()
     {
@@ -43,6 +45,22 @@ public class ActiveUser {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
 }

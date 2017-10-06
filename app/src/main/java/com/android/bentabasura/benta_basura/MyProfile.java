@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -35,7 +39,6 @@ public class MyProfile extends AppCompatActivity
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
-    private ListView listView;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser user;
@@ -43,6 +46,9 @@ public class MyProfile extends AppCompatActivity
     private DatabaseReference databaseReference;
     String userid;
     public static final String TAG = "MyProfile";
+    ActiveUser activeUser;
+    private TextView txtFullname, txtEmail, txtAge, txtGender;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +77,6 @@ public class MyProfile extends AppCompatActivity
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
-        listView = (ListView) findViewById(R.id.listview);
-
         //-----------------------------------------------------------
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -81,30 +85,17 @@ public class MyProfile extends AppCompatActivity
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    Log.d(TAG,"onAuthStateChange:signed_in" + user.getUid());
-                }
-                else{
-                    Log.d(TAG,"onAuthStateChange:signed_out");
-                }
-            }
-        }; //Use to get current user State
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        activeUser = ActiveUser.getInstance();
 
-                showData(dataSnapshot);
-            }
+        txtFullname = (TextView) findViewById(R.id.txtFullname);
+        txtEmail = (TextView) findViewById(R.id.txtEmail);
+        txtAge = (TextView) findViewById(R.id.txtAge);
+        txtGender = (TextView) findViewById(R.id.txtGender);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        txtFullname.setText(activeUser.getFullname());
+        txtEmail.setText(activeUser.getEmail());
+        txtGender.setText(activeUser.getGender());
+        txtAge.setText(activeUser.getAge());
         //-----------------------------------------------------------
 
     }
@@ -201,43 +192,11 @@ public class MyProfile extends AppCompatActivity
         }
         return true;
     }
-    public void showData(DataSnapshot dataSnapshot){
-
-        for(DataSnapshot ds: dataSnapshot.getChildren()){
-            Users currentuser = new Users();
-            currentuser.setFirstname(ds.child(userid).getValue(Users.class).getFirstname());
-            currentuser.setLastname(ds.child(userid).getValue(Users.class).getLastname());
-            currentuser.setUsername(ds.child(userid).getValue(Users.class).getUsername());
-            currentuser.setEmail(ds.child(userid).getValue(Users.class).getEmail());
-            currentuser.setGender(ds.child(userid).getValue(Users.class).getGender());
-
-            //Display Information on ListView
-            ArrayList<String> arrayList = new ArrayList<>();
-            arrayList.add("Firstname:  "+ currentuser.getFirstname());
-            arrayList.add("Lastname:  "+ currentuser.getLastname());
-            arrayList.add("Username:  " + currentuser.getUsername());
-            arrayList.add("Email:  " + currentuser.getEmail());
-            arrayList.add("Gender:  " + currentuser.getGender());
-            ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,arrayList);
-            listView.setAdapter(adapter);
-
-        }
-    }
     public void logout(){
         firebaseAuth.signOut();
 
     }
-    public void onStart(){
-        super.onStart();;
-        firebaseAuth.addAuthStateListener(mAuthListener);
 
-    }
-    public void onStop(){
-        super.onStop();
-        if(mAuthListener != null){
-            firebaseAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
     public void showMessage(String message){
         Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
     }
