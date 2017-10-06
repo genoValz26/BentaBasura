@@ -34,6 +34,7 @@ public class BuyRaw extends AppCompatActivity
     private Menu navMenu;
     private ListView lstRecycle;
     ProgressDialog mProgressDialog;
+    private custom_craftlist customAdapter;
 
     DatabaseReference databaseReference;
     ArrayList<Trash> craftArray =new ArrayList<>();
@@ -74,7 +75,8 @@ public class BuyRaw extends AppCompatActivity
 
         getTrashDataFromFirebase();
 
-        lstRecycle.setAdapter(new custom_craftlist(this, craftArray));
+        customAdapter =  new custom_craftlist(this, craftArray);
+        lstRecycle.setAdapter(customAdapter);
 
     }
 
@@ -185,6 +187,7 @@ public class BuyRaw extends AppCompatActivity
 
                         Trash trash = postSnapShot.getValue(Trash.class);
                         craftArray.add(trash);
+                        customAdapter.notifyDataSetChanged();
                     }
                     mProgressDialog.dismiss();
                 }
@@ -196,8 +199,6 @@ public class BuyRaw extends AppCompatActivity
 
             }
         });
-
-
     }
 
 
