@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.bentabasura.benta_basura.Home"
-    android:background="@drawable/bg_bentabasura2"
-
+    android:background="@color/colorBackground"
     android:weightSum="1">
 
     <android.support.design.widget.AppBarLayout
@@ -23,7 +22,6 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
     <ImageView
         android:id="@+id/left_button"
         android:layout_width="50dp"

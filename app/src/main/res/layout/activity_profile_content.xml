@@ -10,7 +10,6 @@
     android:weightSum="1"
     tools:layout_editor_absoluteY="25dp"
     tools:layout_editor_absoluteX="0dp">
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -109,6 +108,5 @@
         app:popupTheme="@style/AppTheme.PopupOverlay"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="0dp" />
-
 
 </android.support.constraint.ConstraintLayout>

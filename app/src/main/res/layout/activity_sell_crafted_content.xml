@@ -173,5 +173,4 @@
         android:layout_alignLeft="@+id/sellerContact"
         android:layout_alignStart="@+id/sellerContact" />
 
-
 </RelativeLayout>
