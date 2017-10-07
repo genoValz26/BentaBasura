@@ -172,7 +172,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                             }
                             user = firebaseAuth.getCurrentUser();
                             userid = user.getUid();
-                            Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),txtFirstName.getText().toString(),txtLastName.getText().toString(),gender.toString(),"None","None");
+                            Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),txtFirstName.getText().toString(),txtLastName.getText().toString(),gender.toString(),"None","Member");
                             databaseReference.child("Users").child(userid).setValue(newUser);
 
                             sendEmailVerification();

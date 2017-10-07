@@ -24,6 +24,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,6 +61,9 @@ public class SellRaw extends AppCompatActivity
     String userid;
     StorageReference storageReference;
     ProgressDialog progressDialog;
+
+    TextView navFullName, navEmail;
+    ActiveUser activeUser;
     public static final String STORAGE_PATH="Products/Trash/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +87,24 @@ public class SellRaw extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        //------------------------------------------------------------
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        activeUser = ActiveUser.getInstance();
+
+        //------------------------------------------------------------
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
+        navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+
+        navFullName.setText(activeUser.getFullname());
+        navEmail.setText(activeUser.getEmail());
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
-
+        //------------------------------------------------------------
         uploadbtn = (Button)findViewById(R.id.uploadbtn);
         uploadbtn.setOnClickListener(this);
         uploadbtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
@@ -107,11 +124,6 @@ public class SellRaw extends AppCompatActivity
 
         Submittrash = (Button) findViewById(R.id.Submittrash);
         Submittrash.setOnClickListener(this);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        storageReference = FirebaseStorage.getInstance().getReference();
-
         progressDialog = new ProgressDialog(this);
     }
 

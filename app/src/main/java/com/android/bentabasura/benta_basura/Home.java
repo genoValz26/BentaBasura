@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +52,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     ViewFlipper viewFlipper;
     ImageView next,prev;
     TextView navFullName, navEmail;
-
     ActiveUser activeUser;
 
     @Override
@@ -61,6 +59,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //Slideshow of Image
         next = (ImageView) findViewById(R.id.right_button);
         prev = (ImageView) findViewById(R.id.left_button);
 
@@ -99,11 +98,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        //----------------------------------------------------------------
         activeUser = ActiveUser.getInstance();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
         View headerView = navigationView.getHeaderView(0);
         navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
@@ -115,7 +113,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
-
+        //----------------------------------------------------------------
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
 
