@@ -12,7 +12,7 @@ public class ActiveUser {
     private String email;
     private String fullname;
     private String gender;
-    private String age;
+    private String userType;
 
     public static ActiveUser getInstance()
     {
@@ -55,12 +55,12 @@ public class ActiveUser {
         this.gender = gender;
     }
 
-    public String getAge() {
-        return age;
+    public String getuserType() {
+        return userType;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setuserType(String userType) {
+        this.userType = userType;
     }
 
 }

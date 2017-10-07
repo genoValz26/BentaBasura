@@ -5,17 +5,17 @@ package com.android.bentabasura.benta_basura;
  */
 
 public class Users {
-    private String username,email,firstname,lastname,gender,age,userType;
+    private String username,email,firstname,lastname,gender,imageUrl,userType;
     public Users(){
 
     }
-    public Users(String username,String email,String firstname, String lastname,String gender,String age,String userType){
+    public Users(String username,String email,String firstname, String lastname,String gender,String imageUrl,String userType){
         this.username = username;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
-        this.age = age;
+        this.imageUrl = imageUrl;
         this.userType = userType;
     }
 
@@ -39,8 +39,8 @@ public class Users {
         this.gender = gender;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setimageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void setUserType(String userType) {
@@ -67,8 +67,8 @@ public class Users {
         return gender;
     }
 
-    public String getAge() {
-        return age;
+    public String getimageUrl() {
+        return imageUrl;
     }
 
     public String getUserType() {

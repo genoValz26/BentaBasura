@@ -36,7 +36,7 @@ public class MyProfile extends AppCompatActivity
     String userid;
     public static final String TAG = "MyProfile";
     ActiveUser activeUser;
-    private TextView txtFullname, txtEmail, txtAge, txtGender;
+    private TextView txtFullname, txtEmail, txtUserType, txtGender;
     TextView navFullName, navEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,13 +87,13 @@ public class MyProfile extends AppCompatActivity
 
         txtFullname = (TextView) findViewById(R.id.txtFullname);
         txtEmail = (TextView) findViewById(R.id.txtEmail);
-        txtAge = (TextView) findViewById(R.id.txtAge);
+        txtUserType = (TextView) findViewById(R.id.txtUserType);
         txtGender = (TextView) findViewById(R.id.txtGender);
 
         txtFullname.setText(activeUser.getFullname());
         txtEmail.setText(activeUser.getEmail());
         txtGender.setText(activeUser.getGender());
-        txtAge.setText(activeUser.getAge());
+        txtUserType.setText(activeUser.getuserType());
         //-----------------------------------------------------------
 
     }

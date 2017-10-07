@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Calendar;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +41,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Date;
 
 public class SellCrafted extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -310,7 +313,8 @@ public class SellCrafted extends AppCompatActivity
             @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //Adding the additional information on the real-time db
-                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),craftCategory.getText().toString(),sellerContact.getText().toString(),userid,"TBD",resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString());
+                Date currentTime = Calendar.getInstance().getTime();
+                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),craftCategory.getText().toString(),sellerContact.getText().toString(),userid,currentTime.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString());
                 String uploadid = databaseReference.push().getKey();
                 databaseReference.child("Craft").child(uploadid).setValue(newCraft);
                 showMessage("Craft Uploaded Successfully");

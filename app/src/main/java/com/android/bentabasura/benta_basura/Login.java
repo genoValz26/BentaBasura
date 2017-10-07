@@ -160,7 +160,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         boolean emailVerified = user.isEmailVerified();
 
         if (!emailVerified) {
-            showMessage("Verif your Email First!");
+            showMessage("Verify your Email First!");
             firebaseAuth.signOut();
             progressDialog.dismiss();
 
@@ -266,7 +266,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                     activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
                                             dataSnapshot.child("lastname").getValue().toString());
                                     activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
-                                    activeUser.setAge(dataSnapshot.child("age").getValue().toString());
+                                    activeUser.setuserType(dataSnapshot.child("userType").getValue().toString());
 
                                     progressDialog.dismiss();
                                     startActivity(homePage);

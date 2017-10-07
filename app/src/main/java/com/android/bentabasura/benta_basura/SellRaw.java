@@ -39,7 +39,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-
+import java.util.Calendar;
+import java.util.Date;
 
 public class SellRaw extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -305,7 +306,8 @@ public class SellRaw extends AppCompatActivity
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                  //Adding the additional information on the real-time db
-                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), trashCategory.getText().toString(), sellerContact.getText().toString(), userid, "TBD", taskSnapshot.getDownloadUrl().toString());
+                Date currentTime = Calendar.getInstance().getTime();
+                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), trashCategory.getText().toString(), sellerContact.getText().toString(), userid, currentTime.toString(), taskSnapshot.getDownloadUrl().toString());
                     String uploadid = databaseReference.push().getKey();
                     databaseReference.child("Trash").child(uploadid).setValue(newTrash);
                     showMessage("Trash Uploaded Successfully");
