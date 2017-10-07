@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.android.bentabasura.benta_basura.SellRaw"
     android:orientation="vertical"
-    android:background="@drawable/bg_bentabasura2"
+    android:background="@color/colorBackground"
     >
 
     <android.support.design.widget.AppBarLayout
