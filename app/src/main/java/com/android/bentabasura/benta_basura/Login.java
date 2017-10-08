@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -35,7 +36,8 @@ import com.google.firebase.database.ValueEventListener;
 import static com.android.bentabasura.benta_basura.R.id.loginBtn;
 
 public class Login extends AppCompatActivity implements OnClickListener {
-    Button login, register, loginGoogle;
+    Button login,loginGoogle;
+    TextView link_register;
     Intent homePage, registerPage;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
@@ -57,7 +59,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.activity_login);
 
         login = (Button) findViewById(loginBtn);
-        register = (Button) findViewById(R.id.registerBtn);
+        link_register = (TextView) findViewById(R.id.link_register);
         loginGoogle = (Button) findViewById(R.id.loginGoogle);
 
         emailTxt = (EditText) findViewById(R.id.emailTxt);
@@ -65,9 +67,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         homePage = new Intent(Login.this, Home.class);
         registerPage = new Intent(Login.this, Register.class);
+
         login.setOnClickListener(this);
-        register.setOnClickListener(this);
+        link_register.setOnClickListener(this);
         loginGoogle.setOnClickListener(this);
+
         progressDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -100,11 +104,9 @@ public class Login extends AppCompatActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.loginBtn:
-                login.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn_press));
                 userlogin();
                 break;
-            case R.id.registerBtn:
-                register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn_press));
+            case R.id.link_register:
                 startActivity(registerPage);
                 break;
             case R.id.loginGoogle:
@@ -119,18 +121,15 @@ public class Login extends AppCompatActivity implements OnClickListener {
         if (TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             emailTxt.setError("Email is empty!");
             progressDialog.dismiss();
-            login.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             return;
         } else if (!TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
             passTxt.setError("Password is empty!");
             progressDialog.dismiss();
-            login.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             return;
         } else if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
             emailTxt.setError("Email is empty!");
             passTxt.setError("Password is empty!");
             progressDialog.dismiss();
-            login.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             return;
         }
 
@@ -147,7 +146,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                         } else {
                             showMessage("Invalid Credentials");
                             progressDialog.dismiss();
-                            login.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
                             return;
                         }
                     }

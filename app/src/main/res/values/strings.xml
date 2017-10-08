@@ -40,6 +40,7 @@
     <string name="resourcesFrom">Resources From User...</string>
     <string name="sellerContact">Contact,Email,and etc...</string>
     <string name="Submit">Submit</string>
+    <string name="link_register">Dont Have Account? Click here to Register</string>
     <string name="GoogleSign">Sign in with Google</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
