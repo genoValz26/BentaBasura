@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.bentabasura.benta_basura.MyProfile"
-    android:background="@color/colorBackground"
+    android:background="@color/colorBackground2"
     android:orientation="vertical"
     android:weightSum="1"
     tools:layout_editor_absoluteY="25dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    >
     <android.support.design.widget.AppBarLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="@string/utypelbl"
         android:textSize="24dp"
+
         android:layout_marginTop="13dp"
         android:layout_below="@+id/txtGender"
         android:layout_toRightOf="@+id/textView4"
@@ -62,8 +64,8 @@
         android:layout_height="wrap_content"
         android:text="Personal Information"
         android:textSize="28dp"
-        android:layout_marginTop="22dp"
-        android:layout_below="@+id/profileImage"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/editProfilebtn"
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView" />
 
@@ -101,6 +103,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:background="@color/colorBackground"
         app:srcCompat="@drawable/ic_username" />
 
     <TextView
@@ -129,5 +132,13 @@
         android:layout_alignBottom="@+id/txtUserType"
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView" />
+
+    <Button
+        android:id="@+id/editProfilebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileImage"
+        android:layout_centerHorizontal="true"
+        android:text="@string/updateBtn" />
 
 </RelativeLayout>

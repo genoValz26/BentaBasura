@@ -11,6 +11,8 @@ public class ActiveUser {
     private String userId;
     private String email;
     private String fullname;
+    private String firstname;
+    private String lastname;
     private String gender;
     private String userType;
 
@@ -63,4 +65,19 @@ public class ActiveUser {
         this.userType = userType;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 }

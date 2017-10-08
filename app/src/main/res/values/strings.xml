@@ -31,6 +31,7 @@
     <string name="emaillbl">Email:</string>
     <string name="genderlbl">Gender:</string>
     <string name="utypelbl">User Type:</string>
+    <string name="updateBtn">Update</string>
 
     <string name="craftName">Craft Name</string>
     <string name="craftDesc">Description</string>
@@ -45,7 +46,7 @@
     <string name="resourcesFrom">Resources From User...</string>
     <string name="sellerContact">Contact,Email,and etc...</string>
     <string name="Submit">Submit</string>
-    <string name="link_register">Dont Have Account? Click here to Register</string>
+    <string name="link_register">Register Here</string>
     <string name="GoogleSign">Sign in with Google</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

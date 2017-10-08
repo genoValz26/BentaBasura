@@ -1,20 +1,21 @@
 package com.android.bentabasura.benta_basura;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,13 +25,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 
 public class MyProfile extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage;
     private DrawerLayout drawer;
@@ -42,7 +39,7 @@ public class MyProfile extends AppCompatActivity
     private FirebaseUser user;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    String userid;
+    String userid,fname,lname,email;
     public static final String TAG = "MyProfile";
     ActiveUser activeUser;
     private TextView txtFullname, txtEmail, txtUserType, txtGender;
@@ -50,6 +47,7 @@ public class MyProfile extends AppCompatActivity
     ImageView profileImage;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
+    Button editProfilebtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +66,8 @@ public class MyProfile extends AppCompatActivity
         historyPage = new Intent(MyProfile.this,History.class);
         loginpage = new Intent(MyProfile.this,Login.class);
 
-        profileImage = (ImageView) findViewById(R.id.profileImage);
-        profileImage.setOnClickListener(this);
+        editProfilebtn = (Button) findViewById(R.id.editProfilebtn);
+        editProfilebtn.setOnClickListener(this);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -110,7 +108,6 @@ public class MyProfile extends AppCompatActivity
         txtGender.setText(activeUser.getGender());
         txtUserType.setText(activeUser.getuserType());
         //-----------------------------------------------------------
-
     }
 
     @Override
@@ -214,52 +211,30 @@ public class MyProfile extends AppCompatActivity
         Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
     }
 
+   public void showUpdateDialog(String userid){
+       AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+       LayoutInflater inflater = getLayoutInflater();
+       final View dialogView = inflater.inflate(R.layout.activity_profile_edit,null);
+       dialogBuilder.setView(dialogView);
+
+       final EditText editfname = (EditText) findViewById(R.id.editfname);
+       final EditText editlname = (EditText) findViewById(R.id.editlname);
+       final EditText editEmail = (EditText) findViewById(R.id.editEmail);
+       final Button updatebtn = (Button) findViewById(R.id.updatebtn);
+
+       dialogBuilder.setTitle("Edit Profile");
+       AlertDialog  alertDialog = dialogBuilder.create();
+       alertDialog.show();
+   }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.profileImage:
-
+            case R.id.editProfilebtn:
+                showUpdateDialog(userid);
+                break;
+            case R.id.updatebtn:
                 break;
         }
-    }
-    private void onGallery()
-    {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = pictureDirectory.getPath();
-        Uri data = Uri.parse(pictureDirectoryPath);
-        photoPickerIntent.setDataAndType(data, "image/*");
-        startActivityForResult(photoPickerIntent, Gallery_Intent);
-
-        /*Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, Gallery_Intent);*/
-    }
-    protected void onActivityResult(int requestCode,int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK)
-        {
-            if(requestCode == Gallery_Intent)
-            {
-                imageUri = data.getData();
-                //imageView.setImageResource(imageUri);
-                InputStream inputStream;
-                try
-                {
-                    inputStream = getContentResolver().openInputStream(imageUri);
-                    Bitmap image = BitmapFactory.decodeStream(inputStream);
-                     profileImage.setImageBitmap(image);
-                }
-                catch (FileNotFoundException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-        /*super.onActivityResult(requestCode,resultCode,data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);*/
-
     }
 }

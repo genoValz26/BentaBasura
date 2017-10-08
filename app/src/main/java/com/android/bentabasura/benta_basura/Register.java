@@ -66,7 +66,6 @@ public class Register extends AppCompatActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnRegister:
-                register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn_press));
                 registerUser();
                 break;
             case R.id.backbtn:
@@ -90,66 +89,55 @@ public class Register extends AppCompatActivity implements OnClickListener {
             emailtxt.setError("Email is empty!");
             txtUser.setError("Username is empty!");
             txtCPass.setError("Password is empty!");
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             progressDialog.dismiss();
             return;
         }
         else if (TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
             txtFirstName.setError("Firstname is empty!");
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             progressDialog.dismiss();
             return;
         }
         else if (!TextUtils.isEmpty(fname) && TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
             txtLastName.setError("Lastname is empty!");
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             progressDialog.dismiss();
             return;
         }
         else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
             txtUser.setError("Username is empty!");
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             progressDialog.dismiss();
             return;
         }
         else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
             emailtxt.setError("Email is empty!");
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             progressDialog.dismiss();
             return;
         }
         else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
             txtPass.setError("Confirm Password is empty!");
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             progressDialog.dismiss();
             return;
         }
         else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword)) {
             txtCPass.setError("Password is empty!");
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             progressDialog.dismiss();
             return;
         }
         else if(password.length()<6 && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)){
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             txtCPass.setError("Password must at least be 6 characters!");
             progressDialog.dismiss();
             return;
         }
         else if(cpassword.length()<6 && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)){
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             txtPass.setError("Password must at least be 6 characters!");
             progressDialog.dismiss();
             return;
         }
         else if(!cpassword.contains(password) && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)){
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             txtPass.setError("Password did not match!");
             progressDialog.dismiss();
             return;
         }
         else if(!malebtn.isChecked() && !femalebtn.isChecked()){
-            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
             showMessage("Please choose a Gender!");
             progressDialog.dismiss();
             return;
@@ -179,7 +167,6 @@ public class Register extends AppCompatActivity implements OnClickListener {
 
                         }
                         else{
-                            register.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
                             showMessage("Could not Register! Please try again later");
                             progressDialog.dismiss();
                         }

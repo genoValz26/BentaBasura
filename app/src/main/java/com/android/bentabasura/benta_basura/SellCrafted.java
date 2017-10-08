@@ -109,7 +109,6 @@ public class SellCrafted extends AppCompatActivity
         //----------------------------------------------------------------
         uploadbtn = (Button)findViewById(R.id.uploadbtn);
         uploadbtn.setOnClickListener(this);
-        uploadbtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_btn));
         takePhotobtn = (Button) findViewById(R.id.takePhotobtn);
         takePhotobtn.setOnClickListener(this);
         imageView = (ImageView) findViewById(R.id.UploadImageView);
