@@ -220,20 +220,23 @@ public class MyProfile extends AppCompatActivity
        final EditText editfname = (EditText) findViewById(R.id.editfname);
        final EditText editlname = (EditText) findViewById(R.id.editlname);
        final EditText editEmail = (EditText) findViewById(R.id.editEmail);
+       final ImageView profileImageView = (ImageView) findViewById(R.id.imageView);
+       final Button gallerybtn = (Button) findViewById(R.id.gallerybtn);
        final Button updatebtn = (Button) findViewById(R.id.updatebtn);
-
        dialogBuilder.setTitle("Edit Profile");
        AlertDialog  alertDialog = dialogBuilder.create();
        alertDialog.show();
    }
+    public void updateProfile(String userid, String fname, String lname, String email)
+    {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.editProfilebtn:
                 showUpdateDialog(userid);
-                break;
-            case R.id.updatebtn:
                 break;
         }
     }

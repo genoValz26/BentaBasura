@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,15 +8,14 @@
         android:id="@+id/editfname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="@string/firstname" />
+        android:hint="@string/firstname"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_below="@+id/gallerybtn"
+        android:layout_toRightOf="@+id/profileImageView"
+        android:layout_toEndOf="@+id/profileImageView" />
 
     <EditText
         android:id="@+id/editEmail"
@@ -32,22 +32,41 @@
         android:id="@+id/updatebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="24dp"
         android:text="@string/updateBtn"
         android:layout_below="@+id/editEmail"
-        android:layout_alignRight="@+id/editEmail"
-        android:layout_alignEnd="@+id/editEmail"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="25dp" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/editlname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editfname"
-        android:layout_alignRight="@+id/editfname"
-        android:layout_below="@+id/editfname"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="@string/lastname" />
+        android:hint="@string/lastname"
+        android:layout_below="@+id/editfname"
+        android:layout_alignLeft="@+id/editfname"
+        android:layout_alignStart="@+id/editfname" />
+
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorBackground"
+        app:srcCompat="@drawable/ic_username"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp" />
+
+    <Button
+        android:id="@+id/gallerybtn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="@string/upload"
+        android:layout_alignTop="@+id/profileImageView"
+        android:layout_alignLeft="@+id/editfname"
+        android:layout_alignStart="@+id/editfname" />
 </RelativeLayout>
