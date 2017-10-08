@@ -14,7 +14,9 @@
         android:inputType="textEmailAddress"
         android:layout_above="@+id/passTxt"
         android:layout_alignRight="@+id/link_register"
-        android:layout_alignEnd="@+id/link_register" />
+        android:layout_alignEnd="@+id/link_register"
+        android:layout_marginRight="7dp"
+        android:layout_marginEnd="7dp" />
 
     <EditText
         android:id="@+id/passTxt"
@@ -24,8 +26,8 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imageView5"
-        android:layout_toEndOf="@+id/imageView5" />
+        android:layout_alignLeft="@+id/emailTxt"
+        android:layout_alignStart="@+id/emailTxt" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -66,28 +68,5 @@
         android:layout_marginBottom="35dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_username"
-        android:layout_alignTop="@+id/emailTxt"
-        android:layout_toLeftOf="@+id/emailTxt"
-        android:layout_alignLeft="@+id/link_register"
-        android:layout_alignStart="@+id/link_register"
-        android:layout_above="@+id/passTxt" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_password"
-        android:layout_below="@+id/emailTxt"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4"
-        android:layout_toLeftOf="@+id/emailTxt"
-        android:layout_toStartOf="@+id/emailTxt"
-        android:layout_alignBottom="@+id/passTxt" />
 
 </RelativeLayout>
