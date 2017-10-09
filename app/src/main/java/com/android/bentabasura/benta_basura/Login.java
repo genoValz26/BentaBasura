@@ -265,6 +265,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                             dataSnapshot.child("lastname").getValue().toString());
                                     activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
                                     activeUser.setuserType(dataSnapshot.child("userType").getValue().toString());
+                                    activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
 
                                     progressDialog.dismiss();
                                     startActivity(homePage);

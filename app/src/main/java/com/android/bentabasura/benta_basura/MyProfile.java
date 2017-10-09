@@ -1,6 +1,7 @@
 package com.android.bentabasura.benta_basura;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 
 public class MyProfile extends AppCompatActivity
@@ -44,7 +46,7 @@ public class MyProfile extends AppCompatActivity
     ActiveUser activeUser;
     private TextView txtFullname, txtEmail, txtUserType, txtGender;
     TextView navFullName, navEmail;
-    ImageView profileImage;
+    ImageView bigProfile, smallProfile;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
     Button editProfilebtn;
@@ -102,11 +104,19 @@ public class MyProfile extends AppCompatActivity
         txtEmail = (TextView) findViewById(R.id.txtEmail);
         txtUserType = (TextView) findViewById(R.id.txtUserType);
         txtGender = (TextView) findViewById(R.id.txtGender);
+        bigProfile = (ImageView) findViewById(R.id.bigProfile);
+        smallProfile = (ImageView) findViewById(R.id.smallProfile);
 
         txtFullname.setText(activeUser.getFullname());
         txtEmail.setText(activeUser.getEmail());
         txtGender.setText(activeUser.getGender());
         txtUserType.setText(activeUser.getuserType());
+        Picasso.with(this).load(activeUser.getProfilePicture())
+                .transform(new RoundedTransformation(150, 20))
+                .fit()
+                .centerCrop().into(smallProfile);
+
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new BlurTransformation(this)).fit().into(bigProfile);
         //-----------------------------------------------------------
     }
 

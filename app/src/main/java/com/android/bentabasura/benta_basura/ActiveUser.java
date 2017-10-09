@@ -15,6 +15,7 @@ public class ActiveUser {
     private String lastname;
     private String gender;
     private String userType;
+    private String profilePicture;
 
     public static ActiveUser getInstance()
     {
@@ -80,4 +81,14 @@ public class ActiveUser {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
 }
