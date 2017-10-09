@@ -196,7 +196,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     public void getTrashDataFromFirebase() {
 
 
-        databaseReference.limitToFirst(2).addValueEventListener(new ValueEventListener() {
+        databaseReference.limitToFirst(3).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -249,15 +249,19 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
 
-                        oldestPostId = postSnapShot.getKey();
+                        if ( !oldestPostId.equals(postSnapShot.getKey()) )
+                        {
+                            oldestPostId = postSnapShot.getKey();
 
-                        mProgressDialog.setMessage("Loading...");
-                        mProgressDialog.show();
+                            mProgressDialog.setMessage("Loading...");
+                            mProgressDialog.show();
 
-                        Trash trash = postSnapShot.getValue(Trash.class);
-                        craftArray.add(trash);
-                        customAdapter.notifyDataSetChanged();
+                            Trash trash = postSnapShot.getValue(Trash.class);
+                            craftArray.add(trash);
+                            customAdapter.notifyDataSetChanged();
+                        }
                     }
+                    mProgressDialog.dismiss();
                 }
 
                 @Override
