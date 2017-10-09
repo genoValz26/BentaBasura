@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,8 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class BuyRaw extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
     private DrawerLayout drawer;
@@ -41,6 +42,15 @@ public class BuyRaw extends AppCompatActivity
 
     TextView navFullName, navEmail;
     ActiveUser activeUser;
+
+    private String oldestPostId;
+    private int currentVisibleItemCount;
+    private int currentScrollState;
+    private int currentFirstVisibleItem;
+    private int totalItem;
+    private LinearLayout lBelow;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +89,7 @@ public class BuyRaw extends AppCompatActivity
         //----------------------------------------------------------------
         lstRecycle = (ListView) findViewById(R.id.lstRecycle);
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference= FirebaseDatabase.getInstance().getReference("Trash");
 
         mProgressDialog = new ProgressDialog(this);
 
@@ -88,6 +98,7 @@ public class BuyRaw extends AppCompatActivity
 
         customAdapter =  new custom_craftlist(this, craftArray);
         lstRecycle.setAdapter(customAdapter);
+        lstRecycle.setOnScrollListener(this);
 
     }
 
@@ -185,7 +196,7 @@ public class BuyRaw extends AppCompatActivity
     public void getTrashDataFromFirebase() {
 
 
-        databaseReference.child("Trash").addValueEventListener(new ValueEventListener() {
+        databaseReference.limitToFirst(2).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -193,6 +204,8 @@ public class BuyRaw extends AppCompatActivity
                 {
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
+                        oldestPostId = postSnapShot.getKey();
+
                         mProgressDialog.setMessage("Loading...");
                         mProgressDialog.show();
 
@@ -210,6 +223,49 @@ public class BuyRaw extends AppCompatActivity
 
             }
         });
+    }
+
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+        this.currentScrollState = scrollState;
+        this.isScrollCompleted();
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        this.currentFirstVisibleItem = firstVisibleItem;
+        this.currentVisibleItemCount = visibleItemCount;
+        this.totalItem = totalItemCount;
+    }
+
+    private void isScrollCompleted() {
+        if (totalItem - currentFirstVisibleItem == currentVisibleItemCount && this.currentScrollState == SCROLL_STATE_IDLE)
+        {
+            databaseReference.orderByKey().startAt(oldestPostId).limitToFirst(3).addListenerForSingleValueEvent(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+
+                        oldestPostId = postSnapShot.getKey();
+
+                        mProgressDialog.setMessage("Loading...");
+                        mProgressDialog.show();
+
+                        Trash trash = postSnapShot.getValue(Trash.class);
+                        craftArray.add(trash);
+                        customAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
 
