@@ -224,7 +224,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             user = firebaseAuth.getCurrentUser();
                             userid = user.getUid();
-                            Users newUser = new Users("None", "Signed in with Google", "Google", "User", "None", "None", "Member");
+                            Users newUser = new Users("None", "Signed in with Google", "Google", "User", "None", "None", "Member","None","None");
                             databaseReference.child("Users").child(userid).setValue(newUser);
                             startActivity(homePage);
                             progressDialog.dismiss();
