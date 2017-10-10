@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -49,7 +50,7 @@ public class MyProfile extends AppCompatActivity
     ImageView bigProfile, smallProfile;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
-    Button editProfilebtn;
+    FloatingActionButton editProfilebtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +68,6 @@ public class MyProfile extends AppCompatActivity
         cartPage = new Intent(MyProfile.this,Cart.class);
         historyPage = new Intent(MyProfile.this,History.class);
         loginpage = new Intent(MyProfile.this,Login.class);
-
-        editProfilebtn = (Button) findViewById(R.id.editProfilebtn);
-        editProfilebtn.setOnClickListener(this);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -96,6 +94,9 @@ public class MyProfile extends AppCompatActivity
 
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
+
+        editProfilebtn = (FloatingActionButton) findViewById(R.id.fab);
+        editProfilebtn.setOnClickListener(this);
 
         //-----------------------------------------------------------
 
@@ -244,10 +245,6 @@ public class MyProfile extends AppCompatActivity
     }
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.editProfilebtn:
                 showUpdateDialog(userid);
-                break;
-        }
     }
 }
