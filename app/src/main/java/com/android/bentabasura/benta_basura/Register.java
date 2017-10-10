@@ -158,6 +158,11 @@ public class Register extends AppCompatActivity implements OnClickListener {
             progressDialog.dismiss();
             return;
         }
+        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && mobileNum.length() < 11) {
+            txtMobileNum.setError("Mobile Number must be 11 numbers!");
+            progressDialog.dismiss();
+            return;
+        }
 
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
@@ -180,6 +185,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                             databaseReference.child("Users").child(userid).setValue(newUser);
 
                             sendEmailVerification();
+                            startActivity(loginPage);
 
                         }
                         else{

@@ -5,11 +5,11 @@ package com.android.bentabasura.benta_basura;
  */
 
 public class Users {
-    private String username,email,firstname,lastname,gender,profile_picture,userType,address,mobilenum;
+    private String username,email,firstname,lastname,gender,profile_picture,userType,address,contact_number;
     public Users(){
 
     }
-    public Users(String username,String email,String firstname, String lastname,String gender,String profile_picture,String userType, String address, String mobilenum){
+    public Users(String username,String email,String firstname, String lastname,String gender,String profile_picture,String userType, String address, String contact_number){
         this.username = username;
         this.email = email;
         this.firstname = firstname;
@@ -18,7 +18,7 @@ public class Users {
         this.profile_picture = profile_picture;
         this.userType = userType;
         this.address = address;
-        this.mobilenum = mobilenum;
+        this.contact_number = contact_number;
     }
 
     public void setUsername(String username) {
@@ -85,11 +85,11 @@ public class Users {
         this.address = address;
     }
 
-    public String getMobilenum() {
-        return mobilenum;
+    public String getcontact_number() {
+        return contact_number;
     }
 
-    public void setMobilenum(String mobilenum) {
-        this.mobilenum = mobilenum;
+    public void setcontact_number(String contact_number) {
+        this.contact_number = contact_number;
     }
 }
