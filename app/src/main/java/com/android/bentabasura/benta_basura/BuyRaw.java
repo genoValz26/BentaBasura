@@ -95,8 +95,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
 
         getTrashDataFromFirebase();
-
-        customAdapter =  new custom_craftlist(this, craftArray);
+        customAdapter = new custom_craftlist(this, craftArray);
         lstRecycle.setAdapter(customAdapter);
         lstRecycle.setOnScrollListener(this);
 

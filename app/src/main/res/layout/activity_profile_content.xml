@@ -123,7 +123,8 @@
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toTopOf="@+id/txtUserType"
         android:layout_marginEnd="17dp"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="24dp" />
 
     <TextView
         android:id="@+id/textView4"
