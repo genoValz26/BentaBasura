@@ -5,18 +5,20 @@ package com.android.bentabasura.benta_basura;
  */
 
 public class Users {
-    private String username,email,firstname,lastname,gender,imageUrl,userType;
+    private String username,email,firstname,lastname,gender,profile_picture,userType,address,mobilenum;
     public Users(){
 
     }
-    public Users(String username,String email,String firstname, String lastname,String gender,String imageUrl,String userType){
+    public Users(String username,String email,String firstname, String lastname,String gender,String profile_picture,String userType, String address, String mobilenum){
         this.username = username;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
-        this.imageUrl = imageUrl;
+        this.profile_picture = profile_picture;
         this.userType = userType;
+        this.address = address;
+        this.mobilenum = mobilenum;
     }
 
     public void setUsername(String username) {
@@ -39,8 +41,8 @@ public class Users {
         this.gender = gender;
     }
 
-    public void setimageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setprofile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
     }
 
     public void setUserType(String userType) {
@@ -67,11 +69,27 @@ public class Users {
         return gender;
     }
 
-    public String getimageUrl() {
-        return imageUrl;
+    public String getprofile_picture() {
+        return profile_picture;
     }
 
     public String getUserType() {
         return userType;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMobilenum() {
+        return mobilenum;
+    }
+
+    public void setMobilenum(String mobilenum) {
+        this.mobilenum = mobilenum;
     }
 }

@@ -32,6 +32,8 @@
     <string name="genderlbl">Gender:</string>
     <string name="utypelbl">User Type:</string>
     <string name="updateBtn">Update</string>
+    <string name="MobileNum">Mobile Number</string>
+    <string name="Address">Address</string>
 
     <string name="craftName">Craft Name</string>
     <string name="craftDesc">Description</string>

@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Register extends AppCompatActivity implements OnClickListener {
     Button register,backbtn;
     Intent loginPage;
-    EditText txtUser, txtPass, txtFirstName, txtLastName,emailtxt,txtCPass;
+    EditText txtUser, txtPass, txtFirstName, txtLastName,emailtxt,txtCPass,txtMobileNum,txtAddress;
     RadioButton malebtn,femalebtn;
 
     private ProgressDialog progressDialog;
@@ -44,6 +44,8 @@ public class Register extends AppCompatActivity implements OnClickListener {
         txtLastName = (EditText) findViewById(R.id.txtLastName);
         emailtxt = (EditText) findViewById(R.id.emailtxt);
         txtCPass = (EditText) findViewById(R.id.txtCPass);
+        txtMobileNum = (EditText) findViewById(R.id.txtMobileNum);
+        txtAddress = (EditText) findViewById(R.id.txtAddress);
 
         malebtn = (RadioButton) findViewById(R.id.malebtn);
         femalebtn = (RadioButton) findViewById(R.id.femalebtn);
@@ -81,64 +83,78 @@ public class Register extends AppCompatActivity implements OnClickListener {
         String email = emailtxt.getText().toString().trim();
         String username = txtUser.getText().toString().trim();
         String cpassword = txtCPass.getText().toString().trim();
+        String address = txtAddress.getText().toString().trim();
+        String mobileNum = txtMobileNum.getText().toString().trim();
 
-        if (TextUtils.isEmpty(fname) && TextUtils.isEmpty(lname) && TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword)) {
+        if (TextUtils.isEmpty(fname) && TextUtils.isEmpty(lname) && TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword) && TextUtils.isEmpty(address) && TextUtils.isEmpty(mobileNum)) {
             txtFirstName.setError("Firstname is empty!");
             txtLastName.setError("Lastname is empty!");
             txtPass.setError("Confirm Password is empty!");
             emailtxt.setError("Email is empty!");
             txtUser.setError("Username is empty!");
             txtCPass.setError("Password is empty!");
+            txtAddress.setError("Address is empty!");
+            txtMobileNum.setError("Mobile Number is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
+        else if (TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             txtFirstName.setError("Firstname is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
+        else if (!TextUtils.isEmpty(fname) && TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             txtLastName.setError("Lastname is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
+        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             txtUser.setError("Username is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
+        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             emailtxt.setError("Email is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)) {
+        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             txtPass.setError("Confirm Password is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword)) {
+        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             txtCPass.setError("Password is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if(password.length()<6 && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)){
+        else if(password.length()<6 && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
             txtCPass.setError("Password must at least be 6 characters!");
             progressDialog.dismiss();
             return;
         }
-        else if(cpassword.length()<6 && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)){
+        else if(cpassword.length()<6 && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
             txtPass.setError("Password must at least be 6 characters!");
             progressDialog.dismiss();
             return;
         }
-        else if(!cpassword.contains(password) && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword)){
+        else if(!cpassword.contains(password) && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
             txtPass.setError("Password did not match!");
             progressDialog.dismiss();
             return;
         }
         else if(!malebtn.isChecked() && !femalebtn.isChecked()){
             showMessage("Please choose a Gender!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
+            txtAddress.setError("Address is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && TextUtils.isEmpty(mobileNum)) {
+            txtMobileNum.setError("Mobile Number is empty!");
             progressDialog.dismiss();
             return;
         }
@@ -160,7 +176,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                             }
                             user = firebaseAuth.getCurrentUser();
                             userid = user.getUid();
-                            Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),txtFirstName.getText().toString(),txtLastName.getText().toString(),gender.toString(),"None","Member");
+                            Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),txtFirstName.getText().toString(),txtLastName.getText().toString(),gender.toString(),"None","Member",txtAddress.getText().toString(),txtMobileNum.getText().toString());
                             databaseReference.child("Users").child(userid).setValue(newUser);
 
                             sendEmailVerification();
