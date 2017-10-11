@@ -36,6 +36,12 @@
             android:name=".BuyRaw"
             android:label="@string/title_activity_buyraw"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".BuyRawDetails"
+            android:label="@string/title_activity_buyraw"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".SellCrafted"
             android:label="@string/title_activity_sellcrafted"
