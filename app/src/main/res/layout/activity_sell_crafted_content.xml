@@ -135,34 +135,18 @@
         android:layout_alignEnd="@+id/uploadbtn" />
 
     <EditText
-        android:id="@+id/craftCategory"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:background="@drawable/bg_btn"
-        android:ems="10"
-        android:hint="@string/craftCategory"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="428dp"
-        android:layout_below="@+id/craftPrice"
-        android:layout_alignLeft="@+id/craftPrice"
-        android:layout_alignStart="@+id/craftPrice"
-        android:layout_marginTop="8dp" />
-
-    <EditText
         android:id="@+id/sellerContact"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_alignLeft="@+id/craftCategory"
-        android:layout_alignStart="@+id/craftCategory"
-        android:layout_below="@+id/craftCategory"
-        android:layout_marginTop="10dp"
         android:background="@drawable/bg_btn"
         android:ems="10"
         android:hint="@string/sellerContact"
         android:inputType="textMultiLine"
         tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="428dp" />
+        tools:layout_editor_absoluteY="428dp"
+        android:layout_below="@+id/spnCraftCategory"
+        android:layout_alignStart="@+id/spnCraftCategory"
+        android:layout_marginTop="9dp" />
 
     <EditText
         android:id="@+id/resourcesFrom"
@@ -172,9 +156,17 @@
         android:ems="10"
         android:hint="@string/resourcesFrom"
         android:inputType="textPersonName"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="11dp"
         android:layout_below="@+id/sellerContact"
-        android:layout_alignLeft="@+id/sellerContact"
         android:layout_alignStart="@+id/sellerContact" />
+
+    <Spinner
+        android:id="@+id/spnCraftCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/craftPrice"
+        android:layout_marginTop="8dp"
+        android:layout_alignStart="@+id/craftPrice"
+        android:layout_alignEnd="@+id/craftPrice" />
 
 </RelativeLayout>

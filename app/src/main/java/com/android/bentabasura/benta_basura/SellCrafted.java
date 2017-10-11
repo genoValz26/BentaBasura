@@ -22,9 +22,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
@@ -44,7 +47,7 @@ import java.io.InputStream;
 import java.util.Date;
 
 public class SellCrafted extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
     private DrawerLayout drawer;
@@ -69,6 +72,8 @@ public class SellCrafted extends AppCompatActivity
     TextView navFullName, navEmail;
     ActiveUser activeUser;
     public static final String STORAGE_PATH="Products/Crafts/";
+    String selectedType,selectedCategory;
+    private Spinner spnCraftCategory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +91,13 @@ public class SellCrafted extends AppCompatActivity
         cartPage = new Intent(SellCrafted.this,Cart.class);
         historyPage = new Intent(SellCrafted.this,History.class);
 
+        //--------------------------------------------------------------
+        spnCraftCategory = (Spinner) findViewById(R.id.spnCraftCategory);
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(this,R.array.craft_category_array,android.R.layout.simple_spinner_dropdown_item);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnCraftCategory.setAdapter(adapterCategory);
+        spnCraftCategory.setOnItemSelectedListener(this);
+        //--------------------------------------------------------------
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -120,7 +132,6 @@ public class SellCrafted extends AppCompatActivity
         craftDesc = (EditText) findViewById(R.id.craftDesc);
         craftPrice = (EditText) findViewById(R.id.craftPrice);
         craftQty = (EditText) findViewById(R.id.craftQty);
-        craftCategory = (EditText) findViewById(R.id.craftCategory);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
         resourcesFrom = (EditText) findViewById(R.id.resourcesFrom);
 
@@ -313,7 +324,7 @@ public class SellCrafted extends AppCompatActivity
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //Adding the additional information on the real-time db
                 Date currentTime = Calendar.getInstance().getTime();
-                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),craftCategory.getText().toString(),sellerContact.getText().toString(),userid,currentTime.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString());
+                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid,currentTime.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString());
                 String uploadid = databaseReference.push().getKey();
                 databaseReference.child("Craft").child(uploadid).setValue(newCraft);
                 showMessage("Craft Uploaded Successfully");
@@ -332,5 +343,20 @@ public class SellCrafted extends AppCompatActivity
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
+        Spinner theSpinner = (Spinner) parent;
+        switch(theSpinner.getId()){
+            case R.id.spnCraftCategory:
+                selectedCategory = theSpinner.getItemAtPosition(pos).toString();
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

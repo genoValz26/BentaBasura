@@ -21,9 +21,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +46,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class SellRaw extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
     private DrawerLayout drawer;
@@ -54,7 +57,7 @@ public class SellRaw extends AppCompatActivity
     private ImageView imageView;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
-    EditText trashName,trashDesc,trashQty,trashPrice,trashCategory,sellerContact;
+    EditText trashName,trashDesc,trashQty,trashPrice,sellerContact;
     Button Submittrash;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -66,8 +69,11 @@ public class SellRaw extends AppCompatActivity
     TextView navFullName, navEmail;
     ActiveUser activeUser;
     public static final String STORAGE_PATH="Products/Trash/";
+
+    private Spinner spnTrashCategory;
+    String selectedType,selectedCategory,currentUsername;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_raw);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -82,6 +88,15 @@ public class SellRaw extends AppCompatActivity
         homePage = new Intent(SellRaw.this,Home.class);
         cartPage = new Intent(SellRaw.this,Cart.class);
         historyPage = new Intent(SellRaw.this,History.class);
+        //---------------------------------------------------------
+        spnTrashCategory = (Spinner) findViewById(R.id.spnTrashCategory);
+
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(this,R.array.trash_category_array,android.R.layout.simple_spinner_dropdown_item);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnTrashCategory.setAdapter(adapterCategory);
+        spnTrashCategory.setOnItemSelectedListener(this);
+
+        //----------------------------------------------------------
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -103,6 +118,7 @@ public class SellRaw extends AppCompatActivity
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
+
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
         //------------------------------------------------------------
@@ -119,12 +135,13 @@ public class SellRaw extends AppCompatActivity
         trashDesc = (EditText) findViewById(R.id.trashDesc);
         trashPrice = (EditText) findViewById(R.id.trashPrice);
         trashQty = (EditText) findViewById(R.id.trashQty);
-        trashCategory = (EditText) findViewById(R.id.trashCategory);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
 
         Submittrash = (Button) findViewById(R.id.Submittrash);
         Submittrash.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
+
+
     }
 
     @Override
@@ -306,7 +323,7 @@ public class SellRaw extends AppCompatActivity
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                  //Adding the additional information on the real-time db
                 Date currentTime = Calendar.getInstance().getTime();
-                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), trashCategory.getText().toString(), sellerContact.getText().toString(), userid, currentTime.toString(), taskSnapshot.getDownloadUrl().toString());
+                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, currentTime.toString(), taskSnapshot.getDownloadUrl().toString());
                     String uploadid = databaseReference.push().getKey();
                     databaseReference.child("Trash").child(uploadid).setValue(newTrash);
                     showMessage("Trash Uploaded Successfully");
@@ -326,5 +343,20 @@ public class SellRaw extends AppCompatActivity
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
+        Spinner theSpinner = (Spinner) parent;
+        switch(theSpinner.getId()){
+            case R.id.spnTrashCategory:
+                selectedCategory = theSpinner.getItemAtPosition(pos).toString();
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

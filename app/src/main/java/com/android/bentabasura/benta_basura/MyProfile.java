@@ -30,7 +30,7 @@ import com.squareup.picasso.Picasso;
 
 
 public class MyProfile extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage;
     private DrawerLayout drawer;
@@ -96,7 +96,7 @@ public class MyProfile extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         editProfilebtn = (FloatingActionButton) findViewById(R.id.fab);
-        editProfilebtn.setOnClickListener(this);
+        //editProfilebtn.setOnClickListener(this);
 
         //-----------------------------------------------------------
 
@@ -243,8 +243,5 @@ public class MyProfile extends AppCompatActivity
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
     }
-    @Override
-    public void onClick(View v) {
-                showUpdateDialog(userid);
-    }
+
 }

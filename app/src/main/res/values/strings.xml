@@ -52,6 +52,22 @@
     <string name="GoogleSign">Sign in with Google</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="DescLabel">Description:</string>
+    <string name="QtyLabel">Quantity:</string>
+    <string name="CatLabel">Category:</string>
+    <string name="PriceLabel">Price:</string>
+    <string name="AboutSellerLabel">About Seller:</string>
 
+    <string-array name="trash_category_array">
+        <item>Plastic</item>
+        <item>Paper</item>
+        <item>Metal</item>
+        <item>Wood</item>
+    </string-array>
+    <string-array name="craft_category_array">
+        <item>Decoration</item>
+        <item>Furniture</item>
+        <item>Projects</item>
+    </string-array>
     <string name="action_settings">Settings</string>
 </resources>

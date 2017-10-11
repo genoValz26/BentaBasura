@@ -114,9 +114,8 @@
         android:inputType="number"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="360dp"
-        android:layout_below="@+id/trashDesc"
-        android:layout_alignLeft="@+id/trashDesc"
-        android:layout_alignStart="@+id/trashDesc"
+        android:layout_below="@+id/spnTrashCategory"
+        android:layout_alignStart="@+id/spnTrashCategory"
         android:layout_marginTop="13dp" />
 
     <Button
@@ -126,40 +125,29 @@
         android:text="@string/Submit"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="497dp"
-        android:layout_below="@+id/sellerContact"
-        android:layout_alignRight="@+id/uploadbtn"
-        android:layout_alignEnd="@+id/uploadbtn"
         android:layout_marginRight="11dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginTop="31dp" />
-
-    <EditText
-        android:id="@+id/trashCategory"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:background="@drawable/bg_btn"
-        android:ems="10"
-        android:hint="@string/trashCategory"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="428dp"
-        android:layout_below="@+id/trashPrice"
-        android:layout_alignLeft="@+id/trashPrice"
-        android:layout_alignStart="@+id/trashPrice"
-        android:layout_marginTop="8dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/sellerContact"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_marginTop="11dp"
         android:background="@drawable/bg_btn"
         android:ems="10"
         android:hint="@string/sellerContact"
         android:inputType="textMultiLine"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="428dp"
-        android:layout_below="@+id/trashCategory"
-        android:layout_alignLeft="@+id/trashCategory"
-        android:layout_alignStart="@+id/trashCategory" />
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/trashPrice"
+        android:layout_alignStart="@+id/trashPrice" />
+
+    <Spinner
+        android:id="@+id/spnTrashCategory"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/trashDesc"
+        android:layout_alignStart="@+id/trashDesc"
+        android:layout_marginTop="9dp" />
 </RelativeLayout>

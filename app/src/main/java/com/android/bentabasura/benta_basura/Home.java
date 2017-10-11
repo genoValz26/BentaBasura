@@ -213,7 +213,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void logout() {
-        firebaseAuth.getInstance().signOut();
+        firebaseAuth.signOut();
         startActivity(loginpage);
 
     }
