@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.bentabasura.benta_basura.SellCrafted"
+    android:background="@color/colorBackground2">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/txtTrashName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Trash Name"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/imgThumbTrash"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtTrashName"
+        android:background="@color/colorBackground"
+        app:srcCompat="@drawable/google_logo" />
+
+    <TextView
+        android:id="@+id/txtTrashDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imgThumbTrash"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/txtTrashQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantity"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/txtTrashDescription"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/txtTrashCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/txtTrashQuantity"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/txtTrashPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:layout_below="@+id/txtTrashCategory"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/txtSellerInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Seller"
+        android:layout_below="@+id/txtTrashPrice"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:id="@+id/addToCartBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:text="Add toCart" />
+</RelativeLayout>
