@@ -84,7 +84,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         progressDialog = new ProgressDialog(this);
         profilePage = new Intent(Home.this, MyProfile.class);
         buyCrafted = new Intent(Home.this, BuyCrafted.class);
-        buyRaw = new Intent(Home.this, BuyRaw.class);
+        buyRaw = new Intent(Home.this, Categories.class);
         sellCrafted = new Intent(Home.this, SellCrafted.class);
         sellRaw = new Intent(Home.this, SellRaw.class);
         notificationsPage = new Intent(Home.this, Notifications.class);

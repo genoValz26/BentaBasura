@@ -53,6 +53,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     private int totalItem;
     private LinearLayout lBelow;
 
+    Bundle receivedBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +93,12 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         //----------------------------------------------------------------
         lstRecycle = (ListView) findViewById(R.id.lstRecycle);
 
+        Intent receivedIntent = getIntent();
+        receivedBundle = receivedIntent.getExtras();
+
         databaseReference= FirebaseDatabase.getInstance().getReference("Trash");
 
         mProgressDialog = new ProgressDialog(this);
-
 
         getTrashDataFromFirebase();
         customAdapter = new custom_craftlist(this, craftArray);
@@ -212,8 +215,11 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                         mProgressDialog.show();
 
                         Trash trash = postSnapShot.getValue(Trash.class);
-                        craftArray.add(trash);
-                        customAdapter.notifyDataSetChanged();
+
+                        if(trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
+                            craftArray.add(trash);
+                            customAdapter.notifyDataSetChanged();
+                        }
                     }
                     mProgressDialog.dismiss();
                 }

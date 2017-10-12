@@ -47,7 +47,6 @@ public class BuyRawDetails extends AppCompatActivity {
         txtTrashPrice.setText(receivedBundle.get("TrashPrice").toString());
         txtSellerInfo.setText(receivedBundle.get("TrashSeller").toString());
 
-
     }
 
 }
