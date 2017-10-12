@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -308,6 +309,53 @@ public class SellCrafted extends AppCompatActivity
     }
     public void onUpload()
     {
+        String craft_name = craftName.getText().toString().trim();
+        String craft_desc = craftDesc.getText().toString().trim();
+        String craft_qty = craftQty.getText().toString().trim();
+        String craft_price = craftPrice.getText().toString().trim();
+        String craft_seller = sellerContact.getText().toString();
+
+        if(TextUtils.isEmpty(craft_name) && TextUtils.isEmpty(craft_desc) && TextUtils.isEmpty(craft_qty)&& TextUtils.isEmpty(craft_price) && TextUtils.isEmpty(craft_seller))
+        {
+            craftName.setError("Craft Name is empty!");
+            craftDesc.setError("Description is empty!");
+            craftPrice.setError("Price is empty!");
+            craftQty.setError("Quantity is empty!");
+            sellerContact.setError("Meetup Location or Contact is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if(TextUtils.isEmpty(craft_name) && !TextUtils.isEmpty(craft_desc) && !TextUtils.isEmpty(craft_qty)&& !TextUtils.isEmpty(craft_price) && !TextUtils.isEmpty(craft_seller))
+        {
+            craftName.setError("Craft Name is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if(!TextUtils.isEmpty(craft_name) && TextUtils.isEmpty(craft_desc) && !TextUtils.isEmpty(craft_qty)&& !TextUtils.isEmpty(craft_price) && !TextUtils.isEmpty(craft_seller))
+        {
+            craftDesc.setError("Description is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if(!TextUtils.isEmpty(craft_name) && !TextUtils.isEmpty(craft_desc) && TextUtils.isEmpty(craft_qty)&& !TextUtils.isEmpty(craft_price) && !TextUtils.isEmpty(craft_seller))
+        {
+            craftQty.setError("Quantity is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if(!TextUtils.isEmpty(craft_name) && !TextUtils.isEmpty(craft_desc) && !TextUtils.isEmpty(craft_qty)&& TextUtils.isEmpty(craft_price) && !TextUtils.isEmpty(craft_seller))
+        {
+            craftPrice.setError("Price is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if(!TextUtils.isEmpty(craft_name) && !TextUtils.isEmpty(craft_desc) && !TextUtils.isEmpty(craft_qty)&& !TextUtils.isEmpty(craft_price) && TextUtils.isEmpty(craft_seller))
+        {
+            sellerContact.setError("Meetup Location or Contact is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+
         progressDialog.setMessage("Uploading your Craft...");
         progressDialog.show();
         user = firebaseAuth.getCurrentUser();
