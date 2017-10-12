@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -311,6 +312,46 @@ public class SellRaw extends AppCompatActivity
     }
     public void onUpload()
     {
+        String trash_name = trashName.getText().toString().trim();
+        String trash_qty = trashQty.getText().toString().trim();
+        String trash_price = trashPrice.getText().toString().trim();
+        String trash_desc = trashDesc.getText().toString().trim();
+        String trash_seller = sellerContact.getText().toString().trim();
+
+        if(TextUtils.isEmpty(trash_name) && TextUtils.isEmpty(trash_qty) && TextUtils.isEmpty(trash_desc) && TextUtils.isEmpty(trash_price) && TextUtils.isEmpty(trash_seller)){
+            trashName.setError("Trash Name is empty!");
+            trashQty.setError("Quantity is empty!");
+            trashDesc.setError("Description is empty");
+            trashPrice.setError("Price is empty!");
+            sellerContact.setError("Meetup Location or Contact is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if (TextUtils.isEmpty(trash_name) && !TextUtils.isEmpty(trash_qty) && !TextUtils.isEmpty(trash_desc) && !TextUtils.isEmpty(trash_price) && !TextUtils.isEmpty(trash_seller)){
+            trashName.setError("Trash Name is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if (!TextUtils.isEmpty(trash_name) && TextUtils.isEmpty(trash_qty) && !TextUtils.isEmpty(trash_desc) && !TextUtils.isEmpty(trash_price) && !TextUtils.isEmpty(trash_seller)){
+            trashQty.setError("Quantity is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if (!TextUtils.isEmpty(trash_name) && !TextUtils.isEmpty(trash_qty) && TextUtils.isEmpty(trash_desc) && !TextUtils.isEmpty(trash_price) && !TextUtils.isEmpty(trash_seller)){
+            trashDesc.setError("Description is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if (!TextUtils.isEmpty(trash_name) && !TextUtils.isEmpty(trash_qty) && !TextUtils.isEmpty(trash_desc) && TextUtils.isEmpty(trash_price) && !TextUtils.isEmpty(trash_seller)){
+            trashPrice.setError("Price is empty!");
+            progressDialog.dismiss();
+            return;
+        }
+        else if (!TextUtils.isEmpty(trash_name) && !TextUtils.isEmpty(trash_qty) && !TextUtils.isEmpty(trash_desc) && !TextUtils.isEmpty(trash_price) && TextUtils.isEmpty(trash_seller)){
+            sellerContact.setError("Meetup Location or Contact is empty!");
+            progressDialog.dismiss();
+            return;
+        }
         progressDialog.setMessage("Uploading your Trash...");
         progressDialog.show();
 
