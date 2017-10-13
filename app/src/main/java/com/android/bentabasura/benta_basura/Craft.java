@@ -5,12 +5,13 @@ package com.android.bentabasura.benta_basura;
  */
 
 public class Craft {
-    private String craftName,craftQuantity,craftPrice,craftDescription,craftCategory,sellerContact,uploadedBy,uploadedDate,resourcesFrom,imageUrl;
+    private String craftID,craftName,craftQuantity,craftPrice,craftDescription,craftCategory,sellerContact,uploadedBy,uploadedDate,resourcesFrom,imageUrl;
+    private long sold;
     public Craft()
     {
 
     }
-    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl){
+    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,long sold){
         this.craftName = craftName;
         this.craftQuantity = craftQuantity;
         this.craftPrice = craftPrice;
@@ -21,6 +22,7 @@ public class Craft {
         this.uploadedDate = uploadedDate;
         this.resourcesFrom = resourcesFrom;
         this.imageUrl = imageUrl;
+        this.sold = sold;
     }
 
     public String getCraftName() {
@@ -101,5 +103,21 @@ public class Craft {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getCraftID() {
+        return craftID;
+    }
+
+    public void setCraftID(String craftID) {
+        this.craftID = craftID;
+    }
+
+    public long getSold() {
+        return sold;
+    }
+
+    public void setSold(long sold) {
+        this.sold = sold;
     }
 }

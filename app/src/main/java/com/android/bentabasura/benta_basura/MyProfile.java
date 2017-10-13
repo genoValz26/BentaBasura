@@ -111,8 +111,8 @@ public class MyProfile extends AppCompatActivity
 
         txtFullname.setText(activeUser.getFullname());
         txtEmail.setText(activeUser.getEmail());
-        txtGender.setText(activeUser.getGender());
-        txtUserType.setText(activeUser.getuserType());
+        txtGender.setText(activeUser.getContact_number());
+        txtUserType.setText(activeUser.getAddress());
         Picasso.with(this).load(activeUser.getProfilePicture())
                 .transform(new RoundedTransformation(150, 20))
                 .fit()

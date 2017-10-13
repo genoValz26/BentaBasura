@@ -22,20 +22,20 @@ import java.util.ArrayList;
 public class custom_craftlist extends BaseAdapter {
 
     private Context ctx;
-    private ArrayList<Trash> trash;
+    private ArrayList<Craft> craft;
     private static LayoutInflater inflater = null;
     Intent  detailsIntent;
 
-    public custom_craftlist(Context context, ArrayList<Trash> trash)
+    public custom_craftlist(Context context, ArrayList<Craft> craft)
     {
         this.ctx = context;
-        this.trash = trash;
+        this.craft = craft;
         inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return trash.size();
+        return craft.size();
     }
 
     @Override
@@ -60,11 +60,11 @@ public class custom_craftlist extends BaseAdapter {
         TextView txtSellerInfo  = (TextView) rowData.findViewById(R.id.txtSellerInfo);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
 
-        Picasso.with(ctx).load(trash.get(position).getImageUrl()).fit().into(imgThumbTrash);
-        txtTrashName.setText(trash.get(position).getTrashName());
-        txtTrashDate.setText(trash.get(position).getUploadedDate());
-        txtTrashDescription.setText(trash.get(position).getTrashDescription());
-        txtSellerInfo.setText(trash.get(position).getSellerContact());
+        Picasso.with(ctx).load(craft.get(position).getImageUrl()).fit().into(imgThumbTrash);
+        txtTrashName.setText(craft.get(position).getCraftName());
+        txtTrashDate.setText(craft.get(position).getUploadedDate());
+        txtTrashDescription.setText(craft.get(position).getCraftDescription());
+        txtSellerInfo.setText(craft.get(position).getSellerContact());
 
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,14 +72,13 @@ public class custom_craftlist extends BaseAdapter {
             {
                 detailsIntent = new Intent(parent.getContext(), BuyRawDetails.class);
 
-                detailsIntent.putExtra("TrashName", trash.get(position).getTrashName());
-                detailsIntent.putExtra("TrashPic", trash.get(position).getImageUrl());
-                detailsIntent.putExtra("TrashDescription", trash.get(position).getTrashDescription());
-                detailsIntent.putExtra("TrashQuantity", trash.get(position).getTrashQuantity());
-                detailsIntent.putExtra("TrashCategory", trash.get(position).getTrashCategory());
-                detailsIntent.putExtra("TrashPrice", trash.get(position).getTrashPrice());
-                detailsIntent.putExtra("TrashSeller", trash.get(position).getSellerContact());
-                detailsIntent.putExtra("TrashId", trash.get(position).getTrashId());
+                detailsIntent.putExtra("CraftName", craft.get(position).getCraftName());
+                detailsIntent.putExtra("CraftPic", craft.get(position).getImageUrl());
+                detailsIntent.putExtra("CraftDescription",craft.get(position).getCraftDescription());
+                detailsIntent.putExtra("CraftQuantity", craft.get(position).getCraftQuantity());
+                detailsIntent.putExtra("CraftCategory", craft.get(position).getCraftCategory());
+                detailsIntent.putExtra("CraftPrice", craft.get(position).getCraftPrice());
+                detailsIntent.putExtra("CraftSeller", craft.get(position).getSellerContact());
 
                 parent.getContext().startActivity(detailsIntent);
             }

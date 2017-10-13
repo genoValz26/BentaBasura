@@ -16,6 +16,8 @@ public class ActiveUser {
     private String gender;
     private String userType;
     private String profilePicture;
+    private String address;
+    private String contact_number;
 
     public static ActiveUser getInstance()
     {
@@ -82,7 +84,6 @@ public class ActiveUser {
         this.lastname = lastname;
     }
 
-
     public String getProfilePicture() {
         return profilePicture;
     }
@@ -91,4 +92,19 @@ public class ActiveUser {
         this.profilePicture = profilePicture;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContact_number() {
+        return contact_number;
+    }
+
+    public void setContact_number(String contact_number) {
+        this.contact_number = contact_number;
+    }
 }

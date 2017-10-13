@@ -38,7 +38,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     private Menu navMenu;
     private ListView lstRecycle;
     ProgressDialog mProgressDialog;
-    private custom_craftlist customAdapter;
+    private custom_trashlist customAdapter;
 
     DatabaseReference databaseReference;
     ArrayList<Trash> craftArray =new ArrayList<>();
@@ -102,7 +102,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
         getTrashDataFromFirebase();
 
-        customAdapter = new custom_craftlist(this, craftArray);
+        customAdapter = new custom_trashlist(this, craftArray);
         lstRecycle.setAdapter(customAdapter);
         lstRecycle.setOnScrollListener(this);
 

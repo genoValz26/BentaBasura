@@ -67,6 +67,11 @@
             android:label="@string/title_activity_cart"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".Craft_Categories"
+            android:label="@string/title_activity_cart"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
     </application>
 
 </manifest>

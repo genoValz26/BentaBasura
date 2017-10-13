@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtSellerInfo"
+            android:layout_width="240dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginStart="34dp"
+            android:background="@color/cardview_dark_background"
+            android:text="About Seller"
+            app:layout_constraintBottom_toBottomOf="@+id/btnReadMore"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgThumbTrash"
+            app:layout_constraintVertical_bias="0.111"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <TextView
+            android:id="@+id/txtTrashDate"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="?attr/colorButtonNormal"
+            android:text="Date"
+            app:layout_constraintBaseline_toBaselineOf="@+id/txtTrashName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/txtTrashName"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_constraintBaseline_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintLeft_creator="1" />
+
+        <ImageView
+            android:id="@+id/imgThumbTrash"
+            android:layout_width="80dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTrashDescription"
+            app:layout_constraintRight_toLeftOf="@+id/txtTrashName"
+            app:layout_constraintTop_toTopOf="@+id/txtTrashDate"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_light"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <TextView
+            android:id="@+id/txtTrashName"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/cardview_shadow_start_color"
+            android:text="Trash Name"
+            app:layout_constraintHorizontal_bias="0.429"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <TextView
+            android:id="@+id/txtTrashDescription"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Trash Description"
+            app:layout_constraintBottom_toTopOf="@+id/btnReadMore"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/imgThumbTrash"
+            app:layout_constraintRight_toRightOf="@+id/txtTrashDate"
+            app:layout_constraintTop_toBottomOf="@+id/txtTrashDate"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+        <Button
+            android:id="@+id/btnReadMore"
+            android:layout_width="102dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="111dp"
+            android:text="More"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            app:layout_constraintRight_toRightOf="@+id/txtTrashDescription"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1"
+            app:layout_constraintLeft_toRightOf="@+id/txtSellerInfo"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginStart="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
