@@ -33,7 +33,6 @@ public class Trash {
         this.uploadedDate = uploadedDate;
         this.imageUrl = imageUrl;
         this.sold = sold;
-        this.trashId = "";
     }
 
     public String getTrashName() {

@@ -252,11 +252,14 @@ public class SellRaw extends AppCompatActivity
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+        int CAMERA_REQUEST = 0;
+
         if(resultCode == RESULT_OK)
         {
+            imageUri = data.getData();
+
             if(requestCode == Gallery_Intent)
             {
-                imageUri = data.getData();
                 //imageView.setImageResource(imageUri);
                 InputStream inputStream;
                 try
@@ -270,7 +273,13 @@ public class SellRaw extends AppCompatActivity
                     e.printStackTrace();
                 }
             }
+            if(requestCode == CAMERA_REQUEST)
+            {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                imageView.setImageBitmap(photo);
+            }
         }
+
         /*super.onActivityResult(requestCode,resultCode,data);
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
         imageView.setImageBitmap(bitmap);*/
@@ -366,7 +375,7 @@ public class SellRaw extends AppCompatActivity
                 Date currentTime = Calendar.getInstance().getTime();
                     Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, currentTime.toString(), taskSnapshot.getDownloadUrl().toString(), 0);
                     String uploadid = databaseReference.push().getKey();
-                    databaseReference.child("Trash").child(uploadid).setValue(newTrash);
+                    databaseReference.child("Trash").child(selectedCategory).child(uploadid).setValue(newTrash);
                     showMessage("Trash Uploaded Successfully");
                     progressDialog.dismiss();
                     startActivity(homePage);

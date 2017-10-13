@@ -52,8 +52,9 @@ public class MyProfile extends AppCompatActivity
     Uri imageUri;
     FloatingActionButton editProfilebtn;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

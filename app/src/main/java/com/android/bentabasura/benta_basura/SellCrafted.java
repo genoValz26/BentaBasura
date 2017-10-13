@@ -248,12 +248,15 @@ public class SellCrafted extends AppCompatActivity
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {
-       super.onActivityResult(requestCode, resultCode, data);
+        int CAMERA_REQUEST = 0;
+
+        super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK)
         {
+            imageUri = data.getData();
             if(requestCode == Gallery_Intent)
             {
-                imageUri = data.getData();
+
                 //imageView.setImageResource(imageUri);
                 InputStream inputStream;
                 try
@@ -266,6 +269,11 @@ public class SellCrafted extends AppCompatActivity
                 {
                     e.printStackTrace();
                 }
+            }
+            if(requestCode == CAMERA_REQUEST)
+            {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                imageView.setImageBitmap(photo);
             }
         }
         /*super.onActivityResult(requestCode,resultCode,data);

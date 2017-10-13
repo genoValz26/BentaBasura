@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.bentabasura.benta_basura.MyProfile"
-    android:background="@drawable/backdrop"
+    android:background="#000"
     android:orientation="vertical"
     android:weightSum="1"
     tools:layout_editor_absoluteY="25dp"

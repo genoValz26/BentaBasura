@@ -96,7 +96,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         Intent receivedIntent = getIntent();
         receivedBundle = receivedIntent.getExtras();
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("Trash");
+        databaseReference= FirebaseDatabase.getInstance().getReference("Trash").child(receivedBundle.get("Category").toString());
 
         mProgressDialog = new ProgressDialog(this);
 
@@ -222,11 +222,13 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                                 trash.setTrashId(postSnapShot.getKey().toString());
                                 craftArray.add(trash);
                                 customAdapter.notifyDataSetChanged();
+
                             }
                         }
                     }
                     mProgressDialog.dismiss();
                 }
+
 
             }
 
