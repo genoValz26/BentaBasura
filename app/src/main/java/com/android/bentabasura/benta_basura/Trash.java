@@ -15,13 +15,13 @@ public class Trash {
     private String uploadedBy;
     private String uploadedDate;
     private String imageUrl;
-    private long sold;
+    private String sold;
 
     public Trash()
     {
 
     }
-    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl, long sold)
+    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl, String sold)
     {
         this.trashName = trashName;
         this.trashQuantity = trashQuantity;
@@ -107,11 +107,11 @@ public class Trash {
         this.imageUrl = imageUrl;
     }
 
-    public long getSold() {
+    public String getSold() {
         return sold;
     }
 
-    public void setSold(long sold) {
+    public void setSold(String sold) {
         this.sold = sold;
     }
 

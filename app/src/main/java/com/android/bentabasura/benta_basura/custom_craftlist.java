@@ -79,6 +79,7 @@ public class custom_craftlist extends BaseAdapter {
                 detailsIntent.putExtra("TrashCategory", trash.get(position).getTrashCategory());
                 detailsIntent.putExtra("TrashPrice", trash.get(position).getTrashPrice());
                 detailsIntent.putExtra("TrashSeller", trash.get(position).getSellerContact());
+                detailsIntent.putExtra("TrashId", trash.get(position).getTrashId());
 
                 parent.getContext().startActivity(detailsIntent);
             }

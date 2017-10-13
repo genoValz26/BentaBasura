@@ -218,7 +218,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                         Trash trash = postSnapShot.getValue(Trash.class);
 
                         if(trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                            if (trash.getSold() == 0) {
+                            if (trash.getSold().equals("0")) {
                                 trash.setTrashId(postSnapShot.getKey().toString());
                                 craftArray.add(trash);
                                 customAdapter.notifyDataSetChanged();
@@ -271,7 +271,12 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                             mProgressDialog.show();
 
                             Trash trash = postSnapShot.getValue(Trash.class);
-                            craftArray.add(trash);
+                            if(trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
+                                if (trash.getSold().equals("0")) {
+                                    trash.setTrashId(postSnapShot.getKey().toString());
+                                    craftArray.add(trash);
+                                }
+                            }
                             customAdapter.notifyDataSetChanged();
                         }
                     }

@@ -373,7 +373,7 @@ public class SellRaw extends AppCompatActivity
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                  //Adding the additional information on the real-time db
                 Date currentTime = Calendar.getInstance().getTime();
-                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, currentTime.toString(), taskSnapshot.getDownloadUrl().toString(), 0);
+                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, currentTime.toString(), taskSnapshot.getDownloadUrl().toString(), "0");
                     String uploadid = databaseReference.push().getKey();
                     databaseReference.child("Trash").child(selectedCategory).child(uploadid).setValue(newTrash);
                     showMessage("Trash Uploaded Successfully");
