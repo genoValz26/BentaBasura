@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -41,7 +40,7 @@ public class BuyRawDetails extends AppCompatActivity {
 
 
         txtTrashName.setText(receivedBundle.get("TrashName").toString());
-        Glide.with(getApplicationContext()).load(receivedBundle.get("TrashPic").toString()).fitCenter().into(imgThumbTrash);
+        Picasso.with(getApplicationContext()).load(receivedBundle.get("TrashPic").toString()).fit().into(imgThumbTrash);
         txtTrashDescription.setText(receivedBundle.get("TrashDescription").toString());
         txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString());
         txtTrashCategory.setText(receivedBundle.get("TrashCategory").toString());

@@ -3,8 +3,8 @@
     android:layout_width="wrap_content" android:layout_height="wrap_content">
 
     <com.joanzapata.iconify.widget.IconButton
-        android:layout_width="24sp"
-        android:layout_height="24sp"
+        android:layout_width="48sp"
+        android:layout_height="48sp"
         android:textSize="1sp"
         android:textColor="#ffffff"
         android:background="@mipmap/ic_shopping_cart_white_24dp"
@@ -12,8 +12,8 @@
 
     <TextView
         android:id="@+id/badge_textView"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignTop="@id/badge_icon_button"
         android:layout_alignRight="@id/badge_icon_button"
         android:layout_alignEnd="@id/badge_icon_button"

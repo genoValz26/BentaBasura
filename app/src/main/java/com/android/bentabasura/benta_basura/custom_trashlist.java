@@ -6,13 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,7 +21,6 @@ public class custom_trashlist extends BaseAdapter {
     private Context ctx;
     private ArrayList<Trash> trash;
     private static LayoutInflater inflater = null;
-    ProgressBar progressBar;
 
     public custom_trashlist(Context context, ArrayList<Trash> trash)
     {
@@ -60,32 +54,13 @@ public class custom_trashlist extends BaseAdapter {
         TextView txtTrashName = (TextView) rowData.findViewById(R.id.txtTrashName);
         TextView txtTrashDescription = (TextView) rowData.findViewById(R.id.txtTrashDescription);
         TextView txtSellerInfo  = (TextView) rowData.findViewById(R.id.txtSellerInfo);
-        progressBar = (ProgressBar) rowData.findViewById(R.id.progressImg);
 
-
-        progressBar.setVisibility(View.VISIBLE);
-        Glide.with(ctx).load(trash.get(position).getImageUrl()).override(80,80).listener(new RequestListener<String, GlideDrawable>() {
-            @Override
-            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                disableProgress();
-                return false;
-            }
-
-            @Override
-            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                disableProgress();
-                return false;
-            }
-        }).into(imgThumbTrash);
+        Picasso.with(ctx).load(trash.get(position).getImageUrl()).fit().into(imgThumbTrash);
         txtTrashName.setText(trash.get(position).getTrashName());
         txtTrashDate.setText(trash.get(position).getUploadedDate());
         txtTrashDescription.setText(trash.get(position).getTrashDescription());
         txtSellerInfo.setText(trash.get(position).getSellerContact());
-        
+
         return rowData;
-    }
-    public void disableProgress()
-    {
-        progressBar.setVisibility(View.GONE);
     }
 }
