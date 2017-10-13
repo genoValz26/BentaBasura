@@ -101,6 +101,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         mProgressDialog = new ProgressDialog(this);
 
         getTrashDataFromFirebase();
+
         customAdapter = new custom_craftlist(this, craftArray);
         lstRecycle.setAdapter(customAdapter);
         lstRecycle.setOnScrollListener(this);
@@ -217,8 +218,11 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                         Trash trash = postSnapShot.getValue(Trash.class);
 
                         if(trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                            craftArray.add(trash);
-                            customAdapter.notifyDataSetChanged();
+                            if (trash.getSold() == 0) {
+                                trash.setTrashId(postSnapShot.getKey().toString());
+                                craftArray.add(trash);
+                                customAdapter.notifyDataSetChanged();
+                            }
                         }
                     }
                     mProgressDialog.dismiss();

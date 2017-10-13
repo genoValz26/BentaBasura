@@ -5,12 +5,23 @@ package com.android.bentabasura.benta_basura;
  */
 
 public class Trash {
-    private String trashName,trashQuantity,trashPrice,trashDescription,trashCategory,sellerContact,uploadedBy,uploadedDate,imageUrl;
+    private String trashId;
+    private String trashName;
+    private String trashQuantity;
+    private String trashPrice;
+    private String trashDescription;
+    private String trashCategory;
+    private String sellerContact;
+    private String uploadedBy;
+    private String uploadedDate;
+    private String imageUrl;
+    private long sold;
+
     public Trash()
     {
 
     }
-    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl)
+    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl, long sold)
     {
         this.trashName = trashName;
         this.trashQuantity = trashQuantity;
@@ -21,6 +32,8 @@ public class Trash {
         this.uploadedBy = uploadedBy;
         this.uploadedDate = uploadedDate;
         this.imageUrl = imageUrl;
+        this.sold = sold;
+        this.trashId = "";
     }
 
     public String getTrashName() {
@@ -94,4 +107,22 @@ public class Trash {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public long getSold() {
+        return sold;
+    }
+
+    public void setSold(long sold) {
+        this.sold = sold;
+    }
+
+    public String getTrashId() {
+        return trashId;
+    }
+
+    public void setTrashId(String trashId) {
+        this.trashId = trashId;
+    }
+
+
 }
