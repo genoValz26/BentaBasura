@@ -30,7 +30,7 @@ import com.squareup.picasso.Picasso;
 
 
 public class MyProfile extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage;
     private DrawerLayout drawer;
@@ -97,7 +97,7 @@ public class MyProfile extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         editProfilebtn = (FloatingActionButton) findViewById(R.id.fab);
-        //editProfilebtn.setOnClickListener(this);
+        editProfilebtn.setOnClickListener(this);
 
         //-----------------------------------------------------------
 
@@ -245,4 +245,8 @@ public class MyProfile extends AppCompatActivity
 
     }
 
+    @Override
+    public void onClick(View view) {
+        showUpdateDialog(userid);
+    }
 }

@@ -32,9 +32,9 @@
         android:id="@+id/updatebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="21dp"
         android:text="@string/updateBtn"
-        android:layout_below="@+id/editEmail"
+        android:layout_below="@+id/editContact"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -69,4 +69,24 @@
         android:layout_alignTop="@+id/profileImageView"
         android:layout_alignLeft="@+id/editfname"
         android:layout_alignStart="@+id/editfname" />
+
+    <EditText
+        android:id="@+id/editAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editEmail"
+        android:layout_below="@+id/editEmail"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/Address" />
+
+    <EditText
+        android:id="@+id/editContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editAddress"
+        android:layout_below="@+id/editAddress"
+        android:ems="10"
+        android:inputType="phone"
+        android:hint="@string/MobileNum"/>
 </RelativeLayout>

@@ -26,6 +26,7 @@
     <string name="title_activity_history">History</string>
     <string name="title_activity_notifications">Notifications</string>
     <string name="title_activity_cart">Cart</string>
+    <string name="title_Categories">Categories</string>
 
     <string name="namelbl">Name:</string>
     <string name="emaillbl">Email:</string>
