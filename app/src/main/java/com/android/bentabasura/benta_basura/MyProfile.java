@@ -32,7 +32,7 @@ import com.squareup.picasso.Picasso;
 public class MyProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage,editprofile;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -69,6 +69,7 @@ public class MyProfile extends AppCompatActivity
         cartPage = new Intent(MyProfile.this,Cart.class);
         historyPage = new Intent(MyProfile.this,History.class);
         loginpage = new Intent(MyProfile.this,Login.class);
+        editprofile = new Intent(MyProfile.this,MyProfile_Edit.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -223,30 +224,56 @@ public class MyProfile extends AppCompatActivity
         Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
     }
 
-   public void showUpdateDialog(String userid){
+   public void showUpdateDialog(final String userid){
        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
        LayoutInflater inflater = getLayoutInflater();
        final View dialogView = inflater.inflate(R.layout.activity_profile_edit,null);
        dialogBuilder.setView(dialogView);
 
-       final EditText editfname = (EditText) findViewById(R.id.editfname);
-       final EditText editlname = (EditText) findViewById(R.id.editlname);
-       final EditText editEmail = (EditText) findViewById(R.id.editEmail);
+       final EditText editAddress = (EditText) findViewById(R.id.editAddress);
+       final EditText editContact = (EditText) findViewById(R.id.editContact);
+       final EditText editUsername = (EditText) findViewById(R.id.editUsername);
        final ImageView profileImageView = (ImageView) findViewById(R.id.imageView);
        final Button gallerybtn = (Button) findViewById(R.id.gallerybtn);
        final Button updatebtn = (Button) findViewById(R.id.updatebtn);
        dialogBuilder.setTitle("Edit Profile");
-       AlertDialog  alertDialog = dialogBuilder.create();
+
+       final AlertDialog  alertDialog = dialogBuilder.create();
        alertDialog.show();
+       updatebtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               String strUsername = editUsername.getText().toString().trim();
+               String strContact  = editContact.getText().toString().trim();
+               String strAddress = editAddress.getText().toString().trim();
+
+               updateProfile(userid,strUsername,strContact,strAddress);
+               alertDialog.dismiss();
+           }
+       });
+
    }
-    public void updateProfile(String userid, String fname, String lname, String email)
+    public boolean updateProfile(String userid, String username, String contact_number, String address)
     {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+        Users updateUser = new Users();
+
+
+            updateUser.setUsername(username);
+            updateUser.setcontact_number(contact_number);
+            updateUser.setAddress(address);
+            databaseReference.setValue(updateUser);
+            showMessage("Update Successful!");
+
+        return  true;
 
     }
 
     @Override
     public void onClick(View view) {
-        showUpdateDialog(userid);
+
+        //showUpdateDialog(userid);
+        startActivity(editprofile);
+
     }
 }

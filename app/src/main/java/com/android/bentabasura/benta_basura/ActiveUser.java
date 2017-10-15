@@ -13,11 +13,12 @@ public class ActiveUser {
     private String fullname;
     private String firstname;
     private String lastname;
-    private String gender;
-    private String userType;
     private String profilePicture;
     private String address;
     private String contact_number;
+    private String gender;
+    private String userType;
+    private String userName;
 
     public static ActiveUser getInstance()
     {
@@ -52,20 +53,20 @@ public class ActiveUser {
         this.fullname = fullname;
     }
 
-    public String getGender() {
-        return gender;
+    public String getContact_number() {
+        return contact_number;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setContact_number(String contact_number) {
+        this.contact_number = contact_number;
     }
 
-    public String getuserType() {
-        return userType;
+    public String getAddress() {
+        return address;
     }
 
-    public void setuserType(String userType) {
-        this.userType = userType;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getFirstname() {
@@ -92,19 +93,27 @@ public class ActiveUser {
         this.profilePicture = profilePicture;
     }
 
-    public String getAddress() {
-        return address;
+    public String getGender() {
+        return gender;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getContact_number() {
-        return contact_number;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setContact_number(String contact_number) {
-        this.contact_number = contact_number;
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

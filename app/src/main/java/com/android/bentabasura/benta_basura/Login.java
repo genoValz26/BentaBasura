@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     EditText emailTxt, passTxt;
     ActiveUser activeUser;
 
-    String userid;
+    String userid,google_email,name;
     public static final String TAG = "Login";
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
@@ -224,7 +224,9 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             user = firebaseAuth.getCurrentUser();
                             userid = user.getUid();
-                            Users newUser = new Users("None", "Signed in with Google", "Google", "User", "None", "None", "Member","None","None");
+                            name = user.getDisplayName();
+                            google_email = user.getEmail();
+                            Users newUser = new Users("None", google_email, name, "", "None", "None", "Member","None","None");
                             databaseReference.child("Users").child(userid).setValue(newUser);
                             startActivity(homePage);
                             progressDialog.dismiss();
@@ -263,10 +265,14 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                     activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
                                     activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
                                             dataSnapshot.child("lastname").getValue().toString());
-                                    activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
-                                    activeUser.setuserType(dataSnapshot.child("userType").getValue().toString());
+                                    activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
+                                    activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
                                     activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
-
+                                    activeUser.setFirstname(dataSnapshot.child("firstname").getValue().toString());
+                                    activeUser.setLastname(dataSnapshot.child("lastname").getValue().toString());
+                                    activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
+                                    activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
+                                    activeUser.setUserName(dataSnapshot.child("username").getValue().toString());
                                     progressDialog.dismiss();
                                     startActivity(homePage);
                                 }

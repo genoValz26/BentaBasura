@@ -20,7 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-        <activity android:name=".Register_Google" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
@@ -72,7 +71,8 @@
             android:label="@string/title_Categories"
             android:theme="@style/AppTheme.NoActionBar" />
 
-
+        <activity android:name=".Register_Google" />
+        <activity android:name=".MyProfile_Edit" />
     </application>
 
 </manifest>

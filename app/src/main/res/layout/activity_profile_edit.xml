@@ -4,89 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editfname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/firstname"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_below="@+id/gallerybtn"
-        android:layout_toRightOf="@+id/profileImageView"
-        android:layout_toEndOf="@+id/profileImageView" />
-
-    <EditText
-        android:id="@+id/editEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="@string/email"
-        android:layout_below="@+id/editlname"
-        android:layout_alignLeft="@+id/editlname"
-        android:layout_alignStart="@+id/editlname" />
-
     <Button
         android:id="@+id/updatebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
         android:text="@string/updateBtn"
+        android:layout_marginTop="17dp"
         android:layout_below="@+id/editContact"
         android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:id="@+id/editlname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/lastname"
-        android:layout_below="@+id/editfname"
-        android:layout_alignLeft="@+id/editfname"
-        android:layout_alignStart="@+id/editfname" />
 
     <ImageView
         android:id="@+id/profileImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="15dp"
         android:background="@color/colorBackground"
         app:srcCompat="@drawable/ic_username"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp" />
+        android:layout_marginTop="34dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="14dp" />
 
     <Button
         android:id="@+id/gallerybtn"
         android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="@string/upload"
+        android:layout_height="40dp"
         android:layout_alignTop="@+id/profileImageView"
-        android:layout_alignLeft="@+id/editfname"
-        android:layout_alignStart="@+id/editfname" />
+        android:layout_toEndOf="@+id/profileImageView"
+        android:text="@string/upload" />
 
     <EditText
         android:id="@+id/editAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editEmail"
-        android:layout_below="@+id/editEmail"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="@string/Address" />
+        android:hint="@string/Address"
+        android:layout_below="@+id/gallerybtn"
+        android:layout_toEndOf="@+id/profileImageView"
+        android:layout_marginTop="44dp" />
 
     <EditText
         android:id="@+id/editContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editAddress"
-        android:layout_below="@+id/editAddress"
         android:ems="10"
         android:inputType="phone"
-        android:hint="@string/MobileNum"/>
+        android:hint="@string/MobileNum"
+        android:layout_below="@+id/editAddress"
+        android:layout_alignStart="@+id/editAddress" />
+
+    <EditText
+        android:id="@+id/editUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gallerybtn"
+        android:layout_toEndOf="@+id/profileImageView"
+        android:ems="10"
+        android:hint="@string/username"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/takephotobtn"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="@string/takephoto"
+        android:layout_above="@+id/editAddress"
+        android:layout_toEndOf="@+id/updatebtn" />
 </RelativeLayout>
