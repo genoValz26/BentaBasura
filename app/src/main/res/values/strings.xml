@@ -71,4 +71,7 @@
         <item>Projects</item>
     </string-array>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_item__details">Item_Details</string>
+    <string name="section_format">%1$d</string>
+    <string name="title_activity_item_tab">item_tab</string>
 </resources>

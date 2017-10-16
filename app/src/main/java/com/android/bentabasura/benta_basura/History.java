@@ -3,7 +3,10 @@ package com.android.bentabasura.benta_basura;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +17,19 @@ import android.view.MenuItem;
 
 public class History extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -27,6 +41,7 @@ public class History extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         profilePage = new Intent(History.this, MyProfile.class);
         buyCrafted = new Intent(History.this, BuyCrafted.class);
         buyRaw = new Intent(History.this, BuyRaw.class);
@@ -36,6 +51,7 @@ public class History extends AppCompatActivity
         homePage = new Intent(History.this,Home.class);
         cartPage = new Intent(History.this,Cart.class);
         historyPage = new Intent(History.this,History.class);
+        myItems = new Intent(History.this,MyItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -85,6 +101,10 @@ public class History extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_account:
                 startActivity(profilePage);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_my_items:
+                startActivity(myItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

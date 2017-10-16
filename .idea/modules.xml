@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BentaBasura.iml" filepath="$PROJECT_DIR$/BentaBasura.iml" />
       <module fileurl="file://$PROJECT_DIR$/Benta_Basura.iml" filepath="$PROJECT_DIR$/Benta_Basura.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Capstone.iml" filepath="$PROJECT_DIR$/Capstone.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
