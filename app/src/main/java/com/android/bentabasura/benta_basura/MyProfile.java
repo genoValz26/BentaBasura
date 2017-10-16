@@ -33,7 +33,7 @@ import com.squareup.picasso.Picasso;
 public class MyProfile extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage,editprofile;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage,editprofile,myItems;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -71,6 +71,7 @@ public class MyProfile extends AppCompatActivity
         historyPage = new Intent(MyProfile.this,History.class);
         loginpage = new Intent(MyProfile.this,Login.class);
         editprofile = new Intent(MyProfile.this,MyProfile_Edit.class);
+        myItems = new Intent(MyProfile.this,MyItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -160,6 +161,10 @@ public class MyProfile extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_account:
                 startActivity(profilePage);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_my_items:
+                startActivity(myItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

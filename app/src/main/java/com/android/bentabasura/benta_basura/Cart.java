@@ -15,7 +15,7 @@ import android.view.MenuItem;
 public class Cart extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -36,6 +36,7 @@ public class Cart extends AppCompatActivity
         homePage = new Intent(Cart.this,Home.class);
         cartPage = new Intent(Cart.this,Cart.class);
         historyPage = new Intent(Cart.this,History.class);
+        myItems = new Intent(Cart.this,MyItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -85,6 +86,10 @@ public class Cart extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_account:
                 startActivity(profilePage);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_my_items:
+                startActivity(myItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

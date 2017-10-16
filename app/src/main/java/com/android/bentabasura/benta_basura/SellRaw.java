@@ -49,7 +49,7 @@ import java.util.Date;
 public class SellRaw extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -89,6 +89,7 @@ public class SellRaw extends AppCompatActivity
         homePage = new Intent(SellRaw.this,Home.class);
         cartPage = new Intent(SellRaw.this,Cart.class);
         historyPage = new Intent(SellRaw.this,History.class);
+        myItems = new Intent(SellRaw.this,MyItems.class);
         //---------------------------------------------------------
         spnTrashCategory = (Spinner) findViewById(R.id.spnTrashCategory);
 
@@ -181,6 +182,10 @@ public class SellRaw extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_account:
                 startActivity(profilePage);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_my_items:
+                startActivity(myItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

@@ -31,7 +31,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage,myItems;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -73,6 +73,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         cartPage = new Intent(Home.this,Cart.class);
         historyPage = new Intent(Home.this,History.class);
         loginpage = new Intent(Home.this,Login.class);
+        myItems = new Intent(Home.this,MyItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -141,6 +142,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         switch (item.getItemId()) {
             case R.id.nav_account:
                 startActivity(profilePage);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_my_items:
+                startActivity(myItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

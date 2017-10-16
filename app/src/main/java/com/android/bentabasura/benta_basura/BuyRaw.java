@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,8 +32,9 @@ import java.util.ArrayList;
 
 public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
+	FirebaseAuth firebaseAuth;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
@@ -71,6 +73,8 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         homePage = new Intent(BuyRaw.this,Home.class);
         cartPage = new Intent(BuyRaw.this,Cart.class);
         historyPage = new Intent(BuyRaw.this,History.class);
+        myItems = new Intent(BuyRaw.this,MyItems.class);
+        loginpage = new Intent(BuyRaw.this,Login.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -147,6 +151,10 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 startActivity(profilePage);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.nav_my_items:
+                startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
             case R.id.buy:
                 if(navMenu.findItem(R.id.buy).getTitle().equals("Buy                                        +")) {
                     navMenu.findItem(R.id.buy_crafted).setVisible(true);
@@ -195,10 +203,17 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 startActivity(historyPage);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.logout:
+                logout();
+                break;
         }
         return true;
     }
+    public void logout() {
+        firebaseAuth.signOut();
+        startActivity(loginpage);
 
+    }
     public void getTrashDataFromFirebase() {
 
 

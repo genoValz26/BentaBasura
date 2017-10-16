@@ -52,7 +52,7 @@ import java.io.InputStream;
  */
 
 public class MyProfile_Edit extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -91,7 +91,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         homePage = new Intent(MyProfile_Edit.this,Home.class);
         cartPage = new Intent(MyProfile_Edit.this,Cart.class);
         historyPage = new Intent(MyProfile_Edit.this,History.class);
-
+        myItems = new Intent(MyProfile_Edit.this,MyItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -171,6 +171,10 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         switch (item.getItemId()) {
             case R.id.nav_account:
                 startActivity(profilePage);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_my_items:
+                startActivity(myItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

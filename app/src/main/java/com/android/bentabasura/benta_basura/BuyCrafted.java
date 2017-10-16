@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 public class BuyCrafted extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnScrollListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -41,7 +42,7 @@ public class BuyCrafted extends AppCompatActivity
     private ListView lstCraft;
     ProgressDialog mProgressDialog;
     private custom_craftlist customAdapter;
-
+    FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     ArrayList<Craft> craftArray =new ArrayList<>();
 
@@ -73,6 +74,8 @@ public class BuyCrafted extends AppCompatActivity
         homePage = new Intent(BuyCrafted.this,Home.class);
         cartPage = new Intent(BuyCrafted.this,Cart.class);
         historyPage = new Intent(BuyCrafted.this,History.class);
+        myItems = new Intent(BuyCrafted.this,MyItems.class);
+        loginpage = new Intent(BuyCrafted.this,Login.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -152,6 +155,10 @@ public class BuyCrafted extends AppCompatActivity
                 startActivity(profilePage);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.nav_my_items:
+                startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
             case R.id.buy:
                 if(navMenu.findItem(R.id.buy).getTitle().equals("Buy                                        +")) {
                     navMenu.findItem(R.id.buy_crafted).setVisible(true);
@@ -200,8 +207,16 @@ public class BuyCrafted extends AppCompatActivity
                 startActivity(historyPage);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.logout:
+                logout();
+                break;
         }
         return true;
+    }
+    public void logout() {
+        firebaseAuth.signOut();
+        startActivity(loginpage);
+
     }
     public void getTrashDataFromFirebase() {
 
