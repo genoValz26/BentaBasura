@@ -29,7 +29,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage;
     private DrawerLayout drawer;
@@ -49,10 +49,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     public static final String DATABASE_PATH="image";
     public static final String STORAGE_PATH="image/";
 
-    //Slideshow in homepage
-    Animation fade_in, fade_out;
-    ViewFlipper viewFlipper;
-    ImageView next,prev;
+
     TextView navFullName, navEmail;
     ActiveUser activeUser;
 
@@ -61,24 +58,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //Slideshow of Image
-        next = (ImageView) findViewById(R.id.right_button);
-        prev = (ImageView) findViewById(R.id.left_button);
-
-        next.setOnClickListener(this);
-        prev.setOnClickListener(this);
-
-        viewFlipper = (ViewFlipper) this.findViewById(R.id.bckgrndViewFlipper1);
-        fade_in = AnimationUtils.loadAnimation(this,
-                android.R.anim.fade_in);
-        fade_out = AnimationUtils.loadAnimation(this,
-                android.R.anim.fade_out);
-        viewFlipper.setInAnimation(fade_in);
-        viewFlipper.setOutAnimation(fade_out);
-        //sets auto flipping
-        viewFlipper.setAutoStart(true);
-        viewFlipper.setFlipInterval(5000);
-        viewFlipper.startFlipping();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -229,13 +208,4 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
 
-    @Override
-    public void onClick(View view) {
-        if (view == next) {
-            viewFlipper.showNext();
-        }
-        else if (view == prev) {
-            viewFlipper.showPrevious();
-        }
-    }
 }
