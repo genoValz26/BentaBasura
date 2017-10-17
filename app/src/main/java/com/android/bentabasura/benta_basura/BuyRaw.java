@@ -65,8 +65,8 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         setSupportActionBar(toolbar);
 
         profilePage = new Intent(BuyRaw.this, MyProfile.class);
-        buyCrafted = new Intent(BuyRaw.this, BuyCrafted.class);
-        buyRaw = new Intent(BuyRaw.this, BuyRaw.class);
+        buyCrafted = new Intent(BuyRaw.this, Craft_Categories.class);
+        buyRaw = new Intent(BuyRaw.this, Categories.class);
         sellCrafted = new Intent(BuyRaw.this, SellCrafted.class);
         sellRaw = new Intent(BuyRaw.this, SellRaw.class);
         notificationsPage = new Intent(BuyRaw.this, Notifications.class);

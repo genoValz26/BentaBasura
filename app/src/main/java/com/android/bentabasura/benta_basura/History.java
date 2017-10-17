@@ -43,8 +43,8 @@ public class History extends AppCompatActivity
 
 
         profilePage = new Intent(History.this, MyProfile.class);
-        buyCrafted = new Intent(History.this, BuyCrafted.class);
-        buyRaw = new Intent(History.this, BuyRaw.class);
+        buyCrafted = new Intent(History.this, Craft_Categories.class);
+        buyRaw = new Intent(History.this, Categories.class);
         sellCrafted = new Intent(History.this, SellCrafted.class);
         sellRaw = new Intent(History.this, SellRaw.class);
         notificationsPage = new Intent(History.this, Notifications.class);

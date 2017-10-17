@@ -224,6 +224,8 @@ public class Register extends AppCompatActivity implements OnClickListener {
                             databaseReference.child("Users").child(userid).setValue(newUser);
 
                             sendEmailVerification();
+                            firebaseAuth.signOut();
+                            progressDialog.dismiss();
                             startActivity(loginPage);
 
                         }

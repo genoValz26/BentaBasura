@@ -28,8 +28,8 @@ public class Notifications extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         profilePage = new Intent(Notifications.this, MyProfile.class);
-        buyCrafted = new Intent(Notifications.this, BuyCrafted.class);
-        buyRaw = new Intent(Notifications.this, BuyRaw.class);
+        buyCrafted = new Intent(Notifications.this, Craft_Categories.class);
+        buyRaw = new Intent(Notifications.this, Categories.class);
         sellCrafted = new Intent(Notifications.this, SellCrafted.class);
         sellRaw = new Intent(Notifications.this, SellRaw.class);
         notificationsPage = new Intent(Notifications.this, Notifications.class);

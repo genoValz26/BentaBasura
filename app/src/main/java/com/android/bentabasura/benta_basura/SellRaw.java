@@ -81,8 +81,8 @@ public class SellRaw extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         profilePage = new Intent(SellRaw.this, MyProfile.class);
-        buyCrafted = new Intent(SellRaw.this, BuyCrafted.class);
-        buyRaw = new Intent(SellRaw.this, BuyRaw.class);
+        buyCrafted = new Intent(SellRaw.this, Craft_Categories.class);
+        buyRaw = new Intent(SellRaw.this, Categories.class);
         sellCrafted = new Intent(SellRaw.this, SellCrafted.class);
         sellRaw = new Intent(SellRaw.this, SellRaw.class);
         notificationsPage = new Intent(SellRaw.this, Notifications.class);

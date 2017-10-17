@@ -62,8 +62,8 @@ public class ItemDetails extends AppCompatActivity
         tabLayout.setupWithViewPager(mViewPager);
 
         profilePage = new Intent(ItemDetails.this, MyProfile.class);
-        buyCrafted = new Intent(ItemDetails.this, BuyCrafted.class);
-        buyRaw = new Intent(ItemDetails.this, BuyRaw.class);
+        buyCrafted = new Intent(ItemDetails.this, Craft_Categories.class);
+        buyRaw = new Intent(ItemDetails.this, Categories.class);
         sellCrafted = new Intent(ItemDetails.this, SellCrafted.class);
         sellRaw = new Intent(ItemDetails.this, SellRaw.class);
         notificationsPage = new Intent(ItemDetails.this, Notifications.class);

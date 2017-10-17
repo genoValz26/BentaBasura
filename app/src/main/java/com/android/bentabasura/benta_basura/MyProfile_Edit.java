@@ -83,8 +83,8 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         setSupportActionBar(toolbar);
 
         profilePage = new Intent(MyProfile_Edit.this, MyProfile.class);
-        buyCrafted = new Intent(MyProfile_Edit.this, BuyCrafted.class);
-        buyRaw = new Intent(MyProfile_Edit.this, BuyRaw.class);
+        buyCrafted = new Intent(MyProfile_Edit.this, Craft_Categories.class);
+        buyRaw = new Intent(MyProfile_Edit.this, Categories.class);
         sellCrafted = new Intent(MyProfile_Edit.this, SellCrafted.class);
         sellRaw = new Intent(MyProfile_Edit.this, SellRaw.class);
         notificationsPage = new Intent(MyProfile_Edit.this, Notifications.class);
