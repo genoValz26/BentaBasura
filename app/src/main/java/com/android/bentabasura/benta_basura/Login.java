@@ -38,7 +38,7 @@ import static com.android.bentabasura.benta_basura.R.id.loginBtn;
 public class Login extends AppCompatActivity implements OnClickListener {
     Button login,loginGoogle;
     TextView link_register;
-    Intent homePage, registerPage, loginpage;
+    Intent homePage, registerPage;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseDatabase firebaseDatabase;
@@ -67,7 +67,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         homePage = new Intent(Login.this, Home.class);
         registerPage = new Intent(Login.this, Register.class);
-        loginpage = new Intent(Login.this, Login.class);
 
         login.setOnClickListener(this);
         link_register.setOnClickListener(this);
@@ -153,6 +152,26 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 });
     }
 
+    public void checkEmailIsVerified() {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userid = user.getUid();
+        boolean emailVerified = user.isEmailVerified();
+
+        if (!emailVerified) {
+            showMessage("Verify your Email First!");
+            firebaseAuth.signOut();
+            progressDialog.dismiss();
+
+            return;
+        } else {
+            checkIfUserIsLogin();
+            showMessage("Welcome!");
+            startActivity(homePage);
+            progressDialog.dismiss();
+            return;
+        }
+    }
+
     public void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
@@ -229,7 +248,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-               FirebaseUser user = firebaseAuth.getCurrentUser();
+                FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
                     //If user is already logged-in redirect to homepage
 
@@ -269,29 +288,10 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
                 }
                 else{
-                    startActivity(loginpage);
                     Log.d(TAG,"onAuthStateChange:signed_out");
                 }
             }
         }; //Use to get current user State
-    }
-    public void checkEmailIsVerified() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userid = user.getUid();
-        boolean emailVerified = user.isEmailVerified();
-
-        if (!emailVerified) {
-            onStop();
-            firebaseAuth.signOut();
-            progressDialog.dismiss();
-            showMessage("Verify your Email First!");
-            return;
-        } else {
-            checkIfUserIsLogin();
-            startActivity(homePage);
-            progressDialog.dismiss();
-            return;
-        }
     }
 
 }
