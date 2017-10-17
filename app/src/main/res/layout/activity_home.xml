@@ -7,16 +7,20 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-    <include
+    <!--<include
         layout="@layout/activity_home_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />!-->
 
     <include
         layout="@layout/news_tips_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="250dp"/>
+        android:layout_height="match_parent" />
+
+    <include
+        layout="@layout/menu_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
