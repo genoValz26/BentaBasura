@@ -204,7 +204,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void logout() {
+
         firebaseAuth.signOut();
+        firebaseAuth.removeAuthStateListener(mAuthListener);
         startActivity(loginpage);
 
     }

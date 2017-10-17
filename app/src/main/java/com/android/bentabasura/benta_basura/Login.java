@@ -226,7 +226,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             userid = user.getUid();
                             name = user.getDisplayName();
                             google_email = user.getEmail();
-                            Users newUser = new Users("None", google_email, name, "", "None", "None", "Member","None","None");
+                            Users newUser = new Users("None", google_email, name, "", "None", "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member","None","None");
                             databaseReference.child("Users").child(userid).setValue(newUser);
                             startActivity(homePage);
                             progressDialog.dismiss();
@@ -250,6 +250,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
+                    checkEmailIsVerified();
                     //If user is already logged-in redirect to homepage
 
                     progressDialog.setMessage("Already Signed-in.");

@@ -69,7 +69,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     StorageReference storageReference;
     private ImageView imageView;
     private static final int Gallery_Intent = 100;
-    public static final String STORAGE_PATH="Users/Profile_Picture/";
+    public static final String STORAGE_PATH="Profile/";
 
     TextView navFullName, navEmail;
     ActiveUser activeUser;
@@ -407,7 +407,9 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
              savebtn.setEnabled(true);
                 break;
             case R.id.savebtn:
-                updateProfilePicture();
+                StorageReference path = storageReference.child(STORAGE_PATH).child("." + getImageExt(imageUri));
+                String strprofile_picture = path.putFile(imageUri).toString();
+                updateProfilePicture(userid,strprofile_picture);
                 savebtn.setEnabled(false);
                 break;
         }
@@ -415,7 +417,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     }
     public boolean updateProfile(String userid, String username, String contact_number, String address, String fname, String lname)
     {
-        progressDialog.setMessage("Updating your informtaion...");
+        progressDialog.setMessage("Updating your Information...");
         progressDialog.show();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
         Users updateUser = new Users(username,activeUser.getEmail().toString(),fname,lname,activeUser.getGender().toString(),activeUser.getProfilePicture(),activeUser.getUserType(),address,contact_number);
@@ -430,23 +432,22 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         return  true;
 
     }
-    public void updateProfilePicture(){
+    public boolean updateProfilePicture(String struserid,String profile_picture){
 
         progressDialog.setMessage("Uploading Profile Picture...");
         progressDialog.show();
-        StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child( "." + getImageExt(imageUri));
-        path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                user = firebaseAuth.getCurrentUser();
-                userid = user.getUid();
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-                Users updateUserprofile = new Users(activeUser.getUserName(),activeUser.getEmail().toString(),activeUser.getFirstname(),activeUser.getLastname(),activeUser.getGender().toString(), taskSnapshot.getDownloadUrl().toString(),activeUser.getUserType(),activeUser.getAddress(),activeUser.getContact_number());
-                databaseReference.setValue(updateUserprofile);
-                progressDialog.dismiss();
-                showMessage("Upload Success!");
-            }
-        });
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(struserid);
+                Users updateUserprofile = new Users(activeUser.getUserName(),activeUser.getEmail().toString(),activeUser.getFirstname(),activeUser.getLastname(),activeUser.getGender().toString(),profile_picture,activeUser.getUserType(),activeUser.getAddress(),activeUser.getContact_number());;
+                databaseReference.setValue(updateUserprofile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        showMessage("Upload Success!");
+                        progressDialog.dismiss();
+                    }
+                });
+
+
+        return true;
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {

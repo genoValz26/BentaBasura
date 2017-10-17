@@ -161,14 +161,11 @@
         android:id="@+id/backbtn"
         android:layout_width="30dp"
         android:layout_height="26dp"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/txtUser"
         android:background="@drawable/bg_back"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="344dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginEnd="344dp" />
+        android:layout_marginEnd="344dp"
+        tools:layout_editor_absoluteX="165dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtUser" />
 
     <ProgressBar
         android:id="@+id/progress_pass"
