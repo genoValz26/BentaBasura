@@ -23,7 +23,7 @@ public class PageAdapterMyItems extends FragmentStatePagerAdapter {
                 TabFragmentTrash tab1 = new TabFragmentTrash();
                 return tab1;
             case 1:
-                TabFragmentTrash tab2 = new TabFragmentTrash();
+                TabFragmentCraft tab2 = new TabFragmentCraft();
                 return tab2;
             default:
                 return null;

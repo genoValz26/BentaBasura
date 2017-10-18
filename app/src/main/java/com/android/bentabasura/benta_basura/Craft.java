@@ -6,12 +6,12 @@ package com.android.bentabasura.benta_basura;
 
 public class Craft {
     private String craftID,craftName,craftQuantity,craftPrice,craftDescription,craftCategory,sellerContact,uploadedBy,uploadedDate,resourcesFrom,imageUrl;
-    private long sold;
+    private String sold;
     public Craft()
     {
 
     }
-    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,long sold){
+    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,String sold){
         this.craftName = craftName;
         this.craftQuantity = craftQuantity;
         this.craftPrice = craftPrice;
@@ -113,11 +113,11 @@ public class Craft {
         this.craftID = craftID;
     }
 
-    public long getSold() {
+    public String getSold() {
         return sold;
     }
 
-    public void setSold(long sold) {
+    public void setSold(String sold) {
         this.sold = sold;
     }
 }

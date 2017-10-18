@@ -385,7 +385,7 @@ public class SellCrafted extends AppCompatActivity
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //Adding the additional information on the real-time db
                 Date currentTime = Calendar.getInstance().getTime();
-                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid,currentTime.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),0);
+                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid,currentTime.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),"0");
                 String uploadid = databaseReference.push().getKey();
                 databaseReference.child("Craft").child(selectedCategory).child(uploadid).setValue(newCraft);
                 showMessage("Craft Uploaded Successfully");

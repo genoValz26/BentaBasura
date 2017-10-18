@@ -237,7 +237,7 @@ public class BuyCrafted extends AppCompatActivity
                         Craft craft = postSnapShot.getValue(Craft.class);
 
                         if(craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
-                            if (craft.getSold() == 0) {
+                            if (craft.getSold().equals("0")) {
                                 craft.setCraftID(postSnapShot.getKey().toString());
                                 craftArray.add(craft);
                                 customAdapter.notifyDataSetChanged();
