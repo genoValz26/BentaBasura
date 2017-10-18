@@ -1,5 +1,6 @@
 package com.android.bentabasura.benta_basura;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MyItems extends AppCompatActivity
@@ -33,6 +46,23 @@ public class MyItems extends AppCompatActivity
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
+    ListView lstMyTrash, lstMyCraft;
+    ProgressDialog mProgressDialog;
+    private String oldestPostId;
+
+    ActiveUser activeUser;
+
+    DatabaseReference databaseReferenceCraft, databaseReferenceTrash;
+
+    private custom_trashlist customTrashAdapter;
+    private custom_craftlist customCraftAdapter;
+
+    ArrayList<Trash> trashArray = new ArrayList<>();
+    ArrayList<Craft> craftArray = new ArrayList<>();
+
+
+    List<String> trashCategory = Arrays.asList("Plastic", "Paper", "Metal", "Wood");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +91,27 @@ public class MyItems extends AppCompatActivity
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
+        mProgressDialog = new ProgressDialog(this);
+
+        lstMyTrash = (ListView) findViewById(R.id.myTrash);
+        lstMyCraft = (ListView) findViewById(R.id.myCraft);
+
+        databaseReferenceTrash  = FirebaseDatabase.getInstance().getReference("Trash");
+        databaseReferenceCraft  = FirebaseDatabase.getInstance().getReference("Craft");
+
+        activeUser = ActiveUser.getInstance();
+
+        customTrashAdapter = new custom_trashlist(this, trashArray);
+        customCraftAdapter = new custom_craftlist(this, craftArray);
+
+        lstMyTrash.setAdapter(customTrashAdapter);
+        lstMyCraft.setAdapter(customCraftAdapter);
+
+        //LoadCraft
+        getCraftDataFromFirebase();
+
+        //LoadTrash
+        getTrashDataFromFirebase();
     }
 
     @Override
@@ -155,5 +206,60 @@ public class MyItems extends AppCompatActivity
                 break;
         }
         return true;
+    }
+
+    private void getCraftDataFromFirebase()
+    {
+        for(final String trashCat: trashCategory)
+        {
+            databaseReferenceTrash.child(trashCat.toString()).addValueEventListener(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot)
+                {
+                    if (dataSnapshot.exists())
+                    {
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
+                        {
+                            oldestPostId = postSnapShot.getKey();
+
+                            mProgressDialog.setMessage("Loading...");
+                            mProgressDialog.show();
+
+                            Trash trash = postSnapShot.getValue(Trash.class);
+
+                            if (trash.getTrashCategory().equals(trashCat.toString()))
+                            {
+                                if (trash.getSold().equals("0"))
+                                {
+                                    for (Trash itemTrash : trashArray)
+                                    {
+                                        if (itemTrash.getTrashId().equals(oldestPostId)) {
+                                            continue;
+                                        }
+                                    }
+
+                                    trash.setTrashId(postSnapShot.getKey().toString());
+                                    trashArray.add(trash);
+                                    customTrashAdapter.notifyDataSetChanged();
+
+                                }
+                            }
+                        }
+                        mProgressDialog.dismiss();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
+
+    private void getTrashDataFromFirebase() {
     }
 }

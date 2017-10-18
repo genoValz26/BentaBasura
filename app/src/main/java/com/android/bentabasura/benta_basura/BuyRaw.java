@@ -43,7 +43,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     private custom_trashlist customAdapter;
 
     DatabaseReference databaseReference;
-    ArrayList<Trash> craftArray =new ArrayList<>();
+    ArrayList<Trash> trashArray =new ArrayList<>();
 
     TextView navFullName, navEmail;
     ActiveUser activeUser;
@@ -106,7 +106,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
         getTrashDataFromFirebase();
 
-        customAdapter = new custom_trashlist(this, craftArray);
+        customAdapter = new custom_trashlist(this, trashArray);
         lstRecycle.setAdapter(customAdapter);
         lstRecycle.setOnScrollListener(this);
 
@@ -216,15 +216,16 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     }
     public void getTrashDataFromFirebase() {
 
-
         databaseReference.limitToFirst(3).addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 if(dataSnapshot.exists())
                 {
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
+
                         oldestPostId = postSnapShot.getKey();
 
                         mProgressDialog.setMessage("Loading...");
@@ -232,10 +233,21 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
                         Trash trash = postSnapShot.getValue(Trash.class);
 
-                        if(trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                            if (trash.getSold().equals("0")) {
+                        if(trash.getTrashCategory().equals(receivedBundle.get("Category")))
+                        {
+                            if (trash.getSold().equals("0"))
+                            {
+
+                                for(Trash itemTrash : trashArray)
+                                {
+                                    if (itemTrash.getTrashId().equals(oldestPostId))
+                                    {
+                                        continue;
+                                    }
+                                }
+
                                 trash.setTrashId(postSnapShot.getKey().toString());
-                                craftArray.add(trash);
+                                trashArray.add(trash);
                                 customAdapter.notifyDataSetChanged();
 
                             }
@@ -289,7 +301,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                             if(trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
                                 if (trash.getSold().equals("0")) {
                                     trash.setTrashId(postSnapShot.getKey().toString());
-                                    craftArray.add(trash);
+                                    trashArray.add(trash);
                                 }
                             }
                             customAdapter.notifyDataSetChanged();
