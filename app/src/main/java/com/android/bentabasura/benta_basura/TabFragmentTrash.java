@@ -79,7 +79,7 @@ public class TabFragmentTrash extends Fragment {
 
                             if (trash.getTrashCategory().equals(trashCat.toString()))
                             {
-                                if (trash.getSold().equals("0"))
+                                if (trash.getSold().equals("0") && trash.getUploadedBy().equals(activeUser.getUserId()))
                                 {
                                     for (Trash itemTrash : trashArray)
                                     {
