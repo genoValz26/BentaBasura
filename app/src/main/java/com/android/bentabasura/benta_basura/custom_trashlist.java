@@ -51,20 +51,18 @@ public class custom_trashlist extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
-        View rowData = inflater.inflate(R.layout.custom_trashlist, null);
+        View rowData = inflater.inflate(R.layout.raw_list_feed, null);
 
         ImageView imgThumbTrash = (ImageView) rowData.findViewById(R.id.imgThumbTrash);
         TextView txtTrashDate = (TextView) rowData.findViewById(R.id.txtTrashDate);
         TextView txtTrashName = (TextView) rowData.findViewById(R.id.txtTrashName);
         TextView txtTrashDescription = (TextView) rowData.findViewById(R.id.txtTrashDescription);
-        TextView txtSellerInfo  = (TextView) rowData.findViewById(R.id.txtSellerInfo);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
 
         Picasso.with(ctx).load(trash.get(position).getImageUrl()).fit().into(imgThumbTrash);
         txtTrashName.setText(trash.get(position).getTrashName());
         txtTrashDate.setText(trash.get(position).getUploadedDate());
         txtTrashDescription.setText(trash.get(position).getTrashDescription());
-        txtSellerInfo.setText(trash.get(position).getSellerContact());
 
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
