@@ -77,6 +77,11 @@
         <activity android:name=".MyProfile_Edit" />
         <activity android:name=".ItemDetails" />
         <activity android:name=".MyItems" />
+        <activity android:name=".BuyCraftedDetails"
+        android:label="@string/title_activity_buycrafted"
+        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".SellerProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

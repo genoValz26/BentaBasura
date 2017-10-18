@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -29,13 +28,13 @@ public class custom_craftlist extends BaseAdapter {
     public custom_craftlist(Context context, ArrayList<Craft> craft)
     {
         this.ctx = context;
-        this.craft = craft;
+        this.craft = craft ;
         inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return craft.size();
+        return craft .size();
     }
 
     @Override
@@ -51,26 +50,22 @@ public class custom_craftlist extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
-        View rowData = inflater.inflate(R.layout.custom_craftlist, null);
-
+        View rowData = inflater.inflate(R.layout.craft_list_feed, null);
         ImageView imgThumbTrash = (ImageView) rowData.findViewById(R.id.imgThumbTrash);
-        TextView txtTrashDate = (TextView) rowData.findViewById(R.id.txtTrashDate);
-        TextView txtTrashName = (TextView) rowData.findViewById(R.id.txtTrashName);
-        TextView txtTrashDescription = (TextView) rowData.findViewById(R.id.txtTrashDescription);
-        TextView txtSellerInfo  = (TextView) rowData.findViewById(R.id.txtSellerInfo);
+        TextView txtCraftDate = (TextView) rowData.findViewById(R.id.txtCraftDate);
+        TextView txtCraftName = (TextView) rowData.findViewById(R.id.txtCraftName);
+        TextView txtCraftDescription = (TextView) rowData.findViewById(R.id.txtCraftDescription);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
 
-        Picasso.with(ctx).load(craft.get(position).getImageUrl()).fit().into(imgThumbTrash);
-        txtTrashName.setText(craft.get(position).getCraftName());
-        txtTrashDate.setText(craft.get(position).getUploadedDate());
-        txtTrashDescription.setText(craft.get(position).getCraftDescription());
-        txtSellerInfo.setText(craft.get(position).getSellerContact());
-
+        Picasso.with(ctx).load(craft .get(position).getImageUrl()).placeholder( R.drawable.progress_animation ).fit().into(imgThumbTrash);
+        txtCraftName.setText(craft .get(position).getCraftName());
+        txtCraftDate.setText(craft .get(position).getUploadedDate());
+        txtCraftDescription.setText(craft .get(position).getCraftDescription());
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                detailsIntent = new Intent(parent.getContext(), BuyRawDetails.class);
+                detailsIntent = new Intent(parent.getContext(), BuyCraftedDetails.class);
 
                 detailsIntent.putExtra("CraftName", craft.get(position).getCraftName());
                 detailsIntent.putExtra("CraftPic", craft.get(position).getImageUrl());
@@ -79,6 +74,7 @@ public class custom_craftlist extends BaseAdapter {
                 detailsIntent.putExtra("CraftCategory", craft.get(position).getCraftCategory());
                 detailsIntent.putExtra("CraftPrice", craft.get(position).getCraftPrice());
                 detailsIntent.putExtra("CraftSeller", craft.get(position).getSellerContact());
+                detailsIntent.putExtra("UploadedBy", craft.get(position).getUploadedBy());
 
                 parent.getContext().startActivity(detailsIntent);
             }

@@ -31,10 +31,10 @@
         android:id="@+id/txtCraftName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="Trash Name"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/appBarLayout"
-        android:layout_alignParentStart="true" />
+        android:text="Craft Name"
+        android:textSize="30dp" />
 
     <ImageView
         android:id="@+id/imgThumbTrash"
@@ -74,13 +74,13 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/textviewQty"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtCraftDescription"
         android:text="@string/QtyLabel"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_below="@+id/txtCraftDescription"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textViewPRice"
@@ -131,5 +131,4 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView24"
         android:text="uploadedBy" />
-
 </RelativeLayout>
