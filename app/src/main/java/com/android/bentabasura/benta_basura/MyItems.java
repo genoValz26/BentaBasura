@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -46,22 +48,7 @@ public class MyItems extends AppCompatActivity
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
-    ListView lstMyTrash, lstMyCraft;
-    ProgressDialog mProgressDialog;
     private String oldestPostId;
-
-    ActiveUser activeUser;
-
-    DatabaseReference databaseReferenceCraft, databaseReferenceTrash;
-
-    private custom_trashlist customTrashAdapter;
-    private custom_craftlist customCraftAdapter;
-
-    ArrayList<Trash> trashArray = new ArrayList<>();
-    ArrayList<Craft> craftArray = new ArrayList<>();
-
-
-    List<String> trashCategory = Arrays.asList("Plastic", "Paper", "Metal", "Wood");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +56,35 @@ public class MyItems extends AppCompatActivity
         setContentView(R.layout.activity_my_items);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Trash"));
+        tabLayout.addTab(tabLayout.newTab().setText("Craft"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PageAdapterMyItems(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
 
         profilePage = new Intent(MyItems.this, MyProfile.class);
         buyCrafted = new Intent(MyItems.this, Craft_Categories.class);
@@ -91,27 +107,6 @@ public class MyItems extends AppCompatActivity
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
-        mProgressDialog = new ProgressDialog(this);
-
-        lstMyTrash = (ListView) findViewById(R.id.myTrash);
-        lstMyCraft = (ListView) findViewById(R.id.myCraft);
-
-        databaseReferenceTrash  = FirebaseDatabase.getInstance().getReference("Trash");
-        databaseReferenceCraft  = FirebaseDatabase.getInstance().getReference("Craft");
-
-        activeUser = ActiveUser.getInstance();
-
-        customTrashAdapter = new custom_trashlist(this, trashArray);
-        customCraftAdapter = new custom_craftlist(this, craftArray);
-
-        lstMyTrash.setAdapter(customTrashAdapter);
-        lstMyCraft.setAdapter(customCraftAdapter);
-
-        //LoadCraft
-        getCraftDataFromFirebase();
-
-        //LoadTrash
-        getTrashDataFromFirebase();
     }
 
     @Override
@@ -208,58 +203,4 @@ public class MyItems extends AppCompatActivity
         return true;
     }
 
-    private void getCraftDataFromFirebase()
-    {
-        for(final String trashCat: trashCategory)
-        {
-            databaseReferenceTrash.child(trashCat.toString()).addValueEventListener(new ValueEventListener()
-            {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot)
-                {
-                    if (dataSnapshot.exists())
-                    {
-                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
-                        {
-                            oldestPostId = postSnapShot.getKey();
-
-                            mProgressDialog.setMessage("Loading...");
-                            mProgressDialog.show();
-
-                            Trash trash = postSnapShot.getValue(Trash.class);
-
-                            if (trash.getTrashCategory().equals(trashCat.toString()))
-                            {
-                                if (trash.getSold().equals("0"))
-                                {
-                                    for (Trash itemTrash : trashArray)
-                                    {
-                                        if (itemTrash.getTrashId().equals(oldestPostId)) {
-                                            continue;
-                                        }
-                                    }
-
-                                    trash.setTrashId(postSnapShot.getKey().toString());
-                                    trashArray.add(trash);
-                                    customTrashAdapter.notifyDataSetChanged();
-
-                                }
-                            }
-                        }
-                        mProgressDialog.dismiss();
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
-
-    }
-
-    private void getTrashDataFromFirebase() {
-    }
 }

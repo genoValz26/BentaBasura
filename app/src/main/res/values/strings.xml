@@ -74,4 +74,7 @@
     <string name="title_activity_item__details">Item_Details</string>
     <string name="section_format">%1$d</string>
     <string name="title_activity_item_tab">item_tab</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
