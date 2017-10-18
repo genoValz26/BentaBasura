@@ -42,7 +42,7 @@ public class Craft_Categories  extends AppCompatActivity implements View.OnClick
         {
             case R.id.btnDecorations:
             {
-                craftIntent.putExtra("Category", "Decorations");
+                craftIntent.putExtra("Category", "Decoration");
                 startActivity( craftIntent);
                 break;
             }

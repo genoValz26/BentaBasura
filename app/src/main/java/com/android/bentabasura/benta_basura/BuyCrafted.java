@@ -100,16 +100,16 @@ public class BuyCrafted extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //----------------------------------------------------------------
-        lstCraft = (ListView) findViewById(R.id.lstRecycle);
+        lstCraft = (ListView) findViewById(R.id.lstCrafted);
 
         Intent receivedIntent = getIntent();
         receivedBundle = receivedIntent.getExtras();
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("Trash").child(receivedBundle.get("Category").toString());
+        databaseReference= FirebaseDatabase.getInstance().getReference("Craft").child(receivedBundle.get("Category").toString());
 
         mProgressDialog = new ProgressDialog(this);
 
-        getTrashDataFromFirebase();
+        getCraftDataFromFirebase();
 
         customAdapter = new custom_craftlist(this, craftArray);
         lstCraft.setAdapter(customAdapter);
@@ -218,7 +218,7 @@ public class BuyCrafted extends AppCompatActivity
         startActivity(loginpage);
 
     }
-    public void getTrashDataFromFirebase() {
+    public void getCraftDataFromFirebase() {
 
 
         databaseReference.limitToFirst(3).addValueEventListener(new ValueEventListener() {
