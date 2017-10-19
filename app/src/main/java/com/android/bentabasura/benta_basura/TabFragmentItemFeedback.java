@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,7 +38,11 @@ public class TabFragmentItemFeedback extends Fragment {
     custom_commentlist commentAdapter;
     ArrayList<Comment>  commentArray = new ArrayList<>();
     String oldestCommentId;
-    ProgressDialog mProgressDialog;
+
+    int currentVisibleItemCount;
+    int currentScrollState;
+    int currentFirstVisibleItem;
+    int totalItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +61,20 @@ public class TabFragmentItemFeedback extends Fragment {
 
         commentAdapter = new custom_commentlist(container.getContext(), commentArray);
         lstComments.setAdapter(commentAdapter);
-        mProgressDialog = new ProgressDialog(container.getContext());
+        lstComments.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                currentScrollState = scrollState;
+                isScrollCompleted();
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                currentFirstVisibleItem = firstVisibleItem;
+                currentVisibleItemCount = visibleItemCount;
+                totalItem = totalItemCount;
+            }
+        });
 
         getCommentFromDatabase();
 
@@ -102,9 +120,6 @@ public class TabFragmentItemFeedback extends Fragment {
                 {
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
-                        mProgressDialog.setMessage("Loading...");
-                        mProgressDialog.show();
-
                         Boolean found = false;
                         oldestCommentId = postSnapShot.getKey();
 
@@ -125,7 +140,6 @@ public class TabFragmentItemFeedback extends Fragment {
                         }
                     }
                 }
-                mProgressDialog.dismiss();
 
             }
 
@@ -134,5 +148,32 @@ public class TabFragmentItemFeedback extends Fragment {
 
             }
         });
+    }
+
+    private void isScrollCompleted() {
+        if (totalItem - currentFirstVisibleItem == currentVisibleItemCount && this.currentScrollState == 0) {
+            databaseReference.orderByKey().startAt(oldestCommentId).limitToFirst(3).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+
+                        if (!oldestCommentId.equals(postSnapShot.getKey())) {
+                            oldestCommentId = postSnapShot.getKey();
+
+                            Comment comment = postSnapShot.getValue(Comment.class);
+
+                            comment.setCommendID(postSnapShot.getKey().toString());
+                            commentArray.add(comment);
+                            commentAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }
