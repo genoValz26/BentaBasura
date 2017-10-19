@@ -228,6 +228,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
 
+                        boolean found = true;
                         oldestPostId = postSnapShot.getKey();
 
                         mProgressDialog.setMessage("Loading...");
@@ -244,13 +245,15 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                                 {
                                     if (itemTrash.getTrashId().equals(oldestPostId))
                                     {
-                                        continue;
+                                        found = true;
                                     }
                                 }
 
-                                trash.setTrashId(postSnapShot.getKey().toString());
-                                trashArray.add(trash);
-                                customAdapter.notifyDataSetChanged();
+                                if(!found) {
+                                    trash.setTrashId(postSnapShot.getKey().toString());
+                                    trashArray.add(trash);
+                                    customAdapter.notifyDataSetChanged();
+                                }
 
                             }
                         }

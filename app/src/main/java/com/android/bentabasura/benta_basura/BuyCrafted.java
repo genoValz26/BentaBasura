@@ -228,19 +228,31 @@ public class BuyCrafted extends AppCompatActivity
                 {
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
+                        boolean found = false;
                         oldestPostId = postSnapShot.getKey();
 
                         mProgressDialog.setMessage("Loading...");
                         mProgressDialog.show();
 
-                        Craft craft = postSnapShot.getValue(Craft.class);
+                        for(Craft craftItem : craftArray)
+                        {
+                            if(craftItem.getCraftID().equals(oldestPostId))
+                            {
+                                found = true;
+                            }
+                        }
 
-                        if(craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
-                            if (craft.getSold().equals("0")) {
-                                craft.setCraftID(postSnapShot.getKey().toString());
-                                craftArray.add(craft);
-                                customAdapter.notifyDataSetChanged();
+                        if (!found) {
 
+                            Craft craft = postSnapShot.getValue(Craft.class);
+
+                            if (craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
+                                if (craft.getSold().equals("0")) {
+                                    craft.setCraftID(postSnapShot.getKey().toString());
+                                    craftArray.add(craft);
+                                    customAdapter.notifyDataSetChanged();
+
+                                }
                             }
                         }
                     }
