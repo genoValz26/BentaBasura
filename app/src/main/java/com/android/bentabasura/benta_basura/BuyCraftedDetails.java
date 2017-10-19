@@ -107,24 +107,6 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
-        receiveIntent = getIntent();
-        receivedBundle = receiveIntent.getExtras();
-
-        txtCraftName = (TextView) findViewById(R.id.txtCraftName);
-        imgThumbTrash = (ImageView) findViewById(R.id.imgThumbTrash);
-        txtCraftDescription = (TextView) findViewById(R.id.txtCraftDescription);
-        txtCraftQuantity = (TextView) findViewById(R.id.txtCraftQuantity);
-        txtCraftPrice = (TextView) findViewById(R.id.txtCraftPrice);
-        txtSellerInfo = (TextView) findViewById(R.id.txtSellerInfo);
-        txtUploadedBy = (TextView) findViewById(R.id.txtUploadedBy);
-
-        txtCraftName.setText(receivedBundle.get("CraftName").toString());
-        Picasso.with(getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).fit().into(imgThumbTrash);
-        txtCraftDescription.setText(receivedBundle.get("CraftDescription").toString());
-        txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
-        txtCraftPrice.setText(receivedBundle.get("CraftPrice").toString());
-        txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
-        txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         activeUser = ActiveUser.getInstance();

@@ -43,7 +43,7 @@ public class TabFragmentItemDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_crafted, container, false);
 
-        /*mProgressDialog = new ProgressDialog(container.getContext());
+        mProgressDialog = new ProgressDialog(container.getContext());
 
         receiveIntent = getActivity().getIntent();
         receivedBundle = receiveIntent.getExtras();
@@ -54,7 +54,6 @@ public class TabFragmentItemDetails extends Fragment {
         txtCraftQuantity = (TextView) view.findViewById(R.id.txtCraftQuantity);
         txtCraftPrice = (TextView) view.findViewById(R.id.txtCraftPrice);
         txtSellerInfo = (TextView) view.findViewById(R.id.txtSellerInfo);
-        txtUploadedBy = (TextView) view.findViewById(R.id.txtUploadedBy);
 
         txtCraftName.setText(receivedBundle.get("CraftName").toString());
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).fit().into(imgThumbTrash);
@@ -62,10 +61,9 @@ public class TabFragmentItemDetails extends Fragment {
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText(receivedBundle.get("CraftPrice").toString());
         txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
-        txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        activeUser = ActiveUser.getInstance();*/
+        activeUser = ActiveUser.getInstance();
 
         return view;
     }
