@@ -70,28 +70,34 @@ public class TabFragmentCraft extends Fragment {
                     {
                         for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
                         {
+                            boolean found = false;
+
                             oldestPostId = postSnapShot.getKey();
 
                             mProgressDialog.setMessage("Loading...");
                             mProgressDialog.show();
 
-                            Craft craft = postSnapShot.getValue(Craft.class);
 
-                            if (craft.getCraftCategory().equals(trashCat.toString()))
+                            for (Craft itemCraft : craftArray)
                             {
-                                if (craft.getSold().equals("0") && craft.getUploadedBy().equals(activeUser.getUserId()))
+                                if (itemCraft.getCraftID().equals(oldestPostId)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if (!found)
+                            {
+                                Craft craft = postSnapShot.getValue(Craft.class);
+
+                                if (craft.getCraftCategory().equals(trashCat.toString()))
                                 {
-                                    for (Craft itemCraft : craftArray)
-                                    {
-                                        if (itemCraft.getCraftID().equals(oldestPostId)) {
-                                            continue;
-                                        }
+                                    if (craft.getSold().equals("0") && craft.getUploadedBy().equals(activeUser.getUserId())) {
+
+                                        craft.setCraftID(postSnapShot.getKey().toString());
+                                        craftArray.add(craft);
+                                        customCraftAdapter.notifyDataSetChanged();
                                     }
-
-                                    craft.setCraftID(postSnapShot.getKey().toString());
-                                    craftArray.add(craft);
-                                    customCraftAdapter.notifyDataSetChanged();
-
                                 }
                             }
                         }

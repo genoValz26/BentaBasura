@@ -70,28 +70,34 @@ public class TabFragmentTrash extends Fragment {
                     {
                         for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
                         {
+                            boolean found = false;
+
                             oldestPostId = postSnapShot.getKey();
 
                             mProgressDialog.setMessage("Loading...");
                             mProgressDialog.show();
 
-                            Trash trash = postSnapShot.getValue(Trash.class);
-
-                            if (trash.getTrashCategory().equals(trashCat.toString()))
+                            for (Trash itemTrash : trashArray)
                             {
-                                if (trash.getSold().equals("0") && trash.getUploadedBy().equals(activeUser.getUserId()))
+                                if (itemTrash.getTrashId().equals(oldestPostId)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if (!found)
+                            {
+                                Trash trash = postSnapShot.getValue(Trash.class);
+
+                                if (trash.getTrashCategory().equals(trashCat.toString()))
                                 {
-                                    for (Trash itemTrash : trashArray)
+                                    if (trash.getSold().equals("0") && trash.getUploadedBy().equals(activeUser.getUserId()))
                                     {
-                                        if (itemTrash.getTrashId().equals(oldestPostId)) {
-                                            continue;
-                                        }
+                                        trash.setTrashId(postSnapShot.getKey().toString());
+                                        trashArray.add(trash);
+                                        customTrashAdapter.notifyDataSetChanged();
+
                                     }
-
-                                    trash.setTrashId(postSnapShot.getKey().toString());
-                                    trashArray.add(trash);
-                                    customTrashAdapter.notifyDataSetChanged();
-
                                 }
                             }
                         }
