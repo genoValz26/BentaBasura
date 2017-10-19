@@ -37,6 +37,8 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
     ImageView imgThumbTrash;
     Intent receiveIntent;
     Bundle receivedBundle;
+    TextView navFullName, navEmail;
+    ImageView navImage;
     ActiveUser activeUser;
 
     DatabaseReference databaseReference;
@@ -103,8 +105,17 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        activeUser = ActiveUser.getInstance();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
+        navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
+
+        navFullName.setText(activeUser.getFullname());
+        navEmail.setText(activeUser.getEmail());
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
+
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 

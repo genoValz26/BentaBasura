@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -108,16 +109,16 @@ public class MyItems extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //activeUser = ActiveUser.getInstance();
+        activeUser = ActiveUser.getInstance();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        /*navImage = (ImageView) headerView.findViewById(R.id.imageView);
+        View headerView = navigationView.getHeaderView(0);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
         navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
-        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(150, 20)).into(navImage);*/
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
 
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
