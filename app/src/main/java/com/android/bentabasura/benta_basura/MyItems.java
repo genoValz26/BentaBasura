@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +60,7 @@ public class MyItems extends AppCompatActivity
     TextView navFullName, navEmail;
     ImageView navImage;
     ActiveUser activeUser;
+    FirebaseAuth  firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +128,7 @@ public class MyItems extends AppCompatActivity
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -215,8 +218,18 @@ public class MyItems extends AppCompatActivity
                 startActivity(historyPage);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.logout:
+                logout();
+                break;
         }
         return true;
+    }
+    public void logout() {
+
+        firebaseAuth.signOut();
+        buildDialog(this).show();
+        return;
+
     }
     public AlertDialog.Builder buildDialog(Context c) {
 

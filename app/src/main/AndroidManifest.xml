@@ -71,6 +71,7 @@
         <activity android:name=".MyProfile_Edit" />
         <activity android:name=".MyItems" />
         <activity android:name=".MyItems_Edit_Craft" />
+        <activity android:name=".MyItems_Edit_Trash" />
         <activity android:name=".BuyCraftedDetails"
         android:label="@string/title_activity_buycrafted"
         android:theme="@style/AppTheme.NoActionBar"/>

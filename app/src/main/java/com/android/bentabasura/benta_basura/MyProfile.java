@@ -223,8 +223,11 @@ public class MyProfile extends AppCompatActivity
         }
         return true;
     }
-    public void logout(){
+    public void logout() {
+
         firebaseAuth.signOut();
+        buildDialog(this).show();
+        return;
 
     }
 

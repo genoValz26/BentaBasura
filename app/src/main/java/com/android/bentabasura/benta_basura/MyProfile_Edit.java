@@ -248,8 +248,17 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                 startActivity(historyPage);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.logout:
+                logout();
+                break;
         }
         return true;
+    }
+    public void logout() {
+
+        firebaseAuth.signOut();
+        buildDialog(this).show();
+        return;
     }
 
     @Override

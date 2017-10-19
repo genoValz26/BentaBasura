@@ -87,15 +87,15 @@
             android:textSize="10sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnBuy"
-            android:layout_width="100dp"
-            android:layout_height="25dp"
-            android:layout_below="@+id/txtSellerInfoCraft"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="@color/colorPrimary"
-            android:text="Buy" />
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/txtSellerInfoCraft"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@color/colorPrimary"
+                android:text="Edit" />
 
         <TextView
             android:id="@+id/tv13"
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/txtSellerInfoCraft"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/btnBuy"
+            android:layout_toEndOf="@+id/btnEdit"
             android:text="0" />
         </RelativeLayout>
     </TableLayout>

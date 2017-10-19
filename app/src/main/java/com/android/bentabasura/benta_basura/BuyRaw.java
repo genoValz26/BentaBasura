@@ -1,6 +1,8 @@
 package com.android.bentabasura.benta_basura;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -114,6 +117,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         lstRecycle.setAdapter(customAdapter);
         lstRecycle.setOnScrollListener(this);
 
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -211,8 +215,10 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         return true;
     }
     public void logout() {
+
         firebaseAuth.signOut();
-        startActivity(loginpage);
+        buildDialog(this).show();
+        return;
 
     }
     public void getTrashDataFromFirebase() {
@@ -320,5 +326,20 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 }
             });
         }
+    }
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("BentaBasura");
+        builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(loginpage);
+            }
+        });
+
+        return builder;
     }
 }

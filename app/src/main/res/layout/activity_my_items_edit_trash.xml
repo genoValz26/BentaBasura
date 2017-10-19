@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.bentabasura.benta_basura.SellRaw"
+    android:background="@color/colorBackground2"
+    android:orientation="vertical"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="412dp"
+            android:layout_height="56dp"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/UploadImageView"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="56dp"
+        android:layout_alignTop="@+id/uploadbtn"
+        android:layout_alignStart="@+id/trashDesc" />
+
+    <Button
+        android:id="@+id/uploadbtn"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="@string/upload"
+        tools:layout_editor_absoluteX="252dp"
+        tools:layout_editor_absoluteY="56dp"
+        android:layout_marginTop="63dp"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_toStartOf="@+id/takePhotobtn" />
+
+    <Button
+        android:id="@+id/takePhotobtn"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="@string/takephoto"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="56dp"
+        android:layout_above="@+id/trashName"
+        android:layout_alignEnd="@+id/trashQty" />
+
+    <EditText
+        android:id="@+id/trashName"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:layout_marginLeft="5dp"
+        android:paddingLeft="5dp"
+        android:hint="@string/trashName"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="156dp"
+        android:layout_below="@+id/uploadbtn"
+        android:layout_toEndOf="@+id/UploadImageView"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/trashQty"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:layout_marginLeft="5dp"
+        android:paddingLeft="5dp"
+        android:hint="@string/trashQuantity"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="224dp"
+        android:layout_alignBottom="@+id/UploadImageView"
+        android:layout_alignStart="@+id/Submittrash"
+        android:layout_alignEnd="@+id/trashName" />
+
+    <EditText
+        android:id="@+id/trashDesc"
+        android:layout_width="170dp"
+        android:layout_height="100dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:paddingLeft="5dp"
+        android:hint="@string/trashDesc"
+        android:inputType="textMultiLine"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="292dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:layout_below="@+id/UploadImageView"
+        android:layout_toStartOf="@+id/sellerContact" />
+
+    <EditText
+        android:id="@+id/trashPrice"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:paddingLeft="5dp"
+        android:hint="@string/trashPrice"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="360dp"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/trashDesc"
+        android:layout_alignStart="@+id/sellerContact" />
+
+    <Button
+        android:id="@+id/Submittrash"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="@string/Submit"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="497dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/trashPrice"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/sellerContact"
+        android:layout_width="170dp"
+        android:layout_height="100dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:hint="@string/sellerContact"
+        android:inputType="textMultiLine"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="428dp"
+        android:layout_above="@+id/trashPrice"
+        android:layout_alignEnd="@+id/appBarLayout" />
+
+    <Spinner
+        android:id="@+id/spnTrashCategory"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/trashPrice"
+        android:layout_alignStart="@+id/trashDesc" />
+
+    <Button
+        android:id="@+id/editbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/UploadImageView"
+        android:layout_alignEnd="@+id/trashDesc"
+        android:text="Edit" />
+
+    <Button
+        android:id="@+id/deletebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/takePhotobtn"
+        android:layout_toEndOf="@+id/editbtn"
+        android:text="Delete" />
+</RelativeLayout>

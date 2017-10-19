@@ -18,19 +18,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-public class BuyCrafted_TabFragmentItemDetails extends Fragment {
+public class BuyCrafted_TabFragmentItemDetails extends Fragment{
 
 
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
     TextView txtCraftName, txtCraftDescription, txtCraftQuantity, txtCraftPrice, txtSellerInfo, txtUploadedBy;
-    Button addToCartBtn;
+    Button btnEdit;
     ImageView imgThumbCraft;
     Intent receiveIntent;
     Bundle receivedBundle;
-
+    Intent editCraftpage;
     DatabaseReference databaseReference;
-
+    String userid;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_crafted, container, false);
@@ -46,7 +46,10 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment {
         txtCraftQuantity = (TextView) view.findViewById(R.id.txtCraftQuantity);
         txtCraftPrice = (TextView) view.findViewById(R.id.txtCraftPrice);
         txtSellerInfo = (TextView) view.findViewById(R.id.txtSellerInfoCraft);
-        //txtUploadedBy = (TextView) view.findViewById(R.id.txtUploadedBy);
+        //txtUploadedBy = (TextView) findViewById(R.id.txtUploadedBy);
+
+        btnEdit = (Button) view.findViewById(R.id.btnEdit);
+        btnEdit.setVisibility(View.GONE);
 
         txtCraftName.setText(receivedBundle.get("CraftName").toString());
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).fit().into(imgThumbCraft);
@@ -55,7 +58,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment {
         txtCraftPrice.setText(receivedBundle.get("CraftPrice").toString());
         txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
         //txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
-
+       // editCraftpage = new Intent(BuyCrafted_TabFragmentItemDetails.this,MyItems_Edit_Craft.class);
 
         
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -63,4 +66,6 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment {
 
         return view;
     }
+
+
 }

@@ -87,8 +87,8 @@
         android:inputType="number"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="224dp"
-        android:layout_above="@+id/trashDesc"
-        android:layout_toEndOf="@+id/UploadImageView" />
+        android:layout_alignBottom="@+id/UploadImageView"
+        android:layout_alignStart="@+id/Submittrash" />
 
     <EditText
         android:id="@+id/trashDesc"
@@ -101,10 +101,9 @@
         android:inputType="textMultiLine"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="292dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/UploadImageView"
-        android:layout_toStartOf="@+id/sellerContact"
-        android:layout_marginEnd="7dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp" />
 
     <EditText
         android:id="@+id/trashPrice"
@@ -119,7 +118,7 @@
         tools:layout_editor_absoluteY="360dp"
         android:layout_marginTop="18dp"
         android:layout_below="@+id/trashDesc"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/sellerContact" />
 
     <Button
         android:id="@+id/Submittrash"
@@ -144,7 +143,7 @@
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="428dp"
         android:layout_above="@+id/trashPrice"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/appBarLayout" />
 
     <Spinner
         android:id="@+id/spnTrashCategory"

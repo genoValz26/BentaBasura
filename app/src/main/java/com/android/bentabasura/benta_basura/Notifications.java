@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 
@@ -31,6 +32,8 @@ public class Notifications extends AppCompatActivity
     ActiveUser activeUser;
     TextView navFullName, navEmail;
     ImageView navImage;
+
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,7 @@ public class Notifications extends AppCompatActivity
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -159,8 +163,17 @@ public class Notifications extends AppCompatActivity
                 startActivity(historyPage);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.logout:
+                logout();
+                break;
         }
         return true;
+    }
+    public void logout() {
+
+        firebaseAuth.signOut();
+        buildDialog(this).show();
+        return;
     }
     public AlertDialog.Builder buildDialog(Context c) {
 
