@@ -92,16 +92,18 @@ public class TabFragmentItemFeedback extends Fragment {
                 String commentDate = UploadedDate;
                 String comment = txtComment.getText().toString();
 
-                String commentId = databaseReference.push().getKey();
-                Comment newComment = new Comment();
-                newComment.setProfileImage(profileImage);
-                newComment.setProfileName(profileName);
-                newComment.setCommentDate(commentDate);
-                newComment.setComment(comment);
+                if(!comment.equals("")) {
+                    String commentId = databaseReference.push().getKey();
+                    Comment newComment = new Comment();
+                    newComment.setProfileImage(profileImage);
+                    newComment.setProfileName(profileName);
+                    newComment.setCommentDate(commentDate);
+                    newComment.setComment(comment);
 
-                databaseReference.child(commentId).setValue(newComment);
+                    databaseReference.child(commentId).setValue(newComment);
 
-                txtComment.setText("");
+                    txtComment.setText("");
+                }
 
             }
         });
