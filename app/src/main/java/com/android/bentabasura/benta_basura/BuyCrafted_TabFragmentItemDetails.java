@@ -14,26 +14,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class TabFragmentItemDetails extends Fragment {
+public class BuyCrafted_TabFragmentItemDetails extends Fragment {
 
 
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
     TextView txtCraftName, txtCraftDescription, txtCraftQuantity, txtCraftPrice, txtSellerInfo, txtUploadedBy;
     Button addToCartBtn;
-    ImageView imgThumbTrash;
+    ImageView imgThumbCraft;
     Intent receiveIntent;
     Bundle receivedBundle;
 
@@ -49,19 +41,23 @@ public class TabFragmentItemDetails extends Fragment {
         receivedBundle = receiveIntent.getExtras();
 
         txtCraftName = (TextView) view.findViewById(R.id.txtCraftName);
-        imgThumbTrash = (ImageView) view.findViewById(R.id.imgThumbTrash);
+        imgThumbCraft = (ImageView) view.findViewById(R.id.imgThumbCraft);
         txtCraftDescription = (TextView) view.findViewById(R.id.txtCraftDescription);
         txtCraftQuantity = (TextView) view.findViewById(R.id.txtCraftQuantity);
         txtCraftPrice = (TextView) view.findViewById(R.id.txtCraftPrice);
-        txtSellerInfo = (TextView) view.findViewById(R.id.txtSellerInfo);
+        txtSellerInfo = (TextView) view.findViewById(R.id.txtSellerInfoCraft);
+        //txtUploadedBy = (TextView) view.findViewById(R.id.txtUploadedBy);
 
         txtCraftName.setText(receivedBundle.get("CraftName").toString());
-        Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).fit().into(imgThumbTrash);
+        Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).fit().into(imgThumbCraft);
         txtCraftDescription.setText(receivedBundle.get("CraftDescription").toString());
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText(receivedBundle.get("CraftPrice").toString());
         txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
+        //txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
 
+
+        
         databaseReference = FirebaseDatabase.getInstance().getReference();
         activeUser = ActiveUser.getInstance();
 

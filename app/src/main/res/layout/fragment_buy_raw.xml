@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/txtTrashName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trash Item Name"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_alignStart="@+id/imgThumbRaw" />
+
+            <ImageView
+                android:id="@+id/imgThumbRaw"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/txtTrashName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/cat_plastic" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/imgThumbRaw"
+                android:layout_below="@+id/imgThumbRaw"
+                android:layout_marginTop="15dp"
+                android:textStyle="bold"
+                android:text="Description" />
+
+            <TextView
+                android:id="@+id/txtRawDescription"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView8"
+                android:layout_below="@+id/textView8"
+                android:layout_marginTop="10dp"
+                android:text="A synthetic material made from a wide range of organic polymers such as polyethylene, PVC, nylon, etc., that can be molded into shape while soft and then set into a rigid or slightly elastic form." />
+
+            <TextView
+                android:id="@+id/txtRawPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/txtTrashName"
+                android:layout_alignEnd="@+id/imgThumbRaw"
+                android:textStyle="normal|bold"
+                android:textSize="20sp"
+                android:text="$1.00" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/txtRawDescription"
+                android:layout_below="@+id/txtRawDescription"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="About Seller" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView11"
+                android:layout_alignBottom="@+id/textView11"
+                android:layout_alignParentEnd="true"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/txtSellerInfo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@color/colorPrimary"
+                android:text="Buy" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_alignBottom="@+id/textView12"
+                android:layout_toStartOf="@+id/txtRawPrice" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                android:text="Juan Dela Cruz"
+                android:layout_below="@+id/textView11"
+                android:layout_alignStart="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/txtSellerInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09123456789"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textView14"
+                android:layout_alignStart="@+id/textView14" />
+
+            <TextView
+                android:id="@+id/txtRawQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/txtSellerInfo"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/button2"
+                android:text="0" />
+
+
+        </RelativeLayout>
+    </TableLayout>
+</ScrollView>

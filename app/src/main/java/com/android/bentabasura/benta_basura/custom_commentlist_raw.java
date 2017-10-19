@@ -18,14 +18,14 @@ import java.util.ArrayList;
  * Created by ccs on 10/19/17.
  */
 
-public class custom_commentlist extends BaseAdapter {
+public class custom_commentlist_raw extends BaseAdapter {
 
     private Context ctx;
     private ArrayList<Comment> comments;
     private static LayoutInflater inflater = null;
     Intent detailsIntent;
 
-    public custom_commentlist(Context context, ArrayList<Comment> comments)
+    public custom_commentlist_raw(Context context, ArrayList<Comment> comments)
     {
         this.ctx = context;
         this.comments = comments ;

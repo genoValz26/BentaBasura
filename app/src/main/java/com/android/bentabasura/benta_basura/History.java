@@ -152,6 +152,9 @@ public class History extends AppCompatActivity
                 startActivity(historyPage);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
+            case R.id.logout:
+                //logout();
+                break;
         }
         return true;
     }

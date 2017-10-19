@@ -35,7 +35,7 @@
                 android:paddingTop="@dimen/spacing_middle">
 
                 <ImageView
-                    android:id="@+id/imgThumbTrash"
+                    android:id="@+id/imgThumbCraft"
                     android:layout_width="40dp"
                     android:layout_height="87dp"
                     android:layout_weight="0.26"

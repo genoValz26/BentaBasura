@@ -40,11 +40,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".BuyRawDetails"
-            android:label="@string/title_activity_buyraw"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
             android:name=".SellCrafted"
             android:label="@string/title_activity_sellcrafted"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -74,12 +69,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".MyProfile_Edit" />
-        <activity android:name=".ItemDetails" />
         <activity android:name=".MyItems" />
         <activity android:name=".MyItems_Edit_Craft" />
         <activity android:name=".BuyCraftedDetails"
         android:label="@string/title_activity_buycrafted"
         android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".BuyRawDetails" />
         <activity android:name=".SellerProfile"
             android:theme="@style/AppTheme.NoActionBar"/>
 

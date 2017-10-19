@@ -54,8 +54,8 @@ public class custom_trashlist extends BaseAdapter {
 
         ImageView imgThumbTrash = (ImageView) rowData.findViewById(R.id.imgThumbTrash);
         TextView txtTrashDate = (TextView) rowData.findViewById(R.id.txtTrashDate);
-        TextView txtTrashName = (TextView) rowData.findViewById(R.id.txtCraftName);
-        TextView txtTrashDescription = (TextView) rowData.findViewById(R.id.txtCraftDescription);
+        TextView txtTrashName = (TextView) rowData.findViewById(R.id.txtTrashName);
+        TextView txtTrashDescription = (TextView) rowData.findViewById(R.id.txtTrashDescription);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
 
         Picasso.with(ctx).load(trash.get(position).getImageUrl()).placeholder( R.drawable.progress_animation ).fit().into(imgThumbTrash);

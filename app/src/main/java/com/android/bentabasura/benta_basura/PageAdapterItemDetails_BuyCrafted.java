@@ -7,10 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class PageAdapterItemDetails extends FragmentStatePagerAdapter {
+public class PageAdapterItemDetails_BuyCrafted extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public PageAdapterItemDetails(FragmentManager fm, int NumOfTabs) {
+    public PageAdapterItemDetails_BuyCrafted(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -20,10 +20,10 @@ public class PageAdapterItemDetails extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                TabFragmentItemDetails tab1 = new TabFragmentItemDetails();
+                BuyCrafted_TabFragmentItemDetails tab1 = new BuyCrafted_TabFragmentItemDetails();
                 return tab1;
             case 1:
-                TabFragmentItemFeedback tab2 = new TabFragmentItemFeedback();
+                BuyCrafted_TabFragmentItemFeedback tab2 = new BuyCrafted_TabFragmentItemFeedback();
                 return tab2;
             default:
                 return null;

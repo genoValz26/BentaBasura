@@ -50,7 +50,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txtCraftName"
+                        android:id="@+id/txtTrashName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Person name"
@@ -65,7 +65,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/txtCraftDescription"
+                            android:id="@+id/txtTrashDescription"
                             android:layout_width="match_parent"
                             android:layout_height="67dp"
                             android:text="Block 1 Lot 3"

@@ -68,7 +68,7 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
 
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PageAdapterItemDetails(getSupportFragmentManager(), tabLayout.getTabCount());
+        final PagerAdapter adapter = new PageAdapterItemDetails_BuyCrafted(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -210,6 +210,9 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
             case R.id.history:
                 startActivity(historyPage);
                 drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.logout:
+                //logout();
                 break;
         }
         return true;

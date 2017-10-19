@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TabFragmentItemFeedback extends Fragment {
+public class BuyCrafted_TabFragmentItemFeedback extends Fragment {
 
     DatabaseReference databaseReference, databaseReferenceNotif;
     ActiveUser activeUser;
@@ -43,9 +43,12 @@ public class TabFragmentItemFeedback extends Fragment {
     int currentFirstVisibleItem;
     int totalItem;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.activity_comment, container, false);
+        View view =  inflater.inflate(R.layout.activity_crafted_comment, container, false);
+
+
 
         activeUser =  ActiveUser.getInstance();
 
@@ -108,7 +111,7 @@ public class TabFragmentItemFeedback extends Fragment {
                     //Notification
                     String notifId = databaseReferenceNotif.push().getKey();
                     String location = "Craft" + ":" + receivedBundle.get("CraftCategory").toString() + ":" + receivedBundle.get("CraftId").toString();
-                    String message = profileName + " added a comment on Craft " + receivedBundle.get("CraftName").toString();
+                    String message = activeUser.getFullname() + " added a comment on Craft " + receivedBundle.get("CraftName").toString();
                     String ownerId = receivedBundle.get("UploadedBy").toString();
 
                     Notification newNotif = new Notification();

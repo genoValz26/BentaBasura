@@ -51,13 +51,13 @@ public class custom_craftlist extends BaseAdapter {
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
         View rowData = inflater.inflate(R.layout.craft_list_feed, null);
-        ImageView imgThumbTrash = (ImageView) rowData.findViewById(R.id.imgThumbTrash);
+        ImageView imgThumbCraft = (ImageView) rowData.findViewById(R.id.imgThumbCraft);
         TextView txtCraftDate = (TextView) rowData.findViewById(R.id.txtCraftDate);
         TextView txtCraftName = (TextView) rowData.findViewById(R.id.txtCraftName);
         TextView txtCraftDescription = (TextView) rowData.findViewById(R.id.txtCraftDescription);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
 
-        Picasso.with(ctx).load(craft .get(position).getImageUrl()).placeholder( R.drawable.progress_animation ).fit().into(imgThumbTrash);
+        Picasso.with(ctx).load(craft .get(position).getImageUrl()).placeholder( R.drawable.progress_animation ).fit().into(imgThumbCraft);
         txtCraftName.setText(craft .get(position).getCraftName());
         txtCraftDate.setText(craft .get(position).getUploadedDate());
         txtCraftDescription.setText(craft .get(position).getCraftDescription());

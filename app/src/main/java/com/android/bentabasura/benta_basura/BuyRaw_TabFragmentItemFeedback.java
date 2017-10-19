@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TabFragmentItemFeedback extends Fragment {
+public class BuyRaw_TabFragmentItemFeedback extends Fragment {
 
     DatabaseReference databaseReference, databaseReferenceNotif;
     ActiveUser activeUser;
@@ -34,7 +34,7 @@ public class TabFragmentItemFeedback extends Fragment {
     Bundle receivedBundle;
     EditText txtComment;
     ListView lstComments;
-    custom_commentlist_crafted commentAdapter;
+    custom_commentlist_raw commentAdapter;
     ArrayList<Comment>  commentArray = new ArrayList<>();
     String oldestCommentId;
 
@@ -43,23 +43,26 @@ public class TabFragmentItemFeedback extends Fragment {
     int currentFirstVisibleItem;
     int totalItem;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.activity_comment, container, false);
+        View view =  inflater.inflate(R.layout.activity_raw_comment, container, false);
+
+
 
         activeUser =  ActiveUser.getInstance();
 
         receiveIntent = getActivity().getIntent();
         receivedBundle = receiveIntent.getExtras();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Comment");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Comment");
         databaseReferenceNotif = FirebaseDatabase.getInstance().getReference().child("Notification");
 
         Button btnSend = (Button) view.findViewById(R.id.btn_send);
         txtComment = (EditText) view.findViewById(R.id.text_content);
         lstComments = (ListView) view.findViewById(R.id.lstComments);
 
-        commentAdapter = new custom_commentlist_crafted(container.getContext(), commentArray);
+        commentAdapter = new custom_commentlist_raw(container.getContext(), commentArray);
         lstComments.setAdapter(commentAdapter);
         lstComments.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -107,8 +110,8 @@ public class TabFragmentItemFeedback extends Fragment {
 
                     //Notification
                     String notifId = databaseReferenceNotif.push().getKey();
-                    String location = "Craft" + ":" + receivedBundle.get("CraftCategory").toString() + ":" + receivedBundle.get("CraftId").toString();
-                    String message = profileName + " added a comment on Craft " + receivedBundle.get("CraftName").toString();
+                    String location = "Trash" + ":" + receivedBundle.get("TrashCategory").toString() + ":" + receivedBundle.get("TrashId").toString();
+                    String message = activeUser.getFullname() + " added a comment on Trash " + receivedBundle.get("TrashName").toString();
                     String ownerId = receivedBundle.get("UploadedBy").toString();
 
                     Notification newNotif = new Notification();
