@@ -227,7 +227,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
 
-                        boolean found = true;
+                        boolean found = false;
                         oldestPostId = postSnapShot.getKey();
 
                         mProgressDialog.setMessage("Loading...");
