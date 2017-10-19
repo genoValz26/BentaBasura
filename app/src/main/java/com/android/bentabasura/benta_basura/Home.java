@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,13 +45,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storageReference;
-    ImageView newsView;
     public static final String TAG = "Home";
     public static final String DATABASE_PATH="image";
     public static final String STORAGE_PATH="image/";
 
 
     TextView navFullName, navEmail;
+    ImageView navImage;
     ActiveUser activeUser;
 
     @Override
@@ -87,9 +88,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         View headerView = navigationView.getHeaderView(0);
         navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
+
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(150, 20)).into(navImage);
 
         //Set Fullname and Email
 
@@ -113,13 +117,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
+        //getMenuInflater().inflate(R.menu.menu_action_bar, menu);
 
-        MenuItem menuBadge =  menu.findItem(R.id.cart);
+        /*MenuItem menuBadge =  menu.findItem(R.id.cart);
         MenuItemCompat.setActionView(menuBadge, R.layout.badge_layout);
         RelativeLayout rel = (RelativeLayout) MenuItemCompat.getActionView(menuBadge);
-        rel.setPadding(10,0,50,0);
-        return super.onCreateOptionsMenu(menu);
+        rel.setPadding(10,0,50,0);*/
+        //return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
+        return true;
     }
 
     @Override
@@ -127,9 +133,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         switch (item.getItemId()){
             case R.id.notifications:
                 startActivity(notificationsPage);
-                break;
-            case R.id.cart:
-                startActivity(cartPage);
                 break;
         }
         return super.onOptionsItemSelected(item);

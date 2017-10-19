@@ -73,7 +73,6 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Register_Google" />
         <activity android:name=".MyProfile_Edit" />
         <activity android:name=".ItemDetails" />
         <activity android:name=".MyItems" />

@@ -31,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,9 +40,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,6 +75,7 @@ public class SellCrafted extends AppCompatActivity
     ProgressDialog progressDialog;
 
     TextView navFullName, navEmail;
+    ImageView navImage;
     ActiveUser activeUser;
     public static final String STORAGE_PATH="Products/Crafts/";
     String selectedType,selectedCategory;
@@ -115,9 +120,12 @@ public class SellCrafted extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(150, 20)).into(navImage);
+
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
         //----------------------------------------------------------------
@@ -164,9 +172,6 @@ public class SellCrafted extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.notifications:
                 startActivity(notificationsPage);
-                break;
-            case R.id.cart:
-                startActivity(cartPage);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -385,7 +390,9 @@ public class SellCrafted extends AppCompatActivity
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //Adding the additional information on the real-time db
                 Date currentTime = Calendar.getInstance().getTime();
-                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid,currentTime.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),"0");
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String UploadedDate = sdf.format(currentTime);
+                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid, UploadedDate.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),"0");
                 String uploadid = databaseReference.push().getKey();
                 databaseReference.child("Craft").child(selectedCategory).child(uploadid).setValue(newCraft);
                 showMessage("Craft Uploaded Successfully");

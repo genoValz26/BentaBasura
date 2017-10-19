@@ -8,10 +8,5 @@
         android:title="Notifications"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/cart"
-        android:actionLayout="@layout/badge_layout"
-        android:title="Cart"
-        app:showAsAction="always"
         />
 </menu>

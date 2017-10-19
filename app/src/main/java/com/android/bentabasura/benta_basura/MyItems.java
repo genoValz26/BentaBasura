@@ -15,13 +15,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -49,7 +52,9 @@ public class MyItems extends AppCompatActivity
     private NavigationView navigationView;
     private Menu navMenu;
     private String oldestPostId;
-
+    TextView navFullName, navEmail;
+    ImageView navImage;
+    ActiveUser activeUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +108,17 @@ public class MyItems extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        //activeUser = ActiveUser.getInstance();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        /*navImage = (ImageView) headerView.findViewById(R.id.imageView);
+        navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
+        navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+
+        navFullName.setText(activeUser.getFullname());
+        navEmail.setText(activeUser.getEmail());
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(150, 20)).into(navImage);*/
+
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -130,9 +145,6 @@ public class MyItems extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.notifications:
                 startActivity(notificationsPage);
-                break;
-            case R.id.cart:
-                startActivity(cartPage);
                 break;
         }
         return super.onOptionsItemSelected(item);

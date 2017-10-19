@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -72,6 +73,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     public static final String STORAGE_PATH="Profile/";
 
     TextView navFullName, navEmail;
+    ImageView navImage;
     ActiveUser activeUser;
 
   ProgressDialog progressDialog;
@@ -104,9 +106,11 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         View headerView = navigationView.getHeaderView(0);
         navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(150, 20)).into(navImage);
 
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
@@ -156,9 +160,6 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         switch (item.getItemId()){
             case R.id.notifications:
                 startActivity(notificationsPage);
-                break;
-            case R.id.cart:
-                startActivity(cartPage);
                 break;
         }
         return super.onOptionsItemSelected(item);

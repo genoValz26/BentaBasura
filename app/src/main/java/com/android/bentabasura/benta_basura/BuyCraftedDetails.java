@@ -136,9 +136,7 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
             case R.id.notifications:
                 startActivity(notificationsPage);
                 break;
-            case R.id.cart:
-                startActivity(cartPage);
-                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

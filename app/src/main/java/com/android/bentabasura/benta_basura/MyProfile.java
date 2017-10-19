@@ -48,6 +48,7 @@ public class MyProfile extends AppCompatActivity
     ActiveUser activeUser;
     private TextView txtFullname, txtEmail, txtUserType, txtGender;
     TextView navFullName, navEmail;
+    ImageView navImage;
     ImageView bigProfile, smallProfile;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
@@ -92,9 +93,11 @@ public class MyProfile extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(150, 20)).into(navImage);
 
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
@@ -146,9 +149,6 @@ public class MyProfile extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.notifications:
                 startActivity(notificationsPage);
-                break;
-            case R.id.cart:
-                startActivity(cartPage);
                 break;
         }
         return super.onOptionsItemSelected(item);

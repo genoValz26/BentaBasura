@@ -106,9 +106,6 @@ public class ItemDetails extends AppCompatActivity
             case R.id.notifications:
                 startActivity(notificationsPage);
                 break;
-            case R.id.cart:
-                startActivity(cartPage);
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
