@@ -49,7 +49,7 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment {
         //txtUploadedBy = (TextView) view.findViewById(R.id.txtUploadedBy);
 
         txtTrashName.setText(receivedBundle.get("TrashName").toString());
-        Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("TrashPic").toString()).fit().into(imgThumbRaw);
+        Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("TrashPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbRaw);
         txtTrashDescription.setText(receivedBundle.get("TrashDescription").toString());
         txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString());
         txtTrashPrice.setText(receivedBundle.get("TrashPrice").toString());

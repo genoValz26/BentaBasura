@@ -52,7 +52,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment{
         btnEdit.setVisibility(View.GONE);
 
         txtCraftName.setText(receivedBundle.get("CraftName").toString());
-        Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).fit().into(imgThumbCraft);
+        Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbCraft);
         txtCraftDescription.setText(receivedBundle.get("CraftDescription").toString());
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText(receivedBundle.get("CraftPrice").toString());
