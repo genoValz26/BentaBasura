@@ -82,6 +82,8 @@
         android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".SellerProfile"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <service android:name=".FirebaseNotificationService"/>
     </application>
 
 </manifest>

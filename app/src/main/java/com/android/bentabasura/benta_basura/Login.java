@@ -104,6 +104,9 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     .build();
 
             cd = new ConnectionDetector(this);
+
+            getApplicationContext().startService(new Intent(getApplicationContext(), FirebaseNotificationService.class));
+
             checkIfUserIsLogin();
 
     }
