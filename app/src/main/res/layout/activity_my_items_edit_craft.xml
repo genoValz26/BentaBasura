@@ -40,13 +40,12 @@
         android:id="@+id/uploadbtn"
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:layout_below="@+id/appBarLayout"
-        android:layout_marginTop="7dp"
-        android:layout_toEndOf="@+id/UploadImageView"
-        android:layout_toRightOf="@+id/UploadImageView"
+        android:layout_marginTop="52dp"
         android:text="@string/upload"
         tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="56dp" />
+        tools:layout_editor_absoluteY="56dp"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_alignStart="@+id/SubmitCraft" />
 
     <Button
         android:id="@+id/takePhotobtn"
@@ -169,5 +168,21 @@
         android:layout_height="30dp"
         android:layout_alignTop="@+id/craftPrice"
         android:layout_alignStart="@+id/craftDesc" />
+
+    <Button
+        android:id="@+id/editbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:layout_above="@+id/UploadImageView"
+        android:layout_alignStart="@+id/resourcesFrom" />
+
+    <Button
+        android:id="@+id/deletebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/resourcesFrom"
+        android:layout_below="@+id/appBarLayout"
+        android:text="Delete" />
 
 </RelativeLayout>

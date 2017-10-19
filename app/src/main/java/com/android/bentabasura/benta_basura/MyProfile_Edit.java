@@ -36,8 +36,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -63,14 +66,18 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     Button updatebtn,galleybtn,takephotobtn,savebtn;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
     String userid;
     ImageView profileImageView;
 
     Uri imageUri;
     StorageReference storageReference;
+    FirebaseAuth.AuthStateListener mAuthListener;
+    DatabaseReference databaseReference;
     private ImageView imageView;
     private static final int Gallery_Intent = 100;
     public static final String STORAGE_PATH="Profile/";
+    public static final String TAG = "MyProfile_Edit";
 
     TextView navFullName, navEmail;
     ImageView navImage;
@@ -138,6 +145,17 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
 
         progressDialog = new ProgressDialog(this);
         savebtn.setEnabled(false);
+
+        editfname.setText(activeUser.getFirstname().toString());
+        editlname.setText(activeUser.getLastname().toString());
+        editUsername.setText(activeUser.getUserName().toString());
+        editContact.setText(activeUser.getContact_number().toString());
+        editAddress.setText(activeUser.getAddress().toString());
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
     }
     @Override
     public void onBackPressed() {
@@ -397,6 +415,11 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                 else  if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
                     strLname = activeUser.getLastname().toString();
                 }
+                else if (!TextUtils.isEmpty(strFname) && !TextUtils.isEmpty(strLname) && !TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) &&  strContact.length() < 11) {
+                    editContact.setError("Mobile Number must be 11 digits!");
+                    progressDialog.dismiss();
+                    return;
+                }
             updateProfile(userid, strUsername, strContact, strAddress, strFname, strLname);
                 break;
             case R.id.gallerybtn:
@@ -429,7 +452,6 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                 progressDialog.dismiss();
             }
         });
-
         return  true;
 
     }
@@ -442,6 +464,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                 databaseReference.setValue(updateUserprofile).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        activeUser.setUserId(user.getUid());
                         showMessage("Upload Success!");
                         progressDialog.dismiss();
                     }
@@ -523,4 +546,5 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
+
 }

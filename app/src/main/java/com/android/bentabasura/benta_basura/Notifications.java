@@ -10,6 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 
 public class Notifications extends AppCompatActivity
@@ -20,6 +25,9 @@ public class Notifications extends AppCompatActivity
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
+    ActiveUser activeUser;
+    TextView navFullName, navEmail;
+    ImageView navImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +52,20 @@ public class Notifications extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        activeUser = ActiveUser.getInstance();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
+        navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
+        navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+
+        navFullName.setText(activeUser.getFullname());
+        navEmail.setText(activeUser.getEmail());
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
+
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
+
 
     }
 
