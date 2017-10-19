@@ -29,7 +29,7 @@ import java.util.Date;
 
 public class TabFragmentItemFeedback extends Fragment {
 
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseReferenceNotif;
     ActiveUser activeUser;
     Intent receiveIntent;
     Bundle receivedBundle;
@@ -54,6 +54,7 @@ public class TabFragmentItemFeedback extends Fragment {
         receivedBundle = receiveIntent.getExtras();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Comment");
+        databaseReferenceNotif = FirebaseDatabase.getInstance().getReference().child("Notification");
 
         Button btnSend = (Button) view.findViewById(R.id.btn_send);
         txtComment = (EditText) view.findViewById(R.id.text_content);
@@ -92,7 +93,8 @@ public class TabFragmentItemFeedback extends Fragment {
                 String commentDate = UploadedDate;
                 String comment = txtComment.getText().toString();
 
-                if(!comment.equals("")) {
+                if(!comment.equals(""))
+                {
                     String commentId = databaseReference.push().getKey();
                     Comment newComment = new Comment();
                     newComment.setProfileImage(profileImage);
@@ -103,6 +105,21 @@ public class TabFragmentItemFeedback extends Fragment {
                     databaseReference.child(commentId).setValue(newComment);
 
                     txtComment.setText("");
+
+                    //Notification
+                    String notifId = databaseReferenceNotif.push().getKey();
+                    String location = "Craft" + ":" + receivedBundle.get("CraftCategory").toString() + ":" + receivedBundle.get("CraftId").toString();
+                    String message = activeUser.getFullname() + " added a comment on Craft " + receivedBundle.get("CraftName").toString();
+                    String ownerId = receivedBundle.get("UploadedBy").toString();
+
+                    Notification newNotif = new Notification();
+                    newNotif.setNotifDbLink(location);
+                    newNotif.setNotifMessage(message);
+                    newNotif.setNotifOwnerId(ownerId);
+                    newNotif.setNotifBy(activeUser.getUserId());
+                    newNotif.setNotifRead("0");
+
+                    databaseReferenceNotif.child(notifId).setValue(newNotif);
                 }
 
             }
@@ -133,7 +150,8 @@ public class TabFragmentItemFeedback extends Fragment {
                             }
                         }
 
-                        if(!found) {
+                        if(!found)
+                        {
                             Comment comment = postSnapShot.getValue(Comment.class);
 
                             comment.setCommendID(postSnapShot.getKey().toString());
