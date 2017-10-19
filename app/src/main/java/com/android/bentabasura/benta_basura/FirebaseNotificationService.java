@@ -10,6 +10,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -25,18 +27,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class FirebaseNotificationService extends Service {
 
-    SharedPreferences sharedPreferences;
     public FirebaseDatabase mDatabase;
     FirebaseAuth firebaseAuth;
     Context context;
     static String TAG = "FirebaseService";
 
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
         context = this;
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         mDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -44,30 +44,28 @@ public class FirebaseNotificationService extends Service {
     }
 
 
-    private boolean alReadyNotified(String key){
-        if(sharedPreferences.getBoolean(key,false)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-
-    private void saveNotificationKey(String key){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(key,true);
-        editor.commit();
-    }
-
-    private void setupNotificationListener() {
+    private void setupNotificationListener()
+    {
 
         mDatabase.getReference().child("Notification")
                 .addChildEventListener(new ChildEventListener() {
                     @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        if(dataSnapshot != null){
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s)
+                    {
 
-                        }
+                            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+                            NotificationCompat.Builder mBuilder =
+                                    new NotificationCompat.Builder(context)
+                                            .setSmallIcon(R.drawable.ic_bentabasura_logo)
+                                            .setContentTitle("Benta Basura")
+                                            .setContentText(dataSnapshot.child("notifMessage").getValue().toString())
+                                            .setStyle(new NotificationCompat.BigTextStyle().bigText(dataSnapshot.child("notifMessage").getValue().toString()))
+                                            .setSound(soundUri);
+
+                            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                            mNotificationManager.notify(1, mBuilder.build());
                     }
 
                     @Override

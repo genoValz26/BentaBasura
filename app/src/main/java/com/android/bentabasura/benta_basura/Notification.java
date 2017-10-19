@@ -9,6 +9,18 @@ public class Notification
 {
     private String notifId, notifDbLink, notifMessage, notifOwnerId, notifBy, notifRead;
 
+    public Notification(){
+
+    }
+    public Notification(String notifDbLink, String notifMessage, String notifOwnerId, String notifBy, String notifRead)
+    {
+        this.notifDbLink = notifDbLink;
+        this.notifMessage = notifMessage;
+        this.notifOwnerId = notifOwnerId;
+        this.notifBy = notifBy;
+        this.notifRead = notifRead;
+    }
+
     public String getNotifId() {
         return notifId;
     }
