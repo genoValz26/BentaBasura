@@ -109,7 +109,7 @@ public class TabFragmentItemFeedback extends Fragment {
                     //Notification
                     String notifId = databaseReferenceNotif.push().getKey();
                     String location = "Craft" + ":" + receivedBundle.get("CraftCategory").toString() + ":" + receivedBundle.get("CraftId").toString();
-                    String message = activeUser.getFullname() + " added a comment on Craft " + receivedBundle.get("CraftName").toString();
+                    String message = profileName + " added a comment on Craft " + receivedBundle.get("CraftName").toString();
                     String ownerId = receivedBundle.get("UploadedBy").toString();
 
                     Notification newNotif = new Notification();

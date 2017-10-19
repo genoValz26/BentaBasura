@@ -24,6 +24,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
+
 
 public class FirebaseNotificationService extends Service {
 
@@ -52,20 +54,21 @@ public class FirebaseNotificationService extends Service {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s)
                     {
+                        int counter = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
 
-                            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-                            NotificationCompat.Builder mBuilder =
-                                    new NotificationCompat.Builder(context)
-                                            .setSmallIcon(R.drawable.ic_bentabasura_logo)
-                                            .setContentTitle("Benta Basura")
-                                            .setContentText(dataSnapshot.child("notifMessage").getValue().toString())
-                                            .setStyle(new NotificationCompat.BigTextStyle().bigText(dataSnapshot.child("notifMessage").getValue().toString()))
-                                            .setSound(soundUri);
+                        NotificationCompat.Builder mBuilder =
+                                new NotificationCompat.Builder(context)
+                                        .setSmallIcon(R.drawable.ic_bentabasura_logo)
+                                        .setContentTitle("Benta Basura")
+                                        .setContentText(dataSnapshot.child("notifMessage").getValue().toString())
+                                        .setStyle(new NotificationCompat.BigTextStyle().bigText(dataSnapshot.child("notifMessage").getValue().toString()))
+                                        .setSound(soundUri);
 
-                            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-                            mNotificationManager.notify(1, mBuilder.build());
+                        mNotificationManager.notify(counter, mBuilder.build());
                     }
 
                     @Override
