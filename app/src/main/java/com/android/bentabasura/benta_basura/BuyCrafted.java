@@ -312,4 +312,5 @@ public class BuyCrafted extends AppCompatActivity
             });
         }
     }
+
 }

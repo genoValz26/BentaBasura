@@ -1,6 +1,8 @@
 package com.android.bentabasura.benta_basura;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,6 +13,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -47,7 +50,7 @@ public class MyItems extends AppCompatActivity
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -102,7 +105,7 @@ public class MyItems extends AppCompatActivity
         cartPage = new Intent(MyItems.this,Cart.class);
         historyPage = new Intent(MyItems.this,History.class);
         myItems = new Intent(MyItems.this,MyItems.class);
-
+        loginpage = new Intent(MyItems.this,MyItems.class);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -215,5 +218,19 @@ public class MyItems extends AppCompatActivity
         }
         return true;
     }
+    public AlertDialog.Builder buildDialog(Context c) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("BentaBasura");
+        builder.setMessage("Thank you for using BentaBasura!." + "\n" + " Press OK to Exit");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(loginpage);
+            }
+        });
+
+        return builder;
+    }
 }

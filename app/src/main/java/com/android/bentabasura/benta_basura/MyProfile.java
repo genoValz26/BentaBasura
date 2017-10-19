@@ -1,5 +1,7 @@
 package com.android.bentabasura.benta_basura;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -281,5 +283,20 @@ public class MyProfile extends AppCompatActivity
         //showUpdateDialog(userid);
         startActivity(editprofile);
 
+    }
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("BentaBasura");
+        builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(loginpage);
+            }
+        });
+
+        return builder;
     }
 }

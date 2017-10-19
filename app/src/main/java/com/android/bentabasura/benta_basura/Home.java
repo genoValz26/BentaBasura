@@ -220,13 +220,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     public AlertDialog.Builder buildDialog(Context c) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setTitle("No Internet Connection");
+        builder.setTitle("BentaBasura");
         builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
+              startActivity(loginpage);
             }
         });
 

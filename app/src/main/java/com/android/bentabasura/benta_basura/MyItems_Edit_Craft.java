@@ -2,6 +2,8 @@ package com.android.bentabasura.benta_basura;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +16,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -55,7 +58,7 @@ import java.util.Date;
 public class MyItems_Edit_Craft extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -98,6 +101,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity
         cartPage = new Intent(MyItems_Edit_Craft.this,Cart.class);
         historyPage = new Intent(MyItems_Edit_Craft.this,History.class);
         myItems = new Intent(MyItems_Edit_Craft.this,MyItems.class);
+       loginpage = new Intent(MyItems_Edit_Craft.this,Login.class);
 
         //--------------------------------------------------------------
         spnCraftCategory = (Spinner) findViewById(R.id.spnCraftCategory);
@@ -445,5 +449,20 @@ public class MyItems_Edit_Craft extends AppCompatActivity
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("BentaBasura");
+        builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(loginpage);
+            }
+        });
+
+        return builder;
     }
 }
