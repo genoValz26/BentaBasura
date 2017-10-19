@@ -76,6 +76,7 @@ public class custom_trashlist extends BaseAdapter {
                 detailsIntent.putExtra("TrashCategory", trash.get(position).getTrashCategory());
                 detailsIntent.putExtra("TrashPrice", trash.get(position).getTrashPrice());
                 detailsIntent.putExtra("TrashSeller", trash.get(position).getSellerContact());
+                detailsIntent.putExtra("TrashId", trash.get(position).getTrashId());
                 detailsIntent.putExtra("UploadedBy", trash.get(position).getUploadedBy());
 
                 parent.getContext().startActivity(detailsIntent);
