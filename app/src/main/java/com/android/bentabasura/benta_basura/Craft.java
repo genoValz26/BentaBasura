@@ -7,11 +7,13 @@ package com.android.bentabasura.benta_basura;
 public class Craft {
     private String craftID,craftName,craftQuantity,craftPrice,craftDescription,craftCategory,sellerContact,uploadedBy,uploadedDate,resourcesFrom,imageUrl;
     private String sold;
+    private String soldTo;
+
     public Craft()
     {
 
     }
-    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,String sold){
+    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,String sold, String soldTo){
         this.craftName = craftName;
         this.craftQuantity = craftQuantity;
         this.craftPrice = craftPrice;
@@ -23,6 +25,7 @@ public class Craft {
         this.resourcesFrom = resourcesFrom;
         this.imageUrl = imageUrl;
         this.sold = sold;
+        this.soldTo = soldTo;
     }
 
     public String getCraftName() {
@@ -119,5 +122,13 @@ public class Craft {
 
     public void setSold(String sold) {
         this.sold = sold;
+    }
+
+    public String getSoldTo() {
+        return soldTo;
+    }
+
+    public void setSoldTo(String soldTo) {
+        this.soldTo = soldTo;
     }
 }

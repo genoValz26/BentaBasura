@@ -424,7 +424,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                 String UploadedDate = sdf.format(currentTime);
-                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid, UploadedDate.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),"0");
+                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid, UploadedDate.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),"0", "");
                 String uploadid = databaseReference.getKey();
                 databaseReference.child("Craft").child(selectedCategory).child(uploadid).setValue(newCraft);
                 showMessage("Craft Updated Successfully");

@@ -16,12 +16,13 @@ public class Trash {
     private String uploadedDate;
     private String imageUrl;
     private String sold;
+    private String soldTo;
 
     public Trash()
     {
 
     }
-    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl, String sold)
+    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl, String sold, String soldTo)
     {
         this.trashName = trashName;
         this.trashQuantity = trashQuantity;
@@ -33,6 +34,7 @@ public class Trash {
         this.uploadedDate = uploadedDate;
         this.imageUrl = imageUrl;
         this.sold = sold;
+        this.soldTo = soldTo;
     }
 
     public String getTrashName() {
@@ -121,6 +123,14 @@ public class Trash {
 
     public void setTrashId(String trashId) {
         this.trashId = trashId;
+    }
+
+    public String getSoldTo() {
+        return soldTo;
+    }
+
+    public void setSoldTo(String soldTo) {
+        this.soldTo = soldTo;
     }
 
 

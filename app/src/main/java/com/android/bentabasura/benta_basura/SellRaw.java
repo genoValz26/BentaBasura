@@ -396,7 +396,7 @@ public class SellRaw extends AppCompatActivity
                     Date currentTime = Calendar.getInstance().getTime();
                     SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                     String UploadedDate = sdf.format(currentTime);
-                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid,UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0");
+                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid,UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
                     String uploadid = databaseReference.push().getKey();
                     databaseReference.child("Trash").child(selectedCategory).child(uploadid).setValue(newTrash);
                     showMessage("Trash Uploaded Successfully");
