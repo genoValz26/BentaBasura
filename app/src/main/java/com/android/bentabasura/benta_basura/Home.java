@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,8 +25,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -44,11 +48,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     String userid;
     ProgressDialog progressDialog;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseReferenceNot;
     StorageReference storageReference;
     public static final String TAG = "Home";
     public static final String DATABASE_PATH="image";
     public static final String STORAGE_PATH="image/";
+    static Menu mn;
 
 
     TextView navFullName, navEmail;
@@ -104,6 +109,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference(DATABASE_PATH);
+        databaseReferenceNot = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -118,11 +124,38 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+        mn = menu;
+
         getMenuInflater().inflate(R.menu.menu_action_bar, menu);
 
-        MenuItem itemCart = menu.findItem(R.id.menuNotification);
-        LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
-        setBadgeCount(this, icon, "9");
+
+        databaseReferenceNot.child("Notification").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int counter = 0;
+                for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
+                {
+                    if(!activeUser.getUserId().equals(postSnapShot.child("notifBy").getValue().toString()) && activeUser.getUserId().equals(postSnapShot.child("notifOwnerId").getValue().toString()))
+                    {
+                        if(postSnapShot.child("notifRead").getValue().toString().equals("0"))
+                        {
+                            counter++;
+                        }
+                    }
+                }
+
+                 MenuItem itemCart = mn.findItem(R.id.menuNotification);
+                LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
+                setBadgeCount(getApplicationContext(), icon, String.valueOf(counter));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return true;
     }

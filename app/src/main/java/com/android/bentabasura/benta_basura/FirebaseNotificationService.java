@@ -37,6 +37,7 @@ public class FirebaseNotificationService extends Service {
     FirebaseAuth firebaseAuth;
     Context context;
     static String TAG = "FirebaseService";
+    static int counterNot = 0;
 
     @Override
     public void onCreate()
@@ -52,7 +53,6 @@ public class FirebaseNotificationService extends Service {
 
     private void setupNotificationListener()
     {
-
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
 
@@ -64,7 +64,7 @@ public class FirebaseNotificationService extends Service {
                         {
                             for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
                             {
-                                if (!user.getUid().equals(postSnapShot.child("notifBy").getValue().toString()))
+                                if (!user.getUid().equals(postSnapShot.child("notifBy").getValue().toString()) && user.getUid().equals(postSnapShot.child("notifOwnerId").getValue().toString()) )
                                 {
                                     if (postSnapShot.child("notifNotify").getValue().toString().equals("0"))
                                     {
