@@ -13,6 +13,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +37,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -254,9 +258,10 @@ public class BuyCrafted extends AppCompatActivity
 
                         for(Craft craftItem : craftArray)
                         {
-                            if(craftItem.getCraftID().equals(oldestPostId))
-                            {
-                                found = true;
+                            if (!TextUtils.isEmpty(craftItem.getCraftID()) && !TextUtils.isEmpty(oldestPostId)) {
+                                if (craftItem.getCraftID().equals(oldestPostId)) {
+                                    found = true;
+                                }
                             }
                         }
 

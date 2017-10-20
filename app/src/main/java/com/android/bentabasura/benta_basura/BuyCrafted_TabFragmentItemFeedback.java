@@ -7,6 +7,7 @@ package com.android.bentabasura.benta_basura;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,33 +99,42 @@ public class BuyCrafted_TabFragmentItemFeedback extends Fragment {
                 if(!comment.equals(""))
                 {
                     String commentId = databaseReference.push().getKey();
-                    Comment newComment = new Comment();
-                    newComment.setProfileImage(profileImage);
-                    newComment.setProfileName(profileName);
-                    newComment.setCommentDate(commentDate);
-                    newComment.setComment(comment);
 
-                    databaseReference.child(commentId).setValue(newComment);
+                    if (!TextUtils.isEmpty(profileImage) && !TextUtils.isEmpty(profileName) && !TextUtils.isEmpty(commentDate) && !TextUtils.isEmpty(comment))
+                    {
+                        Comment newComment = new Comment();
+                        newComment.setProfileImage(profileImage);
+                        newComment.setProfileName(profileName);
+                        newComment.setCommentDate(commentDate);
+                        newComment.setComment(comment);
 
-                    txtComment.setText("");
+                        databaseReference.child(commentId).setValue(newComment);
+
+                        txtComment.setText("");
+                    }
 
                     //Notification
                     String notifId = databaseReferenceNotif.push().getKey();
                     String location = "Craft" + ":" + receivedBundle.get("CraftCategory").toString() + ":" + receivedBundle.get("CraftId").toString();
                     String message = activeUser.getFullname() + " added a comment on Craft " + receivedBundle.get("CraftName").toString();
                     String ownerId = receivedBundle.get("UploadedBy").toString();
+                    String profileId = activeUser.getUserId();
 
-                    Notification newNotif = new Notification();
-                    newNotif.setNotifDbLink(location);
-                    newNotif.setNotifMessage(message);
-                    newNotif.setNotifOwnerId(ownerId);
-                    newNotif.setNotifBy(activeUser.getUserId());
-                    newNotif.setNotifRead("0");
-                    newNotif.setNotifNotify("0");
-                    newNotif.setNotifByPic(activeUser.getProfilePicture());
-                    newNotif.setNotifDate(commentDate);
+                    if (!TextUtils.isEmpty(location) && !TextUtils.isEmpty(message) && !TextUtils.isEmpty(ownerId) && !TextUtils.isEmpty(profileId) && !TextUtils.isEmpty(profileImage) && !TextUtils.isEmpty(commentDate) )
+                    {
+                        Notification newNotif = new Notification();
 
-                    databaseReferenceNotif.child(notifId).setValue(newNotif);
+                        newNotif.setNotifDbLink(location);
+                        newNotif.setNotifMessage(message);
+                        newNotif.setNotifOwnerId(ownerId);
+                        newNotif.setNotifBy(profileId);
+                        newNotif.setNotifRead("0");
+                        newNotif.setNotifNotify("0");
+                        newNotif.setNotifByPic(activeUser.getProfilePicture());
+                        newNotif.setNotifDate(commentDate);
+
+                        databaseReferenceNotif.child(notifId).setValue(newNotif);
+                    }
                 }
 
             }
