@@ -4,9 +4,8 @@
 
     <item
         android:id="@+id/menuNotification"
-        android:icon="@mipmap/ic_add_alert_white_24dp"
+        android:icon="@drawable/ic_menu_cart"
         android:title="Notifications"
-        app:actionLayout="@layout/badge_layout"
         app:showAsAction="always" />
 
 </menu>
