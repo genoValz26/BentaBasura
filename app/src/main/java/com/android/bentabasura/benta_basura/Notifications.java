@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,10 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Notifications extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
@@ -39,12 +41,13 @@ public class Notifications extends AppCompatActivity
     private NavigationView navigationView;
     private Menu navMenu;
     ActiveUser activeUser;
+    FirebaseDatabase mDatabase;
     TextView navFullName, navEmail;
     ImageView navImage;
     ListView lstNotif;
     custom_notiflist notifAdapter;
     ArrayList<Notification> notifArray = new ArrayList<>();
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseReferenceInt;
     String oldestNotifId;
     Button btnClear;
 
@@ -88,15 +91,18 @@ public class Notifications extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
 
         lstNotif = (ListView) findViewById(R.id.lstNotif);
         notifAdapter = new custom_notiflist(this, notifArray);
         lstNotif.setAdapter(notifAdapter);
+        lstNotif.setOnItemClickListener(this);
 
         btnClear = (Button) findViewById(R.id.btnClear);
         btnClear.setOnClickListener(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Notification");
+        databaseReferenceInt = FirebaseDatabase.getInstance().getReference();
         getNotifFromDatabase();
 
     }
@@ -269,5 +275,81 @@ public class Notifications extends AppCompatActivity
 
         lstNotif.setVisibility(View.INVISIBLE);
         startActivity(homePage);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        final int pos = i;
+        final Notification getNotif = notifArray.get(i);
+
+        String[] dbLink = getNotif.getNotifDbLink().split(":");
+
+        if (dbLink[0].equals("Trash"))
+        {
+            mDatabase.getReference().child(dbLink[0]).child(dbLink[1]).child(dbLink[2]).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Intent trashIntent = new Intent(getApplicationContext(), BuyRawDetails.class);
+                    trashIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    trashIntent.putExtra("TrashName", dataSnapshot.child("trashName").getValue().toString());
+                    trashIntent.putExtra("TrashPic", dataSnapshot.child("imageUrl").getValue().toString());
+                    trashIntent.putExtra("TrashDescription", dataSnapshot.child("trashDescription").getValue().toString());
+                    trashIntent.putExtra("TrashQuantity", dataSnapshot.child("trashQuantity").getValue().toString());
+                    trashIntent.putExtra("TrashCategory", dataSnapshot.child("trashCategory").getValue().toString());
+                    trashIntent.putExtra("TrashPrice", dataSnapshot.child("trashPrice").getValue().toString());
+                    trashIntent.putExtra("TrashSeller", dataSnapshot.child("sellerContact").getValue().toString());
+                    trashIntent.putExtra("TrashId", dataSnapshot.getKey());
+                    trashIntent.putExtra("UploadedBy", dataSnapshot.child("uploadedBy").getValue().toString());
+
+                    startActivity(trashIntent);
+
+                    databaseReference.child(getNotif.getNotifId()).child("notifRead").setValue("1");
+
+                    notifArray.remove(pos);
+                    notifAdapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else if (dbLink[0].equals("Craft"))
+        {
+            mDatabase.getReference().child(dbLink[0]).child(dbLink[1]).child(dbLink[2]).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Intent craftIntent = new Intent(getApplicationContext(), BuyCraftedDetails.class);
+                    craftIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    craftIntent.putExtra("CraftName", dataSnapshot.child("craftName").getValue().toString());
+                    craftIntent.putExtra("CraftPic", dataSnapshot.child("imageUrl").getValue().toString());
+                    craftIntent.putExtra("CraftDescription", dataSnapshot.child("craftDescription").getValue().toString());
+                    craftIntent.putExtra("CraftQuantity", dataSnapshot.child("craftQuantity").getValue().toString());
+                    craftIntent.putExtra("CraftCategory", dataSnapshot.child("craftCategory").getValue().toString());
+                    craftIntent.putExtra("CraftPrice", dataSnapshot.child("craftPrice").getValue().toString());
+                    craftIntent.putExtra("CraftSeller", dataSnapshot.child("sellerContact").getValue().toString());
+                    craftIntent.putExtra("CraftId", dataSnapshot.getKey());
+                    craftIntent.putExtra("UploadedBy", dataSnapshot.child("uploadedBy").getValue().toString());
+
+                    startActivity(craftIntent);
+
+                    databaseReference.child(getNotif.getNotifId()).child("notifRead").setValue("1");
+
+                    notifArray.remove(pos);
+                    notifAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }
