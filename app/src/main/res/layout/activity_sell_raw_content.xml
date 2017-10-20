@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -151,4 +151,159 @@
         android:layout_height="30dp"
         android:layout_alignTop="@+id/trashPrice"
         android:layout_alignStart="@+id/trashDesc" />
+</RelativeLayout>-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.bentabasura.benta_basura.SellRaw"
+    android:background="@color/colorBackground2"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+    <ImageView
+        android:id="@+id/UploadImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="5dp"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="56dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_alignStart="@+id/spnTrashCategory" />
+
+    <Button
+        android:id="@+id/uploadbtn"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_alignEnd="@+id/trashName"
+        android:layout_alignTop="@+id/UploadImageView"
+        android:layout_marginTop="11dp"
+        android:drawableLeft="@drawable/ic_menu_gallery"
+        android:text="@string/upload"
+        tools:layout_editor_absoluteX="252dp"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <Button
+        android:id="@+id/takePhotobtn"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/trashName"
+        android:layout_alignStart="@+id/uploadbtn"
+        android:drawableLeft="@drawable/ic_menu_camera"
+        android:layout_marginBottom="8dp"
+        android:text="@string/takephoto"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <EditText
+        android:id="@+id/trashName"
+        android:layout_width="260dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:hint="@string/trashName"
+        android:inputType="textPersonName"
+        android:paddingLeft="5dp"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="156dp"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/UploadImageView"
+        android:layout_alignStart="@+id/spnTrashCategory" />
+
+    <EditText
+        android:id="@+id/trashQty"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/trashName"
+        android:layout_below="@+id/trashName"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:hint="@string/trashQuantity"
+        android:inputType="number"
+        android:paddingLeft="5dp"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="224dp" />
+
+    <EditText
+        android:id="@+id/trashDesc"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/trashQty"
+        android:layout_below="@+id/trashPrice"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:hint="@string/trashDesc"
+        android:inputType="textMultiLine"
+        android:paddingLeft="5dp"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="292dp" />
+
+    <EditText
+        android:id="@+id/trashPrice"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:hint="@string/trashPrice"
+        android:inputType="number"
+        android:paddingLeft="5dp"
+        android:layout_alignEnd="@+id/trashName"
+        android:layout_alignTop="@+id/trashQty" />
+
+
+    <Button
+        android:id="@+id/SubmitTrash"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/spnTrashCategory"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/Submit"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="497dp" />
+
+    <EditText
+        android:id="@+id/sellerContact"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/trashDesc"
+        android:layout_below="@+id/trashDesc"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/bg_btn"
+        android:ems="10"
+        android:hint="@string/sellerContact"
+        android:inputType="textMultiLine"
+        android:paddingLeft="5dp"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="428dp" />
+
+    <Spinner
+        android:id="@+id/spnTrashCategory"
+        android:layout_width="260dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/sellerContact"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

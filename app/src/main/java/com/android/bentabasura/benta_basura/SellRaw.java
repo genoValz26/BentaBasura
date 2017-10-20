@@ -149,7 +149,7 @@ public class SellRaw extends AppCompatActivity
         trashQty = (EditText) findViewById(R.id.trashQty);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
 
-        Submittrash = (Button) findViewById(R.id.Submittrash);
+        Submittrash = (Button) findViewById(R.id.SubmitTrash);
         Submittrash.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
 
@@ -163,13 +163,6 @@ public class SellRaw extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
-        return true;
     }
 
     @Override
@@ -265,7 +258,7 @@ public class SellRaw extends AppCompatActivity
             case R.id.takePhotobtn:
                 onCamera();
                 break;
-            case R.id.Submittrash:
+            case R.id.SubmitTrash:
                 onUpload();
                 break;
         }
