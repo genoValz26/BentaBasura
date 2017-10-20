@@ -182,36 +182,32 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginLeft="5dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused"
+        app:srcCompat="@drawable/no_image_startup"
         tools:layout_editor_absoluteX="132dp"
         tools:layout_editor_absoluteY="56dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@+id/appBarLayout"
-        android:layout_alignStart="@+id/spnTrashCategory" />
+        android:layout_alignStart="@+id/SubmitTrash" />
 
     <Button
         android:id="@+id/uploadbtn"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
-        android:layout_alignEnd="@+id/trashName"
-        android:layout_alignTop="@+id/UploadImageView"
-        android:layout_marginTop="11dp"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
         android:drawableLeft="@drawable/ic_menu_gallery"
-        android:text="@string/upload"
         tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="56dp" />
+        tools:layout_editor_absoluteY="56dp"
+        android:layout_below="@+id/UploadImageView"
+        android:layout_alignStart="@+id/UploadImageView" />
 
     <Button
         android:id="@+id/takePhotobtn"
-        android:layout_width="110dp"
-        android:layout_height="60dp"
-        android:layout_above="@+id/trashName"
-        android:layout_alignStart="@+id/uploadbtn"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
         android:drawableLeft="@drawable/ic_menu_camera"
-        android:layout_marginBottom="8dp"
-        android:text="@string/takephoto"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="56dp" />
+        tools:layout_editor_absoluteY="56dp"
+        android:layout_below="@+id/UploadImageView"
+        android:layout_alignEnd="@+id/UploadImageView" />
 
     <EditText
         android:id="@+id/trashName"
@@ -225,9 +221,8 @@
         android:paddingLeft="5dp"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="156dp"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/UploadImageView"
-        android:layout_alignStart="@+id/spnTrashCategory" />
+        android:layout_below="@+id/uploadbtn"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/trashQty"
@@ -235,7 +230,7 @@
         android:layout_height="30dp"
         android:layout_alignStart="@+id/trashName"
         android:layout_below="@+id/trashName"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/bg_btn"
         android:ems="10"
         android:hint="@string/trashQuantity"
@@ -247,10 +242,10 @@
     <EditText
         android:id="@+id/trashDesc"
         android:layout_width="260dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_alignStart="@+id/trashQty"
         android:layout_below="@+id/trashPrice"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/bg_btn"
         android:ems="10"
         android:hint="@string/trashDesc"
@@ -274,20 +269,20 @@
 
     <Button
         android:id="@+id/SubmitTrash"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/spnTrashCategory"
-        android:layout_centerHorizontal="true"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginRight="21dp"
-        android:layout_marginTop="10dp"
         android:text="@string/Submit"
         tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="497dp" />
+        tools:layout_editor_absoluteY="497dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp" />
 
     <EditText
         android:id="@+id/sellerContact"
         android:layout_width="260dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_alignStart="@+id/trashDesc"
         android:layout_below="@+id/trashDesc"
         android:layout_marginTop="7dp"
@@ -303,7 +298,7 @@
         android:id="@+id/spnTrashCategory"
         android:layout_width="260dp"
         android:layout_height="30dp"
-        android:layout_marginTop="8dp"
         android:layout_below="@+id/sellerContact"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/sellerContact"
+        android:layout_marginTop="5dp" />
 </RelativeLayout>

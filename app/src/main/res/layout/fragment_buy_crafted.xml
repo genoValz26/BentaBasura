@@ -132,10 +132,14 @@
             android:id="@+id/txtCraftQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/txtSellerInfoCraft"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/btnEdit"
-            android:text="0" />
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:text="0"
+            android:layout_alignTop="@+id/tv11"
+            android:layout_toEndOf="@+id/tv13" />
+
+
         </RelativeLayout>
     </TableLayout>
 </ScrollView>

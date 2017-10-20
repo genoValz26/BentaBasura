@@ -46,7 +46,7 @@
     <string name="trashQuantity">Quantity</string>
     <string name="trashPrice">Price</string>
     <string name="trashCategory">Category</string>
-    <string name="resourcesFrom">Resources From User(Optional)</string>
+    <string name="resourcesFrom">Url for tutorials...</string>
     <string name="sellerContact">Meetup Location...</string>
     <string name="Submit">Submit</string>
     <string name="link_register">Register Here</string>

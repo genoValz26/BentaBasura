@@ -46,9 +46,9 @@
 
     <GridLayout
         android:layout_width="0dp"
-        android:layout_height="336dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="335dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:columnCount="2"
         android:rowCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,27 +63,27 @@
 
         <Button
             android:id="@+id/btnPapers"
-            android:layout_width="194dp"
-            android:layout_height="169dp"
-            android:background="@drawable/cat_papers"/>
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:background="@drawable/cat_papers" />
 
         <Button
             android:id="@+id/btnPlastic"
-            android:layout_width="184dp"
-            android:layout_height="169dp"
-            android:background="@drawable/cat_plastic"/>
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:background="@drawable/cat_plastic" />
 
         <Button
             android:id="@+id/btnMetal"
-            android:layout_width="194dp"
-            android:layout_height="169dp"
-            android:background="@drawable/cat_metal"/>
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:background="@drawable/cat_metal" />
 
         <Button
             android:id="@+id/btnWood"
-            android:layout_width="185dp"
-            android:layout_height="169dp"
-            android:background="@drawable/cat_wood"/>
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:background="@drawable/cat_wood" />
     </GridLayout>
 
 </android.support.constraint.ConstraintLayout>

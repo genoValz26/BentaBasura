@@ -63,25 +63,30 @@
 
         <Button
             android:id="@+id/btnDecorations"
-            android:layout_width="166dp"
-            android:layout_height="169dp"
-            android:text="Decorations" />
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:text="Decorations"
+            android:background="@drawable/decorations"/>
 
         <Button
             android:id="@+id/btnFurniture"
-            android:layout_width="184dp"
-            android:layout_height="169dp"
-            android:text="Furniture" />
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:text="Furniture"
+            android:background="@drawable/furnitures"/>
 
         <Button
             android:id="@+id/btnProjects"
-            android:layout_width="171dp"
-            android:layout_height="169dp"
-            android:text="Projects" />
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:text="Projects"
+            android:background="@drawable/projects"/>
 
         <Button
             android:id="@+id/btnWood"
-            android:layout_width="185dp"
-            android:layout_height="169dp" />
+            android:layout_width="175dp"
+            android:layout_height="150dp"
+            android:text="Accessories"
+            android:background="@drawable/accessories"/>
     </GridLayout>
 </android.support.constraint.ConstraintLayout>

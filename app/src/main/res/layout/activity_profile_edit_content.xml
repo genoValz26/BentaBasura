@@ -28,9 +28,11 @@
         android:id="@+id/profileImageView"
         android:layout_width="200dp"
         android:layout_height="150dp"
-        android:layout_marginLeft="13dp"
         android:layout_below="@+id/textView20"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="7dp"
+        app:srcCompat="@drawable/no_image_startup" />
 
     <EditText
         android:id="@+id/editAddress"
@@ -73,11 +75,11 @@
 
     <Button
         android:id="@+id/takephotobtn"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:text="@string/takephoto"
-        android:layout_below="@+id/gallerybtn"
-        android:layout_toEndOf="@+id/profileImageView" />
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:drawableLeft="@drawable/ic_menu_camera"
+        android:layout_below="@+id/profileImageView"
+        android:layout_alignStart="@+id/updatebtn" />
 
     <EditText
         android:id="@+id/editfname"
@@ -107,21 +109,21 @@
 
     <Button
         android:id="@+id/gallerybtn"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:text="@string/upload"
-        android:layout_alignTop="@+id/profileImageView"
-        android:layout_toEndOf="@+id/profileImageView" />
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:drawableLeft="@drawable/ic_menu_gallery"
+        android:layout_alignBottom="@+id/takephotobtn"
+        android:layout_toEndOf="@+id/takephotobtn" />
 
     <Button
         android:id="@+id/updatebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
 
         android:text="@string/updateBtn"
-        android:layout_below="@+id/editlname"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp" />
+        android:layout_marginBottom="7dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView19"
@@ -129,23 +131,25 @@
         android:layout_height="wrap_content"
         android:text="Update Information"
         android:textSize="20dp"
-        android:layout_below="@+id/profileImageView"
-        android:layout_alignParentStart="true" />
+        android:textStyle="normal|bold"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
+        android:textStyle="normal|bold"
         android:text="Update Profile Picture"
         android:layout_below="@+id/appBarLayout"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/profileImageView" />
 
     <Button
         android:id="@+id/savebtn"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/takephotobtn"
-        android:layout_toEndOf="@+id/profileImageView"
-        android:text="Save" />
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:text="Save"
+        android:layout_below="@+id/profileImageView"
+        android:layout_toEndOf="@+id/gallerybtn" />
 </RelativeLayout>
