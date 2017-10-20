@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,17 +44,45 @@ public class BoughtItems extends AppCompatActivity
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
+    private String oldestPostId;
     TextView navFullName, navEmail;
     ImageView navImage;
     ActiveUser activeUser;
-    FirebaseAuth firebaseAuth;
-
+    FirebaseAuth  firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bought_items);
+        setContentView(R.layout.activity_my_items);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Trash"));
+        tabLayout.addTab(tabLayout.newTab().setText("Craft"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PageAdapterMyItems(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
 
 
         profilePage = new Intent(BoughtItems.this, MyProfile.class);
@@ -66,7 +96,6 @@ public class BoughtItems extends AppCompatActivity
         historyPage = new Intent(BoughtItems.this,BoughtItems.class);
         myItems = new Intent(BoughtItems.this,MyItems.class);
         loginpage = new Intent(BoughtItems.this,MyItems.class);
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -88,7 +117,6 @@ public class BoughtItems extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
     }
 
     @Override
