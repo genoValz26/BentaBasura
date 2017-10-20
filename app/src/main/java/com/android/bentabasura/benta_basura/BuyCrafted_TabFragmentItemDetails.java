@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -74,6 +76,11 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
     public void onClick(View view) {
 
         startActivity(editCraftpage);
+        //showMessage(databaseReference.child("Craft").().getKey().toString());
 
     }
+    public void showMessage(String message) {
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
 }

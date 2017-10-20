@@ -233,6 +233,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
@@ -252,7 +253,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             userid = user.getUid();
                             name = user.getDisplayName();
                             google_email = user.getEmail();
-                            Users newUser = new Users("None", google_email, name, "", "None", "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member","None","None");
+                            Users newUser = new Users("BentaDefault", google_email, "Google", "User", "None", "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member","None","None");
                             databaseReference.child("Users").child(userid).setValue(newUser);
                             startActivity(homePage);
                             progressDialog.dismiss();
@@ -280,36 +281,40 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
                         progressDialog.setMessage("Signing In....");
                         progressDialog.show();
+                        if(cd.isConnected()) {
+                            activeUser.setUserId(user.getUid());
 
-                        activeUser.setUserId(user.getUid());
+                            databaseReference.child("Users").child(activeUser.getUserId()).addListenerForSingleValueEvent(
+                                    new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        databaseReference.child("Users").child(activeUser.getUserId()).addListenerForSingleValueEvent(
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                            activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
+                                            activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
+                                                    dataSnapshot.child("lastname").getValue().toString());
+                                            activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
+                                            activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
+                                            activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
+                                            activeUser.setFirstname(dataSnapshot.child("firstname").getValue().toString());
+                                            activeUser.setLastname(dataSnapshot.child("lastname").getValue().toString());
+                                            activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
+                                            activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
+                                            activeUser.setUserName(dataSnapshot.child("username").getValue().toString());
+                                            progressDialog.dismiss();
+                                            startActivity(homePage);
+                                        }
 
-                                        activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
-                                        activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
-                                                dataSnapshot.child("lastname").getValue().toString());
-                                        activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
-                                        activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
-                                        activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
-                                        activeUser.setFirstname(dataSnapshot.child("firstname").getValue().toString());
-                                        activeUser.setLastname(dataSnapshot.child("lastname").getValue().toString());
-                                        activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
-                                        activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
-                                        activeUser.setUserName(dataSnapshot.child("username").getValue().toString());
-                                        progressDialog.dismiss();
-                                        startActivity(homePage);
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
                                     }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                }
-                        );
-
+                            );
+                        }
+                        else{
+                            buildDialog(Login.this).show();
+                        }
 
                     } else {
                         Log.d(TAG, "onAuthStateChange:signed_out");

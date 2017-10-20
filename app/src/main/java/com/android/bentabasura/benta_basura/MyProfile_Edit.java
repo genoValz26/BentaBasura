@@ -37,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -427,8 +428,13 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.savebtn:
                 StorageReference path = storageReference.child(STORAGE_PATH).child("." + getImageExt(imageUri));
-                String strprofile_picture = path.putFile(imageUri).toString();
-                updateProfilePicture(userid,strprofile_picture);
+                path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        updateProfilePicture(userid,taskSnapshot.getDownloadUrl().toString());
+                    }
+                });
+
                 savebtn.setEnabled(false);
                 break;
         }
@@ -470,9 +476,8 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {
-        int CAMERA_REQUEST = 0;
-
         super.onActivityResult(requestCode, resultCode, data);
+        int CAMERA_REQUEST = 0;
         if(resultCode == RESULT_OK)
         {
             imageUri = data.getData();
