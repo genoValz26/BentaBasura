@@ -106,7 +106,8 @@ public class FirebaseNotificationService extends Service {
                                                                     .setContentText(message)
                                                                     .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                                                                     .setSound(soundUri)
-                                                                    .setContentIntent(pendingIntent);
+                                                                    .setContentIntent(pendingIntent)
+                                                                    .setAutoCancel(true);
 
                                                     NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -153,7 +154,9 @@ public class FirebaseNotificationService extends Service {
                                                                     .setContentText(message)
                                                                     .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                                                                     .setSound(soundUri)
-                                                                    .setContentIntent(pendingIntent);
+                                                                    .setContentIntent(pendingIntent)
+                                                                    .setAutoCancel(true);
+
 
                                                     NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
