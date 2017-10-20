@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 
 
 public class Notifications extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
@@ -45,6 +46,7 @@ public class Notifications extends AppCompatActivity
     ArrayList<Notification> notifArray = new ArrayList<>();
     DatabaseReference databaseReference;
     String oldestNotifId;
+    Button btnClear;
 
     FirebaseAuth firebaseAuth;
     @Override
@@ -90,6 +92,9 @@ public class Notifications extends AppCompatActivity
         lstNotif = (ListView) findViewById(R.id.lstNotif);
         notifAdapter = new custom_notiflist(this, notifArray);
         lstNotif.setAdapter(notifAdapter);
+
+        btnClear = (Button) findViewById(R.id.btnClear);
+        btnClear.setOnClickListener(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Notification");
         getNotifFromDatabase();
@@ -206,7 +211,7 @@ public class Notifications extends AppCompatActivity
 
     public void getNotifFromDatabase() {
 
-        databaseReference.limitToFirst(15).addValueEventListener(new ValueEventListener() {
+        databaseReference.limitToFirst(18).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -249,5 +254,20 @@ public class Notifications extends AppCompatActivity
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        for(Notification notif:notifArray)
+        {
+            databaseReference.child(notif.getNotifId()).child("notifRead").setValue("1");
+        }
+
+        notifArray.clear();
+        notifAdapter.notifyDataSetChanged();
+
+        lstNotif.setVisibility(View.INVISIBLE);
+        startActivity(homePage);
     }
 }

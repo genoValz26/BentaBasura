@@ -278,7 +278,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     if (user != null) {
                         //If user is already logged-in redirect to homepage
 
-                        progressDialog.setMessage("Signing In.");
+                        progressDialog.setMessage("Signing In....");
                         progressDialog.show();
 
                         activeUser.setUserId(user.getUid());
