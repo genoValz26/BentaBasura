@@ -92,7 +92,7 @@ public class BoughtItemsCraftTab extends Fragment {
 
                                 if (craft.getCraftCategory().equals(trashCat.toString()))
                                 {
-                                    if (craft.getSold().equals("0") && craft.getUploadedBy().equals(activeUser.getUserId())) {
+                                    if (craft.getSold().equals("1") && craft.getUploadedBy().equals(activeUser.getUserId())) {
 
                                         craft.setCraftID(postSnapShot.getKey().toString());
                                         craftArray.add(craft);

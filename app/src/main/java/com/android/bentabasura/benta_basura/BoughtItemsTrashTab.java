@@ -91,7 +91,7 @@ public class BoughtItemsTrashTab extends Fragment {
 
                                 if (trash.getTrashCategory().equals(trashCat.toString()))
                                 {
-                                    if (trash.getSold().equals("0") && trash.getUploadedBy().equals(activeUser.getUserId()))
+                                    if (trash.getSold().equals("1") && trash.getUploadedBy().equals(activeUser.getUserId()))
                                     {
                                         trash.setTrashId(postSnapShot.getKey().toString());
                                         trashArray.add(trash);

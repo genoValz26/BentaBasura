@@ -130,7 +130,7 @@ public class BuyCrafted_TabFragmentItemFeedback extends Fragment {
                         newNotif.setNotifBy(profileId);
                         newNotif.setNotifRead("0");
                         newNotif.setNotifNotify("0");
-                        newNotif.setNotifByPic(activeUser.getProfilePicture());
+                        newNotif.setNotifByPic(profileImage);
                         newNotif.setNotifDate(commentDate);
 
                         databaseReferenceNotif.child(notifId).setValue(newNotif);
