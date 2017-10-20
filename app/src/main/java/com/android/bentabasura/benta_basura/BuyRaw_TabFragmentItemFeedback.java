@@ -121,6 +121,8 @@ public class BuyRaw_TabFragmentItemFeedback extends Fragment {
                     newNotif.setNotifBy(activeUser.getUserId());
                     newNotif.setNotifRead("0");
                     newNotif.setNotifNotify("0");
+                    newNotif.setNotifByPic(activeUser.getProfilePicture());
+                    newNotif.setNotifDate(commentDate);
 
                     databaseReferenceNotif.child(notifId).setValue(newNotif);
                 }

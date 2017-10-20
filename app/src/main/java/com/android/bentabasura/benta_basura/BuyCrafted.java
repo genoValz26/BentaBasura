@@ -140,7 +140,7 @@ public class BuyCrafted extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.notifications:
+            case R.id.menuNotification:
                 startActivity(notificationsPage);
                 break;
         }

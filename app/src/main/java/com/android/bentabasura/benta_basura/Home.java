@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -115,22 +116,31 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_action_bar, menu);
-
-        /*MenuItem menuBadge =  menu.findItem(R.id.cart);
-        MenuItemCompat.setActionView(menuBadge, R.layout.badge_layout);
-        RelativeLayout rel = (RelativeLayout) MenuItemCompat.getActionView(menuBadge);
-        rel.setPadding(10,0,50,0);*/
-        //return super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_action_bar, menu);
+
+        final MenuItem menuItem = menu.findItem(R.id.menuNotification);
+
+        TextView textCartItemCount;
+
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textCartItemCount = (TextView) actionView.findViewById(R.id.badge_textView);
+
+        textCartItemCount.setText("2");
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.notifications:
+            case R.id.menuNotification:
                 startActivity(notificationsPage);
                 break;
         }

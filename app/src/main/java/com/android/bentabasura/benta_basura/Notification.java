@@ -14,11 +14,13 @@ public class Notification
     private String notifBy;
     private String notifRead;
     private String notifNotify;
+    private String notifByPic;
+    private String notifDate;
 
     public Notification(){
 
     }
-    public Notification(String notifDbLink, String notifMessage, String notifOwnerId, String notifBy, String notifRead, String notifNotify)
+    public Notification(String notifDbLink, String notifMessage, String notifOwnerId, String notifBy, String notifRead, String notifNotify, String notifByPic, String notifDate)
     {
         this.notifDbLink = notifDbLink;
         this.notifMessage = notifMessage;
@@ -26,6 +28,8 @@ public class Notification
         this.notifBy = notifBy;
         this.notifRead = notifRead;
         this.notifNotify = notifNotify;
+        this.notifByPic = notifByPic;
+        this.notifDate = notifDate;
     }
 
     public String getNotifId() {
@@ -82,6 +86,22 @@ public class Notification
 
     public void setNotifNotify(String notifNotify) {
         this.notifNotify = notifNotify;
+    }
+
+    public String getNotifByPic() {
+        return notifByPic;
+    }
+
+    public void setNotifByPic(String notifByPic) {
+        this.notifByPic = notifByPic;
+    }
+
+    public String getNotifDate() {
+        return notifDate;
+    }
+
+    public void setNotifDate(String notifDate) {
+        this.notifDate = notifDate;
     }
 
 }

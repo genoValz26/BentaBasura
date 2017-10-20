@@ -137,7 +137,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.notifications:
+            case R.id.menuNotification:
                 startActivity(notificationsPage);
                 break;
         }

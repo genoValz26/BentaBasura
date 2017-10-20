@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" android:layout_height="wrap_content">
+    android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingRight="15dp">
 
     <com.joanzapata.iconify.widget.IconButton
         android:layout_width="48sp"
         android:layout_height="48sp"
         android:textSize="1sp"
         android:textColor="#ffffff"
-        android:background="@mipmap/ic_shopping_cart_white_24dp"
+        android:background="@mipmap/ic_add_alert_white_24dp"
         android:id="@+id/badge_icon_button"/>
 
     <TextView
@@ -22,7 +22,7 @@
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:textSize="6dp"
+        android:textSize="8dp"
         android:background="@drawable/badge_circle"
         android:elevation="10dp"/>
 </RelativeLayout>
