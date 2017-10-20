@@ -2,6 +2,7 @@ package com.android.bentabasura.benta_basura;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,11 @@ public class custom_craftlist extends BaseAdapter {
         return craft .size();
     }
 
+    public void addItem(Craft craftItem)
+    {
+        craft.add(craftItem);
+    }
+
     @Override
     public Object getItem(int position) {
         return position;
@@ -66,7 +72,7 @@ public class custom_craftlist extends BaseAdapter {
             public void onClick(View v)
             {
                 detailsIntent = new Intent(parent.getContext(), BuyCraftedDetails.class);
-
+                Log.d("CraftName", craft.get(position).getCraftName());
                 detailsIntent.putExtra("CraftName", craft.get(position).getCraftName());
                 detailsIntent.putExtra("CraftPic", craft.get(position).getImageUrl());
                 detailsIntent.putExtra("CraftDescription",craft.get(position).getCraftDescription());

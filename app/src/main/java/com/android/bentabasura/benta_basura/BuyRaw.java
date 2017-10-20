@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -261,9 +262,10 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
                                 for(Trash itemTrash : trashArray)
                                 {
-                                    if (itemTrash.getTrashId().equals(oldestPostId))
-                                    {
-                                        found = true;
+                                    if (!TextUtils.isEmpty(itemTrash.getTrashId()) && !TextUtils.isEmpty(oldestPostId)) {
+                                        if (itemTrash.getTrashId().equals(oldestPostId)) {
+                                            found = true;
+                                        }
                                     }
                                 }
 

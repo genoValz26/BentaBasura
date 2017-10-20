@@ -321,6 +321,7 @@ public class BuyCrafted extends AppCompatActivity
                             mProgressDialog.show();
 
                             Craft craft = postSnapShot.getValue(Craft.class);
+                            craft.setCraftID(postSnapShot.getKey().toString());
                             craftArray.add(craft);
                             customAdapter.notifyDataSetChanged();
                         }
