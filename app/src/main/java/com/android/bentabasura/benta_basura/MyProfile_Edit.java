@@ -41,6 +41,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -145,6 +146,8 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         progressDialog = new ProgressDialog(this);
         savebtn.setEnabled(false);
 
+        Picasso.with(this).load(activeUser.getProfilePicture())
+                .fit().into(profileImageView);
         editfname.setText(activeUser.getFirstname().toString());
         editlname.setText(activeUser.getLastname().toString());
         editUsername.setText(activeUser.getUserName().toString());
@@ -154,7 +157,9 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
 
+        //---------------------------------------------------------------------------------
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -448,11 +453,14 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
              savebtn.setEnabled(true);
                 break;
             case R.id.savebtn:
-                StorageReference path = storageReference.child(STORAGE_PATH).child("." + getImageExt(imageUri));
+                progressDialog.setMessage("Uploading Profile Picture");
+                progressDialog.show();
+                StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
                 path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        updateProfilePicture(userid,taskSnapshot.getDownloadUrl().toString());
+                       updateProfilePicture(userid,taskSnapshot.getDownloadUrl().toString());
+                        progressDialog.dismiss();
                     }
                 });
 
@@ -474,25 +482,23 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                 progressDialog.dismiss();
             }
         });
+
+        activeUser.setUserName(username);
+        activeUser.setContact_number(contact_number);
+        activeUser.setAddress(address);
+        activeUser.setFirstname(fname);
+        activeUser.setLastname(lname);
+        activeUser.setFullname(fname);
         return  true;
 
     }
-    public boolean updateProfilePicture(String struserid,String profile_picture){
+    public boolean updateProfilePicture(String userid,String profile_picture){
 
-        progressDialog.setMessage("Uploading Profile Picture...");
-        progressDialog.show();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(struserid);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
                 Users updateUserprofile = new Users(activeUser.getUserName(),activeUser.getEmail().toString(),activeUser.getFirstname(),activeUser.getLastname(),activeUser.getGender().toString(),profile_picture,activeUser.getUserType(),activeUser.getAddress(),activeUser.getContact_number());;
-                databaseReference.setValue(updateUserprofile).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        activeUser.setUserId(user.getUid());
-                        showMessage("Upload Success!");
-                        progressDialog.dismiss();
-                    }
-                });
-
-
+                databaseReference.setValue(updateUserprofile);
+                showMessage("Upload Success!");
+                activeUser.setProfilePicture(profile_picture);
         return true;
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
