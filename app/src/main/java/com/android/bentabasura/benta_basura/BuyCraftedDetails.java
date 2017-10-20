@@ -1,7 +1,10 @@
 package com.android.bentabasura.benta_basura;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -9,6 +12,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,7 +21,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -42,12 +52,13 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems;
+    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
-
+    FirebaseAuth firebaseAuth;
+    private GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -94,6 +105,7 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
         cartPage = new Intent(BuyCraftedDetails.this, Cart.class);
         historyPage = new Intent(BuyCraftedDetails.this, BoughtItems.class);
         myItems = new Intent(BuyCraftedDetails.this, MyItems.class);
+        loginpage = new Intent(BuyCraftedDetails.this,Login.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -116,10 +128,26 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         activeUser = ActiveUser.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        showMessage("Something went wrong. Please try again");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
-
+    public void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
+    }
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -200,9 +228,31 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.logout:
-                //logout();
+                logout();
                 break;
         }
         return true;
+    }
+
+    private void logout() {
+        firebaseAuth.signOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+        buildDialog(this).show();
+        return;
+    }
+    public AlertDialog.Builder buildDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("BentaBasura");
+        builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(loginpage);
+            }
+        });
+
+        return builder;
     }
 }

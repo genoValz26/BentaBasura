@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +33,7 @@ import com.squareup.picasso.Picasso;
 
 public class Categories extends AppCompatActivity implements View.OnClickListener,
             NavigationView.OnNavigationItemSelectedListener{
-
+    private GoogleApiClient mGoogleApiClient;
     Button btnPaper, btnPlastic, btnWood, btnMetal;
     Intent rawIntent;
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems, loginpage;
@@ -39,6 +45,7 @@ public class Categories extends AppCompatActivity implements View.OnClickListene
     ImageView navImage;
     FirebaseAuth firebaseAuth;
     ActiveUser activeUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -91,6 +98,22 @@ public class Categories extends AppCompatActivity implements View.OnClickListene
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        showMessage("Something went wrong. Please try again");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     @Override
@@ -205,6 +228,7 @@ public class Categories extends AppCompatActivity implements View.OnClickListene
 
     public void logout() {
         firebaseAuth.signOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         buildDialog(this).show();
         return;
 
@@ -223,5 +247,8 @@ public class Categories extends AppCompatActivity implements View.OnClickListene
         });
 
         return builder;
+    }
+    public void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
     }
 }

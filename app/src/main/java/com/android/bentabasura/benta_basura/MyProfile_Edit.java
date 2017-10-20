@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,6 +32,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,7 +59,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
-
+    private GoogleApiClient mGoogleApiClient;
     EditText editUsername, editAddress, editContact,editfname,editlname;
     Button updatebtn,galleybtn,takephotobtn,savebtn;
     FirebaseUser user;
@@ -150,7 +155,22 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        showMessage("Something went wrong. Please try again");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -240,6 +260,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     public void logout() {
 
         firebaseAuth.signOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         buildDialog(this).show();
         return;
     }

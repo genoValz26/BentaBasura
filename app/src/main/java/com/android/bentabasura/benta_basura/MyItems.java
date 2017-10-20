@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,7 +21,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +55,7 @@ public class MyItems extends AppCompatActivity
     ImageView navImage;
     ActiveUser activeUser;
     FirebaseAuth  firebaseAuth;
+    private GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +102,7 @@ public class MyItems extends AppCompatActivity
         cartPage = new Intent(MyItems.this,Cart.class);
         historyPage = new Intent(MyItems.this,BoughtItems.class);
         myItems = new Intent(MyItems.this,MyItems.class);
-        loginpage = new Intent(MyItems.this,MyItems.class);
+        loginpage = new Intent(MyItems.this,Login.class);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -117,6 +124,21 @@ public class MyItems extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        showMessage("Something went wrong. Please try again");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     @Override
@@ -208,6 +230,7 @@ public class MyItems extends AppCompatActivity
     public void logout() {
 
         firebaseAuth.signOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         buildDialog(this).show();
         return;
 
@@ -226,5 +249,8 @@ public class MyItems extends AppCompatActivity
         });
 
         return builder;
+    }
+    public void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
     }
 }

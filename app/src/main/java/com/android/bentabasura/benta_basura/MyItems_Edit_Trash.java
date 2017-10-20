@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,6 +35,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,7 +88,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity
 
     private Spinner spnTrashCategory;
     String selectedType,selectedCategory,currentUsername;
-
+    private GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -161,16 +166,20 @@ public class MyItems_Edit_Trash extends AppCompatActivity
         editbtn.setOnClickListener(this);
         deletebtn = (Button) findViewById(R.id.deletebtn);
         deletebtn.setOnClickListener(this);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-        //Disable Button and Fields
-        trashName.setEnabled(false);
-        trashDesc.setEnabled(false);
-        trashPrice.setEnabled(false);
-        trashQty.setEnabled(false);
-        sellerContact.setEnabled(false);
-        Submittrash.setEnabled(false);
-        uploadbtn.setEnabled(false);
-        takePhotobtn.setEnabled(false);
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        showMessage("Something went wrong. Please try again");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     @Override
@@ -262,6 +271,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity
     public void logout() {
 
         firebaseAuth.signOut();
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         buildDialog(this).show();
         return;
 
