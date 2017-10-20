@@ -19,12 +19,16 @@ import android.support.v4.app.TaskStackBuilder;
 import android.text.Html;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
+
+import static com.android.bentabasura.benta_basura.R.drawable.user;
 
 
 public class FirebaseNotificationService extends Service {
@@ -49,50 +53,137 @@ public class FirebaseNotificationService extends Service {
     private void setupNotificationListener()
     {
 
-        mDatabase.getReference().child("Notification")
-                .addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s)
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+
+            mDatabase.getReference().child("Notification")
+                    .addValueEventListener(new ValueEventListener()
                     {
-                        int counter = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot)
+                        {
+                            for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
+                            {
+                                if (!user.getUid().equals(postSnapShot.child("notifBy").getValue().toString()))
+                                {
+                                    if (postSnapShot.child("notifNotify").getValue().toString().equals("0"))
+                                    {
+                                        final String message = postSnapShot.child("notifMessage").getValue().toString();
+                                        final String key = postSnapShot.getKey();
 
-                        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                        String[] dbLink = postSnapShot.child("notifDbLink").getValue().toString().split(":");
 
-                        NotificationCompat.Builder mBuilder =
-                                new NotificationCompat.Builder(context)
-                                        .setSmallIcon(R.drawable.ic_bentabasura_logo)
-                                        .setContentTitle("Benta Basura")
-                                        .setContentText(dataSnapshot.child("notifMessage").getValue().toString())
-                                        .setStyle(new NotificationCompat.BigTextStyle().bigText(dataSnapshot.child("notifMessage").getValue().toString()))
-                                        .setSound(soundUri);
+                                        if (dbLink[0].equals("Trash"))
+                                        {
 
-                        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                            mDatabase.getReference(dbLink[0]).child(dbLink[1]).child(dbLink[2]).addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        mNotificationManager.notify(counter, mBuilder.build());
-                    }
+                                                    int counter = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
 
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                                                    Intent trashIntent = new Intent(context, BuyRawDetails.class);
+                                                    trashIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                    }
+                                                    trashIntent.putExtra("TrashName", dataSnapshot.child("trashName").getValue().toString());
+                                                    trashIntent.putExtra("TrashPic", dataSnapshot.child("imageUrl").getValue().toString());
+                                                    trashIntent.putExtra("TrashDescription", dataSnapshot.child("trashDescription").getValue().toString());
+                                                    trashIntent.putExtra("TrashQuantity", dataSnapshot.child("trashQuantity").getValue().toString());
+                                                    trashIntent.putExtra("TrashCategory", dataSnapshot.child("trashCategory").getValue().toString());
+                                                    trashIntent.putExtra("TrashPrice", dataSnapshot.child("trashPrice").getValue().toString());
+                                                    trashIntent.putExtra("TrashSeller", dataSnapshot.child("sellerContact").getValue().toString());
+                                                    trashIntent.putExtra("TrashId", dataSnapshot.getKey());
+                                                    trashIntent.putExtra("UploadedBy", dataSnapshot.child("uploadedBy").getValue().toString());
 
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                                    PendingIntent pendingIntent = PendingIntent.getActivity(context, counter, trashIntent, PendingIntent.FLAG_ONE_SHOT);
 
-                    }
+                                                    Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                                    NotificationCompat.Builder mBuilder =
+                                                            new NotificationCompat.Builder(context)
+                                                                    .setSmallIcon(R.drawable.ic_bentabasura_logo)
+                                                                    .setContentTitle("Benta Basura")
+                                                                    .setContentText(message)
+                                                                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                                                                    .setSound(soundUri)
+                                                                    .setContentIntent(pendingIntent);
 
-                    }
+                                                    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                                                    mNotificationManager.notify(counter, mBuilder.build());
 
-                    }
-                });
+                                                    flagNotificationAsSent(key);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+                                        else if (dbLink[0].equals("Craft"))
+                                        {
+                                            mDatabase.getReference(dbLink[0]).child(dbLink[1]).child(dbLink[2]).addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                    int counter = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+
+                                                    Intent craftIntent = new Intent(context, BuyCraftedDetails.class);
+                                                    craftIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                                                    craftIntent.putExtra("CraftName", dataSnapshot.child("craftName").getValue().toString());
+                                                    craftIntent.putExtra("CraftPic", dataSnapshot.child("imageUrl").getValue().toString());
+                                                    craftIntent.putExtra("CraftDescription", dataSnapshot.child("craftDescription").getValue().toString());
+                                                    craftIntent.putExtra("CraftQuantity", dataSnapshot.child("craftQuantity").getValue().toString());
+                                                    craftIntent.putExtra("CraftCategory", dataSnapshot.child("craftCategory").getValue().toString());
+                                                    craftIntent.putExtra("CraftPrice", dataSnapshot.child("craftPrice").getValue().toString());
+                                                    craftIntent.putExtra("CraftSeller", dataSnapshot.child("sellerContact").getValue().toString());
+                                                    craftIntent.putExtra("CraftId", dataSnapshot.getKey());
+                                                    craftIntent.putExtra("UploadedBy", dataSnapshot.child("uploadedBy").getValue().toString());
+
+                                                    PendingIntent pendingIntent = PendingIntent.getActivity(context, counter, craftIntent, PendingIntent.FLAG_ONE_SHOT);
+
+                                                    Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+                                                    NotificationCompat.Builder mBuilder =
+                                                            new NotificationCompat.Builder(context)
+                                                                    .setSmallIcon(R.drawable.ic_bentabasura_logo)
+                                                                    .setContentTitle("Benta Basura")
+                                                                    .setContentText(message)
+                                                                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                                                                    .setSound(soundUri)
+                                                                    .setContentIntent(pendingIntent);
+
+                                                    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                                                    mNotificationManager.notify(counter, mBuilder.build());
+
+                                                    flagNotificationAsSent(key);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+
+                                        }
 
 
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        } else {
+            // No user is signed in
+        }
     }
 
     @Override
@@ -118,11 +209,10 @@ public class FirebaseNotificationService extends Service {
     }
 
     private void flagNotificationAsSent(String notification_key) {
-        mDatabase.getReference().child("notifications")
-                .child(firebaseAuth.getCurrentUser().getUid())
+        mDatabase.getReference().child("Notification")
                 .child(notification_key)
-                .child("status")
-                .setValue(1);
+                .child("notifNotify")
+                .setValue("1");
     }
 
 

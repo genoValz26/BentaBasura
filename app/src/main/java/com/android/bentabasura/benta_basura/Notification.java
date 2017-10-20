@@ -7,18 +7,25 @@ package com.android.bentabasura.benta_basura;
 
 public class Notification
 {
-    private String notifId, notifDbLink, notifMessage, notifOwnerId, notifBy, notifRead;
+    private String notifId;
+    private String notifDbLink;
+    private String notifMessage;
+    private String notifOwnerId;
+    private String notifBy;
+    private String notifRead;
+    private String notifNotify;
 
     public Notification(){
 
     }
-    public Notification(String notifDbLink, String notifMessage, String notifOwnerId, String notifBy, String notifRead)
+    public Notification(String notifDbLink, String notifMessage, String notifOwnerId, String notifBy, String notifRead, String notifNotify)
     {
         this.notifDbLink = notifDbLink;
         this.notifMessage = notifMessage;
         this.notifOwnerId = notifOwnerId;
         this.notifBy = notifBy;
         this.notifRead = notifRead;
+        this.notifNotify = notifNotify;
     }
 
     public String getNotifId() {
@@ -67,6 +74,14 @@ public class Notification
 
     public void setNotifRead(String notifRead) {
         this.notifRead = notifRead;
+    }
+
+    public String getNotifNotify() {
+        return notifNotify;
+    }
+
+    public void setNotifNotify(String notifNotify) {
+        this.notifNotify = notifNotify;
     }
 
 }

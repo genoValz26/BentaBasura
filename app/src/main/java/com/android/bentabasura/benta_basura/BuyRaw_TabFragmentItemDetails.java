@@ -51,12 +51,10 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment {
         txtTrashName.setText(receivedBundle.get("TrashName").toString());
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("TrashPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbRaw);
         txtTrashDescription.setText(receivedBundle.get("TrashDescription").toString());
-        txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString());
-        txtTrashPrice.setText(receivedBundle.get("TrashPrice").toString());
+        txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString() );
+        txtTrashPrice.setText("Php " + receivedBundle.get("TrashPrice").toString() + ".00");
         txtSellerInfo.setText(receivedBundle.get("TrashSeller").toString());
         //txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
-
-
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         activeUser = ActiveUser.getInstance();

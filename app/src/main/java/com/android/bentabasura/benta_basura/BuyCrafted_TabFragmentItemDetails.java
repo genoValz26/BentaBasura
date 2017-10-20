@@ -55,7 +55,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment{
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbCraft);
         txtCraftDescription.setText(receivedBundle.get("CraftDescription").toString());
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
-        txtCraftPrice.setText(receivedBundle.get("CraftPrice").toString());
+        txtCraftPrice.setText("Php " + receivedBundle.get("CraftPrice").toString() + ".00");
         txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
         //txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
        // editCraftpage = new Intent(BuyCrafted_TabFragmentItemDetails.this,MyItems_Edit_Craft.class);
