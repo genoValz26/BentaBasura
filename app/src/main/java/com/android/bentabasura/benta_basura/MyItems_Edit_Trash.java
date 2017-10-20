@@ -157,7 +157,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity
         Submittrash.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
 
-        editbtn = (Button) findViewById(R.id.editbtn);
+        editbtn = (Button) findViewById(R.id.soldbtn);
         editbtn.setOnClickListener(this);
         deletebtn = (Button) findViewById(R.id.deletebtn);
         deletebtn.setOnClickListener(this);
@@ -411,9 +411,9 @@ public class MyItems_Edit_Trash extends AppCompatActivity
                 SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                 String UploadedDate = sdf.format(currentTime);
                 Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid,UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0");
-                String uploadid = databaseReference.push().getKey();
+                String uploadid = databaseReference.getKey();
                 databaseReference.child("Trash").child(selectedCategory).child(uploadid).setValue(newTrash);
-                showMessage("Trash Uploaded Successfully");
+                showMessage("Trash Updated Successfully");
                 progressDialog.dismiss();
                 startActivity(homePage);
 

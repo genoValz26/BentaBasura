@@ -74,7 +74,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity
     StorageReference storageReference;
     String date;
     EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
-    Button SubmitCraft,editbtn,deletebtn;
+    Button SubmitCraft,soldtbtn,deletebtn;
 
     ProgressDialog progressDialog;
 
@@ -84,10 +84,13 @@ public class MyItems_Edit_Craft extends AppCompatActivity
     public static final String STORAGE_PATH="Products/Crafts/";
     String selectedType,selectedCategory;
     private Spinner spnCraftCategory;
+
+    Intent receiveIntent;
+    Bundle receivedBundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sell_crafted);
+        setContentView(R.layout.activity_my_items_edit_craft);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -151,24 +154,16 @@ public class MyItems_Edit_Craft extends AppCompatActivity
 
         SubmitCraft = (Button) findViewById(R.id.SubmitCraft);
         SubmitCraft.setOnClickListener(this);
-        editbtn = (Button) findViewById(R.id.editbtn);
-        editbtn.setOnClickListener(this);
         deletebtn = (Button) findViewById(R.id.deletebtn);
         deletebtn.setOnClickListener(this);
-
+        soldtbtn = (Button) findViewById(R.id.soldbtn);
+        soldtbtn.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        //Disable Button and Fields
-        craftName.setEnabled(false);
-        craftDesc.setEnabled(false);
-        craftPrice.setEnabled(false);
-        craftQty.setEnabled(false);
-        sellerContact.setEnabled(false);
-        resourcesFrom.setEnabled(false);
-        SubmitCraft.setEnabled(false);
-        uploadbtn.setEnabled(false);
-        takePhotobtn.setEnabled(false);
+
+        //--------------------------------------------------------------
+
     }
 
     @Override
@@ -285,7 +280,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity
             case R.id.SubmitCraft:
                 onUpload();
                 break;
-            case R.id.editbtn:
+            case R.id.soldbtn:
                 break;
             case R.id.deletebtn:
                 break;
@@ -430,11 +425,11 @@ public class MyItems_Edit_Craft extends AppCompatActivity
                 SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                 String UploadedDate = sdf.format(currentTime);
                 Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid, UploadedDate.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),"0");
-                String uploadid = databaseReference.push().getKey();
+                String uploadid = databaseReference.getKey();
                 databaseReference.child("Craft").child(selectedCategory).child(uploadid).setValue(newCraft);
-                showMessage("Craft Uploaded Successfully");
+                showMessage("Craft Updated Successfully");
                 progressDialog.dismiss();
-                startActivity(homePage);
+                startActivity(myItems);
             }
         });
 

@@ -88,14 +88,14 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnEdit"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
                 android:layout_below="@+id/txtSellerInfo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:background="@color/colorPrimary"
-                android:text="Buy" />
+                android:text="Edit" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/txtSellerInfo"
                 android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/button2"
+                android:layout_toEndOf="@+id/btnEdit"
                 android:text="0" />
 
 

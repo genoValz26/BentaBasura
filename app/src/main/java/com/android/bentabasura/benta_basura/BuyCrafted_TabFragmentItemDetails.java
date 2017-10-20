@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-public class BuyCrafted_TabFragmentItemDetails extends Fragment{
+public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.OnClickListener{
 
 
     ActiveUser activeUser;
@@ -48,8 +48,10 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment{
         txtSellerInfo = (TextView) view.findViewById(R.id.txtSellerInfoCraft);
         //txtUploadedBy = (TextView) findViewById(R.id.txtUploadedBy);
 
+        editCraftpage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
-        btnEdit.setVisibility(View.GONE);
+        btnEdit.setOnClickListener(this);
+        //btnEdit.setVisibility(View.GONE);
 
         txtCraftName.setText(receivedBundle.get("CraftName").toString());
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbCraft);
@@ -68,4 +70,10 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment{
     }
 
 
+    @Override
+    public void onClick(View view) {
+
+        startActivity(editCraftpage);
+
+    }
 }

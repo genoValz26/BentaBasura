@@ -18,15 +18,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-public class BuyRaw_TabFragmentItemDetails extends Fragment {
+public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnClickListener {
 
 
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
     TextView txtTrashName, txtTrashDescription, txtTrashQuantity, txtTrashPrice, txtSellerInfo, txtUploadedBy;
-    Button addToCartBtn;
+    Button btnEdit;
     ImageView imgThumbRaw;
-    Intent receiveIntent;
+    Intent receiveIntent,editTrashPage;
     Bundle receivedBundle;
 
     DatabaseReference databaseReference;
@@ -39,6 +39,10 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment {
 
         receiveIntent = getActivity().getIntent();
         receivedBundle = receiveIntent.getExtras();
+
+        editTrashPage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
+        btnEdit = (Button) view.findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(this);
 
         txtTrashName = (TextView) view.findViewById(R.id.txtTrashName);
         imgThumbRaw = (ImageView) view.findViewById(R.id.imgThumbRaw);
@@ -60,5 +64,10 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment {
         activeUser = ActiveUser.getInstance();
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        startActivity(editTrashPage);
     }
 }
