@@ -99,7 +99,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity
         notificationsPage = new Intent(MyItems_Edit_Trash.this, Notifications.class);
         homePage = new Intent(MyItems_Edit_Trash.this,Home.class);
         cartPage = new Intent(MyItems_Edit_Trash.this,Cart.class);
-        historyPage = new Intent(MyItems_Edit_Trash.this,History.class);
+        historyPage = new Intent(MyItems_Edit_Trash.this,BoughtItems.class);
         myItems = new Intent(MyItems_Edit_Trash.this,MyItems.class);
         loginpage = new Intent(MyItems_Edit_Trash.this,Login.class);
         //---------------------------------------------------------

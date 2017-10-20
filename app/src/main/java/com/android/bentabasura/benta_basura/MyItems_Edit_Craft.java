@@ -102,7 +102,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity
         notificationsPage = new Intent(MyItems_Edit_Craft.this, Notifications.class);
         homePage = new Intent(MyItems_Edit_Craft.this,Home.class);
         cartPage = new Intent(MyItems_Edit_Craft.this,Cart.class);
-        historyPage = new Intent(MyItems_Edit_Craft.this,History.class);
+        historyPage = new Intent(MyItems_Edit_Craft.this,BoughtItems.class);
         myItems = new Intent(MyItems_Edit_Craft.this,MyItems.class);
        loginpage = new Intent(MyItems_Edit_Craft.this,Login.class);
 

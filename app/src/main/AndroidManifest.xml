@@ -52,7 +52,7 @@
             android:label="@string/title_activity_notifications"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".History"
+            android:name=".BoughtItems"
             android:label="@string/title_activity_history"
             android:theme="@style/AppTheme.NoActionBar" />
 

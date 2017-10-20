@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,12 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -79,7 +76,7 @@ public class BuyCrafted extends AppCompatActivity
         notificationsPage = new Intent(BuyCrafted.this, Notifications.class);
         homePage = new Intent(BuyCrafted.this,Home.class);
         cartPage = new Intent(BuyCrafted.this,Cart.class);
-        historyPage = new Intent(BuyCrafted.this,History.class);
+        historyPage = new Intent(BuyCrafted.this,BoughtItems.class);
         myItems = new Intent(BuyCrafted.this,MyItems.class);
         loginpage = new Intent(BuyCrafted.this,Login.class);
 

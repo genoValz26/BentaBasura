@@ -81,7 +81,7 @@ public class BuyRawDetails extends AppCompatActivity implements NavigationView.O
         notificationsPage = new Intent(BuyRawDetails.this, Notifications.class);
         homePage = new Intent(BuyRawDetails.this, Home.class);
         cartPage = new Intent(BuyRawDetails.this, Cart.class);
-        historyPage = new Intent(BuyRawDetails.this, History.class);
+        historyPage = new Intent(BuyRawDetails.this, BoughtItems.class);
         myItems = new Intent(BuyRawDetails.this, MyItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

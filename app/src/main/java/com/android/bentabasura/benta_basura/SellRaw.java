@@ -95,7 +95,7 @@ public class SellRaw extends AppCompatActivity
         notificationsPage = new Intent(SellRaw.this, Notifications.class);
         homePage = new Intent(SellRaw.this,Home.class);
         cartPage = new Intent(SellRaw.this,Cart.class);
-        historyPage = new Intent(SellRaw.this,History.class);
+        historyPage = new Intent(SellRaw.this,BoughtItems.class);
         myItems = new Intent(SellRaw.this,MyItems.class);
        loginpage = new Intent(SellRaw.this,Login.class);
         //---------------------------------------------------------

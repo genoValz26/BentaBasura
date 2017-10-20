@@ -43,7 +43,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -98,7 +97,7 @@ public class SellCrafted extends AppCompatActivity
         notificationsPage = new Intent(SellCrafted.this, Notifications.class);
         homePage = new Intent(SellCrafted.this,Home.class);
         cartPage = new Intent(SellCrafted.this,Cart.class);
-        historyPage = new Intent(SellCrafted.this,History.class);
+        historyPage = new Intent(SellCrafted.this,BoughtItems.class);
         myItems = new Intent(SellCrafted.this,MyItems.class);
         loginpage = new Intent(SellCrafted.this,Login.class);
 

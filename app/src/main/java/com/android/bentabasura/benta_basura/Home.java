@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -16,13 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -75,7 +70,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         notificationsPage = new Intent(Home.this, Notifications.class);
         homePage = new Intent(Home.this,Home.class);
         cartPage = new Intent(Home.this,Cart.class);
-        historyPage = new Intent(Home.this,History.class);
+        historyPage = new Intent(Home.this,BoughtItems.class);
         loginpage = new Intent(Home.this,Login.class);
         myItems = new Intent(Home.this,MyItems.class);
 

@@ -55,9 +55,10 @@
             android:icon="@mipmap/ic_home_black_24dp"
             android:title="Home" />
 
-        <item android:id="@+id/history"
+        <item
+            android:id="@+id/history"
             android:icon="@mipmap/ic_history_black_24dp"
-            android:title="History" />
+            android:title="Bought Items" />
         <item android:id="@+id/logout"
             android:icon="@mipmap/ic_logout"
             android:title="Logout" />

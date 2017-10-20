@@ -49,7 +49,7 @@ public class Notifications extends AppCompatActivity
         notificationsPage = new Intent(Notifications.this, Notifications.class);
         homePage = new Intent(Notifications.this,Home.class);
         cartPage = new Intent(Notifications.this,Cart.class);
-        historyPage = new Intent(Notifications.this,History.class);
+        historyPage = new Intent(Notifications.this,BoughtItems.class);
         myItems = new Intent(Notifications.this,MyItems.class);
         loginpage = new Intent(Notifications.this,Login.class);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

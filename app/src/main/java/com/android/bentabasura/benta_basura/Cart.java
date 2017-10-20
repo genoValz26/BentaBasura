@@ -35,7 +35,7 @@ public class Cart extends AppCompatActivity
         notificationsPage = new Intent(Cart.this, Notifications.class);
         homePage = new Intent(Cart.this,Home.class);
         cartPage = new Intent(Cart.this,Cart.class);
-        historyPage = new Intent(Cart.this,History.class);
+        historyPage = new Intent(Cart.this,BoughtItems.class);
         myItems = new Intent(Cart.this,MyItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
