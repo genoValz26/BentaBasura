@@ -61,12 +61,14 @@ public class custom_craftlist extends BaseAdapter {
         TextView txtCraftDate = (TextView) rowData.findViewById(R.id.txtCraftDate);
         TextView txtCraftName = (TextView) rowData.findViewById(R.id.txtCraftName);
         TextView txtCraftDescription = (TextView) rowData.findViewById(R.id.txtCraftDescription);
+        TextView txtCraftPrice = (TextView) rowData.findViewById(R.id.txtCraftPrice);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
 
         Picasso.with(ctx).load(craft .get(position).getImageUrl()).placeholder( R.drawable.progress_animation ).fit().into(imgThumbCraft);
         txtCraftName.setText(craft .get(position).getCraftName());
         txtCraftDate.setText(craft .get(position).getUploadedDate());
         txtCraftDescription.setText(craft .get(position).getCraftDescription());
+        txtCraftPrice.setText(craft.get(position).getCraftPrice());
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
