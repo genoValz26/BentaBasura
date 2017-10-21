@@ -72,7 +72,6 @@ public class custom_craftlist extends BaseAdapter {
             public void onClick(View v)
             {
                 detailsIntent = new Intent(parent.getContext(), BuyCraftedDetails.class);
-                Log.d("CraftName", craft.get(position).getCraftName());
                 detailsIntent.putExtra("CraftName", craft.get(position).getCraftName());
                 detailsIntent.putExtra("CraftPic", craft.get(position).getImageUrl());
                 detailsIntent.putExtra("CraftDescription",craft.get(position).getCraftDescription());
