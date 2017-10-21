@@ -32,7 +32,7 @@ public class BoughtItemsCraftTab extends Fragment {
     DatabaseReference databaseReferenceCraft;
     custom_craftlist customCraftAdapter;
     ArrayList<Craft> craftArray = new ArrayList<>();
-    List<String> craftCategory = Arrays.asList("Decoration", "Furniture", "Projects");
+    List<String> craftCategory = Arrays.asList("Decoration", "Furniture", "Projects", "Accessories");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
