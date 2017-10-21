@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -120,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/tv11"
                 android:layout_below="@+id/tv11"
-                android:text="Juan Dela Cruz"
+                android:text=""
                 android:textColor="@color/colorPrimaryLight"
                 android:textSize="15sp"
                 android:textStyle="normal" />
@@ -132,7 +133,7 @@
                 android:layout_alignStart="@+id/tv14"
                 android:layout_below="@+id/tv14"
                 android:layout_marginTop="5dp"
-                android:text="09123456789"
+                android:text=""
                 android:textColor="@color/colorPrimaryLight"
                 android:textSize="15sp"
                 android:textStyle="normal" />
