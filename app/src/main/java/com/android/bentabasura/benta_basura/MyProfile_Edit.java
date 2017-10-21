@@ -488,7 +488,8 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         activeUser.setAddress(address);
         activeUser.setFirstname(fname);
         activeUser.setLastname(lname);
-        activeUser.setFullname(fname);
+        String fullname = fname + " " +lname;
+        activeUser.setFullname(fullname);
         return  true;
 
     }
