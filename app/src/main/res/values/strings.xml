@@ -43,7 +43,7 @@
     <string name="craftCategory">Category</string>
     <string name="trashName">Trash Name</string>
     <string name="trashDesc">Description</string>
-    <string name="trashQuantity">Quantity</string>
+    <string name="trashQuantity">Weight in Kg/s</string>
     <string name="trashPrice">Price</string>
     <string name="trashCategory">Category</string>
     <string name="resourcesFrom">Url for tutorials...</string>

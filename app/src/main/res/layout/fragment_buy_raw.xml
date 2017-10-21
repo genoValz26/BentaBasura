@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/textView12"
                 android:layout_toStartOf="@+id/txtRawPrice"
-                android:text="Quantity"
+                android:text="Weight"
                 android:textColor="@color/colorPrimaryAccent"
                 android:textSize="20sp"
                 android:textStyle="bold" />
