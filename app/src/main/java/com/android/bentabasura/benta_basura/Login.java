@@ -132,7 +132,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.loginGoogle:
                 if(cd.isConnected()){
-                    sighnInWithGoogle();
+                    //sighnInWithGoogle();
+                    buildMyDialog(Login.this).show();
                 }
                 else{
                     buildDialog(Login.this).show();
@@ -333,6 +334,21 @@ public class Login extends AppCompatActivity implements OnClickListener {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
+            }
+        });
+
+        return builder;
+    }
+    public AlertDialog.Builder buildMyDialog(Context c) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("Google Sign-in");
+        builder.setMessage("This Service is not yet available at this moment.");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onRestart();
             }
         });
 

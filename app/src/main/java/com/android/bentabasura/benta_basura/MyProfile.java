@@ -62,8 +62,8 @@ public class MyProfile extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         profilePage = new Intent(MyProfile.this, MyProfile.class);
-        buyCrafted = new Intent(MyProfile.this, BuyCrafted.class);
-        buyRaw = new Intent(MyProfile.this, BuyRaw.class);
+        buyCrafted = new Intent(MyProfile.this, Craft_Categories.class);
+        buyRaw = new Intent(MyProfile.this, Categories.class);
         sellCrafted = new Intent(MyProfile.this, SellCrafted.class);
         sellRaw = new Intent(MyProfile.this, SellRaw.class);
         notificationsPage = new Intent(MyProfile.this, Notifications.class);
