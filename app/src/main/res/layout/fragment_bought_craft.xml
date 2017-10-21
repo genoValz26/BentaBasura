@@ -5,7 +5,7 @@
 
 
     <ListView
-        android:id="@+id/lstMyCraft"
+        android:id="@+id/lstBoughtCraft"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
