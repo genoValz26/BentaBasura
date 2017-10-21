@@ -57,11 +57,13 @@ public class custom_trashlist extends BaseAdapter {
         TextView txtTrashName = (TextView) rowData.findViewById(R.id.txtTrashName);
         TextView txtTrashDescription = (TextView) rowData.findViewById(R.id.txtTrashDescription);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
+        TextView txtTrashPrice = (TextView) rowData.findViewById(R.id.txtTrashPrice);
 
         Picasso.with(ctx).load(trash.get(position).getImageUrl()).placeholder( R.drawable.progress_animation ).fit().into(imgThumbTrash);
         txtTrashName.setText(trash.get(position).getTrashName());
         txtTrashDate.setText(trash.get(position).getUploadedDate());
         txtTrashDescription.setText(trash.get(position).getTrashDescription());
+        txtTrashPrice.setText("Php " + trash.get(position).getTrashPrice() + ".00");
 
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override

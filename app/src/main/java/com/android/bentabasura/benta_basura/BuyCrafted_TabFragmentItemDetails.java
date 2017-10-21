@@ -47,8 +47,8 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtCraftDescription = (TextView) view.findViewById(R.id.txtCraftDescription);
         txtCraftQuantity = (TextView) view.findViewById(R.id.txtCraftQuantity);
         txtCraftPrice = (TextView) view.findViewById(R.id.txtCraftPrice);
-        txtSellerInfo = (TextView) view.findViewById(R.id.txtSellerInfoCraft);
-        //txtUploadedBy = (TextView) findViewById(R.id.txtUploadedBy);
+        txtSellerInfo = (TextView) view.findViewById(R.id.tv14);
+        txtUploadedBy = (TextView) view.findViewById(R.id.txtSellerInfoCraft);
 
         editCraftpage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
@@ -61,7 +61,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText("Php " + receivedBundle.get("CraftPrice").toString() + ".00");
         txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
-        //txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
+        txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
        // editCraftpage = new Intent(BuyCrafted_TabFragmentItemDetails.this,MyItems_Edit_Craft.class);
 
         

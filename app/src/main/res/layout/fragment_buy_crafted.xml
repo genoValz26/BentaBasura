@@ -17,14 +17,15 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin">
 
-        <TextView
-            android:id="@+id/txtCraftName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Crafted Item Name"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_alignStart="@+id/imgThumbCraft" />
+            <TextView
+                android:id="@+id/txtCraftName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/imgThumbCraft"
+                android:text="Crafted Item Name"
+                android:textColor="@color/colorAccentLight"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imgThumbCraft"
@@ -33,49 +34,54 @@
             android:layout_below="@+id/txtCraftName"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
+
             app:srcCompat="@drawable/cat_plastic" />
 
-        <TextView
-            android:id="@+id/tv8"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/imgThumbCraft"
-            android:layout_below="@+id/imgThumbCraft"
-            android:layout_marginTop="15dp"
-            android:textStyle="bold"
-            android:text="Description" />
+            <TextView
+                android:id="@+id/tv8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/imgThumbCraft"
+                android:layout_below="@+id/imgThumbCraft"
+                android:layout_marginTop="15dp"
+                android:text="Description"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtCraftDescription"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/tv8"
-            android:layout_below="@+id/tv8"
-            android:layout_marginTop="10dp"
-            android:text="A synthetic material made from a wide range of organic polymers such as polyethylene, PVC, nylon, etc., that can be molded into shape while soft and then set into a rigid or slightly elastic form." />
+            <TextView
+                android:id="@+id/txtCraftDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv8"
+                android:layout_below="@+id/tv8"
+                android:layout_marginTop="10dp"
+                android:text="A synthetic material made from a wide range of organic polymers such as polyethylene, PVC, nylon, etc., that can be molded into shape while soft and then set into a rigid or slightly elastic form."
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/txtCraftPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/txtCraftName"
-            android:layout_alignEnd="@+id/imgThumbCraft"
-            android:textStyle="normal|bold"
-            android:textSize="20sp"
-            android:text="$1.00" />
+            <TextView
+                android:id="@+id/txtCraftPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/txtCraftName"
+                android:layout_alignEnd="@+id/imgThumbCraft"
+                android:text="$1.00"
+                android:textColor="@color/colorAccentLight"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
 
-        <TextView
-            android:id="@+id/tv11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/txtCraftDescription"
-            android:layout_below="@+id/txtCraftDescription"
-            android:layout_marginTop="15dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="About Seller" />
+            <TextView
+                android:id="@+id/tv11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/txtCraftDescription"
+                android:layout_below="@+id/txtCraftDescription"
+                android:layout_marginTop="15dp"
+                android:text="About Seller"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv12"
@@ -97,47 +103,51 @@
                 android:background="@color/colorPrimary"
                 android:text="Edit" />
 
-        <TextView
-            android:id="@+id/tv13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quantity"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_alignBottom="@+id/tv12"
-            android:layout_toStartOf="@+id/txtCraftPrice" />
+            <TextView
+                android:id="@+id/tv13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv12"
+                android:layout_toStartOf="@+id/txtCraftPrice"
+                android:text="Quantity"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textStyle="normal"
-            android:text="Juan Dela Cruz"
-            android:layout_below="@+id/tv11"
-            android:layout_alignStart="@+id/tv11" />
+            <TextView
+                android:id="@+id/tv14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv11"
+                android:layout_below="@+id/tv11"
+                android:text="Juan Dela Cruz"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="15sp"
+                android:textStyle="normal" />
 
-        <TextView
-            android:id="@+id/txtSellerInfoCraft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="09123456789"
-            android:textSize="15sp"
-            android:textStyle="normal"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/tv14"
-            android:layout_alignStart="@+id/tv14" />
+            <TextView
+                android:id="@+id/txtSellerInfoCraft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv14"
+                android:layout_below="@+id/tv14"
+                android:layout_marginTop="5dp"
+                android:text="09123456789"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="15sp"
+                android:textStyle="normal" />
 
-        <TextView
-            android:id="@+id/txtCraftQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="15sp"
-            android:textStyle="normal"
-            android:text="0"
-            android:layout_alignTop="@+id/tv11"
-            android:layout_toEndOf="@+id/tv13" />
+            <TextView
+                android:id="@+id/txtCraftQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv11"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/tv13"
+                android:text="0"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="15sp"
+                android:textStyle="normal" />
 
 
         </RelativeLayout>
