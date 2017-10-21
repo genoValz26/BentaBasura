@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.bentabasura.benta_basura.MyItems"
+    tools:context="com.android.bentabasura.benta_basura.BoughtItems"
     android:background="@color/colorBackground2"
     android:weightSum="1">
 

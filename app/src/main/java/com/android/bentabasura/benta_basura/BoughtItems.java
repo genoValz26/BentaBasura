@@ -59,7 +59,7 @@ public class BoughtItems extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_items);
+        setContentView(R.layout.activity_bought_items);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,7 +70,7 @@ public class BoughtItems extends AppCompatActivity
 
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PageAdapterMyItems(getSupportFragmentManager(), tabLayout.getTabCount());
+        final PagerAdapter adapter = new PageAdapterBoughtItems(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

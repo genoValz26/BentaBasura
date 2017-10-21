@@ -38,9 +38,8 @@ public class BoughtItemsCraftTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_bought_craft, container, false);
 
-        lstMyTrash = (ListView) view.findViewById(R.id.lstMyTrash);
+        lstMyTrash = (ListView) view.findViewById(R.id.lstBoughtCraft);
         mProgressDialog = new ProgressDialog(container.getContext());
-
 
         databaseReferenceCraft  = FirebaseDatabase.getInstance().getReference("Craft");
 

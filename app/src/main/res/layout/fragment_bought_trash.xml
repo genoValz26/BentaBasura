@@ -5,7 +5,7 @@
 
 
     <ListView
-        android:id="@+id/lstMyTrash"
+        android:id="@+id/lstBoughtTrash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
