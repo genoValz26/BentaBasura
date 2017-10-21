@@ -38,7 +38,7 @@ public class BoughtItemsTrashTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_bought_trash, container, false);
 
-        lstMyTrash = (ListView) view.findViewById(R.id.lstMyTrash);
+        lstMyTrash = (ListView) view.findViewById(R.id.lstBoughtTrash);
         mProgressDialog = new ProgressDialog(container.getContext());
 
 
@@ -91,7 +91,7 @@ public class BoughtItemsTrashTab extends Fragment {
 
                                 if (trash.getTrashCategory().equals(trashCat.toString()))
                                 {
-                                    if (trash.getSold().equals("1") && trash.getUploadedBy().equals(activeUser.getUserId()))
+                                    if (trash.getSold().equals("1") && trash.getSoldTo().equals(activeUser.getUserId()))
                                     {
                                         trash.setTrashId(postSnapShot.getKey().toString());
                                         trashArray.add(trash);

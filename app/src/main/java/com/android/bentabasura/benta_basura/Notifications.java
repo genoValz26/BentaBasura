@@ -240,7 +240,7 @@ public class Notifications extends AppCompatActivity
 
     public void getNotifFromDatabase() {
 
-        databaseReference.limitToFirst(18).addValueEventListener(new ValueEventListener() {
+        databaseReference.limitToFirst(30).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

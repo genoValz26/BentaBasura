@@ -122,7 +122,7 @@ public class BuyRaw_TabFragmentItemFeedback extends Fragment {
                     if (!TextUtils.isEmpty(location) && !TextUtils.isEmpty(message) && !TextUtils.isEmpty(ownerId) && !TextUtils.isEmpty(profileId) && !TextUtils.isEmpty(profileImage) && !TextUtils.isEmpty(commentDate) )
                     {
                         Notification newNotif = new Notification();
-                        
+
                         newNotif.setNotifDbLink(location);
                         newNotif.setNotifMessage(message);
                         newNotif.setNotifOwnerId(ownerId);

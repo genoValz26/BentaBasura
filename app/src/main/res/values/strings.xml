@@ -69,6 +69,7 @@
         <item>Decoration</item>
         <item>Furniture</item>
         <item>Projects</item>
+        <item>Accessories</item>
     </string-array>
     <string name="action_settings">Settings</string>
     <string name="title_activity_item__details">Item_Details</string>
