@@ -6,13 +6,13 @@
     <color name="colorBackground">#f7f3f3</color>
     <color name="colorBackground2">#242a2f</color>
 
-    <color name="colorPrimaryLight">#C8E6C9</color>
+    <color name="colorPrimaryLight">#c8e6c9</color>
     <color name="colorAccentDark">#FFA000</color>
-    <color name="colorAccentLight">#FFECB3</color>
+    <color name="colorAccentLight">#ffecb3</color>
 
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextSecondary">#727272</color>
-    <color name="colorPrimaryAccent">#FFFFFF</color>
+    <color name="colorPrimaryAccent">#ffffff</color>
 
     <color name="grey_hard">#96989A</color>
     <color name="grey_medium">#BDBFC1</color>
@@ -22,7 +22,7 @@
     <color name="grey_text">#222D31</color>
     <color name="tab_indicator_color">#FFFFFF</color>
     <!--<color name="me_chat_bg">#FFE0B2</color>-->
-    <color name="me_chat_bg">#FFECB3</color>
+    <color name="me_chat_bg">#ffecb3</color>
 
     <color name="darkOverlay">#80000000</color>
     <color name="darkOverlaySoft">#40000000</color>
