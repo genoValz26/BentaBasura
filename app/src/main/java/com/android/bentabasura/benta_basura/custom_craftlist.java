@@ -68,7 +68,8 @@ public class custom_craftlist extends BaseAdapter {
         txtCraftName.setText(craft .get(position).getCraftName());
         txtCraftDate.setText(craft .get(position).getUploadedDate());
         txtCraftDescription.setText(craft .get(position).getCraftDescription());
-        txtCraftPrice.setText(craft.get(position).getCraftPrice());
+        txtCraftPrice.setText("Php " + craft.get(position).getCraftPrice() + ".00");
+
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

@@ -21,10 +21,11 @@
                 android:id="@+id/txtTrashName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/imgThumbRaw"
                 android:text="Trash Item Name"
-                android:textStyle="bold"
+                android:textColor="@color/colorAccentLight"
                 android:textSize="20sp"
-                android:layout_alignStart="@+id/imgThumbRaw" />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imgThumbRaw"
@@ -37,24 +38,26 @@
 
             <TextView
                 android:id="@+id/textView8"
-                android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/imgThumbRaw"
                 android:layout_below="@+id/imgThumbRaw"
                 android:layout_marginTop="15dp"
-                android:textStyle="bold"
-                android:text="Description" />
+                android:text="Description"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtRawDescription"
-                android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/textView8"
                 android:layout_below="@+id/textView8"
                 android:layout_marginTop="10dp"
-                android:text="A synthetic material made from a wide range of organic polymers such as polyethylene, PVC, nylon, etc., that can be molded into shape while soft and then set into a rigid or slightly elastic form." />
+                android:text="A synthetic material made from a wide range of organic polymers such as polyethylene, PVC, nylon, etc., that can be molded into shape while soft and then set into a rigid or slightly elastic form."
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/txtRawPrice"
@@ -62,9 +65,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/txtTrashName"
                 android:layout_alignEnd="@+id/imgThumbRaw"
-                android:textStyle="normal|bold"
+                android:text="$1.00"
+                android:textColor="@color/colorAccentLight"
                 android:textSize="20sp"
-                android:text="$1.00" />
+                android:textStyle="normal|bold" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -73,9 +77,10 @@
                 android:layout_alignStart="@+id/txtRawDescription"
                 android:layout_below="@+id/txtRawDescription"
                 android:layout_marginTop="15dp"
+                android:text="About Seller"
+                android:textColor="@color/colorPrimaryAccent"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="About Seller" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -101,32 +106,35 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quantity"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_alignBottom="@+id/textView12"
-                android:layout_toStartOf="@+id/txtRawPrice" />
+                android:layout_toStartOf="@+id/txtRawPrice"
+                android:text="Weight"
+                android:textColor="@color/colorPrimaryAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                android:text="Juan Dela Cruz"
+                android:layout_alignStart="@+id/textView11"
                 android:layout_below="@+id/textView11"
-                android:layout_alignStart="@+id/textView11" />
+                android:text=""
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="15sp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/txtSellerInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="09123456789"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                android:layout_marginTop="5dp"
+                android:layout_alignStart="@+id/textView14"
                 android:layout_below="@+id/textView14"
-                android:layout_alignStart="@+id/textView14" />
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="15sp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/txtRawQuantity"
@@ -135,7 +143,8 @@
                 android:layout_above="@+id/txtSellerInfo"
                 android:layout_marginStart="20dp"
                 android:layout_toEndOf="@+id/btnEdit"
-                android:text="0" />
+                android:text="0"
+                android:textColor="@color/colorPrimaryLight" />
 
 
         </RelativeLayout>

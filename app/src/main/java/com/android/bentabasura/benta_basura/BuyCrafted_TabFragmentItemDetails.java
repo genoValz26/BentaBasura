@@ -16,8 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.OnClickListener{
@@ -53,20 +56,32 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         editCraftpage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(this);
-        //btnEdit.setVisibility(View.GONE);
+        //btnEdit.setVisibility(View.GONE)
+        
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        activeUser = ActiveUser.getInstance();
 
         txtCraftName.setText(receivedBundle.get("CraftName").toString());
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbCraft);
         txtCraftDescription.setText(receivedBundle.get("CraftDescription").toString());
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText("Php " + receivedBundle.get("CraftPrice").toString() + ".00");
-        txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
-        txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
-       // editCraftpage = new Intent(BuyCrafted_TabFragmentItemDetails.this,MyItems_Edit_Craft.class);
 
-        
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        activeUser = ActiveUser.getInstance();
+
+        databaseReference.child("Users").child(receivedBundle.get("UploadedBy").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                txtSellerInfo.setText(dataSnapshot.child("firstname").getValue().toString() + " " + dataSnapshot.child("lastname").getValue().toString());
+                txtUploadedBy.setText(dataSnapshot.child("contact_number").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // editCraftpage = new Intent(BuyCrafted_TabFragmentItemDetails.this,MyItems_Edit_Craft.class);
 
         return view;
     }
