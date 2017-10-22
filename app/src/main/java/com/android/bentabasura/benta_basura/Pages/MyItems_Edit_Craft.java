@@ -194,10 +194,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity
         //---------------------------------------------------------------------
 
         Bundle receiveBundle = getIntent().getExtras();
-         showMessage(receiveBundle.get("CraftID").toString());
-        String craftID = receiveBundle.get("CraftID").toString();
-        String craftCategory = receiveBundle.get("CraftCategory").toString();
-         databaseReference.child("Craft").child(craftCategory).child(craftID).addListenerForSingleValueEvent(new ValueEventListener() {
+         databaseReference.child("Craft").child(receiveBundle.get("CraftCategory").toString()).child(receiveBundle.get("CraftID").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 craftName.setText(dataSnapshot.child("craftName").getValue().toString());

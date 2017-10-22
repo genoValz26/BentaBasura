@@ -28,4 +28,17 @@
     <style name="RippleStyleBlack" parent="RippleStyleWhite">
         <item name="mrl_rippleColor">#8096989A</item>
     </style>
+    <style name = "customDialog" parent = "Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowFixedWidthMajor">900dp</item>
+        <item name="windowFixedHeightMajor">300dp</item>
+
+
+
+
+    </style>
 </resources>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/btnInterested"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/sellerImage"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/btnSMS"
+        android:background="@color/colorPrimary"
+        android:text="Call Seller" />
+
+    <Button
+        android:id="@+id/btnSMS"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:background="@color/colorPrimary"
+        android:text="Send SMS"
+        android:layout_below="@+id/sellerImage"
+        android:layout_alignStart="@+id/sellerImage" />
+
+    <ImageView
+        android:id="@+id/sellerImage"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="13dp"
+        app:srcCompat="@drawable/ic_menu_gallery"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/sellerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seller Name"
+        android:textSize="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/btnInterested"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/sellerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="Address"
+        android:layout_below="@+id/sellerName"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/sellerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="Email Address"
+        android:layout_below="@+id/sellerAddress"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/sellerContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sellerEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="Contact Number" />
+</RelativeLayout>

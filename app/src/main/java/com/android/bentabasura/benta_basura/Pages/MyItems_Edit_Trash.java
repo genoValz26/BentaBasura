@@ -46,8 +46,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -186,6 +189,24 @@ public class MyItems_Edit_Trash extends AppCompatActivity
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        //--------------------------------------------------------------------
+        Bundle receiveBundle = getIntent().getExtras();
+        databaseReference.child("Trash").child(receiveBundle.get("TrashCategory").toString()).child( receiveBundle.get("TrashID").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                trashName.setText(dataSnapshot.child("trashName").getValue().toString());
+                Picasso.with(getApplicationContext()).load(dataSnapshot.child("imageUrl").getValue().toString()).placeholder(R.drawable.progress_animation).fit().into(imageView);
+                trashDesc.setText(dataSnapshot.child("trashDescription").getValue().toString());
+                trashPrice.setText(dataSnapshot.child("trashPrice").getValue().toString());
+                trashQty.setText(dataSnapshot.child("trashQuantity").getValue().toString());
+                sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

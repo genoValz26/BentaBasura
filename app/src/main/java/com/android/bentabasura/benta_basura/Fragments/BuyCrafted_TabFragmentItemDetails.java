@@ -21,6 +21,8 @@ import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.Pages.MyItems_Edit_Craft;
 import com.android.bentabasura.benta_basura.R;
+import com.android.bentabasura.benta_basura.View_Holders.custom_dialog_contact_seller;
+import com.android.bentabasura.benta_basura.View_Holders.custom_dialog_disclaimer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,10 +38,10 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
     TextView txtCraftName, txtCraftDescription, txtCraftQuantity, txtCraftPrice, txtSellerInfo, txtUploadedBy;
-    Button btnEdit,btnCall,btnSMS;
+    Button btnEdit,btnInterested;
     ImageView imgThumbCraft;
     Bundle receivedBundle;
-    Intent receiveIntent,editCraftpage,detailsIntent;
+    Intent receiveIntent,editCraftpage,detailsIntent,sellerdetailsIntent;
     DatabaseReference databaseReference;
     String userid;
     private ArrayList<Craft> craft;
@@ -62,11 +64,15 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
         editCraftpage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
-        btnCall = (Button) view.findViewById(R.id.btnCall);
-        btnSMS = (Button) view.findViewById(R.id.btnSMS);
+        //btnCall = (Button) view.findViewById(R.id.btnCall);
+        //btnSMS = (Button) view.findViewById(R.id.btnSMS);
+        btnInterested = (Button) view.findViewById(R.id.btnInterested);
+
         btnEdit.setOnClickListener(this);
-        btnSMS.setOnClickListener(this);
-        btnCall.setOnClickListener(this);
+        //btnSMS.setOnClickListener(this);
+        //btnCall.setOnClickListener(this);
+        btnInterested.setOnClickListener(this);
+
         //btnEdit.setVisibility(View.GONE)
         
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -83,7 +89,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 txtSellerInfo.setText(dataSnapshot.child("firstname").getValue().toString() + " " + dataSnapshot.child("lastname").getValue().toString());
-                txtUploadedBy.setText(dataSnapshot.child("contact_number").getValue().toString());
+                //txtUploadedBy.setText(dataSnapshot.child("contact_number").getValue().toString());
             }
 
             @Override
@@ -91,8 +97,8 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
             }
         });
+        txtUploadedBy.setVisibility(View.GONE);
 
-        // editCraftpage = new Intent(BuyCrafted_TabFragmentItemDetails.this,MyItems_Edit_Craft.class);
 
         return view;
     }
@@ -106,25 +112,21 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
                 String craftid = receivedBundle.get("CraftId").toString();
                 String craftCategory = receivedBundle.get("CraftCategory").toString();
                 detailsIntent = new Intent(getActivity().getApplicationContext(), MyItems_Edit_Craft.class);
-                // showMessage(craftid);
                 detailsIntent.putExtra("CraftID", craftid);
                 detailsIntent.putExtra("CraftCategory", craftCategory);
 
                 startActivity(detailsIntent);
                 break;
-            case R.id.btnCall:
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:"+txtUploadedBy.getText().toString()));
-                startActivity(callIntent);
-                break;
-            case R.id.btnSMS:
-                Intent smsIntent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("sms",txtUploadedBy.getText().toString(),null));
-                startActivity(smsIntent);
+
+            case R.id.btnInterested:
+                sellerdetailsIntent = new Intent(getActivity().getApplicationContext(),custom_dialog_disclaimer.class);
+                sellerdetailsIntent.putExtra("UserId",receivedBundle.get("UploadedBy").toString());
+                startActivity(sellerdetailsIntent);
                 break;
         }
     }
-    public void showMessage(String message) {
-        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
-    }
 
+    public void showMessage(String message){
+        Toast.makeText(getActivity().getApplicationContext(), message , Toast.LENGTH_LONG).show();
+    }
 }
