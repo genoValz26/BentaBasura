@@ -15,72 +15,72 @@
         android:roundIcon="@drawable/ic_bentabasura_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login">
+        <activity android:name=".Pages.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register" />
+        <activity android:name=".Pages.Register" />
         <activity
-            android:name=".Home"
+            android:name=".Pages.Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MyProfile"
+            android:name=".Pages.MyProfile"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BuyCrafted"
+            android:name=".Pages.BuyCrafted"
             android:label="@string/title_activity_buycrafted"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BuyRaw"
+            android:name=".Pages.BuyRaw"
             android:label="@string/title_activity_buyraw"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".SellCrafted"
+            android:name=".Pages.SellCrafted"
             android:label="@string/title_activity_sellcrafted"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SellRaw"
+            android:name=".Pages.SellRaw"
             android:label="@string/title_activity_sellraw"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Notifications"
+            android:name=".Pages.Notifications"
             android:label="@string/title_activity_notifications"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BoughtItems"
+            android:name=".Pages.BoughtItems"
             android:label="@string/title_activity_history"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Cart"
+        <activity android:name=".Pages.Cart"
             android:label="@string/title_activity_cart"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Categories"
+        <activity android:name=".Pages.Categories"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Craft_Categories"
+        <activity android:name=".Pages.Craft_Categories"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".MyProfile_Edit" />
-        <activity android:name=".MyItems" />
-        <activity android:name=".MyItems_Edit_Craft" />
-        <activity android:name=".MyItems_Edit_Trash" />
-        <activity android:name=".BuyCraftedDetails"
+        <activity android:name=".Pages.MyProfile_Edit" />
+        <activity android:name=".Pages.MyItems" />
+        <activity android:name=".Pages.MyItems_Edit_Craft" />
+        <activity android:name=".Pages.MyItems_Edit_Trash" />
+        <activity android:name=".Pages.BuyCraftedDetails"
         android:label="@string/title_activity_buycrafted"
         android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".BuyRawDetails" />
-        <activity android:name=".SellerProfile"
+        <activity android:name=".Pages.BuyRawDetails" />
+        <activity android:name=".Pages.SellerProfile"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <service android:name=".FirebaseNotificationService"/>
+        <service android:name=".Services.FirebaseNotificationService"/>
     </application>
 
 </manifest>
