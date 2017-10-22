@@ -6,6 +6,7 @@ package com.android.bentabasura.benta_basura;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,19 +24,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.OnClickListener{
 
 
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
     TextView txtCraftName, txtCraftDescription, txtCraftQuantity, txtCraftPrice, txtSellerInfo, txtUploadedBy;
-    Button btnEdit;
+    Button btnEdit,btnCall,btnSMS;
     ImageView imgThumbCraft;
-    Intent receiveIntent;
     Bundle receivedBundle;
-    Intent editCraftpage;
+    Intent receiveIntent,editCraftpage,detailsIntent;
     DatabaseReference databaseReference;
     String userid;
+    private ArrayList<Craft> craft;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_crafted, container, false);
@@ -55,7 +58,11 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
         editCraftpage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
+        btnCall = (Button) view.findViewById(R.id.btnCall);
+        btnSMS = (Button) view.findViewById(R.id.btnSMS);
         btnEdit.setOnClickListener(this);
+        btnSMS.setOnClickListener(this);
+        btnCall.setOnClickListener(this);
         //btnEdit.setVisibility(View.GONE)
         
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -86,13 +93,31 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         return view;
     }
 
-
     @Override
     public void onClick(View view) {
 
-        startActivity(editCraftpage);
-        //showMessage(databaseReference.child("Craft").().getKey().toString());
+        switch (view.getId())
+        {
+            case R.id.btnEdit:
+                String craftid = receivedBundle.get("CraftId").toString();
+                String craftCategory = receivedBundle.get("CraftCategory").toString();
+                detailsIntent = new Intent(getActivity().getApplicationContext(), MyItems_Edit_Craft.class);
+                // showMessage(craftid);
+                detailsIntent.putExtra("CraftID", craftid);
+                detailsIntent.putExtra("CraftCategory", craftCategory);
 
+                startActivity(detailsIntent);
+                break;
+            case R.id.btnCall:
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+txtUploadedBy.getText().toString()));
+                startActivity(callIntent);
+                break;
+            case R.id.btnSMS:
+                Intent smsIntent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("sms",txtUploadedBy.getText().toString(),null));
+                startActivity(smsIntent);
+                break;
+        }
     }
     public void showMessage(String message) {
         Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();

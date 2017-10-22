@@ -6,6 +6,7 @@ package com.android.bentabasura.benta_basura;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,9 +29,9 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
     TextView txtTrashName, txtTrashDescription, txtTrashQuantity, txtTrashPrice, txtSellerInfo, txtUploadedBy;
-    Button btnEdit;
+    Button btnEdit,btnCall,btnSMS;
     ImageView imgThumbRaw;
-    Intent receiveIntent,editTrashPage;
+    Intent receiveIntent,editTrashPage,detailsIntent;
     Bundle receivedBundle;
 
     DatabaseReference databaseReference;
@@ -46,7 +47,12 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
 
         editTrashPage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
+        btnCall = (Button) view.findViewById(R.id.btnCall);
+        btnSMS = (Button) view.findViewById(R.id.btnSMS);
+
         btnEdit.setOnClickListener(this);
+        btnSMS.setOnClickListener(this);
+        btnCall.setOnClickListener(this);
 
         txtTrashName = (TextView) view.findViewById(R.id.txtTrashName);
         imgThumbRaw = (ImageView) view.findViewById(R.id.imgThumbRaw);
@@ -85,6 +91,26 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        startActivity(editTrashPage);
+        switch (view.getId())
+        {
+            case R.id.btnEdit:
+                String craftid = receivedBundle.get("TrashId").toString();
+                String craftCategory = receivedBundle.get("TrashCategory").toString();
+                detailsIntent = new Intent(getActivity().getApplicationContext(), MyItems_Edit_Craft.class);
+                // showMessage(craftid);
+                detailsIntent.putExtra("TrashID", craftid);
+                detailsIntent.putExtra("TrashCategory", craftCategory);
+                startActivity(editTrashPage);
+                break;
+            case R.id.btnCall:
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+txtUploadedBy.getText().toString()));
+                startActivity(callIntent);
+                break;
+            case R.id.btnSMS:
+                Intent smsIntent = new Intent(Intent.ACTION_VIEW,Uri.fromParts("sms",txtUploadedBy.getText().toString(),null));
+                startActivity(smsIntent);
+                break;
+        }
     }
 }

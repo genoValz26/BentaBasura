@@ -225,41 +225,17 @@ public class MyProfile extends AppCompatActivity
     public void showMessage(String message){
         Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
     }
+    @Override
+    public void onClick(View view) {
 
-   public void showUpdateDialog(final String userid){
-       AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-       LayoutInflater inflater = getLayoutInflater();
-       final View dialogView = inflater.inflate(R.layout.activity_profile_edit,null);
-       dialogBuilder.setView(dialogView);
+          //showUpdateDialog(userid);
+        startActivity(editprofile);
 
-       final EditText editAddress = (EditText) findViewById(R.id.editAddress);
-       final EditText editContact = (EditText) findViewById(R.id.editContact);
-       final EditText editUsername = (EditText) findViewById(R.id.editUsername);
-       final ImageView profileImageView = (ImageView) findViewById(R.id.imageView);
-       final Button gallerybtn = (Button) findViewById(R.id.gallerybtn);
-       final Button updatebtn = (Button) findViewById(R.id.updatebtn);
-       dialogBuilder.setTitle("Edit Profile");
-
-       final AlertDialog  alertDialog = dialogBuilder.create();
-       alertDialog.show();
-       updatebtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               String strUsername = editUsername.getText().toString().trim();
-               String strContact  = editContact.getText().toString().trim();
-               String strAddress = editAddress.getText().toString().trim();
-
-               updateProfile(userid,strUsername,strContact,strAddress);
-               alertDialog.dismiss();
-           }
-       });
-
-   }
+    }
     public boolean updateProfile(String userid, String username, String contact_number, String address)
     {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
         Users updateUser = new Users();
-
 
             updateUser.setUsername(username);
             updateUser.setcontact_number(contact_number);
@@ -271,11 +247,22 @@ public class MyProfile extends AppCompatActivity
 
     }
 
-    @Override
-    public void onClick(View view) {
+    public void showUpdateDialog(final String userid){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.activity_profile_edit,null);
+        dialogBuilder.setView(dialogView);
 
-        //showUpdateDialog(userid);
-        startActivity(editprofile);
+        final EditText editAddress = (EditText) findViewById(R.id.editAddress);
+        final EditText editContact = (EditText) findViewById(R.id.editContact);
+        final EditText editUsername = (EditText) findViewById(R.id.editUsername);
+        final ImageView profileImageView = (ImageView) findViewById(R.id.imageView);
+        final Button gallerybtn = (Button) findViewById(R.id.gallerybtn);
+        final Button updatebtn = (Button) findViewById(R.id.updatebtn);
+        dialogBuilder.setTitle("Edit Profile");
+        final AlertDialog  alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
 
     }
     public AlertDialog.Builder buildDialog(Context c) {

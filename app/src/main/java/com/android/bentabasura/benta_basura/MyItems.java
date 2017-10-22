@@ -245,6 +245,7 @@ public class MyItems extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 startActivity(loginpage);
+
             }
         });
 

@@ -98,11 +98,30 @@
                 android:id="@+id/btnEdit"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
-                android:layout_below="@+id/txtSellerInfoCraft"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
                 android:background="@color/colorPrimary"
-                android:text="Edit" />
+                android:text="Edit"
+                android:layout_below="@+id/txtSellerInfoCraft"
+                android:layout_toEndOf="@+id/tv8"
+                android:layout_marginTop="20dp" />
+
+            <Button
+                android:id="@+id/btnCall"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_above="@+id/txtCraftDescription"
+                android:layout_alignTop="@+id/btnSMS"
+                android:layout_toEndOf="@+id/tv11"
+                android:background="@color/colorPrimary"
+                android:text="Call" />
+
+            <Button
+                android:id="@+id/btnSMS"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:layout_above="@+id/txtCraftDescription"
+                android:layout_alignEnd="@+id/tv12"
+                android:background="@color/colorPrimary"
+                android:text="SmS" />
 
             <TextView
                 android:id="@+id/tv13"

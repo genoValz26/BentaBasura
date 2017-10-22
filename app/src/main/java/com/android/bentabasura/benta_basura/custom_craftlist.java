@@ -84,7 +84,6 @@ public class custom_craftlist extends BaseAdapter {
                 detailsIntent.putExtra("CraftSeller", craft.get(position).getSellerContact());
                 detailsIntent.putExtra("UploadedBy", craft.get(position).getUploadedBy());
                 detailsIntent.putExtra("CraftId", craft.get(position).getCraftID());
-
                 parent.getContext().startActivity(detailsIntent);
             }
         });

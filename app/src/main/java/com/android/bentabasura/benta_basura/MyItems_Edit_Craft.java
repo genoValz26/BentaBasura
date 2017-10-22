@@ -42,8 +42,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -75,7 +78,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     String userid;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, mdatabaseReference;
     StorageReference storageReference;
     String date;
     EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
@@ -183,6 +186,31 @@ public class MyItems_Edit_Craft extends AppCompatActivity
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        //---------------------------------------------------------------------
+
+        Bundle receiveBundle = getIntent().getExtras();
+         showMessage(receiveBundle.get("CraftID").toString());
+        String craftID = receiveBundle.get("CraftID").toString();
+        String craftCategory = receiveBundle.get("CraftCategory").toString();
+         databaseReference.child("Craft").child(craftCategory).child(craftID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                craftName.setText(dataSnapshot.child("craftName").getValue().toString());
+                Picasso.with(getApplicationContext()).load(dataSnapshot.child("imageUrl").getValue().toString()).placeholder(R.drawable.progress_animation).fit().into(imageView);
+                craftDesc.setText(dataSnapshot.child("craftDescription").getValue().toString());
+                craftPrice.setText(dataSnapshot.child("craftPrice").getValue().toString());
+                craftQty.setText(dataSnapshot.child("craftQuantity").getValue().toString());
+                sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
+                resourcesFrom.setText(dataSnapshot.child("resourcesFrom").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
@@ -311,8 +339,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity
             imageUri = data.getData();
             if(requestCode == Gallery_Intent)
             {
-
-                //imageView.setImageResource(imageUri);
                 InputStream inputStream;
                 try
                 {
@@ -331,9 +357,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity
                 imageView.setImageBitmap(photo);
             }
         }
-        /*super.onActivityResult(requestCode,resultCode,data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);*/
+
 
     }
     private void onCamera()
