@@ -4,29 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.bentabasura.benta_basura.MyProfile"
-    android:background="#000"
+    tools:context="com.android.bentabasura.benta_basura.Pages.MyProfile"
     android:orientation="vertical"
     android:weightSum="1"
+    android:background="@color/colorBackground2"
     tools:layout_editor_absoluteY="25dp"
     tools:layout_editor_absoluteX="0dp">
 
     <TextView
         android:id="@+id/txtGender"
-        android:layout_width="0dp"
-        android:layout_height="27dp"
+        android:layout_width="300dp"
+        android:background="@color/grey_text"
+        android:layout_height="28dp"
         android:layout_marginBottom="71dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="54dp"
+        android:drawableLeft="@drawable/ic_phone_android_white_18dp"
         android:fontFamily="monospace"
         android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="15dp"
+        android:textAlignment="textStart"
+        android:textSize="20dp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtEmail"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
@@ -34,15 +38,18 @@
 
     <TextView
         android:id="@+id/txtEmail"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
+        android:background="@color/grey_text"
         android:layout_height="28dp"
-        android:layout_marginBottom="146dp"
+        android:layout_marginBottom="183dp"
         android:layout_marginEnd="11dp"
         android:layout_marginStart="11dp"
+        android:drawableLeft="@drawable/ic_mail_outline_white_18dp"
         android:fontFamily="monospace"
         android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="18dp"
+        android:textAlignment="textStart"
+        android:textSize="20dp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -52,14 +59,17 @@
 
     <TextView
         android:id="@+id/txtUserType"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
+        android:background="@color/grey_text"
         android:layout_height="0dp"
         android:layout_marginEnd="11dp"
         android:layout_marginStart="11dp"
+        android:drawableLeft="@drawable/ic_location_on_white_18dp"
         android:fontFamily="monospace"
         android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="18dp"
+        android:textAlignment="textStart"
+        android:textSize="20dp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/txtGender"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -69,33 +79,6 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <TextView
-        android:id="@+id/txtFullname"
-        android:layout_width="0dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="65dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:fontFamily="monospace"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="27dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtGender"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </RelativeLayout>
 
    <!-- <android.support.design.widget.AppBarLayout
         android:layout_width="0dp"
@@ -131,13 +114,13 @@
         android:layout_width="397dp"
         android:layout_height="304dp"
         android:id="@+id/relativeLayout"
-        tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp">
+        android:layout_marginEnd="4dp"
+        tools:layout_editor_absoluteY="0dp">
        <!-- app:layout_constraintTop_toTopOf="@+id/appBarLayout2"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp">-->
@@ -154,29 +137,41 @@
             android:id="@+id/smallProfile"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/txtFullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:layout_below="@+id/smallProfile"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="49dp" />
+            android:layout_marginTop="9dp" />
     </RelativeLayout>
 
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="60dp"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="26dp"
-        android:layout_marginRight="26dp"
         android:clickable="true"
+        android:background="@color/colorPrimary"
         android:src="@drawable/edit_icon"
         app:layout_anchor="@id/relativeLayout"
         app:layout_anchorGravity="bottom|right|end"
         app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
         tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintRight_toLeftOf="@+id/relativeLayout"
+        app:layout_constraintLeft_toRightOf="@+id/relativeLayout" />
 
 </android.support.constraint.ConstraintLayout>

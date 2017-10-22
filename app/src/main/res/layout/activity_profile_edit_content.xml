@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground2"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -32,98 +33,93 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="13dp"
         android:layout_marginTop="7dp"
-        app:srcCompat="@drawable/no_image_startup" />
+        app:srcCompat="@drawable/unknown_avatar" />
 
     <EditText
         android:id="@+id/editAddress"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="35dp"
-        android:ems="10"
-        android:paddingLeft="75dp"
         android:hint="@string/Address"
+        android:drawableLeft="@drawable/ic_location_on_white_18dp"
         android:inputType="textPersonName"
-        android:background="@drawable/location"
-        android:layout_marginTop="8dp"
+        android:background="@color/grey_text"
         android:layout_below="@+id/editContact"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/editContact" />
 
     <EditText
         android:id="@+id/editContact"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="35dp"
-        android:ems="10"
-        android:paddingLeft="75dp"
         android:hint="@string/MobileNum"
         android:inputType="phone"
-        android:background="@drawable/androidicon"
+        android:background="@color/grey_text"
+        android:drawableLeft="@drawable/ic_phone_android_white_18dp"
         android:layout_below="@+id/editUsername"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="7dp" />
+        android:layout_alignStart="@+id/editUsername" />
 
     <EditText
         android:id="@+id/editUsername"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:paddingLeft="75dp"
         android:hint="@string/username"
-        android:background="@drawable/user"
+        android:drawableLeft="@drawable/ic_account_box_white_18dp"
+        android:background="@color/grey_text"
         android:inputType="textPersonName"
         android:layout_below="@+id/textView19"
-        android:layout_alignParentStart="true" />
-
+        android:layout_alignEnd="@+id/savebtn"
+        android:layout_marginEnd="13dp">
+        <requestFocus/>
+    </EditText>
     <Button
         android:id="@+id/takephotobtn"
         android:layout_width="45dp"
         android:layout_height="40dp"
         android:drawableLeft="@drawable/ic_menu_camera"
-        android:layout_below="@+id/profileImageView"
-        android:layout_alignStart="@+id/updatebtn" />
+        android:layout_alignTop="@+id/profileImageView"
+        android:layout_toEndOf="@+id/profileImageView" />
 
     <EditText
         android:id="@+id/editfname"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="35dp"
-        android:ems="10"
-        android:paddingLeft="75dp"
         android:hint="@string/firstname"
         android:inputType="textPersonName"
-        android:background="@drawable/firstnameicon"
-        android:layout_marginTop="8dp"
+        android:background="@color/grey_text"
+        android:drawableLeft="@drawable/ic_perm_identity_white_18dp"
         android:layout_below="@+id/editAddress"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/editAddress" />
 
     <EditText
         android:id="@+id/editlname"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="35dp"
-        android:ems="10"
-        android:paddingLeft="75dp"
-        android:background="@drawable/lastname"
+        android:background="@color/grey_text"
         android:hint="@string/lastname"
         android:inputType="textPersonName"
-        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/ic_perm_contact_calendar_white_18dp"
         android:layout_below="@+id/editfname"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/editfname" />
 
     <Button
         android:id="@+id/gallerybtn"
         android:layout_width="45dp"
         android:layout_height="40dp"
         android:drawableLeft="@drawable/ic_menu_gallery"
-        android:layout_alignBottom="@+id/takephotobtn"
-        android:layout_toEndOf="@+id/takephotobtn" />
+        android:layout_above="@+id/savebtn"
+        android:layout_toEndOf="@+id/profileImageView"
+        android:layout_marginBottom="14dp" />
 
     <Button
         android:id="@+id/updatebtn"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="50dp"
-
+        android:background="@color/colorPrimary"
+        android:drawableLeft="@drawable/ic_check_circle_white_18dp"
         android:text="@string/updateBtn"
-        android:layout_marginBottom="7dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/editlname"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/textView19"
@@ -132,8 +128,9 @@
         android:text="Update Information"
         android:textSize="20dp"
         android:textStyle="normal|bold"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/profileImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
 
     <TextView
         android:id="@+id/textView20"
@@ -147,9 +144,9 @@
 
     <Button
         android:id="@+id/savebtn"
-        android:layout_width="60dp"
+        android:layout_width="45dp"
         android:layout_height="40dp"
-        android:text="Save"
-        android:layout_below="@+id/profileImageView"
-        android:layout_toEndOf="@+id/gallerybtn" />
+        android:drawableLeft="@drawable/ic_save_black_18dp"
+        android:layout_alignBottom="@+id/profileImageView"
+        android:layout_toEndOf="@+id/profileImageView" />
 </RelativeLayout>

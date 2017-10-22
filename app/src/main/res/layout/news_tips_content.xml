@@ -11,6 +11,7 @@
         android:id="@+id/cv"
         android:layout_marginTop="50dp">
     <ScrollView
+        android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -29,7 +30,7 @@
                 android:text="News"
                 android:textColor="@color/colorPrimaryAccent"
                 android:layout_below="@+id/textView2"
-                android:layout_alignStart="@+id/textView" />
+                android:layout_alignStart="@+id/textViewA" />
 
             <TextView
                 android:id="@+id/textView32"
@@ -97,7 +98,7 @@
                 app:srcCompat="@drawable/tips2" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
@@ -116,7 +117,7 @@
                 android:textSize="15sp"
                 android:textStyle="normal"
                 android:text="Benta Basura was developed by the team called Brogrammers of University of Cebu Lapu-Lapu and Mandaue to gain awareness of segregation and recycling, with this system users can gain income through collecting garbage and uploading them in the system."
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/textViewA"
                 android:layout_alignStart="@+id/textView31" />
             <VideoView
                 android:id="@+id/videoView"

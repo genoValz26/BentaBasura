@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,9 +66,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     static Menu mn;
 
 
-    TextView navFullName, navEmail;
+    TextView navFullName, navEmail,tvTop;
     ImageView navImage;
     ActiveUser activeUser;
+    ScrollView scrollView;
     private GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        tvTop = (TextView) findViewById(R.id.textViewA);
+        scrollView = (ScrollView) findViewById(R.id.sv);
+        scrollView.smoothScrollTo(0,tvTop.getTop());
         progressDialog = new ProgressDialog(this);
         profilePage = new Intent(Home.this, MyProfile.class);
         buyCrafted = new Intent(Home.this, Craft_Categories.class);
