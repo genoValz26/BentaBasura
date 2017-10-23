@@ -28,17 +28,31 @@
     <style name="RippleStyleBlack" parent="RippleStyleWhite">
         <item name="mrl_rippleColor">#8096989A</item>
     </style>
-    <style name = "customDialog" parent = "Theme.AppCompat.DayNight.DarkActionBar">
+    <style name = "customDialog" parent = "Theme.AppCompat.NoActionBar">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="windowFixedWidthMajor">900dp</item>
-        <item name="windowFixedHeightMajor">300dp</item>
+        <item name="windowFixedWidthMajor">1000dp</item>
+        <item name="windowFixedHeightMajor">400dp</item>
 
-
-
+    </style>
+    <style name = "customEditDialog" parent = "Theme.AppCompat.NoActionBar">
+    <item name="android:windowFrame">@null</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowFixedWidthMajor">900dp</item>
+    <item name="windowFixedHeightMajor">500dp</item>
+    </style>
+    <style name = "customProfileDialog" parent = "Theme.AppCompat.NoActionBar">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowFixedWidthMajor">1000dp</item>
+        <item name="windowFixedHeightMajor">500dp</item>
 
     </style>
 </resources>

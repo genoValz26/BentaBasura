@@ -2,8 +2,6 @@ package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,18 +10,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -38,10 +31,6 @@ import android.widget.Toast;
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.R;
-import com.android.bentabasura.benta_basura.Utils.RoundedTransformation;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,7 +57,7 @@ import java.util.Date;
  */
 
 public class MyItems_Edit_Craft extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
+        implements  View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
@@ -102,51 +91,19 @@ public class MyItems_Edit_Craft extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_items_edit_craft);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.dialog_edit_craft);
 
-        profilePage = new Intent(MyItems_Edit_Craft.this, MyProfile.class);
-        buyCrafted = new Intent(MyItems_Edit_Craft.this, Craft_Categories.class);
-        buyRaw = new Intent(MyItems_Edit_Craft.this, Categories.class);
-        sellCrafted = new Intent(MyItems_Edit_Craft.this, SellCrafted.class);
-        sellRaw = new Intent(MyItems_Edit_Craft.this,SellRaw.class);
-        notificationsPage = new Intent(MyItems_Edit_Craft.this, Notifications.class);
-        homePage = new Intent(MyItems_Edit_Craft.this,Home.class);
-        cartPage = new Intent(MyItems_Edit_Craft.this,Cart.class);
-        historyPage = new Intent(MyItems_Edit_Craft.this,BoughtItems.class);
-        myItems = new Intent(MyItems_Edit_Craft.this,MyItems.class);
-       loginpage = new Intent(MyItems_Edit_Craft.this,Login.class);
-
-        //--------------------------------------------------------------
         spnCraftCategory = (Spinner) findViewById(R.id.spnCraftCategory);
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(this,R.array.craft_category_array,android.R.layout.simple_spinner_dropdown_item);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnCraftCategory.setAdapter(adapterCategory);
         spnCraftCategory.setOnItemSelectedListener(this);
-        //--------------------------------------------------------------
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+
         //----------------------------------------------------------------
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
         activeUser = ActiveUser.getInstance();
-        //----------------------------------------------------------------
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-        navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
-        navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
-        navImage = (ImageView) headerView.findViewById(R.id.imageView);
-
-        navFullName.setText(activeUser.getFullname());
-        navEmail.setText(activeUser.getEmail());
-        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
-        navMenu = navigationView.getMenu();
-        navigationView.setNavigationItemSelectedListener(this);
         //----------------------------------------------------------------
         uploadbtn = (Button)findViewById(R.id.uploadbtn);
         uploadbtn.setOnClickListener(this);
@@ -176,22 +133,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity
 
         //--------------------------------------------------------------
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        showMessage("Something went wrong. Please try again");
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        //---------------------------------------------------------------------
 
         Bundle receiveBundle = getIntent().getExtras();
          databaseReference.child("Craft").child(receiveBundle.get("CraftCategory").toString()).child(receiveBundle.get("CraftID").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -211,101 +152,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity
 
             }
         });
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menuNotification:
-                startActivity(notificationsPage);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        switch (item.getItemId()) {
-            case R.id.nav_account:
-                startActivity(profilePage);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.nav_my_items:
-                startActivity(myItems);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.buy:
-                if(navMenu.findItem(R.id.buy).getTitle().equals("Buy                                        +")) {
-                    navMenu.findItem(R.id.buy_crafted).setVisible(true);
-                    navMenu.findItem(R.id.buy_raw).setVisible(true);
-                    navMenu.findItem(R.id.buy).setTitle("Buy                                        -");
-                }
-                else{
-                    navMenu.findItem(R.id.buy_crafted).setVisible(false);
-                    navMenu.findItem(R.id.buy_raw).setVisible(false);
-                    navMenu.findItem(R.id.buy).setTitle("Buy                                        +");
-                }
-                break;
-            case R.id.buy_crafted:
-                startActivity(buyCrafted);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.buy_raw:
-                startActivity(buyRaw);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.sell:
-                if(navMenu.findItem(R.id.sell).getTitle().equals("Sell                                        +")) {
-                    navMenu.findItem(R.id.sell_crafted).setVisible(true);
-                    navMenu.findItem(R.id.sell_raw).setVisible(true);
-                    navMenu.findItem(R.id.sell).setTitle("Sell                                        -");
-                }
-                else{
-                    navMenu.findItem(R.id.sell_crafted).setVisible(false);
-                    navMenu.findItem(R.id.sell_raw).setVisible(false);
-                    navMenu.findItem(R.id.sell).setTitle("Sell                                        +");
-                }
-                break;
-            case R.id.sell_crafted:
-                startActivity(sellCrafted);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.sell_raw:
-                startActivity(sellRaw);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.home:
-                startActivity(homePage);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.history:
-                startActivity(historyPage);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.logout:
-                logout();
-                break;
-        }
-        return true;
-    }
-    public void logout() {
-
-        firebaseAuth.signOut();
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-        buildDialog(this).show();
-        return;
 
     }
 
@@ -497,19 +343,5 @@ public class MyItems_Edit_Craft extends AppCompatActivity
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-    public AlertDialog.Builder buildDialog(Context c) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setTitle("BentaBasura");
-        builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
-
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(loginpage);
-            }
-        });
-
-        return builder;
-    }
 }

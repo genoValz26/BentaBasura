@@ -69,9 +69,14 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".Pages.MyProfile_Edit" />
+        <activity android:name=".Pages.MyProfile_Edit"
+            android:theme="@style/customProfileDialog"/>
+
         <activity android:name=".Pages.MyItems" />
-        <activity android:name=".Pages.MyItems_Edit_Craft" />
+
+        <activity android:name=".Pages.MyItems_Edit_Craft"
+            android:theme="@style/customEditDialog"
+            />
         <activity android:name=".Pages.MyItems_Edit_Trash" />
         <activity android:name=".Pages.BuyCraftedDetails"
         android:label="@string/title_activity_buycrafted"
