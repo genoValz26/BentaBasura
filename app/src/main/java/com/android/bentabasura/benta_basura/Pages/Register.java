@@ -51,8 +51,6 @@ public class Register extends AppCompatActivity implements OnClickListener {
 
         txtUser = (EditText) findViewById(R.id.txtUser);
         txtPass= (EditText) findViewById(R.id.txtPass);
-        txtFirstName = (EditText) findViewById(R.id.txtFirstName);
-        txtLastName = (EditText) findViewById(R.id.txtLastName);
         emailtxt = (EditText) findViewById(R.id.emailtxt);
         txtCPass = (EditText) findViewById(R.id.txtCPass);
         txtMobileNum = (EditText) findViewById(R.id.txtMobileNum);
