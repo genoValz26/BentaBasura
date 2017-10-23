@@ -93,13 +93,12 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         progressDialog = new ProgressDialog(this);
         savebtn.setEnabled(false);
         activeUser = ActiveUser.getInstance();
-        Picasso.with(this).load(activeUser.getProfilePicture())
+        Picasso.with(this).load(activeUser.getProfilePicture()).placeholder(R.drawable.progress_animation)
                 .fit().into(profileImageView);
         editUsername.setText(activeUser.getUserName().toString());
         editContact.setText(activeUser.getContact_number().toString());
         editAddress.setText(activeUser.getAddress().toString());
 
-        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         storageReference = FirebaseStorage.getInstance().getReference();

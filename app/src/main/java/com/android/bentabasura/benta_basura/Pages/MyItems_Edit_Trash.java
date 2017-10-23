@@ -67,19 +67,15 @@ import java.util.Date;
  * Created by reymond on 20/10/2017.
  */
 
-public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
-    private DrawerLayout drawer;
-    private ActionBarDrawerToggle toggle;
-    private NavigationView navigationView;
-    private Menu navMenu;
+
     private Button uploadbtn,takePhotobtn;
     private ImageView imageView;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
     EditText trashName,trashDesc,trashQty,trashPrice,sellerContact;
-    Button Submittrash,editbtn,deletebtn;
+    Button SubmitTrash,editbtn,deletebtn;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     DatabaseReference databaseReference;
@@ -95,11 +91,12 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
     private Spinner spnTrashCategory;
     String selectedType,selectedCategory,currentUsername;
     private GoogleApiClient mGoogleApiClient;
+    String strTrashId,strTrashCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_items_edit_trash);
+        setContentView(R.layout.dialog_edit_trash);
 
         //set persist to true
         Login.setPersist(true);
@@ -107,17 +104,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        profilePage = new Intent(MyItems_Edit_Trash.this, MyProfile.class);
-        buyCrafted = new Intent(MyItems_Edit_Trash.this, Craft_Categories.class);
-        buyRaw = new Intent(MyItems_Edit_Trash.this, Categories.class);
-        sellCrafted = new Intent(MyItems_Edit_Trash.this, SellCrafted.class);
-        sellRaw = new Intent(MyItems_Edit_Trash.this, SellRaw.class);
-        notificationsPage = new Intent(MyItems_Edit_Trash.this, Notifications.class);
-        homePage = new Intent(MyItems_Edit_Trash.this,Home.class);
-        cartPage = new Intent(MyItems_Edit_Trash.this,Cart.class);
-        historyPage = new Intent(MyItems_Edit_Trash.this,BoughtItems.class);
-        myItems = new Intent(MyItems_Edit_Trash.this,MyItems.class);
-        loginpage = new Intent(MyItems_Edit_Trash.this,Login.class);
+
         //---------------------------------------------------------
         spnTrashCategory = (Spinner) findViewById(R.id.spnTrashCategory);
 
@@ -126,13 +113,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
         spnTrashCategory.setAdapter(adapterCategory);
         spnTrashCategory.setOnItemSelectedListener(this);
 
-        //----------------------------------------------------------
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
         //------------------------------------------------------------
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -141,19 +122,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
         activeUser = ActiveUser.getInstance();
 
         //------------------------------------------------------------
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-        navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
-        navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
-        navImage = (ImageView) headerView.findViewById(R.id.imageView);
 
-        navFullName.setText(activeUser.getFullname());
-        navEmail.setText(activeUser.getEmail());
-        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
-
-        navMenu = navigationView.getMenu();
-        navigationView.setNavigationItemSelectedListener(this);
-        //------------------------------------------------------------
         uploadbtn = (Button)findViewById(R.id.uploadbtn);
         uploadbtn.setOnClickListener(this);
         takePhotobtn = (Button) findViewById(R.id.takePhotobtn);
@@ -169,8 +138,8 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
         trashQty = (EditText) findViewById(R.id.trashQty);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
 
-        Submittrash = (Button) findViewById(R.id.Submittrash);
-        Submittrash.setOnClickListener(this);
+        SubmitTrash = (Button) findViewById(R.id.SubmitTrash);
+        SubmitTrash.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
 
         editbtn = (Button) findViewById(R.id.soldbtn);
@@ -178,24 +147,11 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
         deletebtn = (Button) findViewById(R.id.deletebtn);
         deletebtn.setOnClickListener(this);
 
-        //----------------------------------------------------------------------------------
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        showMessage("Something went wrong. Please try again");
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
         //--------------------------------------------------------------------
         Bundle receiveBundle = getIntent().getExtras();
-        databaseReference.child("Trash").child(receiveBundle.get("TrashCategory").toString()).child( receiveBundle.get("TrashID").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        strTrashId = receiveBundle.get("TrashID").toString();
+        strTrashCategory = receiveBundle.get("TrashCategory").toString();
+        databaseReference.child("Trash").child(strTrashCategory).child( strTrashId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 trashName.setText(dataSnapshot.child("trashName").getValue().toString());
@@ -213,101 +169,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menuNotification:
-                startActivity(notificationsPage);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        switch (item.getItemId()) {
-            case R.id.nav_account:
-                startActivity(profilePage);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.nav_my_items:
-                startActivity(myItems);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.buy:
-                if(navMenu.findItem(R.id.buy).getTitle().equals("Buy                                        +")) {
-                    navMenu.findItem(R.id.buy_crafted).setVisible(true);
-                    navMenu.findItem(R.id.buy_raw).setVisible(true);
-                    navMenu.findItem(R.id.buy).setTitle("Buy                                        -");
-                }
-                else{
-                    navMenu.findItem(R.id.buy_crafted).setVisible(false);
-                    navMenu.findItem(R.id.buy_raw).setVisible(false);
-                    navMenu.findItem(R.id.buy).setTitle("Buy                                        +");
-                }
-                break;
-            case R.id.buy_crafted:
-                startActivity(buyCrafted);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.buy_raw:
-                startActivity(buyRaw);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.sell:
-                if(navMenu.findItem(R.id.sell).getTitle().equals("Sell                                        +")) {
-                    navMenu.findItem(R.id.sell_crafted).setVisible(true);
-                    navMenu.findItem(R.id.sell_raw).setVisible(true);
-                    navMenu.findItem(R.id.sell).setTitle("Sell                                        -");
-                }
-                else{
-                    navMenu.findItem(R.id.sell_crafted).setVisible(false);
-                    navMenu.findItem(R.id.sell_raw).setVisible(false);
-                    navMenu.findItem(R.id.sell).setTitle("Sell                                        +");
-                }
-                break;
-            case R.id.sell_crafted:
-                startActivity(sellCrafted);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.sell_raw:
-                startActivity(sellRaw);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.home:
-                startActivity(homePage);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.history:
-                startActivity(historyPage);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.logout:
-                logout();
-                break;
-        }
-        return true;
-    }
-    public void logout() {
-
-        firebaseAuth.signOut();
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-        buildDialog(this).show();
-        return;
-
-    }
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.uploadbtn:
@@ -316,8 +178,11 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
             case R.id.takePhotobtn:
                 onCamera();
                 break;
-            case R.id.Submittrash:
+            case R.id.SubmitTrash:
                 onUpload();
+                break;
+            case R.id.deletebtn:
+                buildDeleteDialog(MyItems_Edit_Trash.this).show();
                 break;
         }
     }
@@ -444,12 +309,13 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                 String UploadedDate = sdf.format(currentTime);
+
+                DatabaseReference mdatabaseReferene = FirebaseDatabase.getInstance().getReference("Trash").child(strTrashCategory).child(strTrashId);
                 Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid,UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
-                String uploadid = databaseReference.getKey();
-                databaseReference.child("Trash").child(selectedCategory).child(uploadid).setValue(newTrash);
+                databaseReference.setValue(newTrash);
                 showMessage("Trash Updated Successfully");
                 progressDialog.dismiss();
-                startActivity(homePage);
+                startActivity(new Intent(MyItems_Edit_Trash.this,Home.class));
 
             }
         });
@@ -480,19 +346,44 @@ public class MyItems_Edit_Trash extends AppCompatActivity implements NavigationV
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-    public AlertDialog.Builder buildDialog(Context c) {
+    public AlertDialog.Builder buildDeleteDialog(Context c) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setTitle("BentaBasura");
-        builder.setMessage("Thank you for using BentaBasura!." + "\n" + " Press OK to Exit");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("Delete Craft");
+        builder.setMessage("Are you sure you want to Delete your Craft?.");
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(loginpage);
+                databaseReference.child("Craft").child(strTrashCategory).child(strTrashId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        databaseReference.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                showMessage("Craft has been removed!");
+                                startActivity(new Intent(MyItems_Edit_Trash.this, Home.class));
+                                finishAndRemoveTask();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
-
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
         return builder;
     }
+
+
 }

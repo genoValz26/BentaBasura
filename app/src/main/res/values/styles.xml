@@ -35,6 +35,16 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowFixedWidthMajor">1000dp</item>
+        <item name="windowFixedHeightMajor">250dp</item>
+
+    </style>
+    <style name = "customSellerDialog" parent = "Theme.AppCompat.NoActionBar">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowFixedWidthMajor">1000dp</item>
         <item name="windowFixedHeightMajor">400dp</item>
 
     </style>

@@ -2,6 +2,8 @@ package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -75,7 +78,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     String date;
     EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
     Button SubmitCraft,soldtbtn,deletebtn;
-
+    String strcraftID,strcraftCategory;
     ProgressDialog progressDialog;
 
     TextView navFullName, navEmail;
@@ -138,7 +141,9 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
 
 
         Bundle receiveBundle = getIntent().getExtras();
-         databaseReference.child("Craft").child(receiveBundle.get("CraftCategory").toString()).child(receiveBundle.get("CraftID").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        strcraftID = receiveBundle.get("CraftID").toString();
+        strcraftCategory = receiveBundle.get("CraftCategory").toString();
+         databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 craftName.setText(dataSnapshot.child("craftName").getValue().toString());
@@ -174,6 +179,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             case R.id.soldbtn:
                 break;
             case R.id.deletebtn:
+                buildDeleteDialog(MyItems_Edit_Craft.this).show();
                 break;
         }
     }
@@ -311,9 +317,9 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                 String UploadedDate = sdf.format(currentTime);
+                DatabaseReference mdatabaseReference =FirebaseDatabase.getInstance().getReference("Craft").child(strcraftCategory).child(strcraftID);
                 Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid, UploadedDate.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),"0", "");
-                String uploadid = databaseReference.getKey();
-                databaseReference.child("Craft").child(selectedCategory).child(uploadid).setValue(newCraft);
+                mdatabaseReference.setValue(newCraft);
                 showMessage("Craft Updated Successfully");
                 progressDialog.dismiss();
                 startActivity(myItems);
@@ -345,6 +351,44 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+    public AlertDialog.Builder buildDeleteDialog(Context c) {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setTitle("Delete Craft");
+        builder.setMessage("Are you sure you want to Delete your Craft?.");
+
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        databaseReference.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                showMessage("Craft has been removed!");
+                                startActivity(new Intent(MyItems_Edit_Craft.this, Home.class));
+                                finishAndRemoveTask();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        return builder;
     }
 
 }

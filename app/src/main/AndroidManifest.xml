@@ -88,7 +88,7 @@
         <activity android:name=".View_Holders.custom_dialog_disclaimer"
             android:theme="@style/customDialog"/>
         <activity android:name=".View_Holders.custom_dialog_contact_seller"
-            android:theme="@style/customDialog"/>
+            android:theme="@style/customSellerDialog"/>
 
         <service android:name=".Services.FirebaseNotificationService"/>
     </application>
