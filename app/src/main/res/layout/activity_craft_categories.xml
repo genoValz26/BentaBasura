@@ -71,21 +71,21 @@
             android:id="@+id/btnFurniture"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:text="Furniture"
+            android:text=""
             android:background="@drawable/furniture"/>
 
         <Button
             android:id="@+id/btnProjects"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:text="Projects"
+            android:text=""
             android:background="@drawable/projects"/>
 
         <Button
             android:id="@+id/btnWood"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:text="Accessories"
+            android:text="s"
             android:background="@drawable/accessories"/>
     </GridLayout>
 </android.support.constraint.ConstraintLayout>
