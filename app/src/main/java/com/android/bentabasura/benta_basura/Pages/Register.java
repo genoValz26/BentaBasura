@@ -2,6 +2,7 @@ package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -138,7 +140,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                 startActivity(loginPage);
                 break;
             case R.id.btnImage:
-                onGallery();
+                showPictureDialog();
                 break;
         }
     }
@@ -476,6 +478,29 @@ public class Register extends AppCompatActivity implements OnClickListener {
         else{
             passwordChecker.setProgress(Total-20);
         }
+    }
+
+    private void showPictureDialog(){
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera" };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                onGallery();
+                                break;
+                            case 1:
+                                //takePhotoFromCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
     }
 
 }
