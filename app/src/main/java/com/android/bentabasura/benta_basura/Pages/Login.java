@@ -130,6 +130,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     userlogin();
                 } else {
                     buildDialog(Login.this).show();
+                    finishAndRemoveTask();
                 }
                 break;
             case R.id.link_register:
@@ -145,6 +146,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     buildMyDialog(Login.this).show();
                 } else {
                     buildDialog(Login.this).show();
+                    finishAndRemoveTask();
                 }
                 break;
         }
@@ -196,6 +198,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             showMessage("Verify your Email First!");
             firebaseAuth.signOut();
             progressDialog.dismiss();
+            startActivity(new Intent(Login.this,Login.class));
 
             return;
         } else {

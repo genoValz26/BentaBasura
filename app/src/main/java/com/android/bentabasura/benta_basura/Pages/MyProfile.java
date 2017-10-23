@@ -1,17 +1,12 @@
 package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,12 +15,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,8 +38,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 
 public class MyProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
@@ -279,9 +270,7 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
 
         final EditText editAddress = (EditText) dialogView.findViewById(R.id.editAddress);
         final EditText editContact = (EditText)  dialogView.findViewById(R.id.editContact);
-        final EditText editUsername = (EditText)  dialogView.findViewById(R.id.editUsername);
-        final EditText editfname = (EditText)  dialogView.findViewById(R.id.editfname);
-        final EditText editlname = (EditText)  dialogView.findViewById(R.id.editlname);
+        final EditText editUsername = (EditText)  dialogView.findViewById(R.id.editFullname);
         final ImageView profileImageView = (ImageView) dialogView.findViewById(R.id.profileImageView);
         final Button gallerybtn = (Button)  dialogView.findViewById(R.id.gallerybtn);
         final Button updatebtn = (Button)  dialogView.findViewById(R.id.updatebtn);
@@ -292,15 +281,13 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
         activeUser = ActiveUser.getInstance();
         editAddress.setText(activeUser.getAddress().toString());
         editContact.setText(activeUser.getContact_number().toString());
-        editfname.setText(activeUser.getFirstname().toString());
-        editlname.setText(activeUser.getLastname().toString());
         editUsername.setText(activeUser.getUserName().toString());
         Picasso.with(this).load(activeUser.getProfilePicture()).placeholder(R.drawable.progress_animation)
                 .fit().into(profileImageView);
         updatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateProfile(userid, editUsername.getText().toString(), editContact.getText().toString(), editAddress.getText().toString(), editfname.getText().toString(), editlname.getText().toString());
+                updateProfile(userid, editUsername.getText().toString(), editContact.getText().toString(), editAddress.getText().toString(), "None", "None");
             }
         });
         gallerybtn.setOnClickListener(new View.OnClickListener() {

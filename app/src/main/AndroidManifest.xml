@@ -77,7 +77,8 @@
         <activity android:name=".Pages.MyItems_Edit_Craft"
             android:theme="@style/customEditDialog"
             />
-        <activity android:name=".Pages.MyItems_Edit_Trash" />
+        <activity android:name=".Pages.MyItems_Edit_Trash"
+            android:theme="@style/customEditDialog"/>
         <activity android:name=".Pages.BuyCraftedDetails"
         android:label="@string/title_activity_buycrafted"
         android:theme="@style/AppTheme.NoActionBar"/>

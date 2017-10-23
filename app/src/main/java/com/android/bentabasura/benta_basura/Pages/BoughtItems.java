@@ -125,7 +125,7 @@ public class BoughtItems extends AppCompatActivity
         navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
 
-        navFullName.setText(activeUser.getFullname());
+        navFullName.setText(activeUser.getUserName());
         navEmail.setText(activeUser.getEmail());
         Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
 

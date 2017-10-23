@@ -44,7 +44,7 @@ import java.io.InputStream;
 
 public class MyProfile_Edit extends AppCompatActivity implements View.OnClickListener{
 
-    EditText editUsername, editAddress, editContact,editfname,editlname;
+    EditText editUsername, editAddress, editContact;
     Button updatebtn,galleybtn,takephotobtn,savebtn;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
@@ -65,19 +65,15 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     ImageView navImage;
     ActiveUser activeUser;
 
-    ProgressDialog progressDialog;
+  ProgressDialog progressDialog;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_edit_profile);
 
-        Login.setPersist(true);
-
-        editUsername = (EditText) findViewById(R.id.editUsername);
+        editUsername = (EditText) findViewById(R.id.editFullname);
         editAddress = (EditText) findViewById(R.id.editAddress);
         editContact = (EditText) findViewById(R.id.editContact);
-        editfname = (EditText) findViewById(R.id.editfname);
-        editlname = (EditText) findViewById(R.id.editlname);
         updatebtn = (Button) findViewById(R.id.updatebtn);
         updatebtn.setOnClickListener(this);
         galleybtn = (Button) findViewById(R.id.gallerybtn);
@@ -99,8 +95,6 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         activeUser = ActiveUser.getInstance();
         Picasso.with(this).load(activeUser.getProfilePicture())
                 .fit().into(profileImageView);
-        editfname.setText(activeUser.getFirstname().toString());
-        editlname.setText(activeUser.getLastname().toString());
         editUsername.setText(activeUser.getUserName().toString());
         editContact.setText(activeUser.getContact_number().toString());
         editAddress.setText(activeUser.getAddress().toString());
@@ -119,172 +113,8 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
             String strUsername = editUsername.getText().toString().trim();
             String strContact = editContact.getText().toString().trim();
             String strAddress = editAddress.getText().toString().trim();
-            String strFname = editfname.getText().toString().trim();
-            String strLname = editlname.getText().toString().trim();
 
-                if(TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strAddress = activeUser.getAddress().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(!TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strAddress = activeUser.getAddress().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strAddress = activeUser.getAddress().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strAddress = activeUser.getAddress().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strAddress = activeUser.getAddress().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strFname  = activeUser.getFirstname().toString();
-
-                }
-                else if(!TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strContact = activeUser.getContact_number().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(!TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strAddress = activeUser.getAddress().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(!TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strAddress = activeUser.getAddress().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strLname = activeUser.getLastname().toString();
-                }
-                else if(!TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strAddress = activeUser.getAddress().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                }
-                else if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                    strLname = activeUser.getLastname().toString();
-                }
-                else if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strContact = activeUser.getContact_number().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                }
-                else if(TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strAddress = activeUser.getAddress().toString();
-                    strLname = activeUser.getLastname().toString();
-                }
-                else if(TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strAddress = activeUser.getAddress().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                }
-                else if(TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strAddress = activeUser.getAddress().toString();
-                    strContact = activeUser.getContact_number().toString();
-                }
-                else if(!TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strFname  = activeUser.getFirstname().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(!TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strAddress = activeUser.getAddress().toString();
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(!TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strContact = activeUser.getContact_number().toString();;
-                    strLname = activeUser.getLastname().toString();
-
-                }
-                else if(!TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strContact = activeUser.getContact_number().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                }
-                else if(!TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strAddress = activeUser.getAddress().toString();
-                    strFname  = activeUser.getFirstname().toString();
-                }
-                else if(TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strAddress = activeUser.getAddress().toString();
-                }
-                else if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strContact = activeUser.getContact_number().toString();
-
-                }
-                else if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strLname = activeUser.getLastname().toString();
-                }
-                else if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                    strFname  = activeUser.getFirstname().toString();
-
-                }
-                else if(!TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strAddress = activeUser.getAddress().toString();
-                    strContact = activeUser.getContact_number().toString();
-
-                }
-                else if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strUsername = activeUser.getUserName().toString();
-                }
-                else if(!TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strAddress = activeUser.getAddress().toString();
-                }
-                else  if(!TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strContact = activeUser.getContact_number().toString();
-                }
-                else  if(!TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && TextUtils.isEmpty(strFname ) && !TextUtils.isEmpty(strLname)){
-                    strFname  = activeUser.getFirstname().toString();
-                }
-                else  if(TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) && !TextUtils.isEmpty(strContact) && !TextUtils.isEmpty(strFname ) && TextUtils.isEmpty(strLname)){
-                    strLname = activeUser.getLastname().toString();
-                }
-                else if (!TextUtils.isEmpty(strFname) && !TextUtils.isEmpty(strLname) && !TextUtils.isEmpty(strUsername) && !TextUtils.isEmpty(strAddress) &&  strContact.length() < 11) {
-                    editContact.setError("Mobile Number must be 11 digits!");
-                    progressDialog.dismiss();
-                    return;
-                }
-            updateProfile(userid, strUsername, strContact, strAddress, strFname, strLname);
+            updateProfile(userid, strUsername, strContact, strAddress);
                 break;
             case R.id.gallerybtn:
                 onGallery();
@@ -311,12 +141,12 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-    public boolean updateProfile(String userid, String username, String contact_number, String address, String fname, String lname)
+    public boolean updateProfile(String userid, String username, String contact_number, String address)
     {
         progressDialog.setMessage("Updating your Information...");
         progressDialog.show();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-        Users updateUser = new Users(username,activeUser.getEmail().toString(),fname,lname,activeUser.getGender().toString(),activeUser.getProfilePicture(),activeUser.getUserType(),address,contact_number);
+        Users updateUser = new Users(username,activeUser.getEmail().toString(),"None","None",activeUser.getGender().toString(),activeUser.getProfilePicture(),activeUser.getUserType(),address,contact_number);
         databaseReference.setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -328,17 +158,14 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         activeUser.setUserName(username);
         activeUser.setContact_number(contact_number);
         activeUser.setAddress(address);
-        activeUser.setFirstname(fname);
-        activeUser.setLastname(lname);
-        String fullname = fname + " " +lname;
-        activeUser.setFullname(fullname);
+
         return  true;
 
     }
     public boolean updateProfilePicture(String userid,String profile_picture){
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-                Users updateUserprofile = new Users(activeUser.getUserName(),activeUser.getEmail().toString(),activeUser.getFirstname(),activeUser.getLastname(),activeUser.getGender().toString(),profile_picture,activeUser.getUserType(),activeUser.getAddress(),activeUser.getContact_number());;
+                Users updateUserprofile = new Users(activeUser.getUserName(),activeUser.getEmail().toString(),"None","None",activeUser.getGender().toString(),profile_picture,activeUser.getUserType(),activeUser.getAddress(),activeUser.getContact_number());;
                 databaseReference.setValue(updateUserprofile);
                 showMessage("Upload Success!");
                 activeUser.setProfilePicture(profile_picture);

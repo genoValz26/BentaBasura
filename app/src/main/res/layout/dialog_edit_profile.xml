@@ -44,23 +44,24 @@
         android:inputType="phone"
         android:background="@color/grey_text"
         android:drawableLeft="@drawable/ic_phone_android_white_18dp"
-        android:layout_below="@+id/editUsername"
-        android:layout_alignStart="@+id/editUsername" />
+        android:layout_below="@+id/editFullname"
+        android:layout_alignStart="@+id/editFullname" />
 
-    <EditText
-        android:id="@+id/editUsername"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/username"
-        android:drawableLeft="@drawable/ic_account_box_white_18dp"
-        android:background="@color/grey_text"
-        android:inputType="textPersonName"
-        android:layout_below="@+id/textView19"
-        android:layout_alignEnd="@+id/savebtn"
-        android:layout_marginEnd="13dp">
-        <requestFocus/>
-    </EditText>
+            <EditText
+                android:id="@+id/editFullname"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:layout_alignEnd="@+id/savebtn"
+                android:layout_below="@+id/textView19"
+                android:layout_marginEnd="13dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey_text"
+                android:drawableLeft="@drawable/ic_account_box_white_18dp"
+                android:hint="Fullname"
+                android:inputType="textPersonName">
+
+                <requestFocus />
+            </EditText>
     <Button
         android:id="@+id/takephotobtn"
         android:layout_width="45dp"
@@ -69,29 +70,7 @@
         android:layout_alignTop="@+id/profileImageView"
         android:layout_toEndOf="@+id/profileImageView" />
 
-    <EditText
-        android:id="@+id/editfname"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:hint="@string/firstname"
-        android:inputType="textPersonName"
-        android:background="@color/grey_text"
-        android:drawableLeft="@drawable/ic_perm_identity_white_18dp"
-        android:layout_below="@+id/editAddress"
-        android:layout_alignStart="@+id/editAddress" />
-
-    <EditText
-        android:id="@+id/editlname"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:background="@color/grey_text"
-        android:hint="@string/lastname"
-        android:inputType="textPersonName"
-        android:drawableLeft="@drawable/ic_perm_contact_calendar_white_18dp"
-        android:layout_below="@+id/editfname"
-        android:layout_alignStart="@+id/editfname" />
-
-    <Button
+            <Button
         android:id="@+id/gallerybtn"
         android:layout_width="45dp"
         android:layout_height="40dp"
@@ -107,9 +86,9 @@
         android:background="@color/colorPrimary"
         android:drawableLeft="@drawable/ic_check_circle_white_18dp"
         android:text="@string/updateBtn"
-        android:layout_below="@+id/editlname"
+        android:layout_below="@+id/editAddress"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="14dp" />
 
     <TextView
         android:id="@+id/textView19"

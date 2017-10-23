@@ -1,8 +1,13 @@
 package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -11,8 +16,10 @@ import android.text.TextWatcher;
 import android.text.method.TextKeyListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -21,22 +28,35 @@ import android.widget.Toast;
 import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class Register extends AppCompatActivity implements OnClickListener {
     Button register,backbtn;
+    ImageButton btnImage;
     Intent loginPage;
     EditText txtUser, txtPass, txtFirstName, txtLastName,emailtxt,txtCPass,txtMobileNum,txtAddress;
     RadioButton malebtn,femalebtn;
+    Uri imageUri;
+    private static final int Gallery_Intent = 100;
+    public static final String STORAGE_PATH="Profile/";
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    StorageReference storageReference;
     DatabaseReference databaseReference;
     private FirebaseUser user;
     String userid;
@@ -67,11 +87,14 @@ public class Register extends AppCompatActivity implements OnClickListener {
         register.setOnClickListener(this);
         backbtn = (Button) findViewById(R.id.backbtn);
         backbtn.setOnClickListener(this);
+        btnImage = (ImageButton) findViewById(R.id.btnImage);
+        btnImage.setOnClickListener(this);
 
         passwordChecker = (ProgressBar)findViewById(R.id.progress_pass);
 
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
 
 
@@ -114,12 +137,16 @@ public class Register extends AppCompatActivity implements OnClickListener {
             case R.id.backbtn:
                 startActivity(loginPage);
                 break;
+            case R.id.btnImage:
+                onGallery();
+                break;
         }
     }
+
+    //----------------------------------------------------------------------------------------------
+    //Register User
     private void registerUser()
     {
-        String fname = txtFirstName.getText().toString().trim();
-        String lname = txtLastName.getText().toString().trim();
         String password = txtPass.getText().toString().trim();
         String email = emailtxt.getText().toString().trim();
         String username = txtUser.getText().toString().trim();
@@ -127,59 +154,48 @@ public class Register extends AppCompatActivity implements OnClickListener {
         String address = txtAddress.getText().toString().trim();
         String mobileNum = txtMobileNum.getText().toString().trim();
 
-        if (TextUtils.isEmpty(fname) && TextUtils.isEmpty(lname) && TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword) && TextUtils.isEmpty(address) && TextUtils.isEmpty(mobileNum)) {
-            txtFirstName.setError("Firstname is empty!");
-            txtLastName.setError("Lastname is empty!");
+        if (TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword) && TextUtils.isEmpty(address) && TextUtils.isEmpty(mobileNum)) {
+
             txtPass.setError("Confirm Password is empty!");
             emailtxt.setError("Email is empty!");
-            txtUser.setError("Username is empty!");
+            txtUser.setError("Name is empty!");
             txtCPass.setError("Password is empty!");
             txtAddress.setError("Address is empty!");
             txtMobileNum.setError("Mobile Number is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
-            txtFirstName.setError("Firstname is empty!");
+        else if ( TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
+            txtUser.setError("Name is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
-            txtLastName.setError("Lastname is empty!");
-            progressDialog.dismiss();
-            return;
-        }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
-            txtUser.setError("Username is empty!");
-            progressDialog.dismiss();
-            return;
-        }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
+        else if (!TextUtils.isEmpty(username) && TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             emailtxt.setError("Email is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
+        else if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             txtPass.setError("Confirm Password is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
+        else if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             txtCPass.setError("Password is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if(password.length()<6 && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
+        else if(password.length()<6 && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
             txtCPass.setError("Password must at least be 6 characters!");
             progressDialog.dismiss();
             return;
         }
-        else if(cpassword.length()<6 && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
+        else if(cpassword.length()<6 && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
             txtPass.setError("Password must at least be 6 characters!");
             progressDialog.dismiss();
             return;
         }
-        else if(!cpassword.contains(password) && !TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
+        else if(!cpassword.contains(password) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)){
             txtPass.setError("Password did not match!");
             progressDialog.dismiss();
             return;
@@ -189,18 +205,18 @@ public class Register extends AppCompatActivity implements OnClickListener {
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
+        else if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && TextUtils.isEmpty(address) && !TextUtils.isEmpty(mobileNum)) {
             txtAddress.setError("Address is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && TextUtils.isEmpty(mobileNum)) {
+        else if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && TextUtils.isEmpty(mobileNum)) {
             txtMobileNum.setError("Mobile Number is empty!");
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(fname) && !TextUtils.isEmpty(lname) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && mobileNum.length() < 11) {
-            txtMobileNum.setError("Mobile Number must be 11 numbers!");
+        else if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && mobileNum.length() < 11) {
+            txtMobileNum.setError("Mobile Number must be 11 digits!");
             progressDialog.dismiss();
             return;
         }
@@ -213,22 +229,31 @@ public class Register extends AppCompatActivity implements OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            String gender = "";
-                            if(malebtn.isChecked()){
-                                gender = "Male";
-                            }
-                            else if(femalebtn.isChecked()){
-                                gender = "Female";
-                            }
                             user = firebaseAuth.getCurrentUser();
                             userid = user.getUid();
-                            Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),txtFirstName.getText().toString(),txtLastName.getText().toString(),gender.toString(),"https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4","Member",txtAddress.getText().toString(),txtMobileNum.getText().toString());
-                            databaseReference.child("Users").child(userid).setValue(newUser);
-
-                            sendEmailVerification();
-                            firebaseAuth.signOut();
-                            progressDialog.dismiss();
-                            startActivity(loginPage);
+                            //Insert Image to Storage
+                            StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
+                            path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    //Checking of Gender
+                                    String gender = "";
+                                    if(malebtn.isChecked()){
+                                        gender = "Male";
+                                    }
+                                    else if(femalebtn.isChecked()){
+                                        gender = "Female";
+                                    }
+                                    //Insert to Database
+                                    Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),"Not Set","Not Set",gender.toString(),taskSnapshot.getDownloadUrl().toString(),"Member",txtAddress.getText().toString(),txtMobileNum.getText().toString());
+                                    databaseReference.child("Users").child(userid).setValue(newUser);
+                                    sendEmailVerification();
+                                    firebaseAuth.signOut();
+                                    progressDialog.dismiss();
+                                    startActivity(loginPage);
+                                    finishAndRemoveTask();
+                                }
+                            });
 
                         }
                         else{
@@ -256,10 +281,61 @@ public class Register extends AppCompatActivity implements OnClickListener {
             });
         }
     }
+    public String getImageExt(Uri uri)
+    {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
 
+    //----------------------------------------------------------------------------------------------
+
+    //TOAST
     public void showMessage(String message){
         Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
     }
+    //----------------------------------------------------------------------------------------------
+
+    //Getting an Image
+
+    private void onGallery()
+    {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = pictureDirectory.getPath();
+        Uri data = Uri.parse(pictureDirectoryPath);
+        photoPickerIntent.setDataAndType(data, "image/*");
+        startActivityForResult(photoPickerIntent, Gallery_Intent);
+
+    }
+    protected void onActivityResult(int requestCode,int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        int CAMERA_REQUEST = 0;
+        if(resultCode == RESULT_OK)
+        {
+            imageUri = data.getData();
+            if(requestCode == Gallery_Intent)
+            {
+                //imageView.setImageResource(imageUri);
+                InputStream inputStream;
+                try
+                {
+                    inputStream = getContentResolver().openInputStream(imageUri);
+                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                    btnImage.setImageBitmap(image);
+
+                }
+                catch (FileNotFoundException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+    }
+    //----------------------------------------------------------------------------------------------
 
     protected void caculation() {
         // TODO Auto-generated method stub
@@ -400,7 +476,6 @@ public class Register extends AppCompatActivity implements OnClickListener {
         else{
             passwordChecker.setProgress(Total-20);
         }
-
     }
 
 }
