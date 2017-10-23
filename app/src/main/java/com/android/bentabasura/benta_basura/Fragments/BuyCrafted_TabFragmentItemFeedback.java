@@ -19,6 +19,7 @@ import android.widget.ListView;
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Comment;
 import com.android.bentabasura.benta_basura.Models.Notification;
+import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.View_Holders.custom_commentlist_crafted;
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +55,8 @@ public class BuyCrafted_TabFragmentItemFeedback extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.activity_crafted_comment, container, false);
 
-
+        //set persist to true
+        Login.setPersist(true);
 
         activeUser =  ActiveUser.getInstance();
 

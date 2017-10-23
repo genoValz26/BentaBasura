@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Trash;
+import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.View_Holders.custom_trashlist;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +29,6 @@ import java.util.List;
 
 public class TabFragmentTrash extends Fragment {
 
-
     ListView lstMyTrash;
     ActiveUser activeUser;
     String oldestPostId = "";
@@ -42,9 +42,11 @@ public class TabFragmentTrash extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_my_items_trash, container, false);
 
+        //set persist to true
+        Login.setPersist(true);
+
         lstMyTrash = (ListView) view.findViewById(R.id.lstMyTrash);
         mProgressDialog = new ProgressDialog(container.getContext());
-
 
         databaseReferenceTrash  = FirebaseDatabase.getInstance().getReference("Trash");
 
@@ -58,7 +60,6 @@ public class TabFragmentTrash extends Fragment {
         getTrashDataFromFirebase();
 
         return view;
-
     }
 
     private void getTrashDataFromFirebase()

@@ -65,17 +65,19 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     public static final String STORAGE_PATH="image/";
     static Menu mn;
 
-
     TextView navFullName, navEmail,tvTop;
     ImageView navImage;
     ActiveUser activeUser;
     ScrollView scrollView;
     private GoogleApiClient mGoogleApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //set persist to true
+        Login.setPersist(true);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -309,7 +311,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         icon.mutate();
         icon.setDrawableByLayerId(R.id.ic_badge, badge);
     }
-
 
 
 }

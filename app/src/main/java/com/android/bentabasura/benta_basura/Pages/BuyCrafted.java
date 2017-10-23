@@ -48,8 +48,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 
-public class BuyCrafted extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnScrollListener {
+public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,OnScrollListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
@@ -80,6 +79,10 @@ public class BuyCrafted extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_crafted);
+
+        //set persist to true
+        Login.setPersist(true);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

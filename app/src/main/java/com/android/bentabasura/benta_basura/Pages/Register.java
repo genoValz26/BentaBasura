@@ -44,10 +44,12 @@ public class Register extends AppCompatActivity implements OnClickListener {
     static int counter = 1;
     ProgressBar passwordChecker;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        //set persist to true
+        Login.setPersist(true);
 
         txtUser = (EditText) findViewById(R.id.txtUser);
         txtPass= (EditText) findViewById(R.id.txtPass);

@@ -55,6 +55,10 @@ public class BuyRawDetails extends AppCompatActivity implements NavigationView.O
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_raw_details);
+
+        //set persist to true
+        Login.setPersist(true);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

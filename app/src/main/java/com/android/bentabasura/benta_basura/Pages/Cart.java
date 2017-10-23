@@ -14,18 +14,22 @@ import android.view.MenuItem;
 import com.android.bentabasura.benta_basura.R;
 
 
-public class Cart extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Cart extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        //set persist to true
+        Login.setPersist(true);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

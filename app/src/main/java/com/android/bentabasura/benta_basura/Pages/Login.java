@@ -47,7 +47,7 @@ import com.google.firebase.database.ValueEventListener;
 import static com.android.bentabasura.benta_basura.R.id.loginBtn;
 
 public class Login extends AppCompatActivity implements OnClickListener {
-    Button login,loginGoogle;
+    Button login, loginGoogle;
     TextView link_register;
     Intent homePage, registerPage;
     FirebaseAuth firebaseAuth;
@@ -59,60 +59,66 @@ public class Login extends AppCompatActivity implements OnClickListener {
     EditText emailTxt, passTxt;
     ActiveUser activeUser;
 
-    String userid,google_email,name;
+    String userid, google_email, name;
     public static final String TAG = "Login";
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
     ConnectionDetector cd;
+    static boolean firebasePersist = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login);
 
-            login = (Button) findViewById(loginBtn);
-            link_register = (TextView) findViewById(R.id.link_register);
-            loginGoogle = (Button) findViewById(R.id.loginGoogle);
+        if(!getPersist())
+        {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
 
-            emailTxt = (EditText) findViewById(R.id.emailTxt);
-            passTxt = (EditText) findViewById(R.id.passTxt);
+        login = (Button) findViewById(loginBtn);
+        link_register = (TextView) findViewById(R.id.link_register);
+        loginGoogle = (Button) findViewById(R.id.loginGoogle);
 
-            homePage = new Intent(Login.this, Home.class);
-            registerPage = new Intent(Login.this, Register.class);
+        emailTxt = (EditText) findViewById(R.id.emailTxt);
+        passTxt = (EditText) findViewById(R.id.passTxt);
 
-            login.setOnClickListener(this);
-            link_register.setOnClickListener(this);
-            loginGoogle.setOnClickListener(this);
+        homePage = new Intent(Login.this, Home.class);
+        registerPage = new Intent(Login.this, Register.class);
 
-            progressDialog = new ProgressDialog(this);
+        login.setOnClickListener(this);
+        link_register.setOnClickListener(this);
+        loginGoogle.setOnClickListener(this);
 
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseDatabase = FirebaseDatabase.getInstance();
-            databaseReference = firebaseDatabase.getReference();
+        progressDialog = new ProgressDialog(this);
 
-            activeUser = ActiveUser.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
-            // Configure Google Sign In
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build();
+        activeUser = ActiveUser.getInstance();
 
-            mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-                    .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                        @Override
-                        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                            showMessage("Something went wrong. Please try again");
-                        }
-                    })
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-            cd = new ConnectionDetector(this);
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        showMessage("Something went wrong. Please try again");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
-            getApplicationContext().startService(new Intent(getApplicationContext(), FirebaseNotificationService.class));
+        cd = new ConnectionDetector(this);
 
-            checkIfUserIsLogin();
+        getApplicationContext().startService(new Intent(getApplicationContext(), FirebaseNotificationService.class));
+
+        checkIfUserIsLogin();
 
     }
 
@@ -120,27 +126,24 @@ public class Login extends AppCompatActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.loginBtn:
-                if(cd.isConnected()){
+                if (cd.isConnected()) {
                     userlogin();
-                }
-                else{
+                } else {
                     buildDialog(Login.this).show();
                 }
                 break;
             case R.id.link_register:
-                if(cd.isConnected()) {
+                if (cd.isConnected()) {
                     startActivity(registerPage);
-                }
-                else{
+                } else {
                     buildDialog(Login.this).show();
                 }
                 break;
             case R.id.loginGoogle:
-                if(cd.isConnected()){
+                if (cd.isConnected()) {
                     //sighnInWithGoogle();
                     buildMyDialog(Login.this).show();
-                }
-                else{
+                } else {
                     buildDialog(Login.this).show();
                 }
                 break;
@@ -198,7 +201,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
         } else {
             checkIfUserIsLogin();
             showMessage("Welcome!");
-            startActivity(homePage);
             progressDialog.dismiss();
             return;
         }
@@ -259,7 +261,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             userid = user.getUid();
                             name = user.getDisplayName();
                             google_email = user.getEmail();
-                            Users newUser = new Users("BentaDefault", google_email, "Google", "User", "None", "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member","None","None");
+                            Users newUser = new Users("BentaDefault", google_email, "Google", "User", "None", "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member", "None", "None");
                             databaseReference.child("Users").child(userid).setValue(newUser);
                             startActivity(homePage);
                             progressDialog.dismiss();
@@ -276,64 +278,61 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 });
     }
 
-    public void checkIfUserIsLogin()
-    {
-            mAuthListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                    if (user != null) {
-                        //If user is already logged-in redirect to homepage
+    public void checkIfUserIsLogin() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    //If user is already logged-in redirect to homepage
 
-                        progressDialog.setMessage("Signing In....");
-                        progressDialog.show();
-                        if(cd.isConnected()) {
-                            activeUser.setUserId(user.getUid());
+                    progressDialog.setMessage("Signing In....");
+                    progressDialog.show();
+                    if (cd.isConnected()) {
+                        activeUser.setUserId(user.getUid());
 
-                            databaseReference.child("Users").child(activeUser.getUserId()).addListenerForSingleValueEvent(
-                                    new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        databaseReference.child("Users").child(activeUser.getUserId()).addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                            activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
-                                            activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
-                                                    dataSnapshot.child("lastname").getValue().toString());
-                                            activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
-                                            activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
-                                            activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
-                                            activeUser.setFirstname(dataSnapshot.child("firstname").getValue().toString());
-                                            activeUser.setLastname(dataSnapshot.child("lastname").getValue().toString());
-                                            activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
-                                            activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
-                                            activeUser.setUserName(dataSnapshot.child("username").getValue().toString());
-                                            progressDialog.dismiss();
-                                            startActivity(homePage);
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
+                                        activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
+                                        activeUser.setFullname(dataSnapshot.child("firstname").getValue().toString() + " " +
+                                                dataSnapshot.child("lastname").getValue().toString());
+                                        activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
+                                        activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
+                                        activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
+                                        activeUser.setFirstname(dataSnapshot.child("firstname").getValue().toString());
+                                        activeUser.setLastname(dataSnapshot.child("lastname").getValue().toString());
+                                        activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
+                                        activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
+                                        activeUser.setUserName(dataSnapshot.child("username").getValue().toString());
+                                        progressDialog.dismiss();
+                                        startActivity(homePage);
                                     }
 
-                            );
-                        }
-                        else{
-                            buildDialog(Login.this).show();
-                        }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
 
+                                    }
+                                }
+                        );
                     } else {
-                        Log.d(TAG, "onAuthStateChange:signed_out");
+                        buildDialog(Login.this).show();
                     }
+
+                } else {
+                    Log.d(TAG, "onAuthStateChange:signed_out");
                 }
-            }; //Use to get current user State
+            }
+        }; //Use to get current user State
     }
 
     public AlertDialog.Builder buildDialog(Context c) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("No Internet Connection");
-        builder.setMessage("You need to have Internet Connection to access BentaBasura."+"\n"+" Press OK to Exit");
+        builder.setMessage("You need to have Internet Connection to access BentaBasura." + "\n" + " Press OK to Exit");
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
@@ -344,6 +343,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         return builder;
     }
+
     public AlertDialog.Builder buildMyDialog(Context c) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
@@ -359,4 +359,15 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         return builder;
     }
+
+    public static void setPersist(boolean fPersist)
+    {
+        firebasePersist = fPersist;
+    }
+
+    public static boolean getPersist()
+    {
+        return firebasePersist;
+    }
+
 }

@@ -10,11 +10,11 @@ import android.net.NetworkInfo;
  */
 
 public class ConnectionDetector {
-    Context context;
+    static Context context;
     public ConnectionDetector(Context context){
         this.context = context;
     }
-    public boolean isConnected()
+    public static boolean isConnected()
     {
         ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Service.CONNECTIVITY_SERVICE);
         if(connectivity != null)

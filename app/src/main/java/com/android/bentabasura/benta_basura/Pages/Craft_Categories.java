@@ -34,8 +34,7 @@ import com.squareup.picasso.Picasso;
  * Created by reymond on 13/10/2017.
  */
 
-public class Craft_Categories extends AppCompatActivity implements View.OnClickListener,
-        NavigationView.OnNavigationItemSelectedListener {
+public class Craft_Categories extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems, loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
@@ -48,11 +47,16 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
     Intent craftIntent;
     FirebaseAuth firebaseAuth;
     private GoogleApiClient mGoogleApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_craft_categories_main);
+
+        //set persist to true
+        Login.setPersist(true);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

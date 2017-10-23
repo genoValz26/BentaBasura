@@ -6,7 +6,6 @@ package com.android.bentabasura.benta_basura.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
-import com.android.bentabasura.benta_basura.Pages.MyItems_Edit_Craft;
+import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.Pages.MyItems_Edit_Trash;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.View_Holders.custom_dialog_disclaimer;
@@ -39,12 +38,14 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
     ImageView imgThumbRaw;
     Intent receiveIntent,editTrashPage,detailsIntent,sellerdetailsIntent;
     Bundle receivedBundle;
-
     DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_raw, container, false);
+
+        //set persist to true
+        Login.setPersist(true);
 
         mProgressDialog = new ProgressDialog(container.getContext());
 
@@ -54,13 +55,9 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         editTrashPage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Trash.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
         btnInterested = (Button) view.findViewById(R.id.btnInterested);
-        //btnCall = (Button) view.findViewById(R.id.btnCall);
-        //btnSMS = (Button) view.findViewById(R.id.btnSMS);
 
         btnEdit.setOnClickListener(this);
         btnInterested.setOnClickListener(this);
-        //btnSMS.setOnClickListener(this);
-        //btnCall.setOnClickListener(this);
 
         txtTrashName = (TextView) view.findViewById(R.id.txtTrashName);
         imgThumbRaw = (ImageView) view.findViewById(R.id.imgThumbRaw);
@@ -75,9 +72,6 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         txtTrashDescription.setText(receivedBundle.get("TrashDescription").toString());
         txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString() + " Kg/s" );
         txtTrashPrice.setText("Php " + receivedBundle.get("TrashPrice").toString() + ".00");
-        //txtSellerInfo.setText(receivedBundle.get("TrashSeller").toString());
-        //txtUploadedBy.setText(receivedBundle.get("UploadedBy").toString());
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
         activeUser = ActiveUser.getInstance();
 

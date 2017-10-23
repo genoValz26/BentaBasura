@@ -68,6 +68,10 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_crafted_details);
+
+        //set persist to true
+        Login.setPersist(true);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Trash;
+import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.View_Holders.custom_trashlist;
 import com.google.firebase.database.DataSnapshot;
@@ -36,15 +37,17 @@ public class BoughtItemsTrashTab extends Fragment {
     DatabaseReference databaseReferenceTrash;
     custom_trashlist customTrashAdapter;
     ArrayList<Trash> trashArray = new ArrayList<>();
-    List<String> trashCategory = Arrays.asList("Plastic", "Paper", "Metal", "Wood");
+    List<String> trashCategory = Arrays.asList("Plastic", "Paper", "Metal", "Wood");;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_bought_trash, container, false);
 
+        //set persist to true
+        Login.setPersist(true);
+
         lstMyTrash = (ListView) view.findViewById(R.id.lstBoughtTrash);
         mProgressDialog = new ProgressDialog(container.getContext());
-
 
         databaseReferenceTrash  = FirebaseDatabase.getInstance().getReference("Trash");
 

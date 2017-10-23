@@ -65,11 +65,13 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     ImageView navImage;
     ActiveUser activeUser;
 
-  ProgressDialog progressDialog;
+    ProgressDialog progressDialog;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_edit_profile);
+
+        Login.setPersist(true);
 
         editUsername = (EditText) findViewById(R.id.editUsername);
         editAddress = (EditText) findViewById(R.id.editAddress);

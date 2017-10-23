@@ -34,8 +34,7 @@ import com.squareup.picasso.Picasso;
  * Created by gd185082 on 10/12/2017.
  */
 
-public class Categories extends AppCompatActivity implements View.OnClickListener,
-            NavigationView.OnNavigationItemSelectedListener{
+public class Categories extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private GoogleApiClient mGoogleApiClient;
     Button btnPaper, btnPlastic, btnWood, btnMetal;
     Intent rawIntent;
@@ -54,6 +53,10 @@ public class Categories extends AppCompatActivity implements View.OnClickListene
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories_trash);
+
+        //set persist to true
+        Login.setPersist(true);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

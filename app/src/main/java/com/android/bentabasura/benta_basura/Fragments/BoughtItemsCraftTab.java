@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
+import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.View_Holders.custom_craftlist;
 import com.google.firebase.database.DataSnapshot;
@@ -38,10 +39,12 @@ public class BoughtItemsCraftTab extends Fragment {
     custom_craftlist customCraftAdapter;
     ArrayList<Craft> craftArray = new ArrayList<>();
     List<String> craftCategory = Arrays.asList("Decoration", "Furniture", "Projects", "Accessories");
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_bought_craft, container, false);
+
+        //set persist to true
+        Login.setPersist(true);
 
         lstMyTrash = (ListView) view.findViewById(R.id.lstBoughtCraft);
         mProgressDialog = new ProgressDialog(container.getContext());
@@ -56,6 +59,7 @@ public class BoughtItemsCraftTab extends Fragment {
 
         //LoadTrash
         getCraftDataFromFirebase();
+
 
         return view;
 

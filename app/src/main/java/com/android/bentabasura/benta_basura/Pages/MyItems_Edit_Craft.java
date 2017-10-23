@@ -56,8 +56,7 @@ import java.util.Date;
  * Created by reymond on 19/10/2017.
  */
 
-public class MyItems_Edit_Craft extends AppCompatActivity
-        implements  View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
@@ -88,10 +87,14 @@ public class MyItems_Edit_Craft extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     Intent receiveIntent;
     Bundle receivedBundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_edit_craft);
+
+        //set persist to true
+        Login.setPersist(true);
 
         spnCraftCategory = (Spinner) findViewById(R.id.spnCraftCategory);
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(this,R.array.craft_category_array,android.R.layout.simple_spinner_dropdown_item);

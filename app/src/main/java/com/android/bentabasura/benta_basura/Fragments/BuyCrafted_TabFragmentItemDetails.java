@@ -6,7 +6,6 @@ package com.android.bentabasura.benta_basura.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,9 +18,9 @@ import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
+import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.Pages.MyItems_Edit_Craft;
 import com.android.bentabasura.benta_basura.R;
-import com.android.bentabasura.benta_basura.View_Holders.custom_dialog_contact_seller;
 import com.android.bentabasura.benta_basura.View_Holders.custom_dialog_disclaimer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,11 +42,13 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
     Bundle receivedBundle;
     Intent receiveIntent,editCraftpage,detailsIntent,sellerdetailsIntent;
     DatabaseReference databaseReference;
-    String userid;
-    private ArrayList<Craft> craft;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_crafted, container, false);
+
+        //set persist to true
+        Login.setPersist(true);
 
         mProgressDialog = new ProgressDialog(container.getContext());
 
@@ -64,17 +65,11 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
         editCraftpage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
-        //btnCall = (Button) view.findViewById(R.id.btnCall);
-        //btnSMS = (Button) view.findViewById(R.id.btnSMS);
         btnInterested = (Button) view.findViewById(R.id.btnInterested);
 
         btnEdit.setOnClickListener(this);
-        //btnSMS.setOnClickListener(this);
-        //btnCall.setOnClickListener(this);
         btnInterested.setOnClickListener(this);
 
-        //btnEdit.setVisibility(View.GONE)
-        
         databaseReference = FirebaseDatabase.getInstance().getReference();
         activeUser = ActiveUser.getInstance();
 
@@ -89,7 +84,6 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 txtSellerInfo.setText(dataSnapshot.child("firstname").getValue().toString() + " " + dataSnapshot.child("lastname").getValue().toString());
-                //txtUploadedBy.setText(dataSnapshot.child("contact_number").getValue().toString());
             }
 
             @Override
