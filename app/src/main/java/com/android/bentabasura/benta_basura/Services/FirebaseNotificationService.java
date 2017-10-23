@@ -49,6 +49,8 @@ public class FirebaseNotificationService extends Service {
         super.onCreate();
         context = this;
         mDatabase = FirebaseDatabase.getInstance();
+        mDatabase.getReference().keepSynced(true);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         setupNotificationListener();
