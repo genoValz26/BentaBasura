@@ -235,10 +235,11 @@
 
     <ImageButton
         android:id="@+id/btnImage"
-        android:layout_width="138dp"
-        android:layout_height="108dp"
+        android:layout_width="120dp"
+        android:layout_height="105dp"
         android:text=""
-        android:src="@drawable/btn_camera"
+        android:background="@drawable/btn_camera"
+        android:scaleType="fitXY"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         android:layout_marginStart="18dp"
