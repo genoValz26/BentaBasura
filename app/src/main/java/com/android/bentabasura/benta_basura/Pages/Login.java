@@ -65,6 +65,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     private GoogleApiClient mGoogleApiClient;
     ConnectionDetector cd;
     static boolean firebasePersist = false;
+    int notVerified = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         if(!getPersist())
         {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            setPersist(true);
         }
 
         login = (Button) findViewById(loginBtn);
@@ -195,10 +197,10 @@ public class Login extends AppCompatActivity implements OnClickListener {
         boolean emailVerified = user.isEmailVerified();
 
         if (!emailVerified) {
+            notVerified = 1;
             showMessage("Verify your Email First!");
             firebaseAuth.signOut();
             progressDialog.dismiss();
-            startActivity(new Intent(Login.this,Login.class));
 
             return;
         } else {
@@ -299,15 +301,18 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                        activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
-                                        activeUser.setFullname(dataSnapshot.child("fullname").getValue().toString());
-                                        activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
-                                        activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
-                                        activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
-                                        activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
-                                        activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
-                                        progressDialog.dismiss();
-                                        startActivity(homePage);
+                                        if (notVerified != 1)
+                                        {
+                                            activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
+                                            activeUser.setFullname(dataSnapshot.child("fullname").getValue().toString());
+                                            activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
+                                            activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
+                                            activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
+                                            activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
+                                            activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
+                                            progressDialog.dismiss();
+                                            startActivity(homePage);
+                                        }
                                     }
 
                                     @Override
