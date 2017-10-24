@@ -74,11 +74,17 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
         btnInterested = (Button) view.findViewById(R.id.btnInterested);
 
+        activeUser = ActiveUser.getInstance();
+
+        if (!receivedBundle.get("UploadedBy").toString().equals(activeUser.getUserId()))
+        {
+            btnEdit.setVisibility(View.INVISIBLE);
+        }
+
         btnEdit.setOnClickListener(this);
         btnInterested.setOnClickListener(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        activeUser = ActiveUser.getInstance();
 
         txtCraftName.setText(receivedBundle.get("CraftName").toString());
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("CraftPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbCraft);

@@ -65,6 +65,13 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
 
         btnEdit.setOnClickListener(this);
         btnInterested.setOnClickListener(this);
+        
+        activeUser = ActiveUser.getInstance();
+
+        if (!receivedBundle.get("UploadedBy").toString().equals(activeUser.getUserId()))
+        {
+            btnEdit.setVisibility(View.INVISIBLE);
+        }
 
         txtTrashName = (TextView) view.findViewById(R.id.txtTrashName);
         imgThumbRaw = (ImageView) view.findViewById(R.id.imgThumbRaw);
@@ -79,8 +86,8 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         txtTrashDescription.setText(receivedBundle.get("TrashDescription").toString());
         txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString() + " Kg/s" );
         txtTrashPrice.setText("Php " + receivedBundle.get("TrashPrice").toString() + ".00");
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        activeUser = ActiveUser.getInstance();
 
         databaseReference.child("Users").child(receivedBundle.get("UploadedBy").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
