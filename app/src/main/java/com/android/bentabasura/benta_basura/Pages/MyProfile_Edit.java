@@ -122,15 +122,6 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
             case R.id.savebtn:
                 progressDialog.setMessage("Uploading Profile Picture");
                 progressDialog.show();
-                StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
-                path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                       updateProfilePicture(userid,taskSnapshot.getDownloadUrl().toString());
-                        progressDialog.dismiss();
-                    }
-                });
-
                 savebtn.setEnabled(false);
                 break;
         }
@@ -140,15 +131,22 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     {
         progressDialog.setMessage("Updating your Information...");
         progressDialog.show();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-        Users updateUser = new Users(fullname,activeUser.getEmail().toString(),activeUser.getGender().toString(),activeUser.getProfilePicture(),activeUser.getUserType(),address,contact_number);
-        databaseReference.setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                showMessage("Update Successful!");
-                progressDialog.dismiss();
-            }
-        });
+        if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+
+            Users updateUser = new Users(fullname, activeUser.getEmail().toString(), activeUser.getGender().toString(), activeUser.getProfilePicture(), activeUser.getUserType(), address, contact_number);
+            databaseReference.child("Users").child(userid).setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+              progressDialog.dismiss();
+                }
+            });
+        }
+        else{
+            StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
+            Users updateUser = new Users(fullname, activeUser.getEmail().toString(), activeUser.getGender().toString(), path.putFile(imageUri).toString(), activeUser.getUserType(), address, contact_number);
+            databaseReference.child("Users").child(userid).setValue(updateUser);
+            progressDialog.dismiss();
+        }
 
         activeUser.setFullname(fullname);
         activeUser.setContact_number(contact_number);

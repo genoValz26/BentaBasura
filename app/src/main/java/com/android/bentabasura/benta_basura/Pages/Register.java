@@ -236,8 +236,8 @@ public class Register extends AppCompatActivity implements OnClickListener {
                             userid = user.getUid();
                             //Insert Image to Storage
 
-                            if (Uri.EMPTY.equals(imageUri)) {
-
+                            if (imageUri == null || Uri.EMPTY.equals(imageUri))
+                            {
                                 String gender = "";
                                 if (malebtn.isChecked()) {
                                     gender = "Male";
@@ -253,6 +253,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                                 progressDialog.dismiss();
                                 startActivity(loginPage);
                                 finishAndRemoveTask();
+                                return;
                             }
                             else {
                                 StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
@@ -274,6 +275,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                                         progressDialog.dismiss();
                                         startActivity(loginPage);
                                         finishAndRemoveTask();
+                                        return;
                                     }
                                 });
                             }
