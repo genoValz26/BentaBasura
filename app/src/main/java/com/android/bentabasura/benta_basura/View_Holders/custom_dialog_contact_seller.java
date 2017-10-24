@@ -62,7 +62,7 @@ public class custom_dialog_contact_seller extends AppCompatActivity implements V
         databaseReference.child("Users").child(receivedBundle.get("UserId").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                sellerName.setText(dataSnapshot.child("username").getValue().toString());
+                sellerName.setText(dataSnapshot.child("fullname").getValue().toString());
                 sellerEmail.setText(dataSnapshot.child("email").getValue().toString());
                 sellerAddress.setText(dataSnapshot.child("address").getValue().toString());
                 sellerContact.setText(dataSnapshot.child("contact_number").getValue().toString());

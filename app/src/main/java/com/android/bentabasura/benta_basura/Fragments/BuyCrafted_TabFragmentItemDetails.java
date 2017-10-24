@@ -83,7 +83,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         databaseReference.child("Users").child(receivedBundle.get("UploadedBy").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                txtSellerInfo.setText(dataSnapshot.child("firstname").getValue().toString() + " " + dataSnapshot.child("lastname").getValue().toString());
+                txtSellerInfo.setText(dataSnapshot.child("fullname").getValue().toString());
             }
 
             @Override
