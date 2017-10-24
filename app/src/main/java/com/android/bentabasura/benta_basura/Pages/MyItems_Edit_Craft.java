@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -66,8 +67,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
-    private Button uploadbtn,takePhotobtn;
-    private ImageView imageView;
+    private ImageButton imageView;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
     FirebaseAuth firebaseAuth;
@@ -111,12 +111,9 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         storageReference = FirebaseStorage.getInstance().getReference();
         activeUser = ActiveUser.getInstance();
         //----------------------------------------------------------------
-        uploadbtn = (Button)findViewById(R.id.uploadbtn);
-        uploadbtn.setOnClickListener(this);
-        takePhotobtn = (Button) findViewById(R.id.takePhotobtn);
-        takePhotobtn.setOnClickListener(this);
-        imageView = (ImageView) findViewById(R.id.UploadImageView);
 
+        imageView = (ImageButton) findViewById(R.id.UploadImageView);
+        imageView.setOnClickListener(this);
         checkFilePermissions();
 
         //----------------------------------
@@ -167,12 +164,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.uploadbtn:
-                onGallery();
-                break;
-            case R.id.takePhotobtn:
-                onCamera();
-                break;
+
             case R.id.SubmitCraft:
                 onUpload();
                 break;
@@ -180,6 +172,9 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 break;
             case R.id.deletebtn:
                 buildDeleteDialog(MyItems_Edit_Craft.this).show();
+                break;
+            case R.id.UploadImageView:
+                showPictureDialog();
                 break;
         }
     }
@@ -233,6 +228,28 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         /*Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, Gallery_Intent);*/
+    }
+    private void showPictureDialog(){
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera" };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                onGallery();
+                                break;
+                            case 1:
+                                onCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
     }
     public void checkFilePermissions()
     {

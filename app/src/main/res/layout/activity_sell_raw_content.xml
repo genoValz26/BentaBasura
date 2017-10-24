@@ -25,52 +25,24 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-    <ImageView
+    <ImageButton
         android:id="@+id/UploadImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginLeft="5dp"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/btn_camera"
         tools:layout_editor_absoluteX="132dp"
         tools:layout_editor_absoluteY="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="26dp"
         android:layout_below="@+id/appBarLayout"
         android:layout_alignStart="@+id/SubmitTrash" />
-
-    <Button
-        android:id="@+id/uploadbtn"
-        android:layout_width="150dp"
-        android:layout_height="20dp"
-        android:background="@color/colorPrimary"
-        android:drawableRight="@drawable/ic_menu_gallery"
-        android:text="Select from Gallery"
-        android:textSize="9sp"
-        android:layout_marginTop="5dp"
-        tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="56dp"
-        android:layout_below="@+id/UploadImageView"
-        android:layout_alignStart="@+id/UploadImageView" />
-
-    <Button
-        android:id="@+id/takePhotobtn"
-        android:layout_width="150dp"
-        android:layout_height="20dp"
-        android:background="@color/colorPrimary"
-        android:drawableRight="@drawable/ic_menu_camera"
-        android:text="Take Photo"
-        android:textSize="9sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="56dp"
-        android:layout_below="@+id/uploadbtn"
-        android:layout_alignStart="@+id/uploadbtn"
-        android:layout_marginTop="5dp" />
 
     <EditText
         android:id="@+id/trashName"
         android:layout_width="280dp"
         android:layout_height="30dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="17dp"
         android:background="#aaaaaa"
         android:ems="5"
         android:hint="@string/trashName"
@@ -78,8 +50,9 @@
         android:paddingLeft="5dp"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="156dp"
-        android:layout_below="@+id/takePhotobtn"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/UploadImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
 
     <EditText
         android:id="@+id/trashQty"

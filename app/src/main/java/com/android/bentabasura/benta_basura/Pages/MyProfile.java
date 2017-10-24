@@ -272,7 +272,6 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
         final EditText editContact = (EditText)  dialogView.findViewById(R.id.editContact);
         final EditText editUsername = (EditText)  dialogView.findViewById(R.id.editFullname);
         final ImageView profileImageView = (ImageView) dialogView.findViewById(R.id.profileImageView);
-        final Button gallerybtn = (Button)  dialogView.findViewById(R.id.gallerybtn);
         final Button updatebtn = (Button)  dialogView.findViewById(R.id.updatebtn);
         dialogBuilder.setTitle("Edit Profile");
 
@@ -289,19 +288,6 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
             public void onClick(View view) {
                 updateProfile(userid, editUsername.getText().toString(), editContact.getText().toString(), editAddress.getText().toString(), "None", "None");
             }
-        });
-        gallerybtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                String pictureDirectoryPath = pictureDirectory.getPath();
-                Uri data = Uri.parse(pictureDirectoryPath);
-                photoPickerIntent.setDataAndType(data, "image/*");
-                startActivityForResult(photoPickerIntent, Gallery_Intent);
-
-            }
-
         });
 
     }

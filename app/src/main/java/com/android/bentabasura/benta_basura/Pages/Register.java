@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -310,6 +311,11 @@ public class Register extends AppCompatActivity implements OnClickListener {
         startActivityForResult(photoPickerIntent, Gallery_Intent);
 
     }
+    private void onCamera()
+    {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent,0);
+    }
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -333,10 +339,38 @@ public class Register extends AppCompatActivity implements OnClickListener {
                     e.printStackTrace();
                 }
             }
+            if(requestCode == CAMERA_REQUEST)
+            {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                btnImage.setImageBitmap(photo);
+            }
 
         }
 
     }
+    private void showPictureDialog(){
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera" };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                onGallery();
+                                break;
+                            case 1:
+                                onCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
+
     //----------------------------------------------------------------------------------------------
 
     protected void caculation() {
@@ -480,27 +514,6 @@ public class Register extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private void showPictureDialog(){
-        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Select Action");
-        String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera" };
-        pictureDialog.setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                onGallery();
-                                break;
-                            case 1:
-                                //takePhotoFromCamera();
-                                break;
-                        }
-                    }
-                });
-        pictureDialog.show();
-    }
+
 
 }

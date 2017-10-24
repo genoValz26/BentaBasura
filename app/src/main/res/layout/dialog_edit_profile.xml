@@ -10,12 +10,14 @@
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp">
-    <ImageView
+    <ImageButton
         android:id="@+id/profileImageView"
         android:layout_width="200dp"
         android:layout_height="150dp"
@@ -62,24 +64,8 @@
 
                 <requestFocus />
             </EditText>
-    <Button
-        android:id="@+id/takephotobtn"
-        android:layout_width="45dp"
-        android:layout_height="40dp"
-        android:drawableLeft="@drawable/ic_menu_camera"
-        android:layout_alignTop="@+id/profileImageView"
-        android:layout_toEndOf="@+id/profileImageView" />
 
             <Button
-        android:id="@+id/gallerybtn"
-        android:layout_width="45dp"
-        android:layout_height="40dp"
-        android:drawableLeft="@drawable/ic_menu_gallery"
-        android:layout_above="@+id/savebtn"
-        android:layout_toEndOf="@+id/profileImageView"
-        android:layout_marginBottom="14dp" />
-
-    <Button
         android:id="@+id/updatebtn"
         android:layout_width="100dp"
         android:layout_height="50dp"

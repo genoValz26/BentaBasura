@@ -10,58 +10,31 @@
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="21dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp">
-            <ImageView
+            <ImageButton
                 android:id="@+id/UploadImageView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="5dp"
+                android:scaleType="fitXY"
                 app:srcCompat="@drawable/btn_camera"
                 tools:layout_editor_absoluteX="132dp"
                 tools:layout_editor_absoluteY="56dp"
-                android:layout_marginTop="56dp"
-                android:layout_marginStart="9dp"
-                android:layout_alignParentTop="true"
+                android:layout_below="@+id/deletebtn"
                 android:layout_alignStart="@+id/SubmitCraft" />
-
-            <Button
-                android:id="@+id/uploadbtn"
-                android:layout_width="150dp"
-                android:layout_height="20dp"
-                android:background="@color/colorPrimary"
-                android:drawableRight="@drawable/ic_menu_gallery"
-                android:text="Select from Gallery"
-                android:textSize="9sp"
-                android:layout_marginTop="5dp"
-                tools:layout_editor_absoluteX="252dp"
-                tools:layout_editor_absoluteY="56dp"
-                android:layout_below="@+id/UploadImageView"
-                android:layout_alignStart="@+id/UploadImageView" />
-
-            <Button
-                android:id="@+id/takePhotobtn"
-                android:layout_width="150dp"
-                android:layout_height="20dp"
-                android:background="@color/colorPrimary"
-                android:drawableRight="@drawable/ic_menu_camera"
-                android:text="Take Photo"
-                android:textSize="9sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="56dp"
-                android:layout_below="@+id/uploadbtn"
-                android:layout_alignStart="@+id/uploadbtn"
-                android:layout_marginTop="5dp" />
 
             <EditText
                 android:id="@+id/craftName"
                 android:layout_width="280dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="19dp"
                 android:background="#aaaaaa"
                 android:ems="5"
                 android:hint="@string/craftName"
@@ -69,8 +42,9 @@
                 android:paddingLeft="5dp"
                 tools:layout_editor_absoluteX="63dp"
                 tools:layout_editor_absoluteY="156dp"
-                android:layout_below="@+id/takePhotobtn"
-                android:layout_centerHorizontal="true" />
+                android:layout_below="@+id/UploadImageView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp" />
 
             <EditText
                 android:id="@+id/craftQty"

@@ -2,6 +2,7 @@ package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,12 +48,12 @@ import java.io.InputStream;
 public class MyProfile_Edit extends AppCompatActivity implements View.OnClickListener{
 
     EditText editUsername, editAddress, editContact;
-    Button updatebtn,galleybtn,takephotobtn,savebtn;
+    Button updatebtn,savebtn;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     String userid;
-    ImageView profileImageView;
+    ImageButton profileImageView;
 
     Uri imageUri;
     StorageReference storageReference;
@@ -76,14 +79,11 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         editContact = (EditText) findViewById(R.id.editContact);
         updatebtn = (Button) findViewById(R.id.updatebtn);
         updatebtn.setOnClickListener(this);
-        galleybtn = (Button) findViewById(R.id.gallerybtn);
-        galleybtn.setOnClickListener(this);
-        takephotobtn = (Button) findViewById(R.id.takephotobtn);
-        takephotobtn.setOnClickListener(this);
+
         savebtn = (Button) findViewById(R.id.savebtn);
         savebtn.setOnClickListener(this);
-        profileImageView = (ImageView) findViewById(R.id.profileImageView);
-
+        profileImageView = (ImageButton) findViewById(R.id.profileImageView);
+        profileImageView.setOnClickListener(this);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();
@@ -115,13 +115,9 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
 
             updateProfile(userid, strUsername, strContact, strAddress);
                 break;
-            case R.id.gallerybtn:
-                onGallery();
+            case R.id.profileImageView:
+                showPictureDialog();
                 savebtn.setEnabled(true);
-                break;
-            case R.id.takephotobtn:
-                onCamera();
-             savebtn.setEnabled(true);
                 break;
             case R.id.savebtn:
                 progressDialog.setMessage("Uploading Profile Picture");
@@ -216,6 +212,29 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         startActivityForResult(photoPickerIntent, Gallery_Intent);
 
     }
+    private void showPictureDialog(){
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera" };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                onGallery();
+                                break;
+                            case 1:
+                                onCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
+
     public void checkFilePermissions()
     {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
