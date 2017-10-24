@@ -95,7 +95,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         activeUser = ActiveUser.getInstance();
         Picasso.with(this).load(activeUser.getProfilePicture()).placeholder(R.drawable.progress_animation)
                 .fit().into(profileImageView);
-        editUsername.setText(activeUser.getUserName().toString());
+        editUsername.setText(activeUser.getFullname().toString());
         editContact.setText(activeUser.getContact_number().toString());
         editAddress.setText(activeUser.getAddress().toString());
 
@@ -136,12 +136,12 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         }
 
     }
-    public boolean updateProfile(String userid, String username, String contact_number, String address)
+    public boolean updateProfile(String userid, String fullname, String contact_number, String address)
     {
         progressDialog.setMessage("Updating your Information...");
         progressDialog.show();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-        Users updateUser = new Users(username,activeUser.getEmail().toString(),"None","None",activeUser.getGender().toString(),activeUser.getProfilePicture(),activeUser.getUserType(),address,contact_number);
+        Users updateUser = new Users(fullname,activeUser.getEmail().toString(),activeUser.getGender().toString(),activeUser.getProfilePicture(),activeUser.getUserType(),address,contact_number);
         databaseReference.setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -150,7 +150,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        activeUser.setUserName(username);
+        activeUser.setFullname(fullname);
         activeUser.setContact_number(contact_number);
         activeUser.setAddress(address);
 
@@ -160,7 +160,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     public boolean updateProfilePicture(String userid,String profile_picture){
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-                Users updateUserprofile = new Users(activeUser.getUserName(),activeUser.getEmail().toString(),"None","None",activeUser.getGender().toString(),profile_picture,activeUser.getUserType(),activeUser.getAddress(),activeUser.getContact_number());;
+                Users updateUserprofile = new Users(activeUser.getUserName(),activeUser.getEmail().toString(),activeUser.getGender().toString(),profile_picture,activeUser.getUserType(),activeUser.getAddress(),activeUser.getContact_number());;
                 databaseReference.setValue(updateUserprofile);
                 showMessage("Upload Success!");
                 activeUser.setProfilePicture(profile_picture);

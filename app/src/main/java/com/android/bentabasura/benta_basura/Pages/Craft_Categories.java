@@ -97,7 +97,7 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
-        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).placeholder(R.drawable.progress_animation).fit().into(navImage);
 
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);

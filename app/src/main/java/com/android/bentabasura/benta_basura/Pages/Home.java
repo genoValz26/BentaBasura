@@ -115,7 +115,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
-        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(280, 0)).fit().into(navImage);
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(280, 0)).placeholder(R.drawable.progress_animation).fit().into(navImage);
 
         //Set Fullname and Email
 

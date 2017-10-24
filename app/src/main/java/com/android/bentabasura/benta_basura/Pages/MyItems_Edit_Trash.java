@@ -326,9 +326,8 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                 String UploadedDate = sdf.format(currentTime);
 
-                DatabaseReference mdatabaseReferene = FirebaseDatabase.getInstance().getReference("Trash").child(strTrashCategory).child(strTrashId);
-                Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid,UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
-                databaseReference.setValue(newTrash);
+                Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
+                databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
                 showMessage("Trash Updated Successfully");
                 progressDialog.dismiss();
                 startActivity(new Intent(MyItems_Edit_Trash.this,Home.class));

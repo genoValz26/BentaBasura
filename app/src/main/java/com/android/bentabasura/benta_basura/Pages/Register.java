@@ -248,7 +248,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                                         gender = "Female";
                                     }
                                     //Insert to Database
-                                    Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),"Not Set","Not Set",gender.toString(),taskSnapshot.getDownloadUrl().toString(),"Member",txtAddress.getText().toString(),txtMobileNum.getText().toString());
+                                    Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),gender.toString(),taskSnapshot.getDownloadUrl().toString(),"Member",txtAddress.getText().toString(),txtMobileNum.getText().toString());
                                     databaseReference.child("Users").child(userid).setValue(newUser);
                                     sendEmailVerification();
                                     firebaseAuth.signOut();

@@ -83,8 +83,6 @@
         android:label="@string/title_activity_buycrafted"
         android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Pages.BuyRawDetails" />
-        <activity android:name=".Pages.SellerProfile"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".View_Holders.custom_dialog_disclaimer"
             android:theme="@style/customDialog"/>
         <activity android:name=".View_Holders.custom_dialog_contact_seller"

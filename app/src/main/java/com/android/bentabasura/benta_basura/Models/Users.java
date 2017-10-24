@@ -5,15 +5,13 @@ package com.android.bentabasura.benta_basura.Models;
  */
 
 public class Users {
-    private String username,email,firstname,lastname,gender,profile_picture,userType,address,contact_number;
+    private String fullname,email,firstname,lastname,gender,profile_picture,userType,address,contact_number;
     public Users(){
 
     }
-    public Users(String username,String email,String firstname, String lastname,String gender,String profile_picture,String userType, String address, String contact_number){
-        this.username = username;
+    public Users(String fullname,String email,String gender,String profile_picture,String userType, String address, String contact_number){
+        this.fullname = fullname;
         this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
         this.gender = gender;
         this.profile_picture = profile_picture;
         this.userType = userType;
@@ -21,21 +19,14 @@ public class Users {
         this.contact_number = contact_number;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 
     public void setGender(String gender) {
         this.gender = gender;
@@ -49,8 +40,8 @@ public class Users {
         this.userType = userType;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFullname() {
+        return fullname;
     }
 
     public String getEmail() {

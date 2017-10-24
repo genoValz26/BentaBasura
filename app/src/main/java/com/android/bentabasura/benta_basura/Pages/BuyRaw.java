@@ -108,9 +108,9 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
         navImage = (ImageView) headerView.findViewById(R.id.imageView);
 
-        navFullName.setText(activeUser.getUserName());
+        navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
-        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).placeholder(R.drawable.progress_animation).fit().into(navImage);
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 

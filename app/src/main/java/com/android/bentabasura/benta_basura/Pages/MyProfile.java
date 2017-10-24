@@ -112,7 +112,7 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
-        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).fit().into(navImage);
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).placeholder(R.drawable.progress_animation).fit().into(navImage);
 
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
@@ -135,7 +135,7 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
         txtGender.setText(activeUser.getContact_number());
         txtUserType.setText(activeUser.getAddress());
         Picasso.with(this).load(activeUser.getProfilePicture())
-                .transform(new RoundedTransformation(150, 20))
+                .transform(new RoundedTransformation(150, 20)).placeholder(R.drawable.progress_animation)
                 .fit()
                 .centerCrop().into(smallProfile);
 
@@ -247,20 +247,7 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
         startActivity(editprofile); //Using Custom Layout Dialog
 
     }
-    public boolean updateProfile(String userid, String username, String contact_number, String address)
-    {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-        Users updateUser = new Users();
 
-            updateUser.setUsername(username);
-            updateUser.setcontact_number(contact_number);
-            updateUser.setAddress(address);
-            databaseReference.setValue(updateUser);
-            showMessage("Update Successful!");
-
-        return  true;
-
-    }
     //Custom Alert Dialog
     public void showUpdateDialog(final String userid){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -286,7 +273,7 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
         updatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateProfile(userid, editUsername.getText().toString(), editContact.getText().toString(), editAddress.getText().toString(), "None", "None");
+                //updateProfile(userid, editUsername.getText().toString(), editContact.getText().toString(), editAddress.getText().toString());
             }
         });
 
@@ -307,28 +294,5 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
 
         return builder;
     }
-    public boolean updateProfile(String userid, String username, String contact_number, String address, String fname, String lname)
-    {
-        progressDialog.setMessage("Updating your Information...");
-        progressDialog.show();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-        Users updateUser = new Users(username,activeUser.getEmail().toString(),fname,lname,activeUser.getGender().toString(),activeUser.getProfilePicture(),activeUser.getUserType(),address,contact_number);
-        databaseReference.setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                showMessage("Update Successful!");
-                progressDialog.dismiss();
-            }
-        });
 
-        activeUser.setUserName(username);
-        activeUser.setContact_number(contact_number);
-        activeUser.setAddress(address);
-        activeUser.setFirstname(fname);
-        activeUser.setLastname(lname);
-        String fullname = fname + " " +lname;
-        activeUser.setFullname(fullname);
-        return  true;
-
-    }
 }

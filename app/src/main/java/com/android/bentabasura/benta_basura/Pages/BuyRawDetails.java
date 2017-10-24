@@ -17,11 +17,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Page_Adapters.PageAdapterItemDetails_BuyRaw;
 import com.android.bentabasura.benta_basura.R;
+import com.android.bentabasura.benta_basura.Utils.RoundedTransformation;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -29,6 +33,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by reymond on 18/10/2017.
@@ -36,7 +41,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class BuyRawDetails extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    ActiveUser activeUser;
 
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
@@ -49,6 +53,10 @@ public class BuyRawDetails extends AppCompatActivity implements NavigationView.O
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
+
+    TextView navFullName, navEmail;
+    ImageView navImage;
+    ActiveUser activeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +115,16 @@ public class BuyRawDetails extends AppCompatActivity implements NavigationView.O
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        activeUser = ActiveUser.getInstance();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
+        navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
+
+        navFullName.setText(activeUser.getFullname());
+        navEmail.setText(activeUser.getEmail());
+        Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).placeholder(R.drawable.progress_animation).fit().into(navImage);
         navMenu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
 
