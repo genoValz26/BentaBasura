@@ -29,9 +29,9 @@
                 app:srcCompat="@drawable/btn_camera"
                 tools:layout_editor_absoluteX="132dp"
                 tools:layout_editor_absoluteY="56dp"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/appBarLayout"
-                android:layout_alignStart="@+id/SubmitTrash" />
+                android:layout_marginTop="33dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/trashName" />
 
             <EditText
                 android:id="@+id/trashName"
@@ -126,20 +126,25 @@
                 android:background="#aaaaaa" />
 
             <Button
-                android:id="@+id/soldbtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:text="Sold" />
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/deletebtn"
+            android:layout_alignStart="@+id/deletebtn"
+            android:layout_marginBottom="15dp"
+            android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
+            android:text="Mark as Sold"
+            android:textSize="10sp" />
 
     <Button
         android:id="@+id/deletebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/trashName"
+        android:layout_alignEnd="@+id/trashName"
+        android:layout_marginBottom="15dp"
+        android:drawableLeft="@drawable/ic_delete_forever_white_18dp"
+        android:text="Delete Item"
+        android:textSize="10sp" />
             </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

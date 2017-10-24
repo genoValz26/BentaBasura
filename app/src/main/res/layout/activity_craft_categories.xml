@@ -65,27 +65,24 @@
             android:id="@+id/btnDecorations"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/decoration"/>
+            android:background="@drawable/decor"/>
 
         <Button
             android:id="@+id/btnFurniture"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:text=""
-            android:background="@drawable/furniture"/>
+            android:background="@drawable/fur"/>
 
         <Button
             android:id="@+id/btnProjects"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:text=""
-            android:background="@drawable/projects"/>
+            android:background="@drawable/pro"/>
 
         <Button
             android:id="@+id/btnWood"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:text="s"
-            android:background="@drawable/accessories"/>
+            android:background="@drawable/acc"/>
     </GridLayout>
 </android.support.constraint.ConstraintLayout>

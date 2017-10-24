@@ -10,22 +10,45 @@
         android:layout_height="wrap_content"
         android:id="@+id/cv"
         android:layout_marginTop="50dp">
-        <ScrollView
-            android:id="@+id/sv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp">
+                <TextView
+                    android:id="@+id/textViewA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="About BentaBasura"
+                    android:textColor="@color/colorPrimaryAccent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="6dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="500dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:textSize="10sp"
+                    android:textStyle="normal"
+                    android:text="Benta Basura was developed by the team called Brogrammers of University of Cebu Lapu-Lapu and Mandaue to gain awareness of segregation and recycling, with this system users can gain income through collecting garbage and uploading them in the system."
+                    android:layout_below="@+id/textViewA"
+                    android:layout_alignStart="@+id/textView31" />
+
 
                 <TextView
                     android:id="@+id/textView31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:text="News"
                     android:textColor="@color/colorPrimaryAccent"
@@ -40,7 +63,7 @@
                     android:layout_below="@+id/textView31"
                     android:textColor="@color/colorPrimaryAccent"
                     android:layout_marginTop="15dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textStyle="normal|bold"
                     android:text="The Perils of Peanut Butter" />
 
@@ -51,7 +74,7 @@
                     android:layout_alignStart="@+id/textView32"
                     android:layout_below="@+id/textView32"
                     android:layout_marginTop="15dp"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:textStyle="normal"
                     android:text="A recycling information site maintained by the Resource and Waste Recovery Division of Santa Barbara County, Calif., describes a way to clean a peanut butter jar that uses less energy and water than traditional dishwashing methods." />
 
@@ -60,11 +83,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:text="Tips"
                     android:textColor="@color/colorPrimaryAccent"
                     android:layout_below="@+id/textView4"
+                    android:layout_alignStart="@+id/textView3" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView33"
+                    android:layout_below="@+id/textView33"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="normal|bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorPrimaryAccent"
+                    android:text="Cleaning up waste complaints in real time" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:textSize="10sp"
+                    android:textStyle="normal"
+                    android:text="Waste issues have been high up on the national news agenda this year, with the three-month Birmingham refuse worker strike and ongoing controversy over the regularity of some collections hitting the headlines. However, concerns with waste collection go beyond the purely local, and specific kinds of collections."
+                    android:layout_below="@+id/textView3"
                     android:layout_alignStart="@+id/textView3" />
 
                 <ImageView
@@ -97,28 +142,7 @@
                     android:adjustViewBounds="true"
                     app:srcCompat="@drawable/tips2" />
 
-                <TextView
-                    android:id="@+id/textViewA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:text="About BentaBasura"
-                    android:textColor="@color/colorPrimaryAccent"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="6dp" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="500dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:textSize="15sp"
-                    android:textStyle="normal"
-                    android:text="Benta Basura was developed by the team called Brogrammers of University of Cebu Lapu-Lapu and Mandaue to gain awareness of segregation and recycling, with this system users can gain income through collecting garbage and uploading them in the system."
-                    android:layout_below="@+id/textViewA"
-                    android:layout_alignStart="@+id/textView31" />
                 <VideoView
                     android:id="@+id/videoView"
                     android:layout_width="300dp"
@@ -126,31 +150,7 @@
                     android:layout_below="@+id/imageView8"
                     android:layout_alignStart="@+id/imageView8" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/textView33"
-                    android:layout_below="@+id/textView33"
-                    android:layout_marginTop="20dp"
-                    android:textStyle="normal|bold"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorPrimaryAccent"
-                    android:text="Cleaning up waste complaints in real time" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:textSize="15sp"
-                    android:textStyle="normal"
-                    android:text="Waste issues have been high up on the national news agenda this year, with the three-month Birmingham refuse worker strike and ongoing controversy over the regularity of some collections hitting the headlines. However, concerns with waste collection go beyond the purely local, and specific kinds of collections."
-                    android:layout_below="@+id/textView3"
-                    android:layout_alignStart="@+id/textView3" />
-
             </RelativeLayout>
         </ScrollView>
-    </android.support.v7.widget.CardView>
-
+</android.support.v7.widget.CardView>
 </LinearLayout>
