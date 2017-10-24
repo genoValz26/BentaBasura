@@ -90,7 +90,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     private Spinner spnTrashCategory;
     String selectedType,selectedCategory,currentUsername;
     private GoogleApiClient mGoogleApiClient;
-    String strTrashId,strTrashCategory;
+    String strTrashId,strTrashCategory,strImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -151,6 +151,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 trashName.setText(dataSnapshot.child("trashName").getValue().toString());
+                strImageUrl = dataSnapshot.child("imageUrl").getValue().toString();
                 Picasso.with(getApplicationContext()).load(dataSnapshot.child("imageUrl").getValue().toString()).placeholder(R.drawable.progress_animation).fit().into(imageView);
                 trashDesc.setText(dataSnapshot.child("trashDescription").getValue().toString());
                 trashPrice.setText(dataSnapshot.child("trashPrice").getValue().toString());
@@ -317,23 +318,35 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();
 
-        StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(trashName.getText().toString() + "." + getImageExt(imageUri));
-        path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //Adding the additional information on the real-time db
-                Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                String UploadedDate = sdf.format(currentTime);
 
-                Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
-                databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
-                showMessage("Trash Updated Successfully");
-                progressDialog.dismiss();
-                startActivity(new Intent(MyItems_Edit_Trash.this,Home.class));
+        if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+            Date currentTime = Calendar.getInstance().getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+            String UploadedDate = sdf.format(currentTime);
+            Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), strImageUrl, "0", "");
+            databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
+            showMessage("Trash Updated Successfully");
+            progressDialog.dismiss();
+            startActivity(new Intent(MyItems_Edit_Trash.this, Home.class));
+        }
+        else {
+            StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(trashName.getText().toString() + "." + getImageExt(imageUri));
+            path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    //Adding the additional information on the real-time db
+                    Date currentTime = Calendar.getInstance().getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                    String UploadedDate = sdf.format(currentTime);
+                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
+                    showMessage("Trash Updated Successfully");
+                    progressDialog.dismiss();
+                    startActivity(new Intent(MyItems_Edit_Trash.this, Home.class));
 
-            }
-        });
+                }
+            });
+        }
 
     }
 

@@ -73,12 +73,12 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     String userid;
-    DatabaseReference databaseReference, mdatabaseReference;
+    DatabaseReference databaseReference;
     StorageReference storageReference;
     String date;
     EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
     Button SubmitCraft,soldtbtn,deletebtn;
-    String strcraftID,strcraftCategory;
+    String strcraftID,strcraftCategory,strImageUrl;
     ProgressDialog progressDialog;
 
     TextView navFullName, navEmail;
@@ -144,6 +144,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 craftName.setText(dataSnapshot.child("craftName").getValue().toString());
+                strImageUrl = dataSnapshot.child("imageUrl").getValue().toString();
                 Picasso.with(getApplicationContext()).load(dataSnapshot.child("imageUrl").getValue().toString()).placeholder(R.drawable.progress_animation).fit().into(imageView);
                 craftDesc.setText(dataSnapshot.child("craftDescription").getValue().toString());
                 craftPrice.setText(dataSnapshot.child("craftPrice").getValue().toString());
@@ -316,32 +317,50 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             return;
         }
 
-        progressDialog.setMessage("Uploading your Craft...");
+        progressDialog.setMessage("Updating your Craft...");
         progressDialog.show();
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();
-        //Check if resourceFrom is null
-        if(resourcesFrom.getText().toString().equals("")){
-            resourcesFrom.setText("None");
-        }
-
-        //Uploading the image on firebase storage
-        StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(craftName.getText().toString() + "." + getImageExt(imageUri));
-        path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //Adding the additional information on the real-time db
-                Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                String UploadedDate = sdf.format(currentTime);
-                DatabaseReference mdatabaseReference =FirebaseDatabase.getInstance().getReference("Craft").child(strcraftCategory).child(strcraftID);
-                Craft newCraft = new Craft(craftName.getText().toString(),craftQty.getText().toString(),craftPrice.getText().toString(),craftDesc.getText().toString(),selectedCategory,sellerContact.getText().toString(),userid, UploadedDate.toString(),resourcesFrom.getText().toString(),taskSnapshot.getDownloadUrl().toString(),"0", "");
-                mdatabaseReference.setValue(newCraft);
-                showMessage("Craft Updated Successfully");
-                progressDialog.dismiss();
-                startActivity(myItems);
+        if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+            if (resourcesFrom.getText().toString().equals("")) {
+                resourcesFrom.setText("None");
             }
-        });
+            Date currentTime = Calendar.getInstance().getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+            String UploadedDate = sdf.format(currentTime);
+
+            Craft newCraft = new Craft(craftName.getText().toString(), craftQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), resourcesFrom.getText().toString(), strImageUrl , "0", "");
+            databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
+            showMessage("Craft Updated Successfully");
+            progressDialog.dismiss();
+            startActivity(new Intent(MyItems_Edit_Craft.this,Home.class));
+            return;
+        }
+        else {
+            //Check if resourceFrom is null
+            if (resourcesFrom.getText().toString().equals("")) {
+                resourcesFrom.setText("None");
+            }
+
+            //Uploading the image on firebase storage
+            StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(craftName.getText().toString() + "." + getImageExt(imageUri));
+            path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    //Adding the additional information on the real-time db
+                    Date currentTime = Calendar.getInstance().getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                    String UploadedDate = sdf.format(currentTime);
+
+                    Craft newCraft = new Craft(craftName.getText().toString(), craftQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), resourcesFrom.getText().toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
+                    showMessage("Craft Updated Successfully");
+                    progressDialog.dismiss();
+                    startActivity(new Intent(MyItems_Edit_Craft.this,Home.class));
+                    return;
+                }
+            });
+        }
 
     }
 

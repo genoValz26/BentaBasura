@@ -113,57 +113,51 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
             String strContact = editContact.getText().toString().trim();
             String strAddress = editAddress.getText().toString().trim();
 
-            updateProfile(userid, strUsername, strContact, strAddress);
+                progressDialog.setMessage("Updating your Information...");
+                progressDialog.show();
+                if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+
+                    Users updateUser = new Users(editUsername.getText().toString(), activeUser.getEmail().toString(), activeUser.getGender().toString(), activeUser.getProfilePicture(), activeUser.getUserType(),editAddress.getText().toString(), editContact.getText().toString());
+                    databaseReference.child("Users").child(userid).setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            progressDialog.dismiss();
+                            showMessage("Profile has been Updated Successfuly");
+                            startActivity(new Intent(MyProfile_Edit.this,MyProfile.class));
+                            activeUser.setFullname(editUsername.getText().toString());
+                            activeUser.setContact_number(editContact.getText().toString());
+                            activeUser.setAddress(editAddress.getText().toString());
+                        }
+                    });
+                }
+                else{
+                    StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
+                    path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Users updateUser = new Users(editUsername.getText().toString(), activeUser.getEmail().toString(), activeUser.getGender().toString(), taskSnapshot.getDownloadUrl().toString(), activeUser.getUserType(), editAddress.getText().toString(), editContact.getText().toString());
+                            databaseReference.child("Users").child(userid).setValue(updateUser);
+                            progressDialog.dismiss();
+                            showMessage("Profile has been Updated Successfuly");
+                            startActivity(new Intent(MyProfile_Edit.this,MyProfile.class));
+                            activeUser.setProfilePicture(taskSnapshot.getDownloadUrl().toString());
+                            activeUser.setFullname(editUsername.getText().toString());
+                            activeUser.setContact_number(editContact.getText().toString());
+                            activeUser.setAddress(editAddress.getText().toString());
+                        }
+                    });
+
+                }
+
                 break;
             case R.id.profileImageView:
                 showPictureDialog();
                 savebtn.setEnabled(true);
                 break;
-            case R.id.savebtn:
-                progressDialog.setMessage("Uploading Profile Picture");
-                progressDialog.show();
-                savebtn.setEnabled(false);
-                break;
         }
 
     }
-    public boolean updateProfile(String userid, String fullname, String contact_number, String address)
-    {
-        progressDialog.setMessage("Updating your Information...");
-        progressDialog.show();
-        if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
 
-            Users updateUser = new Users(fullname, activeUser.getEmail().toString(), activeUser.getGender().toString(), activeUser.getProfilePicture(), activeUser.getUserType(), address, contact_number);
-            databaseReference.child("Users").child(userid).setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-              progressDialog.dismiss();
-                }
-            });
-        }
-        else{
-            StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
-            Users updateUser = new Users(fullname, activeUser.getEmail().toString(), activeUser.getGender().toString(), path.putFile(imageUri).toString(), activeUser.getUserType(), address, contact_number);
-            databaseReference.child("Users").child(userid).setValue(updateUser);
-            progressDialog.dismiss();
-        }
-
-        activeUser.setFullname(fullname);
-        activeUser.setContact_number(contact_number);
-        activeUser.setAddress(address);
-
-        return  true;
-
-    }
-    public boolean updateProfilePicture(String userid,String profile_picture){
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
-                Users updateUserprofile = new Users(activeUser.getUserName(),activeUser.getEmail().toString(),activeUser.getGender().toString(),profile_picture,activeUser.getUserType(),activeUser.getAddress(),activeUser.getContact_number());;
-                databaseReference.setValue(updateUserprofile);
-                showMessage("Upload Success!");
-                activeUser.setProfilePicture(profile_picture);
-        return true;
-    }
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);

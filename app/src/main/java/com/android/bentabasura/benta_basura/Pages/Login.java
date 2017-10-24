@@ -144,8 +144,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.loginGoogle:
                 if (cd.isConnected()) {
-                    //sighnInWithGoogle();
-                    buildMyDialog(Login.this).show();
+                    sighnInWithGoogle();
+                    //buildMyDialog(Login.this).show();
                 } else {
                     buildDialog(Login.this).show();
                     finishAndRemoveTask();
