@@ -365,33 +365,24 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     public AlertDialog.Builder buildDeleteDialog(Context c) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setTitle("Delete Craft");
-        builder.setMessage("Are you sure you want to Delete your Craft?.");
+        builder.setTitle("Delete Trash");
+        builder.setMessage("Are you sure you want to Delete your Trash?.");
 
         builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                databaseReference.child("Craft").child(strTrashCategory).child(strTrashId).addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        databaseReference.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                showMessage("Craft has been removed!");
-                                startActivity(new Intent(MyItems_Edit_Trash.this, Home.class));
-                                finishAndRemoveTask();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    public void onSuccess(Void aVoid) {
+                        showMessage("Trash has been removed!");
+                        startActivity(new Intent(MyItems_Edit_Trash.this, Home.class));
+                        finishAndRemoveTask();
                     }
                 });
+
             }
         });
+
         builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -400,6 +391,5 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         });
         return builder;
     }
-
 
 }

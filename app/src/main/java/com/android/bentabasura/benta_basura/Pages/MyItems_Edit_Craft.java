@@ -379,22 +379,13 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
 
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        databaseReference.getRef().removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                showMessage("Craft has been removed!");
-                                startActivity(new Intent(MyItems_Edit_Craft.this, Home.class));
-                                finishAndRemoveTask();
-                            }
-                        });
-                    }
 
+                databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    public void onSuccess(Void aVoid) {
+                        showMessage("Craft has been removed!");
+                        startActivity(new Intent(MyItems_Edit_Craft.this, Home.class));
+                        finishAndRemoveTask();
                     }
                 });
             }
