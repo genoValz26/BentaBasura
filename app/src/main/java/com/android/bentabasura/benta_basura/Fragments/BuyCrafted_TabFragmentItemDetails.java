@@ -23,6 +23,7 @@ import com.android.bentabasura.benta_basura.Models.Notification;
 import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.Pages.MyItems_Edit_Craft;
 import com.android.bentabasura.benta_basura.R;
+import com.android.bentabasura.benta_basura.View_Holders.custom_dialog_contact_seller;
 import com.android.bentabasura.benta_basura.View_Holders.custom_dialog_disclaimer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -97,6 +98,28 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
             }
         });
+
+        databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Interested").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                found = false;
+                for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
+                {
+                    if (postSnapShot.getValue().toString().equals(activeUser.getUserId()))
+                    {
+                        btnInterested.setText("View Seller Contact");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         txtUploadedBy.setVisibility(View.GONE);
 
 
@@ -118,11 +141,20 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
                 break;
 
             case R.id.btnInterested:
-                sellerdetailsIntent = new Intent(getActivity().getApplicationContext(),custom_dialog_disclaimer.class);
-                sellerdetailsIntent.putExtra("UserId",receivedBundle.get("UploadedBy").toString());
 
-                addNotification();
-                startActivity(sellerdetailsIntent);
+                if (btnInterested.getText().toString().equals("View Seller Contact"))
+                {
+                    sellerdetailsIntent =  new Intent(getActivity(),custom_dialog_contact_seller.class);
+                    sellerdetailsIntent.putExtra("UserId",receivedBundle.get("UploadedBy").toString());
+                    startActivity(sellerdetailsIntent);
+                }
+                else
+                {
+                    sellerdetailsIntent = new Intent(getActivity().getApplicationContext(), custom_dialog_disclaimer.class);
+                    sellerdetailsIntent.putExtra("UserId", receivedBundle.get("UploadedBy").toString());
+                    addNotification();
+                    startActivity(sellerdetailsIntent);
+                }
                 break;
         }
     }
