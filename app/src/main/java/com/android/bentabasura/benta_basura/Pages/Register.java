@@ -235,28 +235,48 @@ public class Register extends AppCompatActivity implements OnClickListener {
                             user = firebaseAuth.getCurrentUser();
                             userid = user.getUid();
                             //Insert Image to Storage
-                            StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
-                            path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    //Checking of Gender
-                                    String gender = "";
-                                    if(malebtn.isChecked()){
-                                        gender = "Male";
-                                    }
-                                    else if(femalebtn.isChecked()){
-                                        gender = "Female";
-                                    }
-                                    //Insert to Database
-                                    Users newUser= new Users(txtUser.getText().toString(),emailtxt.getText().toString(),gender.toString(),taskSnapshot.getDownloadUrl().toString(),"Member",txtAddress.getText().toString(),txtMobileNum.getText().toString());
-                                    databaseReference.child("Users").child(userid).setValue(newUser);
-                                    sendEmailVerification();
-                                    firebaseAuth.signOut();
-                                    progressDialog.dismiss();
-                                    startActivity(loginPage);
-                                    finishAndRemoveTask();
+
+                            if (Uri.EMPTY.equals(imageUri)) {
+
+                                String gender = "";
+                                if (malebtn.isChecked()) {
+                                    gender = "Male";
+                                } else if (femalebtn.isChecked()) {
+                                    gender = "Female";
                                 }
-                            });
+                                String defaultPicUrl = "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2F1508832816411.jpeg?alt=media&token=405f17d5-ecbf-46a2-8e8e-698c6a4a1ca1";
+                                //handle followUri
+                                Users newUser = new Users(txtUser.getText().toString(), emailtxt.getText().toString(), gender, defaultPicUrl, "Member", txtAddress.getText().toString(), txtMobileNum.getText().toString());
+                                databaseReference.child("Users").child(userid).setValue(newUser);
+                                sendEmailVerification();
+                                firebaseAuth.signOut();
+                                progressDialog.dismiss();
+                                startActivity(loginPage);
+                                finishAndRemoveTask();
+                            }
+                            else {
+                                StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
+                                path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        //Checking of Gender
+                                        String gender = "";
+                                        if (malebtn.isChecked()) {
+                                            gender = "Male";
+                                        } else if (femalebtn.isChecked()) {
+                                            gender = "Female";
+                                        }
+                                        //Insert to Database
+                                        Users newUser = new Users(txtUser.getText().toString(), emailtxt.getText().toString(), gender, taskSnapshot.getDownloadUrl().toString(), "Member", txtAddress.getText().toString(), txtMobileNum.getText().toString());
+                                        databaseReference.child("Users").child(userid).setValue(newUser);
+                                        sendEmailVerification();
+                                        firebaseAuth.signOut();
+                                        progressDialog.dismiss();
+                                        startActivity(loginPage);
+                                        finishAndRemoveTask();
+                                    }
+                                });
+                            }
 
                         }
                         else{

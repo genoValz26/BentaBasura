@@ -205,6 +205,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             return;
         } else {
             checkIfUserIsLogin();
+            notVerified = 0;
             showMessage("Welcome!");
             progressDialog.dismiss();
             return;
