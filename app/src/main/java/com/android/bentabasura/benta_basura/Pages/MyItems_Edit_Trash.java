@@ -74,7 +74,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     private static final int Gallery_Intent = 100;
     Uri imageUri;
     EditText trashName,trashDesc,trashQty,trashPrice,sellerContact;
-    Button SubmitTrash,editbtn,deletebtn;
+    Button SubmitTrash,editbtn,deletebtn,btnEditQty;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     DatabaseReference databaseReference;
@@ -142,6 +142,8 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         editbtn.setOnClickListener(this);
         deletebtn = (Button) findViewById(R.id.deletebtn);
         deletebtn.setOnClickListener(this);
+        btnEditQty = (Button) findViewById(R.id.btnEditQty);
+        btnEditQty.setOnClickListener(this);
 
         //--------------------------------------------------------------------
         Bundle receiveBundle = getIntent().getExtras();
@@ -177,6 +179,10 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 break;
             case R.id.deletebtn:
                 buildDeleteDialog(MyItems_Edit_Trash.this).show();
+                break;
+            case R.id.soldbtn:
+                break;
+            case R.id.btnEditQty:
                 break;
 
         }

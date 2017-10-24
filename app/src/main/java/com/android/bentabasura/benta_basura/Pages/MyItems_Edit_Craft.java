@@ -77,7 +77,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     StorageReference storageReference;
     String date;
     EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
-    Button SubmitCraft,soldtbtn,deletebtn;
+    Button SubmitCraft,soldtbtn,deletebtn,btnEditQty;
     String strcraftID,strcraftCategory,strImageUrl;
     ProgressDialog progressDialog;
 
@@ -130,6 +130,10 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         deletebtn.setOnClickListener(this);
         soldtbtn = (Button) findViewById(R.id.soldbtn);
         soldtbtn.setOnClickListener(this);
+
+        btnEditQty = (Button) findViewById(R.id.btnEditQty);
+        btnEditQty.setOnClickListener(this);
+
         progressDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -176,6 +180,8 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 break;
             case R.id.UploadImageView:
                 showPictureDialog();
+                break;
+            case R.id.btnEditQty:
                 break;
         }
     }

@@ -263,6 +263,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+
                             user = firebaseAuth.getCurrentUser();
                             userid = user.getUid();
                             name = user.getDisplayName();
@@ -271,6 +272,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             databaseReference.child("Users").child(userid).setValue(newUser);
                             startActivity(homePage);
                             progressDialog.dismiss();
+
                             Log.d(TAG, "signInWithCredential:success");
 
                         } else {
