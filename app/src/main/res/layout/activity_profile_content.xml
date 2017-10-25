@@ -142,12 +142,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/smallProfile"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="9dp"
             android:fontFamily="serif"
             android:text="TextView"
             android:textAlignment="center"
             android:textColor="@color/cardview_light_background"
-            android:textSize="25dp"
+            android:textSize="30dp"
             android:textStyle="bold|italic" />
 
     </RelativeLayout>
