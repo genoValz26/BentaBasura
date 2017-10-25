@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Trash;
@@ -37,7 +38,8 @@ public class BoughtItemsTrashTab extends Fragment {
     DatabaseReference databaseReferenceTrash;
     custom_trashlist customTrashAdapter;
     ArrayList<Trash> trashArray = new ArrayList<>();
-    List<String> trashCategory = Arrays.asList("Plastic", "Paper", "Metal", "Wood");;
+    List<String> trashCategory = Arrays.asList("Plastic", "Paper", "Metal", "Wood");
+    TextView txtEmpty;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class BoughtItemsTrashTab extends Fragment {
 
         lstMyTrash = (ListView) view.findViewById(R.id.lstBoughtTrash);
         mProgressDialog = new ProgressDialog(container.getContext());
+        txtEmpty = (TextView) view.findViewById(R.id.txtEmpty);
 
         databaseReferenceTrash  = FirebaseDatabase.getInstance().getReference("Trash");
 
@@ -109,6 +112,16 @@ public class BoughtItemsTrashTab extends Fragment {
                             }
                         }
                         mProgressDialog.dismiss();
+                    }
+
+                    if(trashArray.size() == 0){
+                        lstMyTrash.setVisibility(View.INVISIBLE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        lstMyTrash.setVisibility(View.VISIBLE);
+                        txtEmpty.setVisibility(View.INVISIBLE);
                     }
 
                 }

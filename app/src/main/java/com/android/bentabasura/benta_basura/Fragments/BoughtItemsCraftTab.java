@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
@@ -31,7 +32,7 @@ import java.util.List;
 public class BoughtItemsCraftTab extends Fragment {
 
 
-    ListView lstMyTrash;
+    ListView lstMyCraft;
     ActiveUser activeUser;
     String oldestPostId = "";
     ProgressDialog mProgressDialog;
@@ -39,6 +40,8 @@ public class BoughtItemsCraftTab extends Fragment {
     custom_craftlist customCraftAdapter;
     ArrayList<Craft> craftArray = new ArrayList<>();
     List<String> craftCategory = Arrays.asList("Decoration", "Furniture", "Projects", "Accessories");
+    TextView txtEmpty;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_bought_craft, container, false);
@@ -46,8 +49,9 @@ public class BoughtItemsCraftTab extends Fragment {
         //set persist to true
         Login.setPersist(true);
 
-        lstMyTrash = (ListView) view.findViewById(R.id.lstBoughtCraft);
+        lstMyCraft = (ListView) view.findViewById(R.id.lstBoughtCraft);
         mProgressDialog = new ProgressDialog(container.getContext());
+        txtEmpty = (TextView) view.findViewById(R.id.txtEmpty);
 
         databaseReferenceCraft  = FirebaseDatabase.getInstance().getReference("Craft");
 
@@ -55,7 +59,7 @@ public class BoughtItemsCraftTab extends Fragment {
 
         customCraftAdapter = new custom_craftlist(container.getContext(), craftArray);
 
-        lstMyTrash.setAdapter(customCraftAdapter);
+        lstMyCraft.setAdapter(customCraftAdapter);
 
         //LoadTrash
         getCraftDataFromFirebase();
@@ -110,6 +114,15 @@ public class BoughtItemsCraftTab extends Fragment {
                             }
                         }
                         mProgressDialog.dismiss();
+                    }
+                    if(craftArray.size() == 0){
+                        lstMyCraft.setVisibility(View.INVISIBLE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        lstMyCraft.setVisibility(View.VISIBLE);
+                        txtEmpty.setVisibility(View.INVISIBLE);
                     }
 
                 }

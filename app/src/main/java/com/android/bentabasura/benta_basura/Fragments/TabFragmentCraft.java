@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
@@ -22,13 +23,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class TabFragmentCraft extends Fragment {
 
-    ListView lstMyTrash;
+    ListView lstMyCraft;
     ActiveUser activeUser;
     String oldestPostId = "";
     ProgressDialog mProgressDialog;
@@ -36,16 +39,18 @@ public class TabFragmentCraft extends Fragment {
     custom_craftlist customCraftAdapter;
     ArrayList<Craft> craftArray = new ArrayList<>();
     List<String> craftCategory = Arrays.asList("Decoration", "Furniture", "Projects", "Accessories");
+    TextView txtEmpty;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_my_items_trash, container, false);
+        View view =  inflater.inflate(R.layout.fragment_my_items_craft, container, false);
 
         //set persist to true
         Login.setPersist(true);
 
-        lstMyTrash = (ListView) view.findViewById(R.id.lstMyTrash);
+        lstMyCraft = (ListView) view.findViewById(R.id.lstMyCraft);
         mProgressDialog = new ProgressDialog(container.getContext());
+        txtEmpty = (TextView) view.findViewById(R.id.txtEmpty);
 
         databaseReferenceCraft  = FirebaseDatabase.getInstance().getReference("Craft");
 
@@ -53,7 +58,7 @@ public class TabFragmentCraft extends Fragment {
 
         customCraftAdapter = new custom_craftlist(container.getContext(), craftArray);
 
-        lstMyTrash.setAdapter(customCraftAdapter);
+        lstMyCraft.setAdapter(customCraftAdapter);
 
         //LoadTrash
         getCraftDataFromFirebase();
@@ -108,6 +113,15 @@ public class TabFragmentCraft extends Fragment {
                         mProgressDialog.dismiss();
                     }
 
+                    if(craftArray.size() == 0){
+                        lstMyCraft.setVisibility(View.INVISIBLE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        lstMyCraft.setVisibility(View.VISIBLE);
+                        txtEmpty.setVisibility(View.INVISIBLE);
+                    }
                 }
 
                 @Override
@@ -116,6 +130,5 @@ public class TabFragmentCraft extends Fragment {
                 }
             });
         }
-
     }
 }
