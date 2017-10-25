@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:background="#aaaaaa"
+        android:inputType="phone"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/updateQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Update Quantity"
+        android:layout_below="@+id/editQty"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="46dp" />
+
+    <Button
+        android:id="@+id/cancelbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:text="Cancel"
+        android:layout_alignBaseline="@+id/updateQty"
+        android:layout_alignBottom="@+id/updateQty"
+        android:layout_toEndOf="@+id/updateQty" />
+</RelativeLayout>

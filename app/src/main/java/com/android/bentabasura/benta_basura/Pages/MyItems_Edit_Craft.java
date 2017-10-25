@@ -19,6 +19,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -180,6 +181,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 showPictureDialog();
                 break;
             case R.id.btnEditQty:
+                showUpdateQtyDialog();
                 break;
         }
     }
@@ -420,6 +422,46 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             }
         });
         return builder;
+    }
+    public void showUpdateQtyDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_edit_quantity, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editQty = (EditText) dialogView.findViewById(R.id.editQty);
+        final Button updateQty = (Button) dialogView.findViewById(R.id.updateQty);
+        final Button cancelbtn = (Button) dialogView.findViewById(R.id.cancelbtn);
+        dialogBuilder.setTitle("Update Quanity");
+        final AlertDialog  alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        updateQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+                    if (resourcesFrom.getText().toString().equals("")) {
+                        resourcesFrom.setText("None");
+                    }
+                    Date currentTime = Calendar.getInstance().getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                    String UploadedDate = sdf.format(currentTime);
+
+                    Craft newCraft = new Craft(craftName.getText().toString(), editQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), resourcesFrom.getText().toString(), strImageUrl, "0", "");
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
+                    showMessage("Craft Updated Successfully");
+                    progressDialog.dismiss();
+                    startActivity(new Intent(MyItems_Edit_Craft.this, Home.class));
+                    alertDialog.dismiss();
+                }
+            }
+        });
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
 }

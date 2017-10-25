@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -180,6 +181,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             case R.id.soldbtn:
                 break;
             case R.id.btnEditQty:
+                showUpdateQtyDialog();
                 break;
 
         }
@@ -407,6 +409,51 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             }
         });
         return builder;
+    }
+    public void showUpdateQtyDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_edit_quantity, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editQty = (EditText) dialogView.findViewById(R.id.editQty);
+        final Button updateQty = (Button) dialogView.findViewById(R.id.updateQty);
+        final Button cancelbtn = (Button) dialogView.findViewById(R.id.cancelbtn);
+        dialogBuilder.setTitle("Update Quanity");
+        final AlertDialog  alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        updateQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressDialog.setMessage("Uploading your Trash...");
+                progressDialog.show();
+
+                user = firebaseAuth.getCurrentUser();
+                userid = user.getUid();
+
+                if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+
+                    Date currentTime = Calendar.getInstance().getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                    String UploadedDate = sdf.format(currentTime);
+
+                    Trash newTrash = new Trash(trashName.getText().toString(), editQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), strImageUrl, "0", "");
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
+                    showMessage("Quantity Updated Successfully!");
+                    progressDialog.dismiss();
+                    startActivity(new Intent(MyItems_Edit_Trash.this, Home.class));
+                }
+                alertDialog.dismiss();
+
+            }
+        });
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
 }
