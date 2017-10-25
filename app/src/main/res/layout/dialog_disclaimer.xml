@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:background="@color/grey_text"
+    android:background="@layout/dialog_border"
     android:padding="15dp">
 
     <TextView
@@ -19,7 +19,8 @@
         android:id="@+id/btnOK"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@layout/button_rounded"
+        android:paddingLeft="5dp"
         android:drawableLeft="@drawable/ic_thumb_up_white_18dp"
         android:text="AGREED"
         android:layout_alignParentBottom="true"

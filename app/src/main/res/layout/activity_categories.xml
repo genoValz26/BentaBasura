@@ -24,7 +24,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorAccent"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:layout_weight="1.04" />
 
@@ -65,25 +65,25 @@
             android:id="@+id/btnPapers"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/cat_papers" />
+            android:background="@drawable/paper_cat" />
 
         <Button
             android:id="@+id/btnPlastic"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/cat_plastic" />
+            android:background="@drawable/plastic_cat" />
 
         <Button
             android:id="@+id/btnMetal"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/cat_metal" />
+            android:background="@drawable/metal_cat" />
 
         <Button
             android:id="@+id/btnWood"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/cat_wood" />
+            android:background="@drawable/wood_cat" />
     </GridLayout>
 
 </android.support.constraint.ConstraintLayout>

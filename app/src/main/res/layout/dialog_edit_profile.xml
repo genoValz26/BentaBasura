@@ -5,8 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground2"
-    >
+    android:background="@layout/dialog_border">
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
@@ -53,14 +52,13 @@
                 android:id="@+id/editFullname"
                 android:layout_width="250dp"
                 android:layout_height="35dp"
-                android:layout_alignEnd="@+id/savebtn"
-                android:layout_below="@+id/textView19"
-                android:layout_marginEnd="13dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="14dp"
                 android:background="@color/grey_text"
                 android:drawableLeft="@drawable/ic_account_box_white_18dp"
                 android:hint="Fullname"
-                android:inputType="textPersonName">
+                android:inputType="textPersonName"
+                android:layout_below="@+id/textView19"
+                android:layout_centerHorizontal="true">
 
                 <requestFocus />
             </EditText>
@@ -69,12 +67,13 @@
         android:id="@+id/updatebtn"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="@layout/button_rounded"
         android:drawableLeft="@drawable/ic_check_circle_white_18dp"
         android:text="@string/updateBtn"
-        android:layout_below="@+id/editAddress"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp" />
+                android:paddingLeft="5dp"
+                android:layout_marginTop="38dp"
+                android:layout_below="@+id/editAddress"
+                android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView19"
@@ -83,9 +82,9 @@
         android:text="Update Information"
         android:textSize="20dp"
         android:textStyle="normal|bold"
+        android:layout_marginTop="52dp"
         android:layout_below="@+id/profileImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView20"
@@ -97,13 +96,16 @@
         android:layout_below="@+id/appBarLayout"
         android:layout_alignStart="@+id/profileImageView" />
 
-    <Button
-        android:id="@+id/savebtn"
-        android:layout_width="45dp"
-        android:layout_height="40dp"
-        android:drawableLeft="@drawable/ic_save_black_18dp"
-        android:layout_alignBottom="@+id/profileImageView"
-        android:layout_toEndOf="@+id/profileImageView" />
+            <Button
+                android:id="@+id/savebtn"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/profileImageView"
+                android:layout_centerHorizontal="true"
+                android:background="@layout/button_rounded"
+                android:paddingLeft="5dp"
+                android:drawableLeft="@drawable/ic_save_white_18dp"
+                android:text="Save Profile Picture"/>
         </RelativeLayout>r
     </ScrollView>
 </RelativeLayout>

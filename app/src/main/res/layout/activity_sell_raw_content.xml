@@ -21,7 +21,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorAccent"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -102,7 +102,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginRight="21dp"
         android:layout_marginTop="10dp"
-        android:background="@color/colorPrimary"
+        android:background="@layout/button_rounded"
         android:text="@string/Submit"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="497dp" />

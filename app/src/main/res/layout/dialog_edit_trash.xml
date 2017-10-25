@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground2"
+    android:background="@layout/dialog_border"
     android:orientation="vertical"
     >
     <ScrollView
@@ -13,16 +13,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"></ScrollView>
-
-    <Button
-        android:id="@+id/btnEditQty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="43dp"
-        android:layout_marginTop="102dp"
-        android:text="Edit Quantity"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -109,7 +99,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginRight="21dp"
             android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
+            android:background="@layout/button_rounded"
             android:text="@string/Submit"
             tools:layout_editor_absoluteX="134dp"
             tools:layout_editor_absoluteY="497dp" />
@@ -157,4 +147,16 @@
             android:text="Delete Item"
             android:textSize="10sp" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnEditQty"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginTop="98dp"
+        android:drawableLeft="@drawable/ic_border_color_white_18dp"
+        android:text="Edit Quantity"
+        android:textSize="10sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground2"
+    android:background="@layout/dialog_border"
     android:orientation="vertical">
 
     <ScrollView
@@ -95,7 +95,7 @@
                 android:layout_marginRight="21dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/Submit"
-                android:background="@color/colorPrimary"
+                android:background="@layout/button_rounded"
                 tools:layout_editor_absoluteX="134dp"
                 tools:layout_editor_absoluteY="497dp" />
 
@@ -157,8 +157,10 @@
 
             <Button
                 android:id="@+id/btnEditQty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:textSize="10sp"
+                android:drawableLeft="@drawable/ic_border_color_white_18dp"
                 android:layout_below="@+id/soldbtn"
                 android:layout_toEndOf="@+id/UploadImageView"
                 android:text="Edit Quantity" />

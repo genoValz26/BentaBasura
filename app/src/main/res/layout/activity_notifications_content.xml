@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.bentabasura.benta_basura.Home"
+    tools:context="com.android.bentabasura.benta_basura.Pages.Home"
     android:background="@color/colorBackground2"
     android:weightSum="1">
 
@@ -13,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorAccent"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
