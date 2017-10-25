@@ -33,7 +33,8 @@
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_middle"
                 android:paddingLeft="@dimen/spacing_middle"
-                android:paddingTop="@dimen/spacing_middle">
+                android:paddingTop="@dimen/spacing_middle"
+                android:background="@drawable/card_bg">
 
                 <ImageView
                     android:id="@+id/imgThumbTrash"

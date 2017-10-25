@@ -32,14 +32,15 @@
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/spacing_middle"
                 android:paddingLeft="@dimen/spacing_middle"
-                android:paddingTop="@dimen/spacing_middle">
+                android:paddingTop="@dimen/spacing_middle"
+                android:background="@drawable/card_bg">
 
                 <ImageView
                     android:id="@+id/imgThumbCraft"
                     android:layout_width="40dp"
                     android:layout_height="87dp"
                     android:layout_weight="0.26"
-                    android:src="@drawable/no_image_startup" />
+                    android:src="@drawable/common_google_signin_btn_icon_light" />
 
                 <LinearLayout
                     android:layout_width="0dp"
