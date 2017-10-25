@@ -136,8 +136,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
 
         progressDialog = new ProgressDialog(this);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-
         //--------------------------------------------------------------
 
 

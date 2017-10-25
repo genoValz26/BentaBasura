@@ -100,9 +100,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         //set persist to true
         Login.setPersist(true);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
 
         //---------------------------------------------------------
         spnTrashCategory = (Spinner) findViewById(R.id.spnTrashCategory);
@@ -149,7 +146,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         Bundle receiveBundle = getIntent().getExtras();
         strTrashId = receiveBundle.get("TrashID").toString();
         strTrashCategory = receiveBundle.get("TrashCategory").toString();
-        databaseReference.child("Trash").child(strTrashCategory).child( strTrashId).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 trashName.setText(dataSnapshot.child("trashName").getValue().toString());
@@ -326,9 +323,11 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
 
 
         if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+
             Date currentTime = Calendar.getInstance().getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
             String UploadedDate = sdf.format(currentTime);
+
             Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), strImageUrl, "0", "");
             databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
             showMessage("Trash Updated Successfully");

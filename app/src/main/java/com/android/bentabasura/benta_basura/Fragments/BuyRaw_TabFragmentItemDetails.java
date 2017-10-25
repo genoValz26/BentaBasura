@@ -102,8 +102,33 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
             }
         });
 
+        databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Interested").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                found = false;
+                for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
+                {
+                    if (postSnapShot.getValue().toString().equals(activeUser.getUserId()))
+                    {
+                        btnInterested.setText("View Seller Contact");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        txtUploadedBy.setVisibility(View.GONE);
+
+
         return view;
-    }
+
+}
 
     @Override
     public void onClick(View view) {
@@ -113,6 +138,8 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
                 detailsIntent.putExtra("TrashID", receivedBundle.get("TrashId").toString());
                 detailsIntent.putExtra("TrashCategory", receivedBundle.get("TrashCategory").toString());
                 startActivity(detailsIntent);
+
+                //showMessage(receivedBundle.get("TrashId").toString());
                 break;
             case R.id.btnInterested:
                 if (btnInterested.getText().toString().equals("View Seller Contact")) {
