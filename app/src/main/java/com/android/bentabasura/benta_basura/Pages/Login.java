@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     EditText emailTxt, passTxt;
     ActiveUser activeUser;
 
-    String userid, google_email, name;
+    String userid, google_email, name,googleuserid;
     public static final String TAG = "Login";
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
@@ -264,14 +264,32 @@ public class Login extends AppCompatActivity implements OnClickListener {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 
-                            user = firebaseAuth.getCurrentUser();
-                            userid = user.getUid();
-                            name = user.getDisplayName();
-                            google_email = user.getEmail();
-                            Users newUser = new Users(name.toString(), google_email,"None", "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member", "None", "None");
-                            databaseReference.child("Users").child(userid).setValue(newUser);
-                            startActivity(homePage);
-                            progressDialog.dismiss();
+                            FirebaseUser googleuser = firebaseAuth.getCurrentUser();
+                            googleuserid = googleuser.getUid();
+                            name = googleuser.getDisplayName();
+                            google_email = googleuser.getEmail();
+
+                            databaseReference.child("Users").child(googleuserid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.getValue() != null){
+                                        startActivity(homePage);
+                                        progressDialog.dismiss();
+                                    }
+                                    else if(dataSnapshot.getValue() == null){
+
+                                        Users newUser = new Users(name.toString(), google_email,"None", "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member", "None", "None");
+                                        databaseReference.child("Users").child(googleuserid).setValue(newUser);
+                                        startActivity(homePage);
+                                        progressDialog.dismiss();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
 
                             Log.d(TAG, "signInWithCredential:success");
 
@@ -303,20 +321,22 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                 new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                        if (notVerified != 1)
-                                        {
-                                            activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
-                                            activeUser.setFullname(dataSnapshot.child("fullname").getValue().toString());
-                                            activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
-                                            activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
-                                            activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
-                                            activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
-                                            activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
-                                            progressDialog.dismiss();
-                                            startActivity(homePage);
+                                        if (dataSnapshot.getValue() != null) {
+                                            if (notVerified != 1) {
+                                                activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
+                                                activeUser.setFullname(dataSnapshot.child("fullname").getValue().toString());
+                                                activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
+                                                activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
+                                                activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
+                                                activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
+                                                activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
+                                                progressDialog.dismiss();
+                                                startActivity(homePage);
+                                            }
                                         }
+
                                     }
+
 
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {

@@ -350,7 +350,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
         builder.setTitle("BentaBasura");
         builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 startActivity(loginpage);

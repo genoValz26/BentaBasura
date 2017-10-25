@@ -38,6 +38,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
+import com.android.bentabasura.benta_basura.Models.Transaction_Craft;
+import com.android.bentabasura.benta_basura.Models.Transaction_Trash;
 import com.android.bentabasura.benta_basura.Models.Trash;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.Utils.RoundedTransformation;
@@ -179,6 +181,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 buildDeleteDialog(MyItems_Edit_Trash.this).show();
                 break;
             case R.id.soldbtn:
+                showSoldDialog();
                 break;
             case R.id.btnEditQty:
                 showUpdateQtyDialog();
@@ -455,5 +458,35 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             }
         });
     }
+    public void showSoldDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_sold, null);
+        dialogBuilder.setView(dialogView);
 
+        final EditText soldTo= (EditText) dialogView.findViewById(R.id.soldTo);
+        final EditText quantitySold= (EditText) dialogView.findViewById(R.id.quantitySold);
+        final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
+
+        dialogBuilder.setTitle("Sold To");
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        submitSold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user = firebaseAuth.getCurrentUser();
+                userid = user.getUid();
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String TrasnsactionDate = sdf.format(currentTime);
+
+                    Transaction_Trash soldTrash = new Transaction_Trash(userid, soldTo.getText().toString(), strTrashId, quantitySold.getText().toString(), TrasnsactionDate);
+                    databaseReference.child("Transaction_Trash").child(strTrashCategory).child(strTrashId).setValue(soldTrash);
+
+                alertDialog.dismiss();
+            }
+        });
+
+    }
 }

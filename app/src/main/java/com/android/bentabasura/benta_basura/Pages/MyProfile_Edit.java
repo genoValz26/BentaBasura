@@ -80,8 +80,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         updatebtn = (Button) findViewById(R.id.updatebtn);
         updatebtn.setOnClickListener(this);
 
-        savebtn = (Button) findViewById(R.id.savebtn);
-        savebtn.setOnClickListener(this);
+
         profileImageView = (ImageButton) findViewById(R.id.profileImageView);
         profileImageView.setOnClickListener(this);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -91,7 +90,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
         checkFilePermissions();
 
         progressDialog = new ProgressDialog(this);
-        savebtn.setEnabled(false);
+
         activeUser = ActiveUser.getInstance();
         Picasso.with(this).load(activeUser.getProfilePicture()).placeholder(R.drawable.progress_animation)
                 .fit().into(profileImageView);
@@ -152,7 +151,6 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.profileImageView:
                 showPictureDialog();
-                savebtn.setEnabled(true);
                 break;
         }
 

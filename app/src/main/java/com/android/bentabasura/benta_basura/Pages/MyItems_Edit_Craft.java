@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
+import com.android.bentabasura.benta_basura.Models.Transaction_Craft;
 import com.android.bentabasura.benta_basura.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -173,6 +174,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 onUpload();
                 break;
             case R.id.soldbtn:
+                showSoldDialog();
                 break;
             case R.id.deletebtn:
                 buildDeleteDialog(MyItems_Edit_Craft.this).show();
@@ -463,5 +465,34 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             }
         });
     }
+    public void showSoldDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_sold, null);
+        dialogBuilder.setView(dialogView);
 
+        final EditText soldTo= (EditText) dialogView.findViewById(R.id.soldTo);
+        final EditText quantitySold= (EditText) dialogView.findViewById(R.id.quantitySold);
+        final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
+
+        dialogBuilder.setTitle("Sold To");
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        submitSold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user = firebaseAuth.getCurrentUser();
+                userid = user.getUid();
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String TrasnsactionDate = sdf.format(currentTime);
+
+                Transaction_Craft soldCraft = new Transaction_Craft(userid,soldTo.getText().toString(),strcraftID,quantitySold.getText().toString(),TrasnsactionDate);
+                databaseReference.child("Transaction_Craft").child(strcraftCategory).child(strcraftID).setValue(soldCraft);
+                alertDialog.dismiss();
+            }
+        });
+
+    }
 }
