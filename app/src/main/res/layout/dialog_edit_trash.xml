@@ -26,13 +26,14 @@
             android:id="@+id/UploadImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginLeft="5dp"
-            android:scaleType="fitXY"
-            android:background="@drawable/btn_camera"
-            tools:layout_editor_absoluteX="132dp"
-            tools:layout_editor_absoluteY="56dp"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/trashName" />
+            android:layout_alignStart="@+id/trashName"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_camera"
+            android:paddingRight="10dp"
+            android:scaleType="fitXY"
+            tools:layout_editor_absoluteX="132dp"
+            tools:layout_editor_absoluteY="56dp" />
 
         <EditText
             android:id="@+id/trashName"
@@ -141,13 +142,13 @@
             android:id="@+id/soldbtn"
             android:layout_width="125dp"
             android:layout_height="35dp"
+            android:layout_alignTop="@+id/UploadImageView"
+            android:layout_toEndOf="@+id/UploadImageView"
             android:background="@layout/button_rounded"
             android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
             android:paddingLeft="5dp"
-            android:text="Mark as Sold"
-            android:textSize="10sp"
-            android:layout_alignTop="@+id/UploadImageView"
-            android:layout_toEndOf="@+id/UploadImageView" />
+            android:text="SOLD"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/deletebtn"
@@ -158,20 +159,20 @@
             android:background="@layout/button_rounded"
             android:drawableLeft="@drawable/ic_delete_forever_white_18dp"
             android:paddingLeft="5dp"
-            android:text="Delete Item"
-            android:textSize="10sp" />
+            android:text="DELETE"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btnEditQty"
             android:layout_width="125dp"
             android:layout_height="35dp"
+            android:layout_below="@+id/soldbtn"
+            android:layout_marginTop="21dp"
+            android:layout_toEndOf="@+id/UploadImageView"
             android:background="@layout/button_rounded"
             android:drawableLeft="@drawable/ic_border_color_white_18dp"
             android:paddingLeft="10dp"
-            android:text="Edit Quantity"
-            android:textSize="10sp"
-            android:layout_below="@+id/soldbtn"
-            android:layout_toEndOf="@+id/UploadImageView"
-            android:layout_marginTop="21dp" />
+            android:text="Update QTY"
+            android:textSize="12sp" />
     </RelativeLayout>
 </RelativeLayout>

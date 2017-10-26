@@ -9,7 +9,7 @@
             <!-- draw a border around rectangle shape-->
             <stroke
                 android:color="@color/colorAccent"
-                android:width="4dp"
+                android:width="2dp"
                 />
         </shape>
     </item>
