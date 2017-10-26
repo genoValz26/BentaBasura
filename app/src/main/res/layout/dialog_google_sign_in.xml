@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@layout/dialog_border">
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+            <ImageButton
+                android:id="@+id/profileImageView"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/textView20"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="7dp"
+
+                />
+
+            <EditText
+                android:id="@+id/editAddress"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:hint="@string/Address"
+                android:drawableLeft="@drawable/ic_location_on_white_18dp"
+                android:inputType="textPersonName"
+                android:background="@color/grey_text"
+                android:layout_below="@+id/editContact"
+                android:layout_alignStart="@+id/editContact" />
+
+            <EditText
+                android:id="@+id/editContact"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:hint="@string/MobileNum"
+                android:inputType="phone"
+                android:background="@color/grey_text"
+                android:drawableLeft="@drawable/ic_phone_android_white_18dp"
+                android:layout_below="@+id/editFullname"
+                android:layout_alignStart="@+id/editFullname" />
+
+            <EditText
+                android:id="@+id/editFullname"
+                android:layout_width="250dp"
+                android:layout_height="35dp"
+                android:background="@color/grey_text"
+                android:drawableLeft="@drawable/ic_account_box_white_18dp"
+                android:hint="Fullname"
+                android:inputType="textPersonName"
+                android:layout_marginTop="24dp"
+                android:layout_below="@+id/profileImageView"
+                android:layout_centerHorizontal="true">
+
+                <requestFocus />
+            </EditText>
+
+            <Button
+                android:id="@+id/savebtn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/editAddress"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="38dp"
+                android:background="@layout/button_rounded"
+                android:drawableLeft="@drawable/ic_check_circle_white_18dp"
+                android:paddingLeft="5dp"
+                android:text="@string/updateBtn" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fill-up required information"
+                android:textSize="20dp"
+                android:textStyle="normal|bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/editFullname" />
+
+        </RelativeLayout>r
+    </ScrollView>
+
+</RelativeLayout>

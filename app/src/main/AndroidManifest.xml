@@ -88,6 +88,8 @@
             android:theme="@style/customDialog"/>
         <activity android:name=".View_Holders.custom_dialog_contact_seller"
             android:theme="@style/customSellerDialog"/>
+        <activity android:name=".View_Holders.custom_dialog_google_sign_in"
+            android:theme="@style/customProfileDialog"/>
 
         <service android:name=".Services.FirebaseNotificationService"/>
     </application>

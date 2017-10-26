@@ -27,6 +27,7 @@ import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.Services.FirebaseNotificationService;
 import com.android.bentabasura.benta_basura.Utils.ConnectionDetector;
+import com.android.bentabasura.benta_basura.View_Holders.custom_dialog_google_sign_in;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -285,10 +286,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                         progressDialog.dismiss();
                                     }
                                     else if(dataSnapshot.getValue() == null){
-
-                                        Users newUser = new Users(name.toString(), google_email,"None", "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member", "None", "None");
-                                        databaseReference.child("Users").child(googleuserid).setValue(newUser);
-                                        startActivity(homePage);
+                                        Intent detailsIntent = new Intent(Login.this, custom_dialog_google_sign_in.class);
+                                        detailsIntent.putExtra("googleUserId",googleuserid);
+                                        detailsIntent.putExtra("googleName",name);
+                                        detailsIntent.putExtra("googleEmail",google_email);
+                                        startActivity(detailsIntent);
                                         progressDialog.dismiss();
                                     }
                                 }
