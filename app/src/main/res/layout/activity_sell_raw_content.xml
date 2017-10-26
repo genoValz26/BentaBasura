@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,6 +25,10 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="15dp">
     <ImageButton
         android:id="@+id/UploadImageView"
         android:layout_width="150dp"
@@ -35,7 +39,6 @@
         tools:layout_editor_absoluteX="132dp"
         tools:layout_editor_absoluteY="56dp"
         android:layout_marginTop="26dp"
-        android:layout_below="@+id/appBarLayout"
         android:layout_alignStart="@+id/SubmitTrash" />
 
     <EditText
@@ -140,5 +143,193 @@
         android:layout_marginTop="8dp"
         android:textSize="10sp"
         android:background="@color/grey_text" />
+    </RelativeLayout>
+</LinearLayout>
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.bentabasura.benta_basura.Pages.SellRaw"
+    android:background="@color/colorBackground2"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp">
+
+
+            <FrameLayout
+                android:id="@+id/framePic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/trashName"
+                android:layout_alignRight="@+id/trashName">
+
+
+                <ImageView
+                    android:id="@+id/uploadBack"
+                    android:layout_width="279dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/dotted"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.027"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageButton
+                    android:id="@+id/UploadImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignRight="@id/uploadBack"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/btn_camera"
+                    android:scaleType="fitXY" />
+
+
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/trashName"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/framePic"
+                android:layout_marginEnd="42dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:background="#37474F"
+                android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
+                android:drawablePadding="5dp"
+                android:ems="5"
+                android:hint="@string/trashName"
+                android:inputType="textPersonName"
+                android:paddingLeft="5dp"
+                android:textSize="11dp"
+                tools:layout_editor_absoluteX="63dp"
+                tools:layout_editor_absoluteY="156dp" />
+
+            <EditText
+                android:id="@+id/trashQty"
+                android:layout_width="133dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/trashName"
+                android:layout_below="@+id/trashName"
+                android:layout_marginTop="7dp"
+                android:background="#37474F"
+                android:drawableLeft="@drawable/ic_weight"
+                android:drawablePadding="0dp"
+                android:hint="@string/trashQuantity"
+                android:inputType="number"
+                android:paddingLeft="5dp"
+                android:textSize="11dp"
+                tools:layout_editor_absoluteX="63dp"
+                tools:layout_editor_absoluteY="224dp" />
+
+            <EditText
+                android:id="@+id/trashDesc"
+                android:layout_width="280dp"
+                android:layout_height="55dp"
+                android:layout_alignStart="@+id/trashQty"
+                android:layout_below="@+id/trashQty"
+                android:layout_marginTop="7dp"
+                android:background="#37474F"
+                android:drawableLeft="@drawable/ic_description_white_18dp"
+                android:drawablePadding="4dp"
+                android:hint="@string/trashDesc"
+                android:inputType="textMultiLine"
+                android:paddingLeft="7dp"
+                android:textSize="10dp"
+                tools:layout_editor_absoluteX="63dp"
+                tools:layout_editor_absoluteY="292dp" />
+
+            <EditText
+                android:id="@+id/trashPrice"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_alignEnd="@+id/trashName"
+                android:layout_alignTop="@+id/trashQty"
+                android:background="#37474F"
+                android:drawableLeft="@drawable/ic_peso"
+                android:drawablePadding="4dp"
+                android:hint="@string/trashPrice"
+                android:inputType="number"
+                android:paddingLeft="5dp"
+                android:textSize="11dp" />
+
+
+            <Button
+                android:id="@+id/SubmitTrash"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_below="@+id/spnTrashCategory"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="21dp"
+                android:layout_marginTop="10dp"
+                android:background="@layout/button_rounded"
+                android:text="@string/Submit"
+                tools:layout_editor_absoluteX="134dp"
+                tools:layout_editor_absoluteY="497dp" />
+
+            <EditText
+                android:id="@+id/sellerContact"
+                android:layout_width="280dp"
+                android:layout_height="55dp"
+                android:layout_alignStart="@+id/trashDesc"
+                android:layout_below="@+id/trashDesc"
+                android:layout_marginTop="7dp"
+                android:background="#37474F"
+                android:drawableLeft="@drawable/ic_location_on_white_18dp"
+                android:drawablePadding="5dp"
+                android:hint="@string/sellerContact"
+                android:inputType="textMultiLine"
+                android:paddingLeft="7dp"
+                android:textSize="10dp"
+                tools:layout_editor_absoluteX="63dp"
+                tools:layout_editor_absoluteY="428dp" />
+
+
+            <Spinner
+                android:id="@+id/spnTrashCategory"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:background="@drawable/spinner_syle"
+                android:paddingLeft="33dp"
+                android:prompt="@string/Category"
+                android:textSize="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/sellerContact"
+                android:layout_alignStart="@+id/sellerContact" />
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

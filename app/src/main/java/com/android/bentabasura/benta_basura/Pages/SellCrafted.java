@@ -85,7 +85,7 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
     StorageReference storageReference;
     String date;
 
-    EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
+    EditText craftName,craftDesc,craftQty,craftPrice,sellerContact,resourcesFrom;
     Button SubmitCraft;
     private GoogleApiClient mGoogleApiClient;
     ProgressDialog progressDialog;
