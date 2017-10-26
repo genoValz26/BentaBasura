@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -72,7 +74,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(!getPersist())
+        if(!getPersist() && savedInstanceState != null)
         {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             setPersist(true);
@@ -213,7 +215,10 @@ public class Login extends AppCompatActivity implements OnClickListener {
     }
 
     public void showMessage(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+        ConstraintLayout clt = (ConstraintLayout) findViewById(R.id.loginLayout);
+        Snackbar snackbar = Snackbar.make(clt, message, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     public void onStart() {
