@@ -125,6 +125,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         craftQty = (EditText) findViewById(R.id.craftQty);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
         resourcesFrom = (EditText) findViewById(R.id.resourcesFrom);
+        spnCraftCategory = (Spinner) findViewById(R.id.spnCraftCategory);
 
         SubmitCraft = (Button) findViewById(R.id.SubmitCraft);
         SubmitCraft.setOnClickListener(this);
@@ -155,6 +156,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 craftQty.setText(dataSnapshot.child("craftQuantity").getValue().toString());
                 sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
                 resourcesFrom.setText(dataSnapshot.child("resourcesFrom").getValue().toString());
+                spnCraftCategory.setSelection(getIndex(spnCraftCategory, dataSnapshot.child("craftCategory").getValue().toString()));
             }
 
             @Override
@@ -494,5 +496,18 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             }
         });
 
+    }
+
+    private int getIndex(Spinner spinner, String myString)
+    {
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }

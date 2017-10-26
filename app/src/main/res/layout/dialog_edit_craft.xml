@@ -13,84 +13,87 @@
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp">
+            android:padding="15dp"
+            android:layout_marginTop="10dp">
+
             <ImageButton
                 android:id="@+id/UploadImageView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginLeft="5dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/btn_camera"
-                tools:layout_editor_absoluteX="132dp"
-                tools:layout_editor_absoluteY="56dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignStart="@+id/craftName" />
+                android:layout_alignStart="@+id/craftName"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/btn_camera"
+                android:scaleType="fitXY"
+                tools:layout_editor_absoluteX="132dp"
+                tools:layout_editor_absoluteY="56dp" />
 
             <EditText
                 android:id="@+id/craftName"
                 android:layout_width="280dp"
                 android:layout_height="30dp"
+                android:layout_below="@+id/UploadImageView"
+                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="13dp"
                 android:background="@color/colorBackground2"
+                android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
                 android:ems="5"
                 android:hint="@string/craftName"
                 android:inputType="textPersonName"
-                android:textSize="15dp"
-                android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
                 android:paddingLeft="5dp"
+                android:textSize="15dp"
                 tools:layout_editor_absoluteX="63dp"
-                tools:layout_editor_absoluteY="156dp"
-                android:layout_below="@+id/UploadImageView"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="13dp" />
+                tools:layout_editor_absoluteY="156dp" />
 
             <EditText
                 android:id="@+id/craftQty"
                 android:layout_width="125dp"
                 android:layout_height="30dp"
+                android:layout_alignStart="@+id/craftName"
+                android:layout_below="@+id/craftName"
+                android:layout_marginTop="8dp"
                 android:background="@color/colorBackground2"
+                android:drawableLeft="@drawable/ic_weight"
                 android:hint="@string/trashQuantity"
                 android:inputType="number"
-                android:drawableLeft="@drawable/ic_weight"
                 android:paddingLeft="5dp"
                 android:textSize="10dp"
                 tools:layout_editor_absoluteX="63dp"
-                tools:layout_editor_absoluteY="224dp"
-                android:layout_below="@+id/craftName"
-                android:layout_alignStart="@+id/craftName"
-                android:layout_marginTop="8dp" />
+                tools:layout_editor_absoluteY="224dp" />
 
             <EditText
                 android:id="@+id/craftDesc"
                 android:layout_width="280dp"
                 android:layout_height="55dp"
+                android:layout_alignStart="@+id/craftQty"
+                android:layout_below="@+id/craftQty"
                 android:layout_marginTop="9dp"
-                android:drawableLeft="@drawable/ic_description_white_18dp"
                 android:background="@color/colorBackground2"
+                android:drawableLeft="@drawable/ic_description_white_18dp"
                 android:hint="@string/craftDesc"
                 android:inputType="textMultiLine"
                 android:paddingLeft="5dp"
                 android:textSize="10dp"
                 tools:layout_editor_absoluteX="63dp"
-                tools:layout_editor_absoluteY="292dp"
-                android:layout_below="@+id/craftQty"
-                android:layout_alignStart="@+id/craftQty" />
+                tools:layout_editor_absoluteY="292dp" />
 
             <EditText
                 android:id="@+id/craftPrice"
                 android:layout_width="140dp"
                 android:layout_height="30dp"
+                android:layout_above="@+id/craftDesc"
+                android:layout_alignEnd="@+id/craftName"
                 android:background="@color/colorBackground2"
+                android:drawableLeft="@drawable/ic_peso"
                 android:hint="@string/trashPrice"
                 android:inputType="number"
                 android:paddingLeft="5dp"
-                android:textSize="10dp"
-                android:drawableLeft="@drawable/ic_peso"
-                android:layout_above="@+id/craftDesc"
-                android:layout_alignEnd="@+id/craftName" />
+                android:textSize="10dp" />
 
 
             <Button
@@ -110,17 +113,17 @@
                 android:id="@+id/sellerContact"
                 android:layout_width="280dp"
                 android:layout_height="55dp"
+                android:layout_alignStart="@+id/craftDesc"
+                android:layout_below="@+id/craftDesc"
                 android:layout_marginTop="7dp"
                 android:background="@color/colorBackground2"
+                android:drawableLeft="@drawable/ic_location_on_white_18dp"
                 android:hint="@string/sellerContact"
                 android:inputType="textMultiLine"
                 android:paddingLeft="5dp"
-                android:drawableLeft="@drawable/ic_location_on_white_18dp"
-                tools:layout_editor_absoluteX="63dp"
-                tools:layout_editor_absoluteY="428dp"
-                android:layout_below="@+id/craftDesc"
                 android:textSize="10dp"
-                android:layout_alignStart="@+id/craftDesc"/>
+                tools:layout_editor_absoluteX="63dp"
+                tools:layout_editor_absoluteY="428dp" />
 
             <EditText
                 android:id="@+id/resourcesFrom"
@@ -130,21 +133,21 @@
                 android:layout_below="@+id/sellerContact"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorBackground2"
+                android:drawableLeft="@drawable/ic_open_in_browser_white_18dp"
                 android:ems="10"
                 android:hint="@string/resourcesFrom"
-                android:drawableLeft="@drawable/ic_open_in_browser_white_18dp"
                 android:inputType="textPersonName"
-                android:textSize="10dp"
-                android:paddingLeft="5dp" />
+                android:paddingLeft="5dp"
+                android:textSize="10dp" />
 
             <Spinner
                 android:id="@+id/spnCraftCategory"
                 android:layout_width="280dp"
                 android:layout_height="30dp"
-                android:background="@color/colorBackground2"
                 android:layout_alignStart="@+id/resourcesFrom"
                 android:layout_below="@+id/resourcesFrom"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:background="@color/colorBackground2" />
 
             <Button
                 android:id="@+id/soldbtn"
@@ -152,9 +155,9 @@
                 android:layout_height="35dp"
                 android:layout_alignTop="@+id/UploadImageView"
                 android:layout_toEndOf="@+id/UploadImageView"
+                android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
                 android:paddingLeft="5dp"
-                android:background="@layout/button_rounded"
                 android:text="Mark as Sold"
                 android:textSize="10sp" />
 
@@ -164,9 +167,9 @@
                 android:layout_height="35dp"
                 android:layout_above="@+id/craftName"
                 android:layout_toEndOf="@+id/UploadImageView"
+                android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_delete_forever_white_18dp"
                 android:paddingLeft="5dp"
-                android:background="@layout/button_rounded"
                 android:text="Delete Item"
                 android:textSize="10sp" />
 
@@ -174,14 +177,14 @@
                 android:id="@+id/btnEditQty"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
-                android:paddingLeft="10dp"
+                android:layout_below="@+id/soldbtn"
+                android:layout_marginTop="21dp"
+                android:layout_toEndOf="@+id/UploadImageView"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_border_color_white_18dp"
+                android:paddingLeft="10dp"
                 android:text="Edit Quantity"
-                android:textSize="10sp"
-                android:layout_below="@+id/soldbtn"
-                android:layout_toEndOf="@+id/UploadImageView"
-                android:layout_marginTop="21dp" />
+                android:textSize="10sp" />
         </RelativeLayout>
     </ScrollView>
 
