@@ -2,62 +2,61 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout2"
         android:layout_width="0dp"
         android:layout_height="58dp"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout2"
         android:weightSum="1"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1.04"
             android:background="?attr/colorAccent"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:layout_weight="1.04" />
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CATEGORIES"
-        android:textSize="20dp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="21dp"
+        android:text="CATEGORIES"
+        android:textColor="@color/colorAccentLight"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <GridLayout
         android:layout_width="0dp"
-        android:layout_height="336dp"
+        android:layout_height="309dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:columnCount="2"
         android:rowCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.178"
+        app:layout_constraintVertical_bias="0.036"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1">
 
@@ -65,24 +64,24 @@
             android:id="@+id/btnDecorations"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/decor"/>
+            android:background="@drawable/decor" />
 
         <Button
             android:id="@+id/btnFurniture"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/fur"/>
+            android:background="@drawable/fur" />
 
         <Button
             android:id="@+id/btnProjects"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/pro"/>
+            android:background="@drawable/pro" />
 
         <Button
             android:id="@+id/btnWood"
             android:layout_width="175dp"
             android:layout_height="150dp"
-            android:background="@drawable/acc"/>
+            android:background="@drawable/acc" />
     </GridLayout>
 </android.support.constraint.ConstraintLayout>
