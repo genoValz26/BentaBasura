@@ -102,26 +102,7 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
             }
         });
 
-        databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Interested").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                found = false;
-                for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
-                {
-                    if (postSnapShot.getValue().toString().equals(activeUser.getUserId()))
-                    {
-                        btnInterested.setText("View Seller Contact");
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        updateButtonText();
 
         txtUploadedBy.setVisibility(View.GONE);
 
@@ -216,5 +197,30 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
                 }
             });
         }
+
+        updateButtonText();
+    }
+
+    public void updateButtonText()
+    {
+        databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Interested").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                found = false;
+                for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
+                {
+                    if (postSnapShot.getValue().toString().equals(activeUser.getUserId()))
+                    {
+                        btnInterested.setText("View Seller Contact");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

@@ -24,7 +24,7 @@
                 android:background="@layout/button_rounded"
                 android:paddingLeft="5dp"
                 android:drawableStart="@drawable/ic_stars_white_18dp"
-                android:text="Interested"
+                android:text="Interested ?"
                 android:layout_below="@+id/txtSellerInfo"
                 android:layout_centerHorizontal="true" />
 
