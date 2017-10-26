@@ -79,7 +79,7 @@
             android:background="@drawable/pro" />
 
         <Button
-            android:id="@+id/btnWood"
+            android:id="@+id/btnAccessories"
             android:layout_width="175dp"
             android:layout_height="150dp"
             android:background="@drawable/acc" />

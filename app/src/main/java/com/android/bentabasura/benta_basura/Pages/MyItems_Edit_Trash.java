@@ -422,10 +422,12 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         final EditText editQty = (EditText) dialogView.findViewById(R.id.editQty);
         final Button updateQty = (Button) dialogView.findViewById(R.id.updateQty);
         final Button cancelbtn = (Button) dialogView.findViewById(R.id.cancelbtn);
+        final Button plusQty = (Button) dialogView.findViewById(R.id.plusQty);
+        final Button minusQty =(Button) dialogView.findViewById(R.id.minusQty);
         dialogBuilder.setTitle("Update Quanity");
         final AlertDialog  alertDialog = dialogBuilder.create();
         alertDialog.show();
-
+        editQty.setText(trashQty.getText().toString());
         updateQty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -449,6 +451,22 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 }
                 alertDialog.dismiss();
 
+            }
+        });
+        plusQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentqty = Integer.parseInt(editQty.getText().toString());
+                int newQty = currentqty + 1;
+                editQty.setText(Integer.toString(newQty));
+            }
+        });
+        minusQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentqty = Integer.parseInt(editQty.getText().toString());
+                int newQty = currentqty - 1;
+                editQty.setText(Integer.toString(newQty));
             }
         });
         cancelbtn.setOnClickListener(new View.OnClickListener() {

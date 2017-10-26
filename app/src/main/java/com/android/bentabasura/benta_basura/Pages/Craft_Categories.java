@@ -43,7 +43,7 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
     TextView navFullName, navEmail;
     ImageView navImage;
     ActiveUser activeUser;
-    Button btnDecoratons, btnFurniture, btnProjects;
+    Button btnDecoratons, btnFurniture, btnProjects, btnAccessories;
     Intent craftIntent;
     FirebaseAuth firebaseAuth;
     private GoogleApiClient mGoogleApiClient;
@@ -63,11 +63,12 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
         btnDecoratons = (Button) findViewById(R.id.btnDecorations);
         btnFurniture = (Button) findViewById(R.id.btnFurniture);
         btnProjects = (Button) findViewById(R.id.btnProjects);
-
+        btnAccessories = (Button) findViewById(R.id.btnAccessories);
 
         btnDecoratons.setOnClickListener(this);
         btnFurniture.setOnClickListener(this);
         btnProjects.setOnClickListener(this);
+        btnAccessories.setOnClickListener(this);
 
         profilePage = new Intent(Craft_Categories.this, MyProfile.class);
         buyCrafted = new Intent(Craft_Categories.this, Craft_Categories.class);
@@ -135,6 +136,11 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
             }
             case R.id.btnProjects: {
                 craftIntent.putExtra("Category", "Projects");
+                startActivity(craftIntent);
+                break;
+            }
+            case R.id.btnAccessories:{
+                craftIntent.putExtra("Category", "Accessories");
                 startActivity(craftIntent);
                 break;
             }

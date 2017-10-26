@@ -5,13 +5,13 @@
 
     <EditText
         android:id="@+id/editQty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:background="#aaaaaa"
-        android:inputType="phone"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#aaaaaa"
+        android:ems="10"
+        android:inputType="phone" />
 
     <Button
         android:id="@+id/updateQty"
@@ -32,4 +32,20 @@
         android:layout_alignBaseline="@+id/updateQty"
         android:layout_alignBottom="@+id/updateQty"
         android:layout_toEndOf="@+id/updateQty" />
+
+    <Button
+        android:id="@+id/plusQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/editQty"
+        android:text="+" />
+
+    <Button
+        android:id="@+id/minusQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/editQty"
+        android:text="-" />
 </RelativeLayout>

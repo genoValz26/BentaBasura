@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.Pages.Home;
 import com.android.bentabasura.benta_basura.Pages.MyProfile;
@@ -57,6 +58,9 @@ public class custom_dialog_google_sign_in extends AppCompatActivity implements V
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storageReference;
+
+    ActiveUser activeUser;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_google_sign_in);
@@ -79,6 +83,8 @@ public class custom_dialog_google_sign_in extends AppCompatActivity implements V
 
         receivedBundle = getIntent().getExtras();
         editFullname.setText(receivedBundle.get("googleName").toString());
+        activeUser = ActiveUser.getInstance();
+
     }
         @Override
     public void onClick(View view) {
@@ -127,14 +133,20 @@ public class custom_dialog_google_sign_in extends AppCompatActivity implements V
                         return;
                     }
                     else {
+                        activeUser.setUserId(receivedBundle.get("googleUserId").toString());
                         if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
-
-                            Users updateUser = new Users(editFullname.getText().toString(), receivedBundle.get("googleEmail").toString(), "None", " https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4", "Member", editAddress.getText().toString(), editContact.getText().toString());
+                            final String defaultImage = " https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4";
+                            Users updateUser = new Users(editFullname.getText().toString(), receivedBundle.get("googleEmail").toString(), "None", defaultImage, "Member", editAddress.getText().toString(), editContact.getText().toString());
                             databaseReference.child("Users").child(receivedBundle.get("googleUserId").toString()).setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     progressDialog.dismiss();
-                                    showMessage("Profile has been Updated Successfuly");
+                                    showMessage("Profile has been saved successfuly!");
+                                    activeUser.setFullname(receivedBundle.get("googleName").toString());
+                                    activeUser.setProfilePicture(defaultImage);
+                                    activeUser.setEmail(receivedBundle.get("googleEmail").toString());
+                                    activeUser.setContact_number(editContact.getText().toString());
+                                    activeUser.setAddress(editAddress.getText().toString());
                                     startActivity(new Intent(custom_dialog_google_sign_in.this, Home.class));
 
                                 }
@@ -148,6 +160,11 @@ public class custom_dialog_google_sign_in extends AppCompatActivity implements V
                                     databaseReference.child("Users").child(receivedBundle.get("googleUserId").toString()).setValue(updateUser);
                                     progressDialog.dismiss();
                                     showMessage("Profile has been saved successfully!");
+                                        activeUser.setFullname(receivedBundle.get("googleName").toString());
+                                        activeUser.setProfilePicture(taskSnapshot.getDownloadUrl().toString());
+                                        activeUser.setEmail(receivedBundle.get("googleEmail").toString());
+                                        activeUser.setContact_number(editContact.getText().toString());
+                                        activeUser.setAddress(editAddress.getText().toString());
                                     startActivity(new Intent(custom_dialog_google_sign_in.this, Home.class));
 
                                 }
