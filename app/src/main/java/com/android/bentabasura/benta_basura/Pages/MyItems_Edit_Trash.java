@@ -159,6 +159,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 trashPrice.setText(dataSnapshot.child("trashPrice").getValue().toString());
                 trashQty.setText(dataSnapshot.child("trashQuantity").getValue().toString());
                 sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
+                spnTrashCategory.setSelection(getIndex(spnTrashCategory, dataSnapshot.child("trashCategory").getValue().toString()));
             }
 
             @Override
@@ -506,5 +507,17 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             }
         });
 
+    }
+    private int getIndex(Spinner spinner, String myString)
+    {
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }

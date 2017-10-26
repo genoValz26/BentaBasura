@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +31,10 @@ import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.Utils.BlurTransformation;
 import com.android.bentabasura.benta_basura.Utils.RoundedTransformation;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,6 +69,8 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
     ProgressDialog progressDialog;
     private static final int Gallery_Intent = 100;
     public static final String STORAGE_PATH="Profile/";
+
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -141,6 +148,21 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
 
         Picasso.with(this).load(activeUser.getProfilePicture()).transform(new BlurTransformation(this)).fit().into(bigProfile);
         //-----------------------------------------------------------
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        showMessage("Something went wrong. Please try again");
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     @Override
@@ -230,9 +252,6 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
         return true;
     }
     public void logout() {
-
-        firebaseAuth.signOut();
-        buildDialog(this).show();
         return;
 
     }
@@ -283,16 +302,23 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("BentaBasura");
-        builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
+        builder.setMessage("Are you sure you want to logout?");
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                firebaseAuth.signOut();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                 startActivity(loginpage);
+            }
+        });
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
             }
         });
 
         return builder;
     }
-
 }

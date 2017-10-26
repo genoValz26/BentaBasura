@@ -274,8 +274,6 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
     public void logout() {
-        firebaseAuth.signOut();
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         buildDialog(this).show();
         return;
 
@@ -495,12 +493,20 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("BentaBasura");
-        builder.setMessage("Thank you for using BentaBasura!." + "\n" + " Press OK to Exit");
+        builder.setMessage("Are you sure you want to logout?");
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                firebaseAuth.signOut();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                 startActivity(loginpage);
+            }
+        });
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
             }
         });
 

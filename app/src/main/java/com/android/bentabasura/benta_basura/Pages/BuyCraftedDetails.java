@@ -129,7 +129,7 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
         navImage = (ImageView) headerView.findViewById(R.id.imageView);
 
-        navFullName.setText(activeUser.getUserName());
+        navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
         Picasso.with(this).load(activeUser.getProfilePicture()).transform(new RoundedTransformation(50, 0)).placeholder(R.drawable.progress_animation).fit().into(navImage);
 
@@ -245,8 +245,6 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
     }
 
     private void logout() {
-        firebaseAuth.signOut();
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         buildDialog(this).show();
         return;
     }
@@ -254,12 +252,20 @@ public class BuyCraftedDetails extends AppCompatActivity implements NavigationVi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle("BentaBasura");
-        builder.setMessage("Thank you for using BentaBasura!."+"\n"+" Press OK to Exit");
+        builder.setMessage("Are you sure you want to logout?");
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                firebaseAuth.signOut();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                 startActivity(loginpage);
+            }
+        });
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
             }
         });
 

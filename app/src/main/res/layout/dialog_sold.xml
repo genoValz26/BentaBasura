@@ -29,8 +29,16 @@
         android:id="@+id/submitSold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/quantitySold"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
-        android:text="Submit" />
+        android:text="Submit"
+        android:layout_below="@+id/quantitySold"
+        android:layout_alignStart="@+id/quantitySold" />
+
+    <Button
+        android:id="@+id/cancelSold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/quantitySold"
+        android:layout_alignTop="@+id/submitSold"
+        android:text="Cancel" />
 </RelativeLayout>

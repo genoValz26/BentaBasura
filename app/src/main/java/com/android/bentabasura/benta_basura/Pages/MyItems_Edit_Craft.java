@@ -80,7 +80,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     String date;
     EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
     Button SubmitCraft,soldtbtn,deletebtn,btnEditQty;
-    String strcraftID,strcraftCategory,strImageUrl;
+    String strcraftID,strcraftCategory,strImageUrl,strUploadedDate;
     ProgressDialog progressDialog;
 
     TextView navFullName, navEmail;
@@ -157,6 +157,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
                 resourcesFrom.setText(dataSnapshot.child("resourcesFrom").getValue().toString());
                 spnCraftCategory.setSelection(getIndex(spnCraftCategory, dataSnapshot.child("craftCategory").getValue().toString()));
+                strUploadedDate = dataSnapshot.child("uploadedDate").getValue().toString();
             }
 
             @Override
@@ -449,11 +450,8 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                     if (resourcesFrom.getText().toString().equals("")) {
                         resourcesFrom.setText("None");
                     }
-                    Date currentTime = Calendar.getInstance().getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                    String UploadedDate = sdf.format(currentTime);
 
-                    Craft newCraft = new Craft(craftName.getText().toString(), editQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), resourcesFrom.getText().toString(), strImageUrl, "0", "");
+                    Craft newCraft = new Craft(craftName.getText().toString(), editQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "");
                     databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
                     showMessage("Craft Updated Successfully");
                     progressDialog.dismiss();
@@ -495,6 +493,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         final EditText soldTo= (EditText) dialogView.findViewById(R.id.soldTo);
         final EditText quantitySold= (EditText) dialogView.findViewById(R.id.quantitySold);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
+        final Button cancelSold= (Button) dialogView.findViewById(R.id.cancelSold);
 
         dialogBuilder.setTitle("Sold To");
         final AlertDialog alertDialog = dialogBuilder.create();
@@ -503,14 +502,53 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         submitSold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.setMessage("Please Wait...");
+                progressDialog.show();
+                String currentQty = craftQty.getText().toString();
+                String qtySold = quantitySold.getText().toString();
+
+                int newQty;
+                newQty = Integer.parseInt(currentQty) - Integer.parseInt(qtySold);
+
                 user = firebaseAuth.getCurrentUser();
                 userid = user.getUid();
-                Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                String TrasnsactionDate = sdf.format(currentTime);
 
-                Transaction_Craft soldCraft = new Transaction_Craft(userid,soldTo.getText().toString(),strcraftID,quantitySold.getText().toString(),TrasnsactionDate);
-                databaseReference.child("Transaction_Craft").child(strcraftCategory).child(strcraftID).setValue(soldCraft);
+                if(Integer.parseInt(qtySold) > Integer.parseInt(currentQty)){
+                    quantitySold.setError("Quantity Sold must not be greater than your Current Quantity");
+                    progressDialog.dismiss();
+                    return;
+                }
+                else if(newQty == 0){
+                    String markAs = "Sold Out";
+
+                    Craft newCraft = new Craft(craftName.getText().toString(),markAs , craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "");
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
+                    showMessage("Craft Updated Successfully");
+                    progressDialog.dismiss();
+                    alertDialog.dismiss();
+                    return;
+                }
+                else {
+                    user = firebaseAuth.getCurrentUser();
+                    userid = user.getUid();
+                    Date currentTime = Calendar.getInstance().getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                    String TrasnsactionDate = sdf.format(currentTime);
+
+                    Transaction_Craft soldCraft = new Transaction_Craft(userid, soldTo.getText().toString(), strcraftID, quantitySold.getText().toString(), TrasnsactionDate);
+                    databaseReference.child("Transaction_Craft").child(strcraftCategory).child(strcraftID).setValue(soldCraft);
+
+                    Craft newCraft = new Craft(craftName.getText().toString(),Integer.toString(newQty) , craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "");
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
+
+                    progressDialog.dismiss();
+                    startActivity(new Intent(MyItems_Edit_Craft.this, MyItems.class));
+                }
+            }
+        });
+        cancelSold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 alertDialog.dismiss();
             }
         });
