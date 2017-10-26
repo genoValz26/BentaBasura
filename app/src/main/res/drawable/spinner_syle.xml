@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item><layer-list>
+        <item><shape>
+            <padding android:left="8dp"/>
+            <solid android:color="#37474F" />
+        </shape></item>
+        <item><bitmap android:gravity="left"
+            android:src="@drawable/ic_view_list_white_18dp"/>
+        </item>
+    </layer-list></item>
+</selector>

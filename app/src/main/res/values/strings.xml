@@ -59,6 +59,7 @@
     <string name="CatLabel">Category:</string>
     <string name="PriceLabel">Price:</string>
     <string name="AboutSellerLabel">About Seller:</string>
+    <string name="Category">Category</string>
 
     <string-array name="trash_category_array">
         <item>Plastic</item>

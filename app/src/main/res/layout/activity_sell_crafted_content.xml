@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,72 +28,97 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:layout_weight="1"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="36dp">
+        android:layout_marginTop="10dp">
+
      <RelativeLayout
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:paddingBottom="15dp">
-    <ImageButton
-        android:id="@+id/UploadImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:scaleType="fitXY"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/btn_camera"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="56dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginStart="9dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/SubmitCraft" />
+
+
+         <FrameLayout
+             android:id="@+id/framePic"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_alignLeft="@+id/craftName"
+             android:layout_alignRight="@+id/craftName">
+
+
+             <ImageView
+                 android:id="@+id/uploadBack"
+                 android:layout_width="279dp"
+                 android:layout_height="150dp"
+                 android:background="@drawable/dotted"
+                 android:scaleType="fitXY"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintHorizontal_bias="0.027"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="parent" />
+
+
+             <ImageButton
+                 android:id="@+id/UploadImageView"
+                 android:layout_width="80dp"
+                 android:layout_height="80dp"
+                 android:background="@drawable/btn_camera"
+                 android:scaleType="fitXY"
+                 android:layout_gravity="bottom|right"
+                 android:layout_alignRight="@id/uploadBack"/>
+
+
+         </FrameLayout>
 
          <EditText
-        android:id="@+id/craftName"
-        android:layout_width="280dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="5dp"
-        android:background="@color/grey_text"
-        android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
-        android:ems="5"
-        android:hint="@string/craftName"
-        android:inputType="textPersonName"
-        android:paddingLeft="5dp"
-        android:textSize="15dp"
-        tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="156dp"
-             android:layout_marginEnd="42dp"
-             android:layout_below="@+id/UploadImageView"
+             android:id="@+id/craftName"
+             android:layout_width="280dp"
+             android:layout_height="40dp"
              android:layout_alignParentEnd="true"
-             android:layout_marginTop="18dp" />
+             android:layout_below="@+id/framePic"
+             android:layout_marginEnd="42dp"
+             android:layout_marginLeft="5dp"
+             android:layout_marginTop="10dp"
+             android:background="#37474F"
+             android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
+             android:drawablePadding="5dp"
+             android:ems="5"
+             android:hint="@string/craftName"
+             android:inputType="textPersonName"
+             android:paddingLeft="5dp"
+             android:textSize="11dp"
+             tools:layout_editor_absoluteX="63dp"
+             tools:layout_editor_absoluteY="156dp" />
 
-    <EditText
+         <EditText
         android:id="@+id/craftQty"
-        android:layout_width="125dp"
-        android:layout_height="30dp"
-        android:background="@color/grey_text"
+        android:layout_width="133dp"
+        android:layout_height="40dp"
         android:hint="@string/trashQuantity"
         android:inputType="number"
         android:paddingLeft="5dp"
-        android:textSize="10dp"
         android:drawableLeft="@drawable/ic_weight"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="224dp"
         android:layout_below="@+id/craftName"
         android:layout_alignStart="@+id/craftName"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="7dp"
+        android:background="#37474F"
+        android:drawablePadding="0dp"
+        android:textSize="11dp"/>
 
     <EditText
         android:id="@+id/craftDesc"
         android:layout_width="280dp"
         android:layout_height="55dp"
-        android:layout_marginTop="9dp"
-        android:background="@color/grey_text"
+        android:layout_marginTop="7dp"
         android:hint="@string/craftDesc"
         android:inputType="textMultiLine"
-        android:paddingLeft="5dp"
+        android:paddingLeft="7dp"
+        android:drawablePadding="4dp"
         android:textSize="10dp"
         android:drawableLeft="@drawable/ic_description_white_18dp"
+        android:background="#37474F"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="292dp"
         android:layout_below="@+id/craftQty"
@@ -102,15 +127,17 @@
     <EditText
         android:id="@+id/craftPrice"
         android:layout_width="140dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignEnd="@+id/craftName"
         android:layout_alignTop="@+id/craftQty"
-        android:background="@color/grey_text"
         android:hint="@string/trashPrice"
         android:inputType="number"
         android:drawableLeft="@drawable/ic_peso"
-        android:textSize="10dp"
-        android:paddingLeft="5dp" />
+        android:paddingLeft="5dp"
+        android:background="#37474F"
+        android:drawablePadding="4dp"
+        android:textSize="11dp"
+        />
 
 
          <Button
@@ -131,10 +158,11 @@
         android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_marginTop="7dp"
-        android:background="@color/grey_text"
+        android:background="#37474F"
         android:hint="@string/sellerContact"
         android:inputType="textMultiLine"
-        android:paddingLeft="5dp"
+        android:paddingLeft="7dp"
+        android:drawablePadding="5dp"
         android:textSize="10dp"
         android:drawableLeft="@drawable/ic_location_on_white_18dp"
         tools:layout_editor_absoluteX="63dp"
@@ -145,26 +173,31 @@
     <EditText
         android:id="@+id/resourcesFrom"
         android:layout_width="280dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignStart="@+id/sellerContact"
         android:layout_below="@+id/sellerContact"
-        android:layout_marginTop="5dp"
-        android:background="@color/grey_text"
+        android:layout_marginTop="7dp"
+        android:background="#37474F"
         android:ems="10"
+        android:drawablePadding="5dp"
         android:textSize="10dp"
         android:drawableLeft="@drawable/ic_open_in_browser_white_18dp"
         android:hint="@string/resourcesFrom"
         android:inputType="textPersonName"
-        android:paddingLeft="5dp" />
+        android:paddingLeft="7dp" />
 
     <Spinner
         android:id="@+id/spnCraftCategory"
         android:layout_width="280dp"
-        android:layout_height="30dp"
-        android:background="@color/grey_text"
+        android:layout_height="40dp"
+        android:textSize="10dp"
+        android:background="@drawable/spinner_syle"
         android:layout_alignStart="@+id/resourcesFrom"
         android:layout_below="@+id/resourcesFrom"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="7dp"
+        android:paddingLeft="33dp"
+        android:prompt="@string/Category"/>
+
      </RelativeLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>
