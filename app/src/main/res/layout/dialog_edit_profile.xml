@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="13dp"
         android:layout_marginTop="7dp"
-        app:srcCompat="@drawable/unknown_avatar" />
+        android:background="@drawable/unknown_avatar" />
 
     <EditText
         android:id="@+id/editAddress"
@@ -33,7 +33,7 @@
         android:hint="@string/Address"
         android:drawableLeft="@drawable/ic_location_on_white_18dp"
         android:inputType="textPersonName"
-        android:background="@color/grey_text"
+        android:background="@color/colorBackground2"
         android:layout_below="@+id/editContact"
         android:layout_alignStart="@+id/editContact" />
 
@@ -43,7 +43,7 @@
         android:layout_height="35dp"
         android:hint="@string/MobileNum"
         android:inputType="phone"
-        android:background="@color/grey_text"
+        android:background="@color/colorBackground2"
         android:drawableLeft="@drawable/ic_phone_android_white_18dp"
         android:layout_below="@+id/editFullname"
         android:layout_alignStart="@+id/editFullname" />
@@ -53,7 +53,7 @@
                 android:layout_width="250dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="14dp"
-                android:background="@color/grey_text"
+                android:background="@color/colorBackground2"
                 android:drawableLeft="@drawable/ic_account_box_white_18dp"
                 android:hint="Fullname"
                 android:inputType="textPersonName"

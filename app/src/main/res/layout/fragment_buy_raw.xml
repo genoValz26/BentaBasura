@@ -26,7 +26,8 @@
                 android:drawableStart="@drawable/ic_stars_white_18dp"
                 android:text="Interested ?"
                 android:layout_below="@+id/txtSellerInfo"
-                android:layout_centerHorizontal="true" />
+                android:layout_toEndOf="@+id/textView11"
+                android:layout_marginTop="24dp" />
 
             <TextView
                 android:id="@+id/txtTrashName"

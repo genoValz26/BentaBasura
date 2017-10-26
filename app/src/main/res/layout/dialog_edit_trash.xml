@@ -26,14 +26,13 @@
             android:id="@+id/UploadImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/trashName"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="33dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/btn_camera"
+            android:background="@drawable/btn_camera"
             tools:layout_editor_absoluteX="132dp"
-            tools:layout_editor_absoluteY="56dp" />
+            tools:layout_editor_absoluteY="56dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/trashName" />
 
         <EditText
             android:id="@+id/trashName"
@@ -43,11 +42,13 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="22dp"
-            android:background="#aaaaaa"
+            android:background="@color/colorBackground2"
             android:ems="5"
+            android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
             android:hint="@string/trashName"
             android:inputType="textPersonName"
             android:paddingLeft="5dp"
+            android:textSize="15dp"
             tools:layout_editor_absoluteX="63dp"
             tools:layout_editor_absoluteY="156dp" />
 
@@ -58,10 +59,12 @@
             android:layout_alignStart="@+id/trashName"
             android:layout_below="@+id/trashName"
             android:layout_marginTop="8dp"
-            android:background="#aaaaaa"
+            android:drawableLeft="@drawable/ic_weight"
+            android:background="@color/colorBackground2"
             android:hint="@string/trashQuantity"
             android:inputType="number"
             android:paddingLeft="5dp"
+            android:textSize="10dp"
             tools:layout_editor_absoluteX="63dp"
             tools:layout_editor_absoluteY="224dp" />
 
@@ -72,10 +75,12 @@
             android:layout_alignStart="@+id/trashQty"
             android:layout_below="@+id/trashQty"
             android:layout_marginTop="9dp"
-            android:background="#aaaaaa"
+            android:background="@color/colorBackground2"
             android:hint="@string/trashDesc"
             android:inputType="textMultiLine"
+            android:drawableLeft="@drawable/ic_description_white_18dp"
             android:paddingLeft="5dp"
+            android:textSize="10dp"
             tools:layout_editor_absoluteX="63dp"
             tools:layout_editor_absoluteY="292dp" />
 
@@ -85,16 +90,18 @@
             android:layout_height="30dp"
             android:layout_alignEnd="@+id/trashName"
             android:layout_alignTop="@+id/trashQty"
-            android:background="#aaaaaa"
+            android:background="@color/colorBackground2"
             android:hint="@string/trashPrice"
             android:inputType="number"
+            android:drawableLeft="@drawable/ic_peso"
+            android:textSize="10dp"
             android:paddingLeft="5dp" />
 
 
         <Button
             android:id="@+id/SubmitTrash"
             android:layout_width="150dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_below="@+id/spnTrashCategory"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="21dp"
@@ -111,10 +118,12 @@
             android:layout_alignStart="@+id/trashDesc"
             android:layout_below="@+id/trashDesc"
             android:layout_marginTop="7dp"
-            android:background="#aaaaaa"
+            android:background="@color/colorBackground2"
             android:hint="@string/sellerContact"
             android:inputType="textMultiLine"
+            android:drawableLeft="@drawable/ic_location_on_white_18dp"
             android:paddingLeft="5dp"
+            android:textSize="10dp"
             tools:layout_editor_absoluteX="63dp"
             tools:layout_editor_absoluteY="428dp" />
 
@@ -125,38 +134,44 @@
             android:layout_alignStart="@+id/sellerContact"
             android:layout_below="@+id/sellerContact"
             android:layout_marginTop="8dp"
-            android:background="#aaaaaa" />
+            android:textSize="10dp"
+            android:background="@color/colorBackground2" />
 
         <Button
             android:id="@+id/soldbtn"
             android:layout_width="125dp"
-            android:layout_height="50dp"
-            android:layout_alignTop="@+id/UploadImageView"
-            android:layout_toEndOf="@+id/UploadImageView"
+            android:layout_height="35dp"
+            android:background="@layout/button_rounded"
             android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
+            android:paddingLeft="5dp"
             android:text="Mark as Sold"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:layout_alignTop="@+id/UploadImageView"
+            android:layout_toEndOf="@+id/UploadImageView" />
 
         <Button
             android:id="@+id/deletebtn"
             android:layout_width="125dp"
-            android:layout_height="50dp"
+            android:layout_height="35dp"
             android:layout_above="@+id/trashName"
             android:layout_toEndOf="@+id/UploadImageView"
+            android:background="@layout/button_rounded"
             android:drawableLeft="@drawable/ic_delete_forever_white_18dp"
+            android:paddingLeft="5dp"
             android:text="Delete Item"
             android:textSize="10sp" />
-    </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnEditQty"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginTop="98dp"
-        android:drawableLeft="@drawable/ic_border_color_white_18dp"
-        android:text="Edit Quantity"
-        android:textSize="10sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        <Button
+            android:id="@+id/btnEditQty"
+            android:layout_width="125dp"
+            android:layout_height="35dp"
+            android:background="@layout/button_rounded"
+            android:drawableLeft="@drawable/ic_border_color_white_18dp"
+            android:paddingLeft="10dp"
+            android:text="Edit Quantity"
+            android:textSize="10sp"
+            android:layout_below="@+id/soldbtn"
+            android:layout_toEndOf="@+id/UploadImageView"
+            android:layout_marginTop="21dp" />
+    </RelativeLayout>
 </RelativeLayout>
