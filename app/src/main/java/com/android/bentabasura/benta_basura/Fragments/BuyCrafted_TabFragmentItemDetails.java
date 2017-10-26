@@ -80,6 +80,10 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         {
             btnEdit.setVisibility(View.INVISIBLE);
         }
+        else
+        {
+            btnInterested.setVisibility(View.INVISIBLE);
+        }
 
         btnEdit.setOnClickListener(this);
         btnInterested.setOnClickListener(this);

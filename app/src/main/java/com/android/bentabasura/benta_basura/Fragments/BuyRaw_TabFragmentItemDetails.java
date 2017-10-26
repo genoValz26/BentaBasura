@@ -72,6 +72,10 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         {
             btnEdit.setVisibility(View.INVISIBLE);
         }
+        else
+        {
+            btnInterested.setVisibility(View.INVISIBLE);
+        }
 
         txtTrashName = (TextView) view.findViewById(R.id.txtTrashName);
         imgThumbRaw = (ImageView) view.findViewById(R.id.imgThumbRaw);
