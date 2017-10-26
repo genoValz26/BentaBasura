@@ -191,6 +191,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
                         }
                     }
                 });
+
+        progressDialog.dismiss();
     }
 
     public void checkEmailIsVerified() {
@@ -258,6 +260,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 // ...
             }
         }
+        progressDialog.dismiss();
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
