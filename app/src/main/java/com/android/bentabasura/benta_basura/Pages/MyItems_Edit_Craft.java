@@ -123,6 +123,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         craftDesc = (EditText) findViewById(R.id.craftDesc);
         craftPrice = (EditText) findViewById(R.id.craftPrice);
         craftQty = (EditText) findViewById(R.id.craftQty);
+        craftQty.setEnabled(false);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
         resourcesFrom = (EditText) findViewById(R.id.resourcesFrom);
         spnCraftCategory = (Spinner) findViewById(R.id.spnCraftCategory);
@@ -518,17 +519,12 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                     progressDialog.dismiss();
                     return;
                 }
-                else if(newQty == 0){
-                    String markAs = "Sold Out";
-
-                    Craft newCraft = new Craft(craftName.getText().toString(),markAs , craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "");
-                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
-                    showMessage("Craft Updated Successfully");
-                    progressDialog.dismiss();
-                    alertDialog.dismiss();
+                else if(TextUtils.isEmpty(quantitySold.getText().toString())){
+                    quantitySold.setError("Quantity Sold is empty!");
                     return;
                 }
                 else {
+                    String remainingQty;
                     user = firebaseAuth.getCurrentUser();
                     userid = user.getUid();
                     Date currentTime = Calendar.getInstance().getTime();
@@ -538,10 +534,19 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                     Transaction_Craft soldCraft = new Transaction_Craft(userid, soldTo.getText().toString(), strcraftID, quantitySold.getText().toString(), TrasnsactionDate);
                     databaseReference.child("Transaction_Craft").child(strcraftCategory).child(strcraftID).setValue(soldCraft);
 
-                    Craft newCraft = new Craft(craftName.getText().toString(),Integer.toString(newQty) , craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "");
-                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
+                    if(newQty == 0){
+                        remainingQty = "Sold Out";
+                    }
+                    else {
+                        remainingQty = Integer.toString(newQty);
+                    }
+
+                        Craft newCraft = new Craft(craftName.getText().toString(), Integer.toString(newQty), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "");
+                        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
+
 
                     progressDialog.dismiss();
+                    showMessage("Product has been sold");
                     startActivity(new Intent(MyItems_Edit_Craft.this, MyItems.class));
                 }
             }

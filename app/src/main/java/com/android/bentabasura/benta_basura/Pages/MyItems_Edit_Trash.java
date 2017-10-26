@@ -38,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
+import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.Models.Transaction_Craft;
 import com.android.bentabasura.benta_basura.Models.Transaction_Trash;
 import com.android.bentabasura.benta_basura.Models.Trash;
@@ -93,7 +94,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     private Spinner spnTrashCategory;
     String selectedType,selectedCategory,currentUsername;
     private GoogleApiClient mGoogleApiClient;
-    String strTrashId,strTrashCategory,strImageUrl;
+    String strTrashId,strTrashCategory,strImageUrl, strUploadedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -160,6 +161,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 trashQty.setText(dataSnapshot.child("trashQuantity").getValue().toString());
                 sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
                 spnTrashCategory.setSelection(getIndex(spnTrashCategory, dataSnapshot.child("trashCategory").getValue().toString()));
+                strUploadedDate = dataSnapshot.child("uploadedDate").getValue().toString();
             }
 
             @Override
@@ -330,11 +332,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
 
         if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
 
-            Date currentTime = Calendar.getInstance().getTime();
-            SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-            String UploadedDate = sdf.format(currentTime);
-
-            Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), strImageUrl, "0", "");
+            Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "");
             databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
             showMessage("Trash Updated Successfully");
             progressDialog.dismiss();
@@ -346,10 +344,8 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     //Adding the additional information on the real-time db
-                    Date currentTime = Calendar.getInstance().getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                    String UploadedDate = sdf.format(currentTime);
-                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
+
+                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, taskSnapshot.getDownloadUrl().toString(), "0", "");
                     databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
                     showMessage("Trash Updated Successfully");
                     progressDialog.dismiss();
@@ -440,11 +436,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
 
                 if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
 
-                    Date currentTime = Calendar.getInstance().getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                    String UploadedDate = sdf.format(currentTime);
-
-                    Trash newTrash = new Trash(trashName.getText().toString(), editQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), strImageUrl, "0", "");
+                    Trash newTrash = new Trash(trashName.getText().toString(), editQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "");
                     databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
                     showMessage("Quantity Updated Successfully!");
                     progressDialog.dismiss();
@@ -494,16 +486,48 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         submitSold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.setMessage("Please Wait...");
+                progressDialog.show();
+                String remainingQty;
+                String currentQty = trashQty.getText().toString();
+                String qtySold = quantitySold.getText().toString();
+
+                int newQty;
+                newQty = Integer.parseInt(currentQty) - Integer.parseInt(qtySold);
+
                 user = firebaseAuth.getCurrentUser();
                 userid = user.getUid();
-                Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                String TrasnsactionDate = sdf.format(currentTime);
+
+                if(Integer.parseInt(qtySold) > Integer.parseInt(currentQty)){
+                    quantitySold.setError("Quantity Sold must not be greater than your Current Quantity");
+                    progressDialog.dismiss();
+                    return;
+                }
+                else if(TextUtils.isEmpty(quantitySold.getText().toString())){
+                    quantitySold.setError("Quantity Sold is empty!");
+                    return;
+                }
+                else {
+                    Date currentTime = Calendar.getInstance().getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                    String TrasnsactionDate = sdf.format(currentTime);
 
                     Transaction_Trash soldTrash = new Transaction_Trash(userid, soldTo.getText().toString(), strTrashId, quantitySold.getText().toString(), TrasnsactionDate);
                     databaseReference.child("Transaction_Trash").child(strTrashCategory).child(strTrashId).setValue(soldTrash);
 
-                alertDialog.dismiss();
+                    if(newQty == 0){
+                        remainingQty = "Sold Out";
+                    }
+                    else {
+                        remainingQty = Integer.toString(newQty);
+                    }
+                    Trash newTrash = new Trash(trashName.getText().toString(), remainingQty, trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "");
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
+
+                    progressDialog.dismiss();
+                    showMessage("Product has been sold!");
+                    startActivity(new Intent(MyItems_Edit_Trash.this, MyItems.class));
+                }
             }
         });
 
