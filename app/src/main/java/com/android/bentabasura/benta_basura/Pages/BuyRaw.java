@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -365,8 +366,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                                 if (found) {
                                     continue;
                                 }
-                                mProgressDialog.setMessage("Loading...");
-                                mProgressDialog.show();
+                               Log.i("Fetching data","Loading...");
 
                                 Trash trash = postSnapShot.getValue(Trash.class);
                                 if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {

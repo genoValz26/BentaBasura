@@ -168,7 +168,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
                 spnTrashCategory.setSelection(getIndex(spnTrashCategory, dataSnapshot.child("trashCategory").getValue().toString()));
                 strUploadedDate = dataSnapshot.child("uploadedDate").getValue().toString();
-                reverseDate = Long.parseLong(dataSnapshot.child("reverseData").getValue().toString());
+                reverseDate = Long.parseLong(dataSnapshot.child("reverseDate").getValue().toString());
             }
 
             @Override
