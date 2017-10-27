@@ -1,181 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@layout/dialog_border"
-    android:orientation="vertical"
-    >
-    <ScrollView
-        android:id="@+id/sv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"></ScrollView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-
-
-        <ImageButton
-            android:id="@+id/UploadImageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/trashName"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/btn_camera"
-            android:paddingRight="10dp"
-            android:scaleType="fitXY"
-            tools:layout_editor_absoluteX="132dp"
-            tools:layout_editor_absoluteY="56dp" />
-
-        <EditText
-            android:id="@+id/trashName"
-            android:layout_width="280dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/UploadImageView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="22dp"
-            android:background="@color/colorBackground2"
-            android:ems="5"
-            android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
-            android:hint="@string/trashName"
-            android:inputType="textPersonName"
-            android:paddingLeft="5dp"
-            android:textSize="15dp"
-            tools:layout_editor_absoluteX="63dp"
-            tools:layout_editor_absoluteY="156dp" />
-
-        <EditText
-            android:id="@+id/trashQty"
-            android:layout_width="125dp"
-            android:layout_height="30dp"
-            android:layout_alignStart="@+id/trashName"
-            android:layout_below="@+id/trashName"
-            android:layout_marginTop="8dp"
-            android:drawableLeft="@drawable/ic_weight"
-            android:background="@color/colorBackground2"
-            android:hint="@string/trashQuantity"
-            android:inputType="number"
-            android:paddingLeft="5dp"
-            android:textSize="10dp"
-            tools:layout_editor_absoluteX="63dp"
-            tools:layout_editor_absoluteY="224dp" />
-
-        <EditText
-            android:id="@+id/trashDesc"
-            android:layout_width="280dp"
-            android:layout_height="55dp"
-            android:layout_alignStart="@+id/trashQty"
-            android:layout_below="@+id/trashQty"
-            android:layout_marginTop="9dp"
-            android:background="@color/colorBackground2"
-            android:hint="@string/trashDesc"
-            android:inputType="textMultiLine"
-            android:drawableLeft="@drawable/ic_description_white_18dp"
-            android:paddingLeft="5dp"
-            android:textSize="10dp"
-            tools:layout_editor_absoluteX="63dp"
-            tools:layout_editor_absoluteY="292dp" />
-
-        <EditText
-            android:id="@+id/trashPrice"
-            android:layout_width="140dp"
-            android:layout_height="30dp"
-            android:layout_alignEnd="@+id/trashName"
-            android:layout_alignTop="@+id/trashQty"
-            android:background="@color/colorBackground2"
-            android:hint="@string/trashPrice"
-            android:inputType="number"
-            android:drawableLeft="@drawable/ic_peso"
-            android:textSize="10dp"
-            android:paddingLeft="5dp" />
-
-
-        <Button
-            android:id="@+id/SubmitTrash"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/spnTrashCategory"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="21dp"
-            android:layout_marginTop="10dp"
-            android:background="@layout/button_rounded"
-            android:text="@string/Submit"
-            tools:layout_editor_absoluteX="134dp"
-            tools:layout_editor_absoluteY="497dp" />
-
-        <EditText
-            android:id="@+id/sellerContact"
-            android:layout_width="280dp"
-            android:layout_height="55dp"
-            android:layout_alignStart="@+id/trashDesc"
-            android:layout_below="@+id/trashDesc"
-            android:layout_marginTop="7dp"
-            android:background="@color/colorBackground2"
-            android:hint="@string/sellerContact"
-            android:inputType="textMultiLine"
-            android:drawableLeft="@drawable/ic_location_on_white_18dp"
-            android:paddingLeft="5dp"
-            android:textSize="10dp"
-            tools:layout_editor_absoluteX="63dp"
-            tools:layout_editor_absoluteY="428dp" />
-
-        <Spinner
-            android:id="@+id/spnTrashCategory"
-            android:layout_width="280dp"
-            android:layout_height="30dp"
-            android:layout_alignStart="@+id/sellerContact"
-            android:layout_below="@+id/sellerContact"
-            android:layout_marginTop="8dp"
-            android:textSize="10dp"
-            android:background="@color/colorBackground2" />
-
-        <Button
-            android:id="@+id/soldbtn"
-            android:layout_width="125dp"
-            android:layout_height="35dp"
-            android:layout_alignTop="@+id/UploadImageView"
-            android:layout_toEndOf="@+id/UploadImageView"
-            android:background="@layout/button_rounded"
-            android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
-            android:paddingLeft="5dp"
-            android:text="SOLD"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/deletebtn"
-            android:layout_width="125dp"
-            android:layout_height="35dp"
-            android:layout_above="@+id/trashName"
-            android:layout_toEndOf="@+id/UploadImageView"
-            android:background="@layout/button_rounded"
-            android:drawableLeft="@drawable/ic_delete_forever_white_18dp"
-            android:paddingLeft="5dp"
-            android:text="DELETE"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/btnEditQty"
-            android:layout_width="125dp"
-            android:layout_height="35dp"
-            android:layout_below="@+id/soldbtn"
-            android:layout_marginTop="21dp"
-            android:layout_toEndOf="@+id/UploadImageView"
-            android:background="@layout/button_rounded"
-            android:drawableLeft="@drawable/ic_border_color_white_18dp"
-            android:paddingLeft="10dp"
-            android:text="Update QTY"
-            android:textSize="12sp" />
-    </RelativeLayout>
-</RelativeLayout>-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -188,7 +11,7 @@
         android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
         <RelativeLayout
@@ -196,23 +19,29 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:padding="15dp">
+
             <FrameLayout
                 android:id="@+id/framePic"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignLeft="@+id/trashName"
-                android:layout_alignRight="@+id/trashName">
+                android:layout_toStartOf="@+id/soldbtn">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="150dp"
+                    android:layout_height="109dp"/>
                 <ImageButton
                     android:id="@+id/UploadImageView"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="61dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignStart="@+id/trashName"
+                    android:layout_gravity="bottom|right"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/btn_camera"
                     android:paddingRight="10dp"
                     android:scaleType="fitXY"
-                    android:layout_gravity="bottom|left"
                     tools:layout_editor_absoluteX="132dp"
                     tools:layout_editor_absoluteY="56dp" />
             </FrameLayout>
@@ -354,26 +183,25 @@
                 android:id="@+id/deletebtn"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
-                android:layout_above="@+id/trashName"
-                android:layout_alignEnd="@+id/trashName"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_delete_forever_white_18dp"
                 android:paddingLeft="5dp"
                 android:text="DELETE"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_below="@+id/btnEditQty"
+                android:layout_toEndOf="@+id/framePic" />
 
             <Button
                 android:id="@+id/btnEditQty"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
-                android:layout_alignEnd="@+id/soldbtn"
-                android:layout_below="@+id/soldbtn"
-                android:layout_marginTop="21dp"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_border_color_white_18dp"
                 android:paddingLeft="10dp"
                 android:text="Update Qty"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_below="@+id/soldbtn"
+                android:layout_alignStart="@+id/soldbtn" />
         </RelativeLayout>
     </ScrollView>
 

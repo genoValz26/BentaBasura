@@ -19,26 +19,36 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:padding="15dp">
+
             <FrameLayout
                 android:id="@+id/framePic"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignLeft="@+id/craftName"
-                android:layout_alignRight="@+id/craftName">
+                android:layout_toStartOf="@+id/soldbtn">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="150dp"
+                    android:layout_height="109dp"
+                    android:background="@drawable/dotted"
+                    android:scaleType="fitXY" />
                 <ImageButton
                     android:id="@+id/UploadImageView"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignStart="@+id/craftName"
+                    android:layout_width="61dp"
+                    android:layout_height="40dp"
+                    android:layout_alignTop="@+id/deletebtn"
+                    android:layout_gravity="bottom|right"
                     android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/craftQty"
                     android:background="@drawable/btn_camera"
                     android:paddingRight="10dp"
                     android:scaleType="fitXY"
-                    android:layout_gravity="bottom|left"
                     tools:layout_editor_absoluteX="132dp"
                     tools:layout_editor_absoluteY="56dp" />
+
+
             </FrameLayout>
+
             <EditText
                 android:id="@+id/craftName"
                 android:layout_width="280dp"
@@ -177,26 +187,26 @@
                 android:id="@+id/deletebtn"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
-                android:layout_above="@+id/craftName"
-                android:layout_alignEnd="@+id/craftName"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_delete_forever_white_18dp"
                 android:paddingLeft="5dp"
                 android:text="DELETE"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_below="@+id/btnEditQty"
+                android:layout_toEndOf="@+id/framePic" />
 
             <Button
                 android:id="@+id/btnEditQty"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
-                android:layout_alignEnd="@+id/soldbtn"
-                android:layout_below="@+id/soldbtn"
-                android:layout_marginTop="21dp"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_border_color_white_18dp"
                 android:paddingLeft="10dp"
                 android:text="Update Qty"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_below="@+id/soldbtn"
+                android:layout_toEndOf="@+id/framePic" />
+
         </RelativeLayout>
     </ScrollView>
 

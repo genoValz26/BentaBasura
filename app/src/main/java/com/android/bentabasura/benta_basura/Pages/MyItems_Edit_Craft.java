@@ -72,7 +72,8 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
-    private ImageButton imageView;
+    private ImageButton uploadImageView;
+    private ImageView imageView;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
     FirebaseAuth firebaseAuth;
@@ -117,8 +118,10 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         activeUser = ActiveUser.getInstance();
         //----------------------------------------------------------------
 
-        imageView = (ImageButton) findViewById(R.id.UploadImageView);
-        imageView.setOnClickListener(this);
+        uploadImageView = (ImageButton) findViewById(R.id.UploadImageView);
+        uploadImageView.setOnClickListener(this);
+        imageView = (ImageView) findViewById(R.id.imageView);
+
         checkFilePermissions();
 
         //----------------------------------

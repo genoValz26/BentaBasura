@@ -77,7 +77,7 @@ import java.util.Date;
 
 public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private ImageButton imageView;
+    private ImageButton UploadimageView;
     private static final int Gallery_Intent = 100;
     Uri imageUri;
     EditText trashName,trashDesc,trashQty,trashPrice,sellerContact;
@@ -90,7 +90,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     ProgressDialog progressDialog;
 
     TextView navFullName, navEmail;
-    ImageView navImage;
+    ImageView navImage,imageView;
     ActiveUser activeUser;
     public static final String STORAGE_PATH="Products/Trash/";
 
@@ -127,8 +127,10 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         //------------------------------------------------------------
 
 
-        imageView = (ImageButton) findViewById(R.id.UploadImageView);
-        imageView.setOnClickListener(this);
+        UploadimageView = (ImageButton) findViewById(R.id.UploadImageView);
+        UploadimageView.setOnClickListener(this);
+
+        imageView = (ImageView) findViewById(R.id.imageView);
         checkFilePermissions();
 
         //------------------------------------------------------------
