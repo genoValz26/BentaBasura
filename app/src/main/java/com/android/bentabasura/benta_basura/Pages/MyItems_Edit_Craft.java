@@ -2,11 +2,14 @@ package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -525,8 +528,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 }
                 else {
                     String remainingQty;
-                    user = firebaseAuth.getCurrentUser();
-                    userid = user.getUid();
                     Date currentTime = Calendar.getInstance().getTime();
                     SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                     String TrasnsactionDate = sdf.format(currentTime);
@@ -571,5 +572,37 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             }
         }
         return index;
+    }
+    private static int getOrientation(Context context, Uri photoUri) {
+        Cursor cursor = context.getContentResolver().query(photoUri,
+                new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
+
+        if (cursor.getCount() != 1) {
+            cursor.close();
+            return -1;
+        }
+
+        cursor.moveToFirst();
+        int orientation = cursor.getInt(0);
+        cursor.close();
+        cursor = null;
+        return orientation;
+    }
+    public static Bitmap rotateBitmap(Context context, Uri photoUri, Bitmap bitmap) {
+        int orientation = getOrientation(context, photoUri);
+        if (orientation <= 0) {
+            return bitmap;
+        }
+        Matrix matrix = new Matrix();
+        matrix.postRotate(orientation);
+        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+        return bitmap;
+    }
+
+    public static boolean setOrientation(Context context, Uri fileUri, int orientation) {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.ORIENTATION, orientation);
+        int rowsUpdated = context.getContentResolver().update(fileUri, values, null, null);
+        return rowsUpdated > 0;
     }
 }

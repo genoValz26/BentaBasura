@@ -265,6 +265,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        progressDialog.setMessage("Signing-in");
+        progressDialog.show();
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
