@@ -197,21 +197,21 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {
-        super.onActivityResult(requestCode, resultCode, data);
         int CAMERA_REQUEST = 0;
 
+        super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK)
         {
             imageUri = data.getData();
-
             if(requestCode == Gallery_Intent)
             {
-                //imageView.setImageResource(imageUri);
                 InputStream inputStream;
                 try
                 {
                     inputStream = getContentResolver().openInputStream(imageUri);
-                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                    int orientation = getOrientation(getApplicationContext(), imageUri);
+                    Bitmap image = rotateBitmap(getApplicationContext(), imageUri, BitmapFactory.decodeStream(inputStream));
+                    setOrientation(getApplicationContext(), imageUri, orientation);
                     imageView.setImageBitmap(image);
                 }
                 catch (FileNotFoundException e)
@@ -221,16 +221,20 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             }
             if(requestCode == CAMERA_REQUEST)
             {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                Bitmap photo = rotateBitmap(getApplicationContext(), imageUri, ((Bitmap) data.getExtras().get("data")));
+                int orientation = getOrientation(getApplicationContext(), imageUri);
+                setOrientation(getApplicationContext(), imageUri, orientation);
                 imageView.setImageBitmap(photo);
             }
         }
+
+
+    }
 
         /*super.onActivityResult(requestCode,resultCode,data);
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
         imageView.setImageBitmap(bitmap);*/
 
-    }
     private void onCamera()
     {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -562,6 +566,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         cursor = null;
         return orientation;
     }
+
     public static Bitmap rotateBitmap(Context context, Uri photoUri, Bitmap bitmap) {
         int orientation = getOrientation(context, photoUri);
         if (orientation <= 0) {

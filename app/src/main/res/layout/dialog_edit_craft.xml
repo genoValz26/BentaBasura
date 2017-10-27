@@ -19,28 +19,31 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:padding="15dp">
-
-            <ImageButton
-                android:id="@+id/UploadImageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignStart="@+id/craftName"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/btn_camera"
-                android:paddingRight="10dp"
-                android:scaleType="fitXY"
-                tools:layout_editor_absoluteX="132dp"
-                tools:layout_editor_absoluteY="56dp" />
-
+            <FrameLayout
+                android:id="@+id/framePic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@+id/craftName"
+                android:layout_alignRight="@+id/craftName">
+                <ImageButton
+                    android:id="@+id/UploadImageView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/craftName"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/btn_camera"
+                    android:paddingRight="10dp"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="bottom|left"
+                    tools:layout_editor_absoluteX="132dp"
+                    tools:layout_editor_absoluteY="56dp" />
+            </FrameLayout>
             <EditText
                 android:id="@+id/craftName"
                 android:layout_width="280dp"
                 android:layout_height="30dp"
-                android:layout_below="@+id/UploadImageView"
-                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="13dp"
                 android:background="@color/colorBackground2"
                 android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
                 android:drawablePadding="5dp"
@@ -50,7 +53,10 @@
                 android:paddingLeft="5dp"
                 android:textSize="12dp"
                 tools:layout_editor_absoluteX="63dp"
-                tools:layout_editor_absoluteY="156dp" />
+                tools:layout_editor_absoluteY="156dp"
+                android:layout_below="@+id/framePic"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp" />
 
             <EditText
                 android:id="@+id/craftQty"
@@ -105,14 +111,14 @@
                 android:id="@+id/SubmitCraft"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:layout_below="@+id/spnCraftCategory"
-                android:layout_centerHorizontal="true"
                 android:layout_marginRight="21dp"
-                android:layout_marginTop="10dp"
                 android:background="@layout/button_rounded"
                 android:text="@string/Submit"
                 tools:layout_editor_absoluteX="134dp"
-                tools:layout_editor_absoluteY="497dp" />
+                tools:layout_editor_absoluteY="497dp"
+                android:layout_marginTop="18dp"
+                android:layout_below="@+id/spnCraftCategory"
+                android:layout_centerHorizontal="true" />
 
             <EditText
                 android:id="@+id/sellerContact"
@@ -151,18 +157,16 @@
                 android:id="@+id/spnCraftCategory"
                 android:layout_width="280dp"
                 android:layout_height="30dp"
-                android:layout_alignStart="@+id/resourcesFrom"
+                android:layout_marginTop="14dp"
+                android:background="@color/colorBackground2"
                 android:layout_below="@+id/resourcesFrom"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorBackground2" />
+                android:layout_centerHorizontal="true" />
 
             <Button
                 android:id="@+id/soldbtn"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
                 android:layout_alignEnd="@+id/craftName"
-                android:layout_alignTop="@+id/UploadImageView"
-                android:layout_toEndOf="@+id/UploadImageView"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
                 android:paddingLeft="5dp"
@@ -175,7 +179,6 @@
                 android:layout_height="35dp"
                 android:layout_above="@+id/craftName"
                 android:layout_alignEnd="@+id/craftName"
-                android:layout_toEndOf="@+id/UploadImageView"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_delete_forever_white_18dp"
                 android:paddingLeft="5dp"
@@ -189,7 +192,6 @@
                 android:layout_alignEnd="@+id/soldbtn"
                 android:layout_below="@+id/soldbtn"
                 android:layout_marginTop="21dp"
-                android:layout_toEndOf="@+id/UploadImageView"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_border_color_white_18dp"
                 android:paddingLeft="10dp"

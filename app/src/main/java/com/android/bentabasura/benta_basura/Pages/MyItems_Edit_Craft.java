@@ -210,7 +210,9 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 try
                 {
                     inputStream = getContentResolver().openInputStream(imageUri);
-                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                    int orientation = getOrientation(getApplicationContext(), imageUri);
+                    Bitmap image = rotateBitmap(getApplicationContext(), imageUri, BitmapFactory.decodeStream(inputStream));
+                    setOrientation(getApplicationContext(), imageUri, orientation);
                     imageView.setImageBitmap(image);
                 }
                 catch (FileNotFoundException e)
@@ -220,7 +222,9 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             }
             if(requestCode == CAMERA_REQUEST)
             {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                Bitmap photo = rotateBitmap(getApplicationContext(), imageUri, ((Bitmap) data.getExtras().get("data")));
+                int orientation = getOrientation(getApplicationContext(), imageUri);
+                setOrientation(getApplicationContext(), imageUri, orientation);
                 imageView.setImageBitmap(photo);
             }
         }
@@ -588,6 +592,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         cursor = null;
         return orientation;
     }
+
     public static Bitmap rotateBitmap(Context context, Uri photoUri, Bitmap bitmap) {
         int orientation = getOrientation(context, photoUri);
         if (orientation <= 0) {
