@@ -32,7 +32,7 @@
             android:layout_gravity="center"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:src="@drawable/mother_earth"/>
+            android:src="@drawable/intro2"/>
     </LinearLayout>
 
     <TextView

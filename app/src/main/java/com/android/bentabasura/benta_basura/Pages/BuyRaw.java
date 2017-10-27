@@ -40,8 +40,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.webianks.library.PopupBubble;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener {
@@ -55,6 +57,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     private ListView lstRecycle;
     ProgressDialog mProgressDialog;
     private custom_trashlist customAdapter;
+    private int counter = 3;
 
     DatabaseReference databaseReference;
     ArrayList<Trash> trashArray =new ArrayList<>();
@@ -72,6 +75,8 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
     Bundle receivedBundle;
     private GoogleApiClient mGoogleApiClient;
+
+    PopupBubble popupBubble;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +150,30 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        popupBubble = (PopupBubble) findViewById(R.id.popup_bubble);
+
+        popupBubble.setPopupBubbleListener(new PopupBubble.PopupBubbleClickListener() {
+            @Override
+            public void bubbleClicked(Context context) {
+
+                int duration = 500;  //miliseconds
+                int offset = 0;      //fromListTop
+
+                lstRecycle.smoothScrollToPositionFromTop(0,offset,duration);
+
+                trashArray.clear();
+                customAdapter.notifyDataSetChanged();
+
+                getTrashDataFromFirebase();
+                //popup_bubble is clicked
+
+                popupBubble.hide();
+            }
+        });
+
+        popupBubble.hide();
+
     }
     public void showMessage(String message){
         Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
@@ -244,51 +273,50 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     }
     public void getTrashDataFromFirebase() {
 
-        databaseReference.limitToFirst(3).addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByChild("reverseDate").limitToFirst(3).addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                if(dataSnapshot.exists())
-                {
-                    for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
-                    {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (trashArray.size() != 0) {
+                    popupBubble.show();
 
-                        boolean found = false;
-                        oldestPostId = postSnapShot.getKey();
+                } else {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
 
-                        mProgressDialog.setMessage("Loading...");
-                        mProgressDialog.show();
+                            boolean found = false;
+                            oldestPostId = postSnapShot.getKey();
 
-                        Trash trash = postSnapShot.getValue(Trash.class);
+                            mProgressDialog.setMessage("Loading...");
+                            mProgressDialog.show();
 
-                        if(trash.getTrashCategory().equals(receivedBundle.get("Category")))
-                        {
-                            if (trash.getSold().equals("0"))
-                            {
+                            Trash trash = postSnapShot.getValue(Trash.class);
 
-                                for(Trash itemTrash : trashArray)
-                                {
-                                    if (!TextUtils.isEmpty(itemTrash.getTrashId()) && !TextUtils.isEmpty(oldestPostId)) {
-                                        if (itemTrash.getTrashId().equals(oldestPostId)) {
-                                            found = true;
+                            if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
+                                if (trash.getSold().equals("0")) {
+
+                                    for (Trash itemTrash : trashArray) {
+                                        if (!TextUtils.isEmpty(itemTrash.getTrashId()) && !TextUtils.isEmpty(oldestPostId)) {
+                                            if (itemTrash.getTrashId().equals(oldestPostId)) {
+                                                found = true;
+                                            }
                                         }
                                     }
-                                }
 
-                                if(!found) {
-                                    trash.setTrashId(postSnapShot.getKey().toString());
-                                    trashArray.add(trash);
-                                    customAdapter.notifyDataSetChanged();
-                                }
+                                    if (!found) {
+                                        trash.setTrashId(postSnapShot.getKey().toString());
+                                        trashArray.add(trash);
+                                        customAdapter.notifyDataSetChanged();
+                                    }
 
+                                }
                             }
                         }
+                        mProgressDialog.dismiss();
                     }
-                    mProgressDialog.dismiss();
+
+
                 }
-
-
             }
 
             @Override
@@ -296,6 +324,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
             }
         });
+
     }
 
 
@@ -314,39 +343,50 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     }
 
     private void isScrollCompleted() {
-        if (totalItem - currentFirstVisibleItem == currentVisibleItemCount && this.currentScrollState == SCROLL_STATE_IDLE)
-        {
-            databaseReference.orderByKey().startAt(oldestPostId).limitToFirst(3).addListenerForSingleValueEvent(new ValueEventListener()
-            {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+        if (totalItem - currentFirstVisibleItem == currentVisibleItemCount && this.currentScrollState == SCROLL_STATE_IDLE) {
+            if (totalItem >= counter) {
+                counter += 3;
 
-                        if ( !oldestPostId.equals(postSnapShot.getKey()) )
-                        {
-                            oldestPostId = postSnapShot.getKey();
+                databaseReference.orderByChild("reverseDate").limitToFirst(counter).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                            boolean found = false;
 
-                            mProgressDialog.setMessage("Loading...");
-                            mProgressDialog.show();
+                            if (!oldestPostId.equals(postSnapShot.getKey())) {
+                                oldestPostId = postSnapShot.getKey();
 
-                            Trash trash = postSnapShot.getValue(Trash.class);
-                            if(trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                                if (trash.getSold().equals("0")) {
-                                    trash.setTrashId(postSnapShot.getKey().toString());
-                                    trashArray.add(trash);
+                                for (Trash trash : trashArray) {
+                                    if (trash.getTrashId().equals(oldestPostId)) {
+                                        found = true;
+                                    }
                                 }
+
+                                if (found) {
+                                    continue;
+                                }
+                                mProgressDialog.setMessage("Loading...");
+                                mProgressDialog.show();
+
+                                Trash trash = postSnapShot.getValue(Trash.class);
+                                if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
+                                    if (trash.getSold().equals("0")) {
+                                        trash.setTrashId(postSnapShot.getKey().toString());
+                                        trashArray.add(trash);
+                                    }
+                                }
+                                customAdapter.notifyDataSetChanged();
                             }
-                            customAdapter.notifyDataSetChanged();
                         }
+                        mProgressDialog.dismiss();
                     }
-                    mProgressDialog.dismiss();
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            }
         }
     }
     public AlertDialog.Builder buildDialog(Context c) {

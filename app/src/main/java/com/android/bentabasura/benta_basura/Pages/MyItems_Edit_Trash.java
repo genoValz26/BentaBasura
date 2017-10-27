@@ -98,6 +98,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     String selectedType,selectedCategory,currentUsername;
     private GoogleApiClient mGoogleApiClient;
     String strTrashId,strTrashCategory,strImageUrl, strUploadedDate;
+    long reverseDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -167,6 +168,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
                 spnTrashCategory.setSelection(getIndex(spnTrashCategory, dataSnapshot.child("trashCategory").getValue().toString()));
                 strUploadedDate = dataSnapshot.child("uploadedDate").getValue().toString();
+                reverseDate = Long.parseLong(dataSnapshot.child("reverseData").getValue().toString());
             }
 
             @Override
@@ -341,7 +343,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
 
         if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
 
-            Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "");
+            Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "", reverseDate);
             databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
             showMessage("Trash Updated Successfully");
             progressDialog.dismiss();
@@ -354,7 +356,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     //Adding the additional information on the real-time db
 
-                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, taskSnapshot.getDownloadUrl().toString(), "0", "");
+                    Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, taskSnapshot.getDownloadUrl().toString(), "0", "", reverseDate);
                     databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
                     showMessage("Trash Updated Successfully");
                     progressDialog.dismiss();
@@ -445,7 +447,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
 
                 if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
 
-                    Trash newTrash = new Trash(trashName.getText().toString(), editQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "");
+                    Trash newTrash = new Trash(trashName.getText().toString(), editQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "", reverseDate);
                     databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
                     showMessage("Quantity Updated Successfully!");
                     progressDialog.dismiss();
@@ -530,7 +532,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                     else {
                         remainingQty = Integer.toString(newQty);
                     }
-                    Trash newTrash = new Trash(trashName.getText().toString(), remainingQty, trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "");
+                    Trash newTrash = new Trash(trashName.getText().toString(), remainingQty, trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "", reverseDate);
                     databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
 
                     progressDialog.dismiss();

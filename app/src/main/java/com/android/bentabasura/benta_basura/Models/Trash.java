@@ -18,11 +18,13 @@ public class Trash {
     private String sold;
     private String soldTo;
 
+    private long   reverseDate;
+
     public Trash()
     {
 
     }
-    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl, String sold, String soldTo)
+    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl, String sold, String soldTo, long reverseDate)
     {
         this.trashName = trashName;
         this.trashQuantity = trashQuantity;
@@ -35,6 +37,7 @@ public class Trash {
         this.imageUrl = imageUrl;
         this.sold = sold;
         this.soldTo = soldTo;
+        this.reverseDate = reverseDate;
     }
 
     public String getTrashName() {
@@ -131,6 +134,14 @@ public class Trash {
 
     public void setSoldTo(String soldTo) {
         this.soldTo = soldTo;
+    }
+
+    public long getReverseDate() {
+        return reverseDate;
+    }
+
+    public void setReverseDate(long reverseDate) {
+        this.reverseDate = reverseDate;
     }
 
 
