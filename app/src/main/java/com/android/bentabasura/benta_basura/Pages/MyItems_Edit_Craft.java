@@ -461,7 +461,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         final Button cancelbtn = (Button) dialogView.findViewById(R.id.cancelbtn);
         final Button plusQty = (Button) dialogView.findViewById(R.id.plusQty);
         final Button minusQty = (Button) dialogView.findViewById(R.id.minusQty);
-        dialogBuilder.setTitle("Update Quanity");
         final AlertDialog  alertDialog = dialogBuilder.create();
         alertDialog.show();
         editQty.setEnabled(false);
@@ -569,8 +568,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         soldTo.setAdapter(dataAdapter);
         soldTo.setOnItemSelectedListener(this);
 
-
-        dialogBuilder.setTitle("Sold To");
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 

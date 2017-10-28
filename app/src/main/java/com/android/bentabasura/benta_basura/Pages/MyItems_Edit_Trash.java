@@ -63,13 +63,17 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by reymond on 20/10/2017.
@@ -99,6 +103,9 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     private GoogleApiClient mGoogleApiClient;
     String strTrashId,strTrashCategory,strImageUrl, strUploadedDate;
     long reverseDate;
+    ArrayList<String> arrInterested, arrInterestedNames;
+   Map<String,String> mapUser;
+   ArrayAdapter<String> dataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -433,7 +440,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         final Button cancelbtn = (Button) dialogView.findViewById(R.id.cancelbtn);
         final Button plusQty = (Button) dialogView.findViewById(R.id.plusQty);
         final Button minusQty =(Button) dialogView.findViewById(R.id.minusQty);
-        dialogBuilder.setTitle("Update Quanity");
         final AlertDialog  alertDialog = dialogBuilder.create();
         alertDialog.show();
         editQty.setEnabled(false);
@@ -488,11 +494,60 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         final View dialogView = inflater.inflate(R.layout.dialog_sold, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText soldTo= (EditText) dialogView.findViewById(R.id.soldTo);
+        final SearchableSpinner soldTo= (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
         final EditText quantitySold= (EditText) dialogView.findViewById(R.id.quantitySold);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
+        final Button cancelSold = (Button) dialogView.findViewById(R.id.cancelSold);
+        soldTo.setTitle("Interested Users");
+        soldTo.setPositiveButton("OK");
+        arrInterested = new ArrayList<>();
+        arrInterestedNames = new ArrayList<>();
 
-        dialogBuilder.setTitle("Sold To");
+        mapUser = new HashMap<>();
+        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrInterestedNames);
+
+        databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("Interested").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
+                {
+                    arrInterested.add(postSnapShot.getValue().toString());
+                }
+
+                databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
+                        {
+                            mapUser.put(postSnapShot.getKey().toString(), postSnapShot.child("fullname").getValue().toString());
+                        }
+
+                        for(String inter : arrInterested)
+                        {
+                            String value = mapUser.get(inter);
+                            arrInterestedNames.add(value);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        soldTo.setAdapter(dataAdapter);
+        soldTo.setOnItemSelectedListener(this);
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
@@ -525,7 +580,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                     SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                     String TrasnsactionDate = sdf.format(currentTime);
 
-                    Transaction_Trash soldTrash = new Transaction_Trash(userid, soldTo.getText().toString(), strTrashId, quantitySold.getText().toString(), TrasnsactionDate);
+                    Transaction_Trash soldTrash = new Transaction_Trash(userid, "".toString(), strTrashId, quantitySold.getText().toString(), TrasnsactionDate);
                     databaseReference.child("Transaction_Trash").child(strTrashCategory).child(strTrashId).setValue(soldTrash);
 
                     if(newQty == 0){
@@ -541,6 +596,12 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                     showMessage("Product has been sold!");
                     startActivity(new Intent(MyItems_Edit_Trash.this, MyItems.class));
                 }
+            }
+        });
+        cancelSold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
             }
         });
 
@@ -589,5 +650,13 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         values.put(MediaStore.Images.Media.ORIENTATION, orientation);
         int rowsUpdated = context.getContentResolver().update(fileUri, values, null, null);
         return rowsUpdated > 0;
+    }
+    public static Object getKeyFromValue(Map hm, Object value) {
+        for (Object o : hm.keySet()) {
+            if (hm.get(o).equals(value)) {
+                return o;
+            }
+        }
+        return null;
     }
 }
