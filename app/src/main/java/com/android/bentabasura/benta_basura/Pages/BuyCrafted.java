@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
+import com.android.bentabasura.benta_basura.Models.Trash;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.Utils.RoundedTransformation;
 import com.android.bentabasura.benta_basura.View_Holders.custom_craftlist;
@@ -42,6 +43,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.webianks.library.PopupBubble;
 
 import org.w3c.dom.Text;
 
@@ -61,6 +63,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     ArrayList<Craft> craftArray =new ArrayList<>();
+    private int counter = 3;
 
     TextView navFullName, navEmail;
     ImageView navImage;
@@ -75,6 +78,8 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
 
     Bundle receivedBundle;
     private GoogleApiClient mGoogleApiClient;
+    PopupBubble popupBubble;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +156,29 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        popupBubble = (PopupBubble) findViewById(R.id.popup_bubble);
+
+        popupBubble.setPopupBubbleListener(new PopupBubble.PopupBubbleClickListener() {
+            @Override
+            public void bubbleClicked(Context context) {
+
+                int duration = 500;  //miliseconds
+                int offset = 0;      //fromListTop
+
+                lstCraft.smoothScrollToPositionFromTop(0,offset,duration);
+
+                craftArray.clear();
+                customAdapter.notifyDataSetChanged();
+
+                getCraftDataFromFirebase();
+                //popup_bubble is clicked
+
+                popupBubble.hide();
+            }
+        });
+
+        popupBubble.hide();
 
     }
 
@@ -248,47 +276,48 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
     public void getCraftDataFromFirebase() {
 
 
-        databaseReference.limitToFirst(3).addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByChild("reverseDate").limitToFirst(3).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
-                    for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
-                    {
-                        boolean found = false;
-                        oldestPostId = postSnapShot.getKey();
+                if (craftArray.size() != 0) {
+                    popupBubble.show();
 
-                        mProgressDialog.setMessage("Loading...");
-                        mProgressDialog.show();
+                } else {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                            boolean found = false;
+                            oldestPostId = postSnapShot.getKey();
 
-                        for(Craft craftItem : craftArray)
-                        {
-                            if (!TextUtils.isEmpty(craftItem.getCraftID()) && !TextUtils.isEmpty(oldestPostId)) {
-                                if (craftItem.getCraftID().equals(oldestPostId)) {
-                                    found = true;
+                            mProgressDialog.setMessage("Loading...");
+                            mProgressDialog.show();
+
+                            for (Craft craftItem : craftArray) {
+                                if (!TextUtils.isEmpty(craftItem.getCraftID()) && !TextUtils.isEmpty(oldestPostId)) {
+                                    if (craftItem.getCraftID().equals(oldestPostId)) {
+                                        found = true;
+                                    }
+                                }
+                            }
+
+                            if (!found) {
+
+                                Craft craft = postSnapShot.getValue(Craft.class);
+
+                                if (craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
+                                    if (craft.getSold().equals("0")) {
+                                        craft.setCraftID(postSnapShot.getKey().toString());
+                                        craftArray.add(craft);
+                                        customAdapter.notifyDataSetChanged();
+
+                                    }
                                 }
                             }
                         }
-
-                        if (!found) {
-
-                            Craft craft = postSnapShot.getValue(Craft.class);
-
-                            if (craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
-                                if (craft.getSold().equals("0")) {
-                                    craft.setCraftID(postSnapShot.getKey().toString());
-                                    craftArray.add(craft);
-                                    customAdapter.notifyDataSetChanged();
-
-                                }
-                            }
-                        }
+                        mProgressDialog.dismiss();
                     }
-                    mProgressDialog.dismiss();
+
                 }
-
-
             }
 
             @Override
@@ -311,35 +340,48 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
     }
 
     private void isScrollCompleted() {
-        if (totalItem - currentFirstVisibleItem == currentVisibleItemCount && this.currentScrollState == SCROLL_STATE_IDLE)
-        {
-            databaseReference.orderByKey().startAt(oldestPostId).limitToFirst(3).addListenerForSingleValueEvent(new ValueEventListener()
-            {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+        if (totalItem - currentFirstVisibleItem == currentVisibleItemCount && this.currentScrollState == SCROLL_STATE_IDLE) {
+            if (totalItem >= counter) {
+                counter += 3;
+                databaseReference.orderByChild("reverseDate").limitToFirst(counter).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if ( !oldestPostId.equals(postSnapShot.getKey()) )
-                        {
-                            oldestPostId = postSnapShot.getKey();
+                        boolean found = false;
 
-                            mProgressDialog.setMessage("Loading...");
-                            mProgressDialog.show();
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
 
-                            Craft craft = postSnapShot.getValue(Craft.class);
-                            craft.setCraftID(postSnapShot.getKey().toString());
-                            craftArray.add(craft);
-                            customAdapter.notifyDataSetChanged();
+                            if (!oldestPostId.equals(postSnapShot.getKey())) {
+                                oldestPostId = postSnapShot.getKey();
+
+                                for (Craft craft : craftArray) {
+                                    if (craft.getCraftID().equals(oldestPostId)) {
+                                        found = true;
+                                    }
+                                }
+
+                                if (found) {
+                                    continue;
+                                }
+
+                                mProgressDialog.setMessage("Loading...");
+                                mProgressDialog.show();
+
+                                Craft craft = postSnapShot.getValue(Craft.class);
+                                craft.setCraftID(postSnapShot.getKey().toString());
+                                craftArray.add(craft);
+                                customAdapter.notifyDataSetChanged();
+                            }
                         }
+                        mProgressDialog.dismiss();
                     }
-                    mProgressDialog.dismiss();
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            }
         }
     }
     public AlertDialog.Builder buildDialog(Context c) {

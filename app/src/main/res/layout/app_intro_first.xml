@@ -43,7 +43,7 @@
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:text="Turn your Trash and Craft from Trash to Cash"
+        android:text="Turn your Trash and Craft to Cash"
         android:textColor="#ffffff"
         android:textSize="16sp" />
 

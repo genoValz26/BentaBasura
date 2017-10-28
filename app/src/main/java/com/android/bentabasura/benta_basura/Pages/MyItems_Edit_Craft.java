@@ -96,6 +96,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     private GoogleApiClient mGoogleApiClient;
     Intent receiveIntent;
     Bundle receivedBundle;
+    Long reverseDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +166,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 resourcesFrom.setText(dataSnapshot.child("resourcesFrom").getValue().toString());
                 spnCraftCategory.setSelection(getIndex(spnCraftCategory, dataSnapshot.child("craftCategory").getValue().toString()));
                 strUploadedDate = dataSnapshot.child("uploadedDate").getValue().toString();
+                reverseDate = Long.parseLong(dataSnapshot.child("reverseDate").getValue().toString());
             }
 
             @Override
@@ -351,7 +353,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
             String UploadedDate = sdf.format(currentTime);
 
-            Craft newCraft = new Craft(craftName.getText().toString(), craftQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), resourcesFrom.getText().toString(), strImageUrl , "0", "");
+            Craft newCraft = new Craft(craftName.getText().toString(), craftQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), resourcesFrom.getText().toString(), strImageUrl , "0", "", reverseDate);
             databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
             showMessage("Craft Updated Successfully");
             progressDialog.dismiss();
@@ -374,7 +376,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                     SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                     String UploadedDate = sdf.format(currentTime);
 
-                    Craft newCraft = new Craft(craftName.getText().toString(), craftQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), resourcesFrom.getText().toString(), taskSnapshot.getDownloadUrl().toString(), "0", "");
+                    Craft newCraft = new Craft(craftName.getText().toString(), craftQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, UploadedDate.toString(), resourcesFrom.getText().toString(), taskSnapshot.getDownloadUrl().toString(), "0", "", reverseDate);
                     databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
                     showMessage("Craft Updated Successfully");
                     progressDialog.dismiss();
@@ -462,7 +464,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                         resourcesFrom.setText("None");
                     }
 
-                    Craft newCraft = new Craft(craftName.getText().toString(), editQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "");
+                    Craft newCraft = new Craft(craftName.getText().toString(), editQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "", reverseDate);
                     databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
                     showMessage("Craft Updated Successfully");
                     progressDialog.dismiss();
@@ -549,7 +551,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                         remainingQty = Integer.toString(newQty);
                     }
 
-                        Craft newCraft = new Craft(craftName.getText().toString(), Integer.toString(newQty), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "");
+                        Craft newCraft = new Craft(craftName.getText().toString(), Integer.toString(newQty), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "", reverseDate);
                         databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
 
 

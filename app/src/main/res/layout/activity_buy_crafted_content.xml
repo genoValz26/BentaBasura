@@ -46,4 +46,22 @@ c
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
+
+    <com.webianks.library.PopupBubble xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/popup_bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:pb_backgroundColor="#558B2F"
+        app:pb_iconColor="#ffffff"
+        app:pb_text="New Items"
+        app:pb_textColor="#ffffff" />
+
 </android.support.constraint.ConstraintLayout>

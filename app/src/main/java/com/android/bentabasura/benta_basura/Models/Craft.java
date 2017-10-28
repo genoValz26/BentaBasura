@@ -8,12 +8,13 @@ public class Craft {
     private String craftID,craftName,craftQuantity,craftPrice,craftDescription,craftCategory,sellerContact,uploadedBy,uploadedDate,resourcesFrom,imageUrl;
     private String sold;
     private String soldTo;
+    private long   reverseDate;
 
     public Craft()
     {
 
     }
-    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,String sold, String soldTo){
+    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,String sold, String soldTo, Long reverseDate){
         this.craftName = craftName;
         this.craftQuantity = craftQuantity;
         this.craftPrice = craftPrice;
@@ -26,6 +27,7 @@ public class Craft {
         this.imageUrl = imageUrl;
         this.sold = sold;
         this.soldTo = soldTo;
+        this.reverseDate = reverseDate;
     }
 
     public String getCraftName() {
@@ -130,5 +132,13 @@ public class Craft {
 
     public void setSoldTo(String soldTo) {
         this.soldTo = soldTo;
+    }
+
+    public long getReverseDate() {
+        return reverseDate;
+    }
+
+    public void setReverseDate(long reverseDate) {
+        this.reverseDate = reverseDate;
     }
 }
