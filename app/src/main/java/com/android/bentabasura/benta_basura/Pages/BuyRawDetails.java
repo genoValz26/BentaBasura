@@ -71,8 +71,8 @@ public class BuyRawDetails extends AppCompatActivity implements NavigationView.O
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Item Details"));
-        tabLayout.addTab(tabLayout.newTab().setText("Item Feedback"));
+        tabLayout.addTab(tabLayout.newTab().setText("Details"));
+        tabLayout.addTab(tabLayout.newTab().setText("Comments"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 

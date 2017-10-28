@@ -134,8 +134,9 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
                 }
                 else{
                   sellerdetailsIntent = new Intent(getActivity().getApplicationContext(), custom_dialog_disclaimer.class);
-                sellerdetailsIntent.putExtra("UserId", receivedBundle.get("UploadedBy").toString());
-                startActivity(sellerdetailsIntent);
+                  sellerdetailsIntent.putExtra("UserId", receivedBundle.get("UploadedBy").toString());
+                  addNotification();
+                  startActivity(sellerdetailsIntent);
                 }
                 break;
 
@@ -155,8 +156,8 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
 
         //Notification
         final String notifId = databaseReference.child("Notification").push().getKey();
-        final String location = "Craft" + ":" + receivedBundle.get("CraftCategory").toString() + ":" + receivedBundle.get("CraftId").toString();
-        final String message = activeUser.getFullname() + " is interested in your Craft " + receivedBundle.get("CraftName").toString() + ". Expect a call from him/her";
+        final String location = "Trash" + ":" + receivedBundle.get("TrashCategory").toString() + ":" + receivedBundle.get("TrashId").toString();
+        final String message = activeUser.getFullname() + " is interested in your Trash " + receivedBundle.get("TrashName").toString() + ". Expect a call from him/her";
         final String ownerId = receivedBundle.get("UploadedBy").toString();
         final String profileId = activeUser.getUserId();
 
