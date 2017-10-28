@@ -4,16 +4,11 @@
     android:layout_height="match_parent"
     android:background="@layout/dialog_border">
 
-    <EditText
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/soldTo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Sold To"
-        android:inputType="textPersonName" />
+        android:layout_height="wrap_content"/>
+
 
     <EditText
         android:id="@+id/quantitySold"

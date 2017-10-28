@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.Models.Transaction_Craft;
+import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -53,13 +54,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by reymond on 19/10/2017.
@@ -97,6 +103,9 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     Intent receiveIntent;
     Bundle receivedBundle;
     Long reverseDate;
+    ArrayList<String> arrInterested, arrInterestedNames;
+    Map<String,String> mapUser;
+    ArrayAdapter<String> dataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -504,10 +513,62 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         final View dialogView = inflater.inflate(R.layout.dialog_sold, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText soldTo= (EditText) dialogView.findViewById(R.id.soldTo);
+        final SearchableSpinner soldTo= (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
         final EditText quantitySold= (EditText) dialogView.findViewById(R.id.quantitySold);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
         final Button cancelSold= (Button) dialogView.findViewById(R.id.cancelSold);
+
+        soldTo.setTitle("Interested Users");
+        soldTo.setPositiveButton("OK");
+        arrInterested = new ArrayList<>();
+        arrInterestedNames = new ArrayList<>();
+
+        mapUser = new HashMap<>();
+        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrInterestedNames);
+
+        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("Interested").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
+                {
+                    arrInterested.add(postSnapShot.getValue().toString());
+                }
+
+                databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
+                    {
+
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
+                        {
+                            mapUser.put(postSnapShot.getKey().toString(), postSnapShot.child("fullname").getValue().toString());
+                        }
+
+                        for(String inter : arrInterested)
+                        {
+                            String value = mapUser.get(inter);
+                            arrInterestedNames.add(value);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        soldTo.setAdapter(dataAdapter);
+        soldTo.setOnItemSelectedListener(this);
+
 
         dialogBuilder.setTitle("Sold To");
         final AlertDialog alertDialog = dialogBuilder.create();
@@ -542,7 +603,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                     SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                     String TrasnsactionDate = sdf.format(currentTime);
 
-                    Transaction_Craft soldCraft = new Transaction_Craft(userid, soldTo.getText().toString(), strcraftID, quantitySold.getText().toString(), TrasnsactionDate);
+                    Transaction_Craft soldCraft = new Transaction_Craft(userid, soldTo.toString(), strcraftID, quantitySold.getText().toString(), TrasnsactionDate);
                     databaseReference.child("Transaction_Craft").child(strcraftCategory).child(strcraftID).setValue(soldCraft);
 
                     if(newQty == 0){
