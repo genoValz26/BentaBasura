@@ -106,6 +106,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     ArrayList<String> arrInterested, arrInterestedNames;
     Map<String,String> mapUser;
     ArrayAdapter<String> dataAdapter;
+    SearchableSpinner soldTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +140,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         craftDesc = (EditText) findViewById(R.id.craftDesc);
         craftPrice = (EditText) findViewById(R.id.craftPrice);
         craftQty = (EditText) findViewById(R.id.craftQty);
-        craftQty.setEnabled(false);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
         resourcesFrom = (EditText) findViewById(R.id.resourcesFrom);
         spnCraftCategory = (Spinner) findViewById(R.id.spnCraftCategory);
@@ -150,9 +150,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         deletebtn.setOnClickListener(this);
         soldtbtn = (Button) findViewById(R.id.soldbtn);
         soldtbtn.setOnClickListener(this);
-
-        btnEditQty = (Button) findViewById(R.id.btnEditQty);
-        btnEditQty.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
 
@@ -202,9 +199,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 break;
             case R.id.UploadImageView:
                 showPictureDialog();
-                break;
-            case R.id.btnEditQty:
-                showUpdateQtyDialog();
                 break;
         }
     }
@@ -450,70 +444,13 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         });
         return builder;
     }
-    public void showUpdateQtyDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.dialog_edit_quantity, null);
-        dialogBuilder.setView(dialogView);
-
-        final EditText editQty = (EditText) dialogView.findViewById(R.id.editQty);
-        final Button updateQty = (Button) dialogView.findViewById(R.id.updateQty);
-        final Button cancelbtn = (Button) dialogView.findViewById(R.id.cancelbtn);
-        final Button plusQty = (Button) dialogView.findViewById(R.id.plusQty);
-        final Button minusQty = (Button) dialogView.findViewById(R.id.minusQty);
-        final AlertDialog  alertDialog = dialogBuilder.create();
-        alertDialog.show();
-        editQty.setEnabled(false);
-        editQty.setText(craftQty.getText().toString());
-        updateQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
-                    if (resourcesFrom.getText().toString().equals("")) {
-                        resourcesFrom.setText("None");
-                    }
-
-                    Craft newCraft = new Craft(craftName.getText().toString(), editQty.getText().toString(), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "", reverseDate);
-                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
-                    showMessage("Craft Updated Successfully");
-                    progressDialog.dismiss();
-                    startActivity(new Intent(MyItems_Edit_Craft.this, Home.class));
-                    alertDialog.dismiss();
-                }
-            }
-        });
-        plusQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int currentqty = Integer.parseInt(editQty.getText().toString());
-                int newQty = currentqty + 1;
-                editQty.setText(Integer.toString(newQty));
-            }
-        });
-        minusQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentqty = Integer.parseInt(editQty.getText().toString());
-                int newQty = currentqty - 1;
-                editQty.setText(Integer.toString(newQty));
-            }
-        });
-        cancelbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
-    }
     public void showSoldDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.dialog_sold, null);
         dialogBuilder.setView(dialogView);
 
-        final SearchableSpinner soldTo= (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
-        final EditText quantitySold= (EditText) dialogView.findViewById(R.id.quantitySold);
+        soldTo = (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
         final Button cancelSold= (Button) dialogView.findViewById(R.id.cancelSold);
 
@@ -574,52 +511,30 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         submitSold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.setMessage("Please Wait...");
-                progressDialog.show();
-                String currentQty = craftQty.getText().toString();
-                String qtySold = quantitySold.getText().toString();
-
-                int newQty;
-                newQty = Integer.parseInt(currentQty) - Integer.parseInt(qtySold);
-
-                user = firebaseAuth.getCurrentUser();
-                userid = user.getUid();
-
-                if(Integer.parseInt(qtySold) > Integer.parseInt(currentQty)){
-                    quantitySold.setError("Quantity Sold must not be greater than your Current Quantity");
-                    progressDialog.dismiss();
-                    return;
-                }
-                else if(TextUtils.isEmpty(quantitySold.getText().toString())){
-                    quantitySold.setError("Quantity Sold is empty!");
-                    return;
+                if (soldTo.getSelectedItem().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();;
                 }
                 else {
-                    String remainingQty;
-                    Date currentTime = Calendar.getInstance().getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                    String TrasnsactionDate = sdf.format(currentTime);
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("sold").setValue("1");
 
-                    Transaction_Craft soldCraft = new Transaction_Craft(userid, soldTo.toString(), strcraftID, quantitySold.getText().toString(), TrasnsactionDate);
-                    databaseReference.child("Transaction_Craft").child(strcraftCategory).child(strcraftID).setValue(soldCraft);
-
-                    if(newQty == 0){
-                        remainingQty = "Sold Out";
-                    }
-                    else {
-                        remainingQty = Integer.toString(newQty);
+                    String key = "";
+                    for (Map.Entry entry : mapUser.entrySet()) {
+                        if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
+                            key = entry.getKey().toString();
+                            break; //breaking because its one to one map
+                        }
                     }
 
-                        Craft newCraft = new Craft(craftName.getText().toString(), Integer.toString(newQty), craftPrice.getText().toString(), craftDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, resourcesFrom.getText().toString(), strImageUrl, "0", "", reverseDate);
-                        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).setValue(newCraft);
-
-
-                    progressDialog.dismiss();
-                    showMessage("Product has been sold");
-                    startActivity(new Intent(MyItems_Edit_Craft.this, MyItems.class));
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("soldTo").setValue(key);
                 }
+
+                alertDialog.dismiss();
+
             }
+
         });
+
         cancelSold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -675,12 +590,4 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         return rowsUpdated > 0;
     }
 
-    public static Object getKeyFromValue(Map hm, Object value) {
-        for (Object o : hm.keySet()) {
-            if (hm.get(o).equals(value)) {
-                return o;
-            }
-        }
-        return null;
-    }
 }

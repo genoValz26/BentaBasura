@@ -70,7 +70,7 @@ public class custom_trashlist extends BaseAdapter {
         txtTrashDescription.setText(trash.get(position).getTrashDescription());
         txtTrashPrice.setText("Php " + trash.get(position).getTrashPrice() + ".00");
 
-        if(trash.get(position).getTrashQuantity().equals("0"))
+        if(trash.get(position).getSold().equals("1"))
         {
             btnReadMore.setText("Sold Out - See Details");
             btnReadMore.setBackgroundColor(rowData.getResources().getColor(R.color.colorGoogle));

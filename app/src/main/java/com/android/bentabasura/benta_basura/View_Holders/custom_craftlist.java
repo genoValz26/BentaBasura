@@ -75,7 +75,7 @@ public class custom_craftlist extends BaseAdapter {
         txtCraftPrice.setText("Php " + craft.get(position).getCraftPrice() + ".00");
 
 
-        if(craft.get(position).getCraftQuantity().equals("0"))
+        if(craft.get(position).getSold().equals("1"))
         {
             btnReadMore.setText("Sold Out - See Details");
             btnReadMore.setBackgroundColor(rowData.getResources().getColor(R.color.colorGoogle));

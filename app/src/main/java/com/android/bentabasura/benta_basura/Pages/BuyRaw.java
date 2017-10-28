@@ -381,7 +381,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
                                 Trash trash = postSnapShot.getValue(Trash.class);
                                 if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                                    if ( !trash.getTrashQuantity().equals("0") ) {
+                                    if ( trash.getSold().equals("0") ) {
                                         trash.setTrashId(postSnapShot.getKey().toString());
                                         trashArray.add(trash);
                                     }

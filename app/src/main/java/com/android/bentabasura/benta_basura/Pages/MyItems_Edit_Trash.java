@@ -495,7 +495,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         dialogBuilder.setView(dialogView);
 
         final SearchableSpinner soldTo= (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
-        final EditText quantitySold= (EditText) dialogView.findViewById(R.id.quantitySold);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
         final Button cancelSold = (Button) dialogView.findViewById(R.id.cancelSold);
         soldTo.setTitle("Interested Users");
@@ -554,48 +553,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         submitSold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.setMessage("Please Wait...");
-                progressDialog.show();
-                String remainingQty;
-                String currentQty = trashQty.getText().toString();
-                String qtySold = quantitySold.getText().toString();
-
-                int newQty;
-                newQty = Integer.parseInt(currentQty) - Integer.parseInt(qtySold);
-
-                user = firebaseAuth.getCurrentUser();
-                userid = user.getUid();
-
-                if(Integer.parseInt(qtySold) > Integer.parseInt(currentQty)){
-                    quantitySold.setError("Quantity Sold must not be greater than your Current Quantity");
-                    progressDialog.dismiss();
-                    return;
-                }
-                else if(TextUtils.isEmpty(quantitySold.getText().toString())){
-                    quantitySold.setError("Quantity Sold is empty!");
-                    return;
-                }
-                else {
-                    Date currentTime = Calendar.getInstance().getTime();
-                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                    String TrasnsactionDate = sdf.format(currentTime);
-
-                    Transaction_Trash soldTrash = new Transaction_Trash(userid, "".toString(), strTrashId, quantitySold.getText().toString(), TrasnsactionDate);
-                    databaseReference.child("Transaction_Trash").child(strTrashCategory).child(strTrashId).setValue(soldTrash);
-
-                    if(newQty == 0){
-                        remainingQty = "Sold Out";
-                    }
-                    else {
-                        remainingQty = Integer.toString(newQty);
-                    }
-                    Trash newTrash = new Trash(trashName.getText().toString(), remainingQty, trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "", reverseDate);
-                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
-
-                    progressDialog.dismiss();
-                    showMessage("Product has been sold!");
-                    startActivity(new Intent(MyItems_Edit_Trash.this, MyItems.class));
-                }
             }
         });
         cancelSold.setOnClickListener(new View.OnClickListener() {
