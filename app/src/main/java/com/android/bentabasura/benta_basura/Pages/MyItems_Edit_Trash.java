@@ -146,7 +146,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         trashDesc = (EditText) findViewById(R.id.trashDesc);
         trashPrice = (EditText) findViewById(R.id.trashPrice);
         trashQty = (EditText) findViewById(R.id.trashQty);
-        trashQty.setEnabled(false);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
 
         SubmitTrash = (Button) findViewById(R.id.SubmitTrash);
@@ -157,8 +156,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         editbtn.setOnClickListener(this);
         deletebtn = (Button) findViewById(R.id.deletebtn);
         deletebtn.setOnClickListener(this);
-        btnEditQty = (Button) findViewById(R.id.btnEditQty);
-        btnEditQty.setOnClickListener(this);
 
         //--------------------------------------------------------------------
         Bundle receiveBundle = getIntent().getExtras();
@@ -200,9 +197,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 break;
             case R.id.soldbtn:
                 showSoldDialog();
-                break;
-            case R.id.btnEditQty:
-                showUpdateQtyDialog();
                 break;
 
         }
@@ -429,65 +423,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         });
         return builder;
     }
-    public void showUpdateQtyDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.dialog_edit_quantity, null);
-        dialogBuilder.setView(dialogView);
 
-        final EditText editQty = (EditText) dialogView.findViewById(R.id.editQty);
-        final Button updateQty = (Button) dialogView.findViewById(R.id.updateQty);
-        final Button cancelbtn = (Button) dialogView.findViewById(R.id.cancelbtn);
-        final Button plusQty = (Button) dialogView.findViewById(R.id.plusQty);
-        final Button minusQty =(Button) dialogView.findViewById(R.id.minusQty);
-        final AlertDialog  alertDialog = dialogBuilder.create();
-        alertDialog.show();
-        editQty.setEnabled(false);
-        editQty.setText(trashQty.getText().toString());
-        updateQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progressDialog.setMessage("Uploading your Trash...");
-                progressDialog.show();
-
-                user = firebaseAuth.getCurrentUser();
-                userid = user.getUid();
-
-                if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
-
-                    Trash newTrash = new Trash(trashName.getText().toString(), editQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "", reverseDate);
-                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);
-                    showMessage("Quantity Updated Successfully!");
-                    progressDialog.dismiss();
-                    startActivity(new Intent(MyItems_Edit_Trash.this, Home.class));
-                }
-                alertDialog.dismiss();
-
-            }
-        });
-        plusQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentqty = Integer.parseInt(editQty.getText().toString());
-                int newQty = currentqty + 1;
-                editQty.setText(Integer.toString(newQty));
-            }
-        });
-        minusQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentqty = Integer.parseInt(editQty.getText().toString());
-                int newQty = currentqty - 1;
-                editQty.setText(Integer.toString(newQty));
-            }
-        });
-        cancelbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
-    }
     public void showSoldDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();

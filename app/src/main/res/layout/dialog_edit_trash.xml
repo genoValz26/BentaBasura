@@ -173,12 +173,14 @@
                 android:id="@+id/soldbtn"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
-                android:layout_alignEnd="@+id/trashName"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
                 android:paddingLeft="5dp"
                 android:text="Sold"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignEnd="@+id/trashName"
+                android:layout_marginTop="21dp" />
 
             <Button
                 android:id="@+id/deletebtn"
@@ -189,21 +191,10 @@
                 android:paddingLeft="5dp"
                 android:text="DELETE"
                 android:textSize="12sp"
-                android:layout_alignBottom="@+id/framePic"
-                android:layout_toEndOf="@+id/framePic" />
-
-            <Button
-                android:id="@+id/btnEditQty"
-                android:layout_width="125dp"
-                android:layout_height="35dp"
-                android:background="@layout/button_rounded"
-                android:drawableLeft="@drawable/ic_border_color_white_18dp"
-                android:paddingLeft="10dp"
-                android:text="Update Qty"
-                android:textSize="12sp"
                 android:layout_below="@+id/soldbtn"
                 android:layout_toEndOf="@+id/framePic"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="14dp" />
+
         </RelativeLayout>
     </ScrollView>
 
