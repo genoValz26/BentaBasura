@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@layout/dialog_border">
 
     <EditText
         android:id="@+id/soldTo"
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:text="Submit"
+        android:background="@layout/button_rounded"
         android:layout_below="@+id/quantitySold"
         android:layout_alignStart="@+id/quantitySold" />
 
@@ -38,6 +40,7 @@
         android:id="@+id/cancelSold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@layout/button_rounded"
         android:layout_alignEnd="@+id/quantitySold"
         android:layout_alignTop="@+id/submitSold"
         android:text="Cancel" />

@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,15 +23,15 @@
 
             <FrameLayout
                 android:id="@+id/framePic"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
                 android:layout_alignLeft="@+id/trashName"
                 android:layout_toStartOf="@+id/soldbtn">
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="150dp"
-                    android:layout_height="109dp"/>
+                    android:layout_height="120dp" />
                 <ImageButton
                     android:id="@+id/UploadImageView"
                     android:layout_width="61dp"
@@ -60,9 +61,9 @@
                 android:textSize="12dp"
                 tools:layout_editor_absoluteX="63dp"
                 tools:layout_editor_absoluteY="156dp"
+                android:layout_marginTop="24dp"
                 android:layout_below="@+id/framePic"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp" />
+                android:layout_alignStart="@+id/spnTrashCategory" />
 
             <EditText
                 android:id="@+id/trashQty"
@@ -188,7 +189,7 @@
                 android:paddingLeft="5dp"
                 android:text="DELETE"
                 android:textSize="12sp"
-                android:layout_below="@+id/btnEditQty"
+                android:layout_alignBottom="@+id/framePic"
                 android:layout_toEndOf="@+id/framePic" />
 
             <Button
@@ -201,7 +202,8 @@
                 android:text="Update Qty"
                 android:textSize="12sp"
                 android:layout_below="@+id/soldbtn"
-                android:layout_alignStart="@+id/soldbtn" />
+                android:layout_toEndOf="@+id/framePic"
+                android:layout_marginTop="8dp" />
         </RelativeLayout>
     </ScrollView>
 

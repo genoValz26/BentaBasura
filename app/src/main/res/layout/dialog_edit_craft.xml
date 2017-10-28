@@ -22,14 +22,15 @@
 
             <FrameLayout
                 android:id="@+id/framePic"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
                 android:layout_alignLeft="@+id/craftName"
                 android:layout_toStartOf="@+id/soldbtn">
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="150dp"
-                    android:layout_height="109dp"
+                    android:layout_height="120dp"
                     android:background="@drawable/dotted"
                     android:scaleType="fitXY" />
                 <ImageButton
@@ -192,7 +193,7 @@
                 android:paddingLeft="5dp"
                 android:text="DELETE"
                 android:textSize="12sp"
-                android:layout_below="@+id/btnEditQty"
+                android:layout_above="@+id/craftName"
                 android:layout_toEndOf="@+id/framePic" />
 
             <Button
@@ -203,6 +204,7 @@
                 android:drawableLeft="@drawable/ic_border_color_white_18dp"
                 android:paddingLeft="10dp"
                 android:text="Update Qty"
+                android:layout_marginTop="7dp"
                 android:textSize="12sp"
                 android:layout_below="@+id/soldbtn"
                 android:layout_toEndOf="@+id/framePic" />
