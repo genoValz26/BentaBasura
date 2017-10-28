@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
+import com.android.bentabasura.benta_basura.Models.Notification;
 import com.android.bentabasura.benta_basura.Models.Transaction_Craft;
 import com.android.bentabasura.benta_basura.Models.Transaction_Trash;
 import com.android.bentabasura.benta_basura.Models.Trash;
@@ -88,7 +89,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     Button SubmitTrash,editbtn,deletebtn,btnEditQty;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseReferenceNotif;
     String userid;
     StorageReference storageReference;
     ProgressDialog progressDialog;
@@ -101,11 +102,12 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     private Spinner spnTrashCategory;
     String selectedType,selectedCategory,currentUsername;
     private GoogleApiClient mGoogleApiClient;
-    String strTrashId,strTrashCategory,strImageUrl, strUploadedDate;
+    String strTrashId,strTrashCategory,strImageUrl, strUploadedDate, strUploadedBy;
     long reverseDate;
     ArrayList<String> arrInterested, arrInterestedNames;
-   Map<String,String> mapUser;
-   ArrayAdapter<String> dataAdapter;
+    Map<String,String> mapUser;
+    ArrayAdapter<String> dataAdapter;
+    SearchableSpinner soldTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -131,6 +133,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
         activeUser = ActiveUser.getInstance();
+        databaseReferenceNotif = FirebaseDatabase.getInstance().getReference().child("Notification");
 
         //------------------------------------------------------------
 
@@ -174,6 +177,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 spnTrashCategory.setSelection(getIndex(spnTrashCategory, dataSnapshot.child("trashCategory").getValue().toString()));
                 strUploadedDate = dataSnapshot.child("uploadedDate").getValue().toString();
                 reverseDate = Long.parseLong(dataSnapshot.child("reverseDate").getValue().toString());
+                strUploadedBy = dataSnapshot.child("uploadedBy").getValue().toString();
             }
 
             @Override
@@ -430,7 +434,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         final View dialogView = inflater.inflate(R.layout.dialog_sold, null);
         dialogBuilder.setView(dialogView);
 
-        final SearchableSpinner soldTo= (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
+        soldTo = (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
         final Button cancelSold = (Button) dialogView.findViewById(R.id.cancelSold);
         soldTo.setTitle("Interested Users");
@@ -489,6 +493,51 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         submitSold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (soldTo.getSelectedItem().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();;
+                }
+                else {
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("sold").setValue("1");
+
+                    String key = "";
+                    for (Map.Entry entry : mapUser.entrySet()) {
+                        if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
+                            key = entry.getKey().toString();
+                            break; //breaking because its one to one map
+                        }
+                    }
+
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("soldTo").setValue(key);
+                }
+
+                alertDialog.dismiss();
+
+                //Notification
+                String notifId = databaseReferenceNotif.push().getKey();
+                String location = "Trash" + ":" + strTrashCategory + ":" + strTrashId;
+                String message = "Thank you " + activeUser.getFullname() + " for purchasing Trash " + trashName + ". This is one big leap in helping our Environment.";
+                String ownerId =  activeUser.getUserId();
+                String profileId = strUploadedBy;
+
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String UploadedDate = sdf.format(currentTime);
+
+                Notification newNotif = new Notification();
+
+                newNotif.setNotifDbLink(location);
+                newNotif.setNotifMessage(message);
+                newNotif.setNotifOwnerId(ownerId);
+                newNotif.setNotifBy(profileId);
+                newNotif.setNotifRead("0");
+                newNotif.setNotifNotify("0");
+                newNotif.setNotifByPic(activeUser.getProfilePicture());
+                newNotif.setNotifDate(UploadedDate);
+
+                databaseReferenceNotif.child(notifId).setValue(newNotif);
+
             }
         });
         cancelSold.setOnClickListener(new View.OnClickListener() {
