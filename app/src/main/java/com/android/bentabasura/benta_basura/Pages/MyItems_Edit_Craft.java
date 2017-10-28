@@ -677,4 +677,13 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         int rowsUpdated = context.getContentResolver().update(fileUri, values, null, null);
         return rowsUpdated > 0;
     }
+
+    public static Object getKeyFromValue(Map hm, Object value) {
+        for (Object o : hm.keySet()) {
+            if (hm.get(o).equals(value)) {
+                return o;
+            }
+        }
+        return null;
+    }
 }
