@@ -252,6 +252,7 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
         return true;
     }
     public void logout() {
+        buildDialog(this).show();
         return;
 
     }

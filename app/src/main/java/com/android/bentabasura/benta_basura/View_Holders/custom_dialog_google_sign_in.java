@@ -147,6 +147,7 @@ public class custom_dialog_google_sign_in extends AppCompatActivity implements V
                                     activeUser.setEmail(receivedBundle.get("googleEmail").toString());
                                     activeUser.setContact_number(editContact.getText().toString());
                                     activeUser.setAddress(editAddress.getText().toString());
+                                    progressDialog.dismiss();
                                     startActivity(new Intent(custom_dialog_google_sign_in.this, Home.class));
 
                                 }
@@ -165,6 +166,7 @@ public class custom_dialog_google_sign_in extends AppCompatActivity implements V
                                         activeUser.setEmail(receivedBundle.get("googleEmail").toString());
                                         activeUser.setContact_number(editContact.getText().toString());
                                         activeUser.setAddress(editAddress.getText().toString());
+                                        progressDialog.dismiss();
                                     startActivity(new Intent(custom_dialog_google_sign_in.this, Home.class));
 
                                 }

@@ -221,7 +221,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                     }
                 });
 
-        progressDialog.dismiss();
     }
 
     public void checkEmailIsVerified() {
@@ -237,9 +236,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
             return;
         } else {
-            checkIfUserIsLogin();
             notVerified = 0;
-            showMessage("Welcome!");
+            checkIfUserIsLogin();
             progressDialog.dismiss();
             return;
         }
@@ -274,8 +272,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        progressDialog.setMessage("Please wait...");
-        progressDialog.show();
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -283,7 +280,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-                progressDialog.dismiss();
+
 
             } else {
                 // Google Sign In failed, update UI appropriately
@@ -310,10 +307,12 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             name = googleuser.getDisplayName();
                             google_email = googleuser.getEmail();
 
+
                             databaseReference.child("Users").child(googleuserid).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.getValue() != null){
+                                        progressDialog.dismiss();
                                         startActivity(homePage);
                                     }
                                     else if(dataSnapshot.getValue() == null){
@@ -321,6 +320,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                         detailsIntent.putExtra("googleUserId",googleuserid);
                                         detailsIntent.putExtra("googleName",name);
                                         detailsIntent.putExtra("googleEmail",google_email);
+                                        progressDialog.dismiss();
                                         startActivity(detailsIntent);
                                     }
                                 }
@@ -330,7 +330,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
                                 }
                             });
-                            progressDialog.dismiss();
 
                             Log.d(TAG, "signInWithCredential:success");
 
