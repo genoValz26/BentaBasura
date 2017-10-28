@@ -104,7 +104,7 @@
         android:layout_alignStart="@+id/craftName"
         android:layout_marginTop="7dp"
         android:background="#37474F"
-        android:drawablePadding="0dp"
+        android:drawablePadding="5dp"
         android:textSize="11dp"/>
 
     <EditText
@@ -130,7 +130,7 @@
         android:layout_height="40dp"
         android:layout_alignEnd="@+id/craftName"
         android:layout_alignTop="@+id/craftQty"
-        android:hint="@string/trashPrice"
+        android:hint="@string/craftPrice"
         android:inputType="number"
         android:drawableLeft="@drawable/ic_peso"
         android:paddingLeft="5dp"

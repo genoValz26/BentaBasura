@@ -39,13 +39,13 @@
 
     <string name="craftName">Craft Name</string>
     <string name="craftDesc">Description</string>
-    <string name="craftQuantity">Per item</string>
-    <string name="craftPrice">Price</string>
+    <string name="craftQuantity">Quantity</string>
+    <string name="craftPrice">Price per Item</string>
     <string name="craftCategory">Category</string>
     <string name="trashName">Trash Name</string>
     <string name="trashDesc">Description</string>
     <string name="trashQuantity">Weight in Kg/s</string>
-    <string name="trashPrice">Price</string>
+    <string name="trashPrice">Price per Kg/s</string>
     <string name="trashCategory">Category</string>
     <string name="resourcesFrom">Url for tutorials...</string>
     <string name="sellerContact">Meetup Location...</string>
