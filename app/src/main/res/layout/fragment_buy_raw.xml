@@ -26,8 +26,8 @@
                 android:drawableStart="@drawable/ic_stars_white_18dp"
                 android:text="Interested ?"
                 android:layout_below="@+id/txtSellerInfo"
-                android:layout_toEndOf="@+id/textView11"
-                android:layout_marginTop="24dp" />
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp" />
 
             <TextView
                 android:id="@+id/txtTrashName"
@@ -160,6 +160,28 @@
                 android:layout_alignBottom="@+id/textView13"
                 android:layout_toEndOf="@+id/textView13"
                 android:layout_marginStart="12dp" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/txtSellerInfo"
+                android:layout_below="@+id/txtSellerInfo"
+                android:layout_marginTop="9dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryAccent"
+                android:text="Note" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView15"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp"
+                android:layout_alignStart="@+id/txtSellerInfo"
+                android:text="Press interested button to view seller's contact." />
 
 
         </RelativeLayout>

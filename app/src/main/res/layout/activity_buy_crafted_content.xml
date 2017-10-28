@@ -20,7 +20,6 @@
         tools:layout_constraintTop_creator="1">
 
     </android.support.design.widget.AppBarLayout>
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -33,18 +32,6 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/appBarLayout" />
-    <TextView
-        android:id="@+id/txtEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:drawablePadding="5dp"
-        android:gravity="center"
-        android:text="No Craft Uploaded yet"
-        android:textColor="@color/colorAccentLight"
-        android:textSize="16sp"/>
-
 
     <ListView
         android:id="@+id/lstCrafted"
@@ -75,5 +62,19 @@
         app:pb_iconColor="#ffffff"
         app:pb_text="New Items"
         app:pb_textColor="#ffffff" />
-
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/txtEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="No Craft Uploaded yet"
+        android:textColor="@color/colorAccentLight"
+        android:textSize="16sp"/>
+</RelativeLayout>
 </android.support.constraint.ConstraintLayout>

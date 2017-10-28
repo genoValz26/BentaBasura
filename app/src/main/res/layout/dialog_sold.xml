@@ -2,41 +2,80 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@layout/dialog_border">
+    android:background="@layout/dialog_border"
+    android:padding="15dp">
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/soldTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:background="@drawable/spinner_syle"
+        android:paddingLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/textView18"
+        android:layout_centerHorizontal="true" />
 
 
     <EditText
         android:id="@+id/quantitySold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/soldTo"
-        android:layout_below="@+id/soldTo"
-        android:layout_marginTop="21dp"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:background="@color/colorBackground2"
         android:ems="10"
         android:hint="Quantity Sold"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:layout_below="@+id/soldTo"
+        android:layout_alignStart="@+id/soldTo"
+        android:layout_marginTop="11dp" />
 
     <Button
         android:id="@+id/submitSold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="Submit"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:background="@layout/button_rounded"
+        android:text="Submit"
         android:layout_below="@+id/quantitySold"
-        android:layout_alignStart="@+id/quantitySold" />
+        android:layout_alignStart="@+id/quantitySold"
+        android:layout_marginTop="11dp" />
 
     <Button
         android:id="@+id/cancelSold"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/submitSold"
+        android:layout_alignBottom="@+id/submitSold"
+        android:layout_alignEnd="@+id/button3"
+        android:background="@layout/button_rounded"
+        android:text="Cancel" />
+
+    <TextView
+        android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Sold to:"
+        android:layout_marginTop="5dp"
+        android:textSize="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@layout/button_rounded"
-        android:layout_alignEnd="@+id/quantitySold"
-        android:layout_alignTop="@+id/submitSold"
-        android:text="Cancel" />
+        android:text="+"
+        android:textSize="25sp"
+        android:layout_marginEnd="9dp"
+        android:layout_alignTop="@+id/quantitySold"
+        android:layout_toStartOf="@+id/button3" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@layout/button_rounded"
+        android:text="-"
+        android:textSize="25sp"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignEnd="@+id/soldTo" />
 </RelativeLayout>
