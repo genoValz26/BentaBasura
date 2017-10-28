@@ -282,6 +282,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
+                showMessage("Unable to Sign in using Google");
             }
         }
 
