@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.Trash;
@@ -61,12 +62,19 @@ public class custom_trashlist extends BaseAdapter {
         TextView txtTrashDescription = (TextView) rowData.findViewById(R.id.txtTrashDescription);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
         TextView txtTrashPrice = (TextView) rowData.findViewById(R.id.txtTrashPrice);
+        LinearLayout raw_feed_background = (LinearLayout) rowData.findViewById(R.id.raw_feed_background);
 
         Picasso.with(ctx).load(trash.get(position).getImageUrl()).placeholder( R.drawable.progress_animation ).fit().into(imgThumbTrash);
         txtTrashName.setText(trash.get(position).getTrashName());
         txtTrashDate.setText(trash.get(position).getUploadedDate());
         txtTrashDescription.setText(trash.get(position).getTrashDescription());
         txtTrashPrice.setText("Php " + trash.get(position).getTrashPrice() + ".00");
+
+        if(trash.get(position).getTrashQuantity().equals("0"))
+        {
+            btnReadMore.setText("Sold Out - See Details");
+            btnReadMore.setBackgroundColor(rowData.getResources().getColor(R.color.colorGoogle));
+        }
 
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override

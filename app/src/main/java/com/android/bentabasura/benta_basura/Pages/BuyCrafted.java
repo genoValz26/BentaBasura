@@ -306,7 +306,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
                                 Craft craft = postSnapShot.getValue(Craft.class);
 
                                 if (craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
-                                    if (craft.getSold().equals("0")) {
+                                    if ( !craft.getCraftQuantity().equals("0") ) {
                                         craft.setCraftID(postSnapShot.getKey().toString());
                                         craftArray.add(craft);
                                         customAdapter.notifyDataSetChanged();
@@ -378,9 +378,15 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
                                 mProgressDialog.show();
 
                                 Craft craft = postSnapShot.getValue(Craft.class);
-                                craft.setCraftID(postSnapShot.getKey().toString());
-                                craftArray.add(craft);
-                                customAdapter.notifyDataSetChanged();
+
+                                if (craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
+                                    if ( !craft.getCraftQuantity().equals("0") ) {
+                                        craft.setCraftID(postSnapShot.getKey().toString());
+                                        craftArray.add(craft);
+                                        customAdapter.notifyDataSetChanged();
+
+                                    }
+                                }
                             }
                         }
                         mProgressDialog.dismiss();

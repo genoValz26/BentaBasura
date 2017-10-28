@@ -69,7 +69,7 @@ public class TabFragmentTrash extends Fragment {
     {
         for(final String trashCat: trashCategory)
         {
-            databaseReferenceTrash.child(trashCat.toString()).addValueEventListener(new ValueEventListener()
+            databaseReferenceTrash.child(trashCat.toString()).orderByChild("reverseDate").addValueEventListener(new ValueEventListener()
             {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot)
@@ -99,12 +99,11 @@ public class TabFragmentTrash extends Fragment {
 
                                 if (trash.getTrashCategory().equals(trashCat.toString()))
                                 {
-                                    if (trash.getSold().equals("0") && trash.getUploadedBy().equals(activeUser.getUserId()))
+                                    if (trash.getUploadedBy().equals(activeUser.getUserId()))
                                     {
                                         trash.setTrashId(postSnapShot.getKey().toString());
                                         trashArray.add(trash);
                                         customTrashAdapter.notifyDataSetChanged();
-
                                     }
                                 }
                             }

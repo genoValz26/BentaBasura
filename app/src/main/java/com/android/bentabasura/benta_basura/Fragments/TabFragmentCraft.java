@@ -70,7 +70,7 @@ public class TabFragmentCraft extends Fragment {
     {
         for(final String trashCat: craftCategory)
         {
-            databaseReferenceCraft.child(trashCat.toString()).addValueEventListener(new ValueEventListener()
+            databaseReferenceCraft.child(trashCat.toString()).orderByChild("reverseDate").addValueEventListener(new ValueEventListener()
             {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot)
