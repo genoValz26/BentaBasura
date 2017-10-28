@@ -52,7 +52,7 @@
                 android:layout_width="280dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
-                android:background="@color/colorBackground2"
+                android:background="@color/colorBackground3"
                 android:drawableLeft="@drawable/ic_shopping_basket_white_18dp"
                 android:drawablePadding="5dp"
                 android:ems="5"
@@ -73,7 +73,7 @@
                 android:layout_alignStart="@+id/trashName"
                 android:layout_below="@+id/trashName"
                 android:layout_marginTop="8dp"
-                android:background="@color/colorBackground2"
+                android:background="@color/colorBackground3"
                 android:drawableLeft="@drawable/ic_weight"
                 android:drawablePadding="1dp"
                 android:hint="@string/trashQuantity"
@@ -90,7 +90,7 @@
                 android:layout_alignStart="@+id/trashQty"
                 android:layout_below="@+id/trashQty"
                 android:layout_marginTop="9dp"
-                android:background="@color/colorBackground2"
+                android:background="@color/colorBackground3"
                 android:drawableLeft="@drawable/ic_description_white_18dp"
                 android:drawablePadding="5dp"
                 android:hint="@string/trashDesc"
@@ -106,7 +106,7 @@
                 android:layout_height="30dp"
                 android:layout_above="@+id/trashDesc"
                 android:layout_alignEnd="@+id/trashName"
-                android:background="@color/colorBackground2"
+                android:background="@color/colorBackground3"
                 android:drawableLeft="@drawable/ic_peso"
                 android:drawablePadding="5dp"
                 android:hint="@string/trashPrice"
@@ -135,7 +135,7 @@
                 android:layout_alignStart="@+id/trashDesc"
                 android:layout_below="@+id/trashDesc"
                 android:layout_marginTop="7dp"
-                android:background="@color/colorBackground2"
+                android:background="@color/colorBackground3"
                 android:drawableLeft="@drawable/ic_location_on_white_18dp"
                 android:drawablePadding="5dp"
                 android:hint="@string/sellerContact"
@@ -145,14 +145,30 @@
                 tools:layout_editor_absoluteX="63dp"
                 tools:layout_editor_absoluteY="428dp" />
 
+            <EditText
+                android:id="@+id/resourcesFrom"
+                android:layout_width="280dp"
+                android:layout_height="30dp"
+                android:layout_alignStart="@+id/sellerContact"
+                android:layout_below="@+id/sellerContact"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorBackground3"
+                android:drawableLeft="@drawable/ic_open_in_browser_white_18dp"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:hint="@string/resourcesFrom"
+                android:inputType="textPersonName"
+                android:paddingLeft="6dp"
+                android:textSize="10dp" />
+
             <Spinner
                 android:id="@+id/spnTrashCategory"
                 android:layout_width="280dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="33dp"
+                android:layout_marginTop="14dp"
                 android:background="@drawable/spinner_syle"
-                android:layout_below="@+id/sellerContact"
+                android:paddingLeft="25dp"
+                android:layout_below="@+id/resourcesFrom"
                 android:layout_centerHorizontal="true" />
 
             <Button
