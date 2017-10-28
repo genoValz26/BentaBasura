@@ -108,6 +108,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
     Map<String,String> mapUser;
     ArrayAdapter<String> dataAdapter;
     SearchableSpinner soldTo;
+    String key = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -501,7 +502,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 else {
                     databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("sold").setValue("1");
 
-                    String key = "";
                     for (Map.Entry entry : mapUser.entrySet()) {
                         if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
                             key = entry.getKey().toString();
@@ -517,8 +517,8 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 //Notification
                 String notifId = databaseReferenceNotif.push().getKey();
                 String location = "Trash" + ":" + strTrashCategory + ":" + strTrashId;
-                String message = "Thank you " + activeUser.getFullname() + " for purchasing Trash " + trashName + ". This is one big leap in helping our Environment.";
-                String ownerId =  activeUser.getUserId();
+                String message = "Thank you " + mapUser.get(key) + " for purchasing Trash " + trashName.getText().toString() + ". This is one big leap in helping our Environment.";
+                String ownerId =  key;
                 String profileId = strUploadedBy;
 
                 Date currentTime = Calendar.getInstance().getTime();

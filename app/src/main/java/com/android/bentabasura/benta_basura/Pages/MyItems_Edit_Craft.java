@@ -536,7 +536,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 //Notification
                 String notifId = databaseReferenceNotif.push().getKey();
                 String location = "Craft" + ":" + strcraftCategory + ":" + strcraftID;
-                String message = "Thank you " + mapUser.get(key) + " for purchasing Craft " + craftName + ". This is one big leap in helping our Environment.";
+                String message = "Thank you " + mapUser.get(key) + " for purchasing Craft " + craftName.getText().toString() + ". This is one big leap in helping our Environment.";
                 String ownerId =  key;
                 String profileId = strUploadedBy;
 
