@@ -108,6 +108,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     Map<String,String> mapUser;
     ArrayAdapter<String> dataAdapter;
     SearchableSpinner soldTo;
+    String key = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -520,7 +521,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 else {
                     databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("sold").setValue("1");
 
-                    String key = "";
                     for (Map.Entry entry : mapUser.entrySet()) {
                         if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
                             key = entry.getKey().toString();
@@ -536,8 +536,8 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 //Notification
                 String notifId = databaseReferenceNotif.push().getKey();
                 String location = "Craft" + ":" + strcraftCategory + ":" + strcraftID;
-                String message = "Thank you " + activeUser.getFullname() + " for purchasing Craft " + craftName + ". This is one big leap in helping our Environment.";
-                String ownerId =  activeUser.getUserId();
+                String message = "Thank you " + mapUser.get(key) + " for purchasing Craft " + craftName + ". This is one big leap in helping our Environment.";
+                String ownerId =  key;
                 String profileId = strUploadedBy;
 
                 Date currentTime = Calendar.getInstance().getTime();
