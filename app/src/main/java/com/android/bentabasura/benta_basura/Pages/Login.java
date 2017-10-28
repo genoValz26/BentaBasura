@@ -151,7 +151,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         getApplicationContext().startService(new Intent(getApplicationContext(), FirebaseNotificationService.class));
 
-        checkIfUserIsLogin();
+        checkIfUserIsLogin(1);
 
     }
 
@@ -190,20 +190,19 @@ public class Login extends AppCompatActivity implements OnClickListener {
         String password = passTxt.getText().toString();
         if (TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             emailTxt.setError("Email is empty!");
-            progressDialog.dismiss();
             return;
         } else if (!TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
             passTxt.setError("Password is empty!");
-            progressDialog.dismiss();
             return;
         } else if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
             emailTxt.setError("Email is empty!");
             passTxt.setError("Password is empty!");
-            progressDialog.dismiss();
             return;
         }
 
-        progressDialog.setMessage("Please Wait...");
+        progressDialog.setMessage("Signing In...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -215,7 +214,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             return;
                         } else {
                             showMessage("Invalid Credentials");
-                            progressDialog.dismiss();
                             return;
                         }
                     }
@@ -230,15 +228,14 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         if (!emailVerified) {
             notVerified = 1;
+            progressDialog.dismiss();
             showMessage("Verify your Email First!");
             firebaseAuth.signOut();
-            progressDialog.dismiss();
 
             return;
         } else {
             notVerified = 0;
-            checkIfUserIsLogin();
-            progressDialog.dismiss();
+            checkIfUserIsLogin(0);
             return;
         }
     }
@@ -291,8 +288,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        progressDialog.setMessage("Signing-in");
-        progressDialog.show();
+
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -301,6 +297,11 @@ public class Login extends AppCompatActivity implements OnClickListener {
                         if (task.isSuccessful())
                         {
                             // Sign in success, update UI with the signed-in user's information
+
+                            progressDialog.setMessage("Signing In...");
+                            progressDialog.setIndeterminate(true);
+                            progressDialog.setCancelable(false);
+                            progressDialog.show();
 
                             FirebaseUser googleuser = firebaseAuth.getCurrentUser();
                             googleuserid = googleuser.getUid();
@@ -344,16 +345,22 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 });
     }
 
-    public void checkIfUserIsLogin() {
+    public void checkIfUserIsLogin(final int sign) {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+
+                    if(sign == 1)
+                    {
+                        progressDialog.setMessage("Signing In...");
+                        progressDialog.setIndeterminate(true);
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                    }
                     //If user is already logged-in redirect to homepage
 
-                    progressDialog.setMessage("Signing In....");
-                    progressDialog.show();
                     if (cd.isConnected()) {
                         activeUser.setUserId(user.getUid());
 
