@@ -63,13 +63,12 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
     StorageReference storageReference;
     FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference databaseReference;
-    private ImageView imageView;
     private static final int Gallery_Intent = 100;
     public static final String STORAGE_PATH="Profile/";
     public static final String TAG = "MyProfile_Edit";
 
     TextView navFullName, navEmail;
-    ImageView navImage;
+    ImageView navImage,imageView;
     ActiveUser activeUser;
 
   ProgressDialog progressDialog;
@@ -87,6 +86,8 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
 
         profileImageView = (ImageButton) findViewById(R.id.profileImageView);
         profileImageView.setOnClickListener(this);
+        imageView = (ImageView) findViewById(R.id.imageView);
+
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();
@@ -97,7 +98,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
 
         activeUser = ActiveUser.getInstance();
         Picasso.with(this).load(activeUser.getProfilePicture()).placeholder(R.drawable.progress_animation)
-                .fit().into(profileImageView);
+                .fit().into(imageView);
         editUsername.setText(activeUser.getFullname().toString());
         editContact.setText(activeUser.getContact_number().toString());
         editAddress.setText(activeUser.getAddress().toString());
@@ -177,7 +178,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                     int orientation = getOrientation(getApplicationContext(), imageUri);
                     Bitmap image = rotateBitmap(getApplicationContext(), imageUri, BitmapFactory.decodeStream(inputStream));
                     setOrientation(getApplicationContext(), imageUri, orientation);
-                    profileImageView.setImageBitmap(image);
+                    imageView.setImageBitmap(image);
 
                 }
                 catch (FileNotFoundException e)
@@ -190,7 +191,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                 Bitmap photo = rotateBitmap(getApplicationContext(), imageUri, ((Bitmap) data.getExtras().get("data")));
                 int orientation = getOrientation(getApplicationContext(), imageUri);
                 setOrientation(getApplicationContext(), imageUri, orientation);
-                profileImageView.setImageBitmap(photo);
+               imageView.setImageBitmap(photo);
             }
         }
 

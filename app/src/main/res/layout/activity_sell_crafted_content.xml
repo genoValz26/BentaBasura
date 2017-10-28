@@ -47,7 +47,7 @@
 
 
              <ImageView
-                 android:id="@+id/uploadBack"
+                 android:id="@+id/imageView"
                  android:layout_width="279dp"
                  android:layout_height="150dp"
                  android:background="@drawable/dotted"
@@ -65,7 +65,7 @@
                  android:background="@drawable/btn_camera"
                  android:scaleType="fitXY"
                  android:layout_gravity="bottom|right"
-                 android:layout_alignRight="@id/uploadBack"/>
+                 android:layout_alignRight="@id/imageView"/>
 
 
          </FrameLayout>

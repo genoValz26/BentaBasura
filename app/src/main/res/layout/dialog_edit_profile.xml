@@ -21,16 +21,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/frameLayout"
+                android:layout_marginTop="38dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="41dp">
+                android:layout_alignStart="@+id/editFullname"
+                android:layout_alignEnd="@+id/editFullname">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:background="@drawable/dotted"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.027"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
 
                 <ImageButton
                     android:id="@+id/profileImageView"
-                    android:layout_width="200dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/unknown_avatar"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/btn_camera"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="bottom|right"
+                    android:layout_alignRight="@id/imageView"/>
+
             </FrameLayout>
 
             <EditText
@@ -63,9 +79,9 @@
                 android:drawableLeft="@drawable/ic_account_box_white_18dp"
                 android:hint="Fullname"
                 android:inputType="textPersonName"
-                android:layout_marginTop="43dp"
-                android:layout_alignTop="@+id/textView19"
-                android:layout_centerHorizontal="true">
+                android:layout_below="@+id/textView19"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="19dp">
 
                 <requestFocus />
             </EditText>
@@ -86,24 +102,24 @@
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update Information"
-                android:textSize="20dp"
-                android:textStyle="normal|bold"
                 android:layout_below="@+id/frameLayout"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="19dp" />
+                android:layout_marginTop="19dp"
+                android:textSize="20dp"
+                android:text="Information"
+                android:textStyle="normal|bold" />
 
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="normal|bold"
-                android:text="Update Profile Picture"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="27dp" />
+                android:layout_marginBottom="27dp"
+                android:text="Profile Picture"
+                android:textSize="20dp"
+                android:textStyle="normal|bold" />
 
 
-        </RelativeLayout>r
+        </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

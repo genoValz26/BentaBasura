@@ -348,6 +348,8 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         }
 
         progressDialog.setMessage("Updating your Craft...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
         progressDialog.show();
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();

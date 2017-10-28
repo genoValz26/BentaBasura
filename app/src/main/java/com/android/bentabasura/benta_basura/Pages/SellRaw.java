@@ -151,7 +151,7 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
 
         imageView = (ImageButton) findViewById(R.id.UploadImageView);
         imageView.setOnClickListener(this);
-        navBack = (ImageView) findViewById(R.id.uploadBack);
+        navBack = (ImageView) findViewById(R.id.imageView);
         checkFilePermissions();
 
         //------------------------------------------------------------
@@ -423,6 +423,8 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
             return;
         }
         progressDialog.setMessage("Uploading your Trash...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         user = firebaseAuth.getCurrentUser();

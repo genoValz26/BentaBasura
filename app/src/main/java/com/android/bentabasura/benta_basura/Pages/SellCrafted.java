@@ -155,7 +155,7 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
         imageView = (ImageButton) findViewById(R.id.UploadImageView);
         imageView.setOnClickListener(this);
 
-        navBack = (ImageView) findViewById(R.id.uploadBack);
+        navBack = (ImageView) findViewById(R.id.imageView);
 
         checkFilePermissions();
 
@@ -437,6 +437,8 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
         }
 
         progressDialog.setMessage("Uploading your Craft...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
         progressDialog.show();
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();

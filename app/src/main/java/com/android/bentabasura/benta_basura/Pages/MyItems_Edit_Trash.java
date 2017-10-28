@@ -342,6 +342,8 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             return;
         }
         progressDialog.setMessage("Uploading your Trash...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         user = firebaseAuth.getCurrentUser();
