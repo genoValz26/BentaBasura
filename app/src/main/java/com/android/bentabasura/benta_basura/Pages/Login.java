@@ -79,6 +79,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getApplicationContext().startService(new Intent(getApplicationContext(), FirebaseNotificationService.class));
+
         if(!getPersist() && savedInstanceState != null)
         {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -149,7 +151,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
         cd = new ConnectionDetector(this);
 
-        getApplicationContext().startService(new Intent(getApplicationContext(), FirebaseNotificationService.class));
 
         checkIfUserIsLogin(1);
 

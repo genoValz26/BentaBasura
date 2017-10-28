@@ -166,6 +166,7 @@
                 android:layout_width="280dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="14dp"
+                android:paddingLeft="33dp"
                 android:background="@drawable/spinner_syle"
                 android:layout_below="@+id/resourcesFrom"
                 android:layout_centerHorizontal="true" />
