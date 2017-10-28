@@ -95,7 +95,7 @@
             android:textSize="10sp"
             android:textStyle="bold" />
 
-            <Button
+            <!--<Button
                 android:id="@+id/btnEdit"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
@@ -104,7 +104,7 @@
                 android:drawableStart="@drawable/ic_border_color_white_18dp"
                 android:text="Edit"
                 android:layout_alignTop="@+id/tv11"
-                android:layout_alignEnd="@+id/btnInterested" />
+                android:layout_alignEnd="@+id/btnInterested" />-->
 
             <TextView
                 android:id="@+id/tv13"
@@ -137,6 +137,7 @@
                 android:layout_marginTop="5dp"
                 android:text=""
                 android:textSize="15sp"
+                android:layout_marginBottom="5dp"
                 android:textStyle="normal" />
 
             <TextView
@@ -162,28 +163,26 @@
                 android:layout_marginTop="16dp"
                 android:layout_below="@+id/textView6"
                 android:layout_centerHorizontal="true" />
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@layout/button_rounded"
+                android:drawableStart="@drawable/ic_border_color_white_18dp"
+                android:text="EDIT"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textView6"
+                android:layout_centerHorizontal="true" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryAccent"
-                android:text="Note"
-                android:layout_below="@+id/txtSellerInfoCraft"
-                android:layout_alignStart="@+id/txtSellerInfoCraft"
-                android:layout_toEndOf="@+id/txtSellerInfoCraft" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView5"
+                android:layout_below="@+id/txtSellerInfoCraft"
                 android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/txtSellerInfoCraft"
-                android:layout_alignStart="@+id/txtSellerInfoCraft"
+                android:layout_centerHorizontal="true"
                 android:text="Press interested button to view seller's contact."
                 android:textSize="10sp" />
 
@@ -191,21 +190,22 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/textView6"
-                android:layout_toStartOf="@+id/txtCraftQuantity"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryAccent"
-                android:text="Tutorials" />
+                android:text="Tutorials"
+                android:layout_alignBottom="@+id/tv12"
+                android:layout_toStartOf="@+id/txtCraftQuantity" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/txtUrl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv11"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/textView9"
                 android:text="Status"
-                android:textSize="10sp"
-                android:layout_above="@+id/textView6"
-                android:layout_toEndOf="@+id/textView6" />
+                android:textSize="10sp" />
 
 
         </RelativeLayout>

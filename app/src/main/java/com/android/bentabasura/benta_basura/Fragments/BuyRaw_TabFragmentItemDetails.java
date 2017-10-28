@@ -88,8 +88,8 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         txtTrashName.setText(receivedBundle.get("TrashName").toString());
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("TrashPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbRaw);
         txtTrashDescription.setText(receivedBundle.get("TrashDescription").toString());
-        txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString() + " Kg/s" );
-        txtTrashPrice.setText("Php " + receivedBundle.get("TrashPrice").toString() + ".00");
+        txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString());
+        txtTrashPrice.setText("Php " + receivedBundle.get("TrashPrice").toString());
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

@@ -6,9 +6,12 @@ package com.android.bentabasura.benta_basura.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,14 +45,14 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
-    TextView txtCraftName, txtCraftDescription, txtCraftQuantity, txtCraftPrice, txtSellerInfo, txtUploadedBy;
+    TextView txtCraftName, txtCraftDescription, txtCraftQuantity, txtCraftPrice, txtSellerInfo, txtUploadedBy,txtUrl;
     Button btnEdit,btnInterested;
     ImageView imgThumbCraft;
     Bundle receivedBundle;
     Intent receiveIntent,editCraftpage,detailsIntent,sellerdetailsIntent;
     DatabaseReference databaseReference, databaseReferenceNotif;
     Boolean found = false;
-
+    String theUrl;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_crafted, container, false);
@@ -69,7 +72,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtCraftPrice = (TextView) view.findViewById(R.id.txtCraftPrice);
         txtSellerInfo = (TextView) view.findViewById(R.id.tv14);
         txtUploadedBy = (TextView) view.findViewById(R.id.txtSellerInfoCraft);
-
+        txtUrl = (TextView) view.findViewById(R.id.txtUrl);
         editCraftpage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
         btnInterested = (Button) view.findViewById(R.id.btnInterested);
@@ -88,6 +91,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         btnEdit.setOnClickListener(this);
         btnInterested.setOnClickListener(this);
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         txtCraftName.setText(receivedBundle.get("CraftName").toString());
@@ -96,7 +100,25 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText("Php " + receivedBundle.get("CraftPrice").toString() + ".00");
 
+        /*
+        theUrl = receivedBundle.get("CraftResources").toString();
+        txtUrl.setClickable(true);
+        txtUrl.setMovementMethod(LinkMovementMethod.getInstance());
+        if(theUrl.equals("")){
+            txtUrl.setText("Not available");
+            txtUrl.setTextColor(Color.parseColor("#FF0000"));
+        }
+        else {
+            String a = "<a href='",
+                    b = theUrl,
+                    c = "'>",
+                    d = "Available",
+                    e = "</a>",
+                    available = a + b + c + d + e;
 
+            txtUrl.setText(Html.fromHtml(available));
+            txtUrl.setTextColor(Color.parseColor("#32CD32"));
+        }*/
         databaseReference.child("Users").child(receivedBundle.get("UploadedBy").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
