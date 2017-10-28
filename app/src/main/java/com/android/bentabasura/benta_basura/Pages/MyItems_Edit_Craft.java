@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
+import com.android.bentabasura.benta_basura.Models.Notification;
 import com.android.bentabasura.benta_basura.Models.Transaction_Craft;
 import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.R;
@@ -85,12 +86,12 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     String userid;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseReferenceNotif;
     StorageReference storageReference;
     String date;
     EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
     Button SubmitCraft,soldtbtn,deletebtn,btnEditQty;
-    String strcraftID,strcraftCategory,strImageUrl,strUploadedDate;
+    String strcraftID,strcraftCategory,strImageUrl,strUploadedDate, strUploadedBy;
     ProgressDialog progressDialog;
 
     TextView navFullName, navEmail;
@@ -154,7 +155,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         progressDialog = new ProgressDialog(this);
 
         //--------------------------------------------------------------
-
+        databaseReferenceNotif = FirebaseDatabase.getInstance().getReference().child("Notification");
 
         Bundle receiveBundle = getIntent().getExtras();
         strcraftID = receiveBundle.get("CraftID").toString();
@@ -173,6 +174,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 spnCraftCategory.setSelection(getIndex(spnCraftCategory, dataSnapshot.child("craftCategory").getValue().toString()));
                 strUploadedDate = dataSnapshot.child("uploadedDate").getValue().toString();
                 reverseDate = Long.parseLong(dataSnapshot.child("reverseDate").getValue().toString());
+                strUploadedBy = dataSnapshot.child("uploadedBy").getValue().toString();
             }
 
             @Override
@@ -530,6 +532,30 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 }
 
                 alertDialog.dismiss();
+
+                //Notification
+                String notifId = databaseReferenceNotif.push().getKey();
+                String location = "Craft" + ":" + strcraftCategory + ":" + strcraftID;
+                String message = "Thank you " + activeUser.getFullname() + " for purchasing Craft " + craftName + ". This is one big leap in helping our Environment.";
+                String ownerId =  activeUser.getUserId();
+                String profileId = strUploadedBy;
+
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String UploadedDate = sdf.format(currentTime);
+
+                Notification newNotif = new Notification();
+
+                newNotif.setNotifDbLink(location);
+                newNotif.setNotifMessage(message);
+                newNotif.setNotifOwnerId(ownerId);
+                newNotif.setNotifBy(profileId);
+                newNotif.setNotifRead("0");
+                newNotif.setNotifNotify("0");
+                newNotif.setNotifByPic(activeUser.getProfilePicture());
+                newNotif.setNotifDate(UploadedDate);
+
+                databaseReferenceNotif.child(notifId).setValue(newNotif);
 
             }
 
