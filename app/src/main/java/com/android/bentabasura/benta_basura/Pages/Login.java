@@ -270,6 +270,12 @@ public class Login extends AppCompatActivity implements OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+        progressDialog.setMessage("Signing In...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -282,6 +288,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
+                progressDialog.dismiss();
                 showMessage("Unable to Sign in using Google");
             }
         }
@@ -298,11 +305,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                         if (task.isSuccessful())
                         {
                             // Sign in success, update UI with the signed-in user's information
-
-                            progressDialog.setMessage("Signing In...");
-                            progressDialog.setIndeterminate(true);
-                            progressDialog.setCancelable(false);
-                            progressDialog.show();
 
                             FirebaseUser googleuser = firebaseAuth.getCurrentUser();
                             googleuserid = googleuser.getUid();
