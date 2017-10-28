@@ -455,6 +455,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         dialogBuilder.setTitle("Update Quanity");
         final AlertDialog  alertDialog = dialogBuilder.create();
         alertDialog.show();
+        editQty.setEnabled(false);
         editQty.setText(craftQty.getText().toString());
         updateQty.setOnClickListener(new View.OnClickListener() {
             @Override

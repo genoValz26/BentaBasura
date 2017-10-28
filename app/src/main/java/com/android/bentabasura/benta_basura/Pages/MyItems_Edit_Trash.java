@@ -139,6 +139,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         trashDesc = (EditText) findViewById(R.id.trashDesc);
         trashPrice = (EditText) findViewById(R.id.trashPrice);
         trashQty = (EditText) findViewById(R.id.trashQty);
+        trashQty.setEnabled(false);
         sellerContact = (EditText) findViewById(R.id.sellerContact);
 
         SubmitTrash = (Button) findViewById(R.id.SubmitTrash);
@@ -435,6 +436,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         dialogBuilder.setTitle("Update Quanity");
         final AlertDialog  alertDialog = dialogBuilder.create();
         alertDialog.show();
+        editQty.setEnabled(false);
         editQty.setText(trashQty.getText().toString());
         updateQty.setOnClickListener(new View.OnClickListener() {
             @Override

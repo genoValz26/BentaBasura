@@ -283,13 +283,14 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+                progressDialog.dismiss();
 
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
             }
         }
-        progressDialog.dismiss();
+
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
@@ -300,7 +301,8 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful())
+                        {
                             // Sign in success, update UI with the signed-in user's information
 
                             FirebaseUser googleuser = firebaseAuth.getCurrentUser();
@@ -313,7 +315,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.getValue() != null){
                                         startActivity(homePage);
-                                        progressDialog.dismiss();
                                     }
                                     else if(dataSnapshot.getValue() == null){
                                         Intent detailsIntent = new Intent(Login.this, custom_dialog_google_sign_in.class);
@@ -321,7 +322,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                         detailsIntent.putExtra("googleName",name);
                                         detailsIntent.putExtra("googleEmail",google_email);
                                         startActivity(detailsIntent);
-                                        progressDialog.dismiss();
                                     }
                                 }
 
@@ -330,6 +330,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
                                 }
                             });
+                            progressDialog.dismiss();
 
                             Log.d(TAG, "signInWithCredential:success");
 

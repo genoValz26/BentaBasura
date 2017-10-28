@@ -218,7 +218,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
             progressDialog.dismiss();
             return;
         }
-        else if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && mobileNum.length() < 11) {
+        else if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(cpassword) && !TextUtils.isEmpty(address) && (mobileNum.length() < 11 || mobileNum.length() > 11)) {
             txtMobileNum.setError("Mobile Number must be 11 digits!");
             progressDialog.dismiss();
             return;

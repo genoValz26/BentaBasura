@@ -39,7 +39,7 @@
 
     <string name="craftName">Craft Name</string>
     <string name="craftDesc">Description</string>
-    <string name="craftQuantity">Amount per item</string>
+    <string name="craftQuantity">Per item</string>
     <string name="craftPrice">Price</string>
     <string name="craftCategory">Category</string>
     <string name="trashName">Trash Name</string>

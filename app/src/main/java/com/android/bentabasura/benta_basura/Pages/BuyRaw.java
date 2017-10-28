@@ -63,7 +63,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     DatabaseReference databaseReference;
     ArrayList<Trash> trashArray =new ArrayList<>();
 
-    TextView navFullName, navEmail;
+    TextView navFullName, navEmail, txtEmpty;
     ImageView navImage;
     ActiveUser activeUser;
 
@@ -122,6 +122,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
         //----------------------------------------------------------------
         lstRecycle = (ListView) findViewById(R.id.lstRecycle);
+        txtEmpty = (TextView) findViewById(R.id.txtEmpty);
 
         Intent receivedIntent = getIntent();
         receivedBundle = receivedIntent.getExtras();
@@ -315,6 +316,16 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                         }
                         mProgressDialog.dismiss();
                     }
+                    if(trashArray.size() == 0){
+                        lstRecycle.setVisibility(View.INVISIBLE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        lstRecycle.setVisibility(View.VISIBLE);
+                        txtEmpty.setVisibility(View.INVISIBLE);
+                    }
+
 
 
                 }
@@ -380,6 +391,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                         }
                         mProgressDialog.dismiss();
                     }
+
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

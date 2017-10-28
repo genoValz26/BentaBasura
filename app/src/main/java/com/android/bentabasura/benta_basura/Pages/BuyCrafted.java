@@ -65,7 +65,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
     ArrayList<Craft> craftArray =new ArrayList<>();
     private int counter = 3;
 
-    TextView navFullName, navEmail;
+    TextView navFullName, navEmail, txtEmpty;
     ImageView navImage;
     ActiveUser activeUser;
 
@@ -126,6 +126,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
 
         //----------------------------------------------------------------
         lstCraft = (ListView) findViewById(R.id.lstCrafted);
+        txtEmpty = (TextView) findViewById(R.id.txtEmpty);
 
         Intent receivedIntent = getIntent();
         receivedBundle = receivedIntent.getExtras();
@@ -316,6 +317,15 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
                         }
                         mProgressDialog.dismiss();
                     }
+                    if(craftArray.size() == 0){
+                        lstCraft.setVisibility(View.INVISIBLE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        lstCraft.setVisibility(View.VISIBLE);
+                        txtEmpty.setVisibility(View.INVISIBLE);
+                    }
 
                 }
             }
@@ -374,6 +384,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
                             }
                         }
                         mProgressDialog.dismiss();
+
                     }
 
                     @Override
