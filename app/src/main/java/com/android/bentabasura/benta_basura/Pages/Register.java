@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.TextKeyListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
@@ -25,7 +24,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.Users;
@@ -249,10 +247,6 @@ public class Register extends AppCompatActivity implements OnClickListener {
                                 Users newUser = new Users(txtUser.getText().toString(), emailtxt.getText().toString(), gender, defaultPicUrl, "Member", txtAddress.getText().toString(), txtMobileNum.getText().toString());
                                 databaseReference.child("Users").child(userid).setValue(newUser);
                                 sendEmailVerification();
-                                firebaseAuth.signOut();
-                                progressDialog.dismiss();
-                                startActivity(loginPage);
-                                finishAndRemoveTask();
                                 return;
                             }
                             else {
@@ -271,10 +265,6 @@ public class Register extends AppCompatActivity implements OnClickListener {
                                         Users newUser = new Users(txtUser.getText().toString(), emailtxt.getText().toString(), gender, taskSnapshot.getDownloadUrl().toString(), "Member", txtAddress.getText().toString(), txtMobileNum.getText().toString());
                                         databaseReference.child("Users").child(userid).setValue(newUser);
                                         sendEmailVerification();
-                                        firebaseAuth.signOut();
-                                        progressDialog.dismiss();
-                                        startActivity(loginPage);
-                                        finishAndRemoveTask();
                                         return;
                                     }
                                 });
@@ -291,7 +281,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
     }
     public void sendEmailVerification()
     {
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null){
             user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -299,7 +289,9 @@ public class Register extends AppCompatActivity implements OnClickListener {
                     if(task.isSuccessful()){
                         showMessage("Check Email for Verification!");
                         FirebaseAuth.getInstance().signOut();
-                        progressDialog.dismiss();;
+                        progressDialog.dismiss();
+                        startActivity(loginPage);
+                        finishAndRemoveTask();
                     }
 
                 }

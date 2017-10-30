@@ -15,11 +15,71 @@
       },
       "oauth_client": [
         {
+          "client_id": "669632243845-oc7uu8eappko2jfnurp1i143fjbtkfah.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.bentabasura.benta_basura",
+            "certificate_hash": "d38871d70765afb24fb59e3c5ef66837a284658e"
+          }
+        },
+        {
           "client_id": "669632243845-uook6g5as6p73m0pnks6lguocnt6438m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.android.bentabasura.benta_basura",
             "certificate_hash": "c5e2d3c858002c0d1e3f7ae72353f60bbe0f74bf"
+          }
+        },
+        {
+          "client_id": "669632243845-am7i3oblfj5in1mhijvuandcdt6i7cev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFeDaYrDwYPMCZKHec5Qd7bEW8JZjmHQc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "669632243845-am7i3oblfj5in1mhijvuandcdt6i7cev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669632243845:android:ce949842132c66ef",
+        "android_client_info": {
+          "package_name": "com.uclm.bentabasura.benta_basura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "669632243845-sm6cdpuj3p0i7t1ff9jdpogpdvpn4mof.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uclm.bentabasura.benta_basura",
+            "certificate_hash": "c5e2d3c858002c0d1e3f7ae72353f60bbe0f74bf"
+          }
+        },
+        {
+          "client_id": "669632243845-6lq51j6e083q3b5lh40pqn1befap5eev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uclm.bentabasura.benta_basura",
+            "certificate_hash": "d38871d70765afb24fb59e3c5ef66837a284658e"
           }
         },
         {
