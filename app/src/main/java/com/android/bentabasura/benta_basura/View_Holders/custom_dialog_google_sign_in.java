@@ -30,8 +30,6 @@ import android.widget.Toast;
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.Pages.Home;
-import com.android.bentabasura.benta_basura.Pages.MyProfile;
-import com.android.bentabasura.benta_basura.Pages.MyProfile_Edit;
 import com.android.bentabasura.benta_basura.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -142,7 +140,7 @@ public class custom_dialog_google_sign_in extends AppCompatActivity implements V
                     else {
                         activeUser.setUserId(receivedBundle.get("googleUserId").toString());
                         if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
-                            final String defaultImage = " https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4";
+                            final String defaultImage = "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4";
                             Users updateUser = new Users(editFullname.getText().toString(), receivedBundle.get("googleEmail").toString(), "None", defaultImage, "Member", editAddress.getText().toString(), editContact.getText().toString());
                             databaseReference.child("Users").child(receivedBundle.get("googleUserId").toString()).setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

@@ -242,7 +242,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                                 } else if (femalebtn.isChecked()) {
                                     gender = "Female";
                                 }
-                                String defaultPicUrl = "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2F1508832816411.jpeg?alt=media&token=405f17d5-ecbf-46a2-8e8e-698c6a4a1ca1";
+                                String defaultPicUrl = "https://firebasestorage.googleapis.com/v0/b/benta-basura.appspot.com/o/Profile%2FbentaDefault.png?alt=media&token=a1dbed57-5061-4491-a2fb-56a8f728abc4";
                                 //handle followUri
                                 Users newUser = new Users(txtUser.getText().toString(), emailtxt.getText().toString(), gender, defaultPicUrl, "Member", txtAddress.getText().toString(), txtMobileNum.getText().toString());
                                 databaseReference.child("Users").child(userid).setValue(newUser);

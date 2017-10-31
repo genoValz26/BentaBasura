@@ -1,13 +1,10 @@
 package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
-import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -22,10 +19,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
-import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.Page_Adapters.MyIntroPageAdapter;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.Services.FirebaseNotificationService;
@@ -215,6 +210,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
                             return;
                         } else {
                             showMessage("Invalid Credentials");
+                            progressDialog.dismiss();
                             return;
                         }
                     }
