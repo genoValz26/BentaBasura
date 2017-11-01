@@ -171,11 +171,10 @@ public class Login extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.loginGoogle:
                 if (cd.isConnected()) {
-                    sighnInWithGoogle();
+                    signInWithGoogle();
                     //buildMyDialog(Login.this).show();
                 } else {
                     buildDialog(Login.this).show();
-                    finishAndRemoveTask();
                 }
                 break;
         }
@@ -258,7 +257,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    public void sighnInWithGoogle() {
+    public void signInWithGoogle() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }

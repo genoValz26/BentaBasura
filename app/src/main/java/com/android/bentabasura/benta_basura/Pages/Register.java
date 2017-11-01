@@ -291,11 +291,11 @@ public class Register extends AppCompatActivity implements OnClickListener {
                         FirebaseAuth.getInstance().signOut();
                         progressDialog.dismiss();
                         startActivity(loginPage);
-                        finishAndRemoveTask();
                     }
 
                 }
             });
+
         }
     }
     public String getImageExt(Uri uri)
