@@ -207,6 +207,27 @@
                 android:text="Status"
                 android:textSize="10sp" />
 
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:numStars="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView5"
+                android:layout_alignStart="@+id/txtCraftQuantity" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryAccent"
+                android:text="Rating"
+                android:layout_alignBaseline="@+id/txtCraftPrice"
+                android:layout_alignBottom="@+id/txtCraftPrice"
+                android:layout_alignStart="@+id/textView9" />
+
 
         </RelativeLayout>
     </TableLayout>

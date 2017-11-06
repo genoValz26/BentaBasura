@@ -172,6 +172,27 @@
                 android:layout_centerHorizontal="true"
                 android:text="Press interested button to view seller's contact." />
 
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryAccent"
+                android:text="Rating"
+                android:layout_alignBaseline="@+id/txtRawPrice"
+                android:layout_alignBottom="@+id/txtRawPrice"
+                android:layout_alignStart="@+id/textView13" />
+
+            <RatingBar
+                android:id="@+id/ratingBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:numStars="5"
+                android:layout_alignBottom="@+id/textView10"
+                android:layout_alignStart="@+id/txtRawQuantity" />
+
 
         </RelativeLayout>
     </TableLayout>

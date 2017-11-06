@@ -124,7 +124,7 @@
                 android:text="@string/Submit"
                 tools:layout_editor_absoluteX="134dp"
                 tools:layout_editor_absoluteY="497dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="49dp"
                 android:layout_below="@+id/spnTrashCategory"
                 android:layout_centerHorizontal="true" />
 
