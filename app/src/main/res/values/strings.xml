@@ -51,7 +51,7 @@
     <string name="sellerContact">Meetup Location...</string>
     <string name="Submit">Submit</string>
     <string name="link_register">Register Here</string>
-    <string name="GoogleSign">Sign in with Google</string>
+    <string name="GoogleSign">Login with Google</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="DescLabel">Description:</string>
