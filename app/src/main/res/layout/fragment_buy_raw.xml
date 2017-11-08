@@ -185,13 +185,15 @@
                 android:layout_alignStart="@+id/textView13" />
 
             <RatingBar
-                android:id="@+id/ratingBar2"
+                android:id="@+id/ratingBar"
+                android:scaleX=".5"
+                android:scaleY=".5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="?android:attr/ratingBarStyleSmall"
-                android:numStars="5"
                 android:layout_alignBottom="@+id/textView10"
-                android:layout_alignStart="@+id/txtRawQuantity" />
+                android:layout_toEndOf="@+id/textView13"
+                android:numStars="5"
+                android:stepSize=".5" />
 
 
         </RelativeLayout>

@@ -6,22 +6,19 @@ package com.android.bentabasura.benta_basura.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
-import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.Models.Notification;
 import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.Pages.MyItems_Edit_Craft;
@@ -36,7 +33,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -53,6 +49,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
     DatabaseReference databaseReference, databaseReferenceNotif;
     Boolean found = false;
     String theUrl;
+    RatingBar ratingBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_crafted, container, false);
@@ -76,6 +73,13 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         editCraftpage = new Intent(getActivity().getApplicationContext(),MyItems_Edit_Craft.class);
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
         btnInterested = (Button) view.findViewById(R.id.btnInterested);
+        ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
+                showMessage(String.valueOf(rating));
+            }
+        });
 
         activeUser = ActiveUser.getInstance();
 
