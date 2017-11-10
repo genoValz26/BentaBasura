@@ -39,8 +39,6 @@ import android.widget.Toast;
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.Models.Notification;
-import com.android.bentabasura.benta_basura.Models.Transaction_Craft;
-import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,7 +58,6 @@ import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -91,7 +88,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     String date;
     EditText craftName,craftDesc,craftQty,craftPrice,craftCategory,sellerContact,resourcesFrom;
     Button SubmitCraft,soldtbtn,deletebtn,btnEditQty;
-    String strcraftID,strcraftCategory,strImageUrl,strUploadedDate, strUploadedBy;
+    String strcraftID,strcraftCategory,strImageUrl,strUploadedDate, strUploadedBy, strCraftQty;
     ProgressDialog progressDialog;
 
     TextView navFullName, navEmail;
@@ -109,6 +106,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     ArrayAdapter<String> dataAdapter;
     SearchableSpinner soldTo;
     String key = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +168,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 craftDesc.setText(dataSnapshot.child("craftDescription").getValue().toString());
                 craftPrice.setText(dataSnapshot.child("craftPrice").getValue().toString());
                 craftQty.setText(dataSnapshot.child("craftQuantity").getValue().toString());
+                strCraftQty = dataSnapshot.child("craftQuantity").getValue().toString();
                 sellerContact.setText(dataSnapshot.child("sellerContact").getValue().toString());
                 resourcesFrom.setText(dataSnapshot.child("resourcesFrom").getValue().toString());
                 spnCraftCategory.setSelection(getIndex(spnCraftCategory, dataSnapshot.child("craftCategory").getValue().toString()));
@@ -458,6 +457,43 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         soldTo = (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
         final Button cancelSold= (Button) dialogView.findViewById(R.id.cancelSold);
+        final Button plusQty = (Button) dialogView.findViewById(R.id.plusQty);
+        final Button minusQty = (Button) dialogView.findViewById(R.id.minusQty);
+        final EditText editQty = (EditText) dialogView.findViewById(R.id.editQty);
+        editQty.setText(strCraftQty);
+
+        plusQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentqty = Integer.parseInt(editQty.getText().toString());
+                int newQty = currentqty + 1;
+                if(Integer.parseInt(craftQty.getText().toString()) < newQty){
+                    showMessage("Insufficient Quantity!");
+                    return;
+                }
+                else
+                {
+                    editQty.setText(Integer.toString(newQty));
+                    return;
+                }
+            }
+        });
+        minusQty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentqty = Integer.parseInt(editQty.getText().toString());
+                int newQty = currentqty - 1;
+                if(newQty == 0){
+                    editQty.setText(Integer.toString(1));
+                    return;
+                }
+                else{
+                    editQty.setText(Integer.toString(newQty));
+                    return;
+                }
+
+            }
+        });
 
         soldTo.setTitle("Interested Users");
         soldTo.setPositiveButton("OK");

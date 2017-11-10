@@ -21,8 +21,8 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_alignStart="@+id/cancelSold"
-        android:layout_below="@+id/soldTo"
-        android:layout_marginTop="11dp"
+        android:layout_below="@+id/editQty"
+        android:layout_marginTop="25dp"
         android:background="@layout/button_rounded"
         android:text="Submit" />
 
@@ -31,8 +31,8 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_below="@+id/submitSold"
-        android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
         android:background="@layout/button_rounded"
         android:text="Cancel" />
 
@@ -45,5 +45,39 @@
         android:layout_marginTop="5dp"
         android:text="Sell to Interested Users : Click Below"
         android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/editQty"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/soldTo"
+        android:textAlignment="center"
+        android:focusable="false"
+        android:textColorHighlight="@color/colorPrimaryAccent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorBackground2"
+        android:ems="10"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/plusQty"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/editQty"
+        android:layout_toEndOf="@+id/editQty"
+        android:background="@layout/button_rounded"
+        android:text="+"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/minusQty"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignStart="@+id/textView18"
+        android:layout_alignTop="@+id/editQty"
+        android:background="@layout/button_rounded"
+        android:text="-"
+        android:textSize="30dp" />
 
 </RelativeLayout>
