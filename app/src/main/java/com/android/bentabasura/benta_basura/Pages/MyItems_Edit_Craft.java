@@ -554,9 +554,10 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
             public void onClick(View view) {
                 if (soldTo.getSelectedItem().toString().equals(""))
                 {
-                    Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();;
+                    Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();
                 }
-                else {
+                else
+                {
                     databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("sold").setValue("1");
 
                     for (Map.Entry entry : mapUser.entrySet()) {
