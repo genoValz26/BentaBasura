@@ -2,14 +2,12 @@ package com.android.bentabasura.benta_basura.View_Holders;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.Craft;
@@ -75,7 +73,7 @@ public class custom_craftlist extends BaseAdapter {
         txtCraftPrice.setText("Php " + craft.get(position).getCraftPrice() + ".00");
 
 
-        if(craft.get(position).getSold().equals("1"))
+        if(craft.get(position).getCraftQuantity().equals("0"))
         {
             btnReadMore.setText("Sold Out - See Details");
             btnReadMore.setBackgroundColor(rowData.getResources().getColor(R.color.colorGoogle));

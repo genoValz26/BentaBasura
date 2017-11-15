@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.Models.Notification;
+import com.android.bentabasura.benta_basura.Models.Transaction;
 import com.android.bentabasura.benta_basura.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -550,16 +551,18 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         alertDialog.show();
 
         submitSold.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String UploadedDate = sdf.format(currentTime);
                 if (soldTo.getSelectedItem().toString().equals(""))
                 {
                     Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("sold").setValue("1");
-
                     for (Map.Entry entry : mapUser.entrySet()) {
                         if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
                             key = entry.getKey().toString();
@@ -567,10 +570,27 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                         }
                     }
 
-                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("soldTo").setValue(key);
+                   // databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("soldTo").setValue(key);
+
+                    Transaction craftTransaction = new Transaction(key.toString(),editQty.getText().toString(),UploadedDate);
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("Transaction").push().setValue(craftTransaction);
+
+                    int currentqty = Integer.parseInt(editQty.getText().toString());
+                    int newQty = Integer.parseInt(strCraftQty) - currentqty;
+                    if(newQty == 0)
+                    {
+                        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("sold").setValue("1");
+                        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("craftQuantity").setValue("0");
+
+                    }
+                    else{
+                        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("craftQuantity").setValue(newQty);
+                    }
+
                 }
 
-                alertDialog.dismiss();
+                startActivity(new Intent(MyItems_Edit_Craft.this,Home.class));
+                showMessage("Craft has been Sold!");
 
                 //Notification
                 String notifId = databaseReferenceNotif.push().getKey();
@@ -578,10 +598,6 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 String message = "Thank you " + mapUser.get(key) + " for purchasing Craft " + craftName.getText().toString() + ". This is one big leap in helping our Environment.";
                 String ownerId =  key;
                 String profileId = strUploadedBy;
-
-                Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                String UploadedDate = sdf.format(currentTime);
 
                 Notification newNotif = new Notification();
 

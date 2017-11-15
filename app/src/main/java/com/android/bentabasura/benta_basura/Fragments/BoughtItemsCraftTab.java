@@ -73,7 +73,7 @@ public class BoughtItemsCraftTab extends Fragment {
     {
         for(final String trashCat: craftCategory)
         {
-            databaseReferenceCraft.child(trashCat.toString()).addValueEventListener(new ValueEventListener()
+            databaseReferenceCraft.child(trashCat.toString()).child("Transaction").addValueEventListener(new ValueEventListener()
             {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot)
@@ -104,7 +104,7 @@ public class BoughtItemsCraftTab extends Fragment {
 
                                 if (craft.getCraftCategory().equals(trashCat.toString()))
                                 {
-                                    if (craft.getSold().equals("1") &&  craft.getSoldTo().equals(activeUser.getUserId())) {
+                                    if (craft.getSoldTo().equals(activeUser.getUserId())) {
 
                                         craft.setCraftID(postSnapShot.getKey().toString());
                                         craftArray.add(craft);
