@@ -73,7 +73,7 @@ public class BoughtItemsCraftTab extends Fragment {
     {
         for(final String trashCat: craftCategory)
         {
-            databaseReferenceCraft.child(trashCat.toString()).child("Transaction").addValueEventListener(new ValueEventListener()
+            databaseReferenceCraft.child(trashCat.toString()).addValueEventListener(new ValueEventListener()
             {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot)
@@ -100,17 +100,12 @@ public class BoughtItemsCraftTab extends Fragment {
 
                             if (!found)
                             {
-                                Craft craft = postSnapShot.getValue(Craft.class);
+                                final Craft craft = postSnapShot.getValue(Craft.class);
+                                craft.setCraftID(oldestPostId);
 
-                                if (craft.getCraftCategory().equals(trashCat.toString()))
-                                {
-                                    if (craft.getSoldTo().equals(activeUser.getUserId())) {
+                                craftArray.add(craft);
+                                customCraftAdapter.notifyDataSetChanged();
 
-                                        craft.setCraftID(postSnapShot.getKey().toString());
-                                        craftArray.add(craft);
-                                        customCraftAdapter.notifyDataSetChanged();
-                                    }
-                                }
                             }
                         }
                         mProgressDialog.dismiss();
@@ -135,4 +130,6 @@ public class BoughtItemsCraftTab extends Fragment {
         }
 
     }
+
+
 }
