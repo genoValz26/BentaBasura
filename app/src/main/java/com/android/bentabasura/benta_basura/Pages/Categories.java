@@ -38,7 +38,7 @@ public class Categories extends AppCompatActivity implements View.OnClickListene
     private GoogleApiClient mGoogleApiClient;
     Button btnPaper, btnPlastic, btnWood, btnMetal;
     Intent rawIntent;
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems, loginpage;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems, loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -82,6 +82,7 @@ public class Categories extends AppCompatActivity implements View.OnClickListene
         historyPage = new Intent(Categories.this, BoughtItems.class);
         myItems = new Intent(Categories.this, MyItems.class);
         loginpage = new Intent(Categories.this, Login.class);
+        reservedItems = new Intent(Categories.this, ReservedItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -177,6 +178,10 @@ public class Categories extends AppCompatActivity implements View.OnClickListene
                     break;
                 case R.id.nav_my_items:
                     startActivity(myItems);
+                    drawer.closeDrawer(GravityCompat.START);
+                    break;
+                case R.id.nav_reserved_items:
+                    startActivity(reservedItems);
                     drawer.closeDrawer(GravityCompat.START);
                     break;
                 case R.id.buy:

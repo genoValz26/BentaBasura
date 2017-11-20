@@ -66,7 +66,7 @@ import java.util.Date;
 
 public class SellRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -111,7 +111,8 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
         cartPage = new Intent(SellRaw.this,Cart.class);
         historyPage = new Intent(SellRaw.this,BoughtItems.class);
         myItems = new Intent(SellRaw.this,MyItems.class);
-       loginpage = new Intent(SellRaw.this,Login.class);
+        loginpage = new Intent(SellRaw.this,Login.class);
+        reservedItems = new Intent(SellRaw.this,ReservedItems.class);
         //---------------------------------------------------------
         spnTrashCategory = (Spinner) findViewById(R.id.spnTrashCategory);
 
@@ -211,6 +212,10 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
                 break;
             case R.id.nav_my_items:
                 startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_reserved_items:
+                startActivity(reservedItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

@@ -6,7 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -15,12 +19,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
+import com.android.bentabasura.benta_basura.Page_Adapters.PageAdapterReservedItems;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.Utils.RoundedTransformation;
 import com.google.android.gms.auth.api.Auth;
@@ -30,29 +34,37 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by reymond on 13/10/2017.
- */
 
-public class Craft_Categories extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
-    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems, loginpage;
+public class ReservedItems extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
+    private String oldestPostId;
     TextView navFullName, navEmail;
     ImageView navImage;
     ActiveUser activeUser;
-    Button btnDecoratons, btnFurniture, btnProjects, btnAccessories;
-    Intent craftIntent;
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth  firebaseAuth;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_craft_categories_main);
+        setContentView(R.layout.activity_reservation);
 
         //set persist to true
         Login.setPersist(true);
@@ -60,42 +72,60 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnDecoratons = (Button) findViewById(R.id.btnDecorations);
-        btnFurniture = (Button) findViewById(R.id.btnFurniture);
-        btnProjects = (Button) findViewById(R.id.btnProjects);
-        btnAccessories = (Button) findViewById(R.id.btnAccessories);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Trash"));
+        tabLayout.addTab(tabLayout.newTab().setText("Craft"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        btnDecoratons.setOnClickListener(this);
-        btnFurniture.setOnClickListener(this);
-        btnProjects.setOnClickListener(this);
-        btnAccessories.setOnClickListener(this);
 
-        profilePage = new Intent(Craft_Categories.this, MyProfile.class);
-        buyCrafted = new Intent(Craft_Categories.this, Craft_Categories.class);
-        buyRaw = new Intent(Craft_Categories.this, Categories.class);
-        sellCrafted = new Intent(Craft_Categories.this, SellCrafted.class);
-        sellRaw = new Intent(Craft_Categories.this, SellRaw.class);
-        notificationsPage = new Intent(Craft_Categories.this, Notifications.class);
-        homePage = new Intent(Craft_Categories.this, Home.class);
-        cartPage = new Intent(Craft_Categories.this, Cart.class);
-        historyPage = new Intent(Craft_Categories.this, BoughtItems.class);
-        myItems = new Intent(Craft_Categories.this, MyItems.class);
-        loginpage = new Intent(Craft_Categories.this, Login.class);
-        reservedItems = new Intent(Craft_Categories.this, ReservedItems.class);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PageAdapterReservedItems(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+        profilePage = new Intent(ReservedItems.this, MyProfile.class);
+        buyCrafted = new Intent(ReservedItems.this, Craft_Categories.class);
+        buyRaw = new Intent(ReservedItems.this, Categories.class);
+        sellCrafted = new Intent(ReservedItems.this, SellCrafted.class);
+        sellRaw = new Intent(ReservedItems.this, SellRaw.class);
+        notificationsPage = new Intent(ReservedItems.this, Notifications.class);
+        homePage = new Intent(ReservedItems.this,Home.class);
+        cartPage = new Intent(ReservedItems.this,Cart.class);
+        historyPage = new Intent(ReservedItems.this,BoughtItems.class);
+        myItems = new Intent(ReservedItems.this,MyItems.class);
+        loginpage = new Intent(ReservedItems.this,Login.class);
+        reservedItems = new Intent(ReservedItems.this,ReservedItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        craftIntent = new Intent(Craft_Categories.this, BuyCrafted.class);
-        //----------------------------------------------------------------
+
         activeUser = ActiveUser.getInstance();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
+        navImage = (ImageView) headerView.findViewById(R.id.imageView);
         navFullName = (TextView) headerView.findViewById(R.id.txtFullNameMenu);
         navEmail = (TextView) headerView.findViewById(R.id.txtEmailMenu);
-        navImage = (ImageView) headerView.findViewById(R.id.imageView);
 
         navFullName.setText(activeUser.getFullname());
         navEmail.setText(activeUser.getEmail());
@@ -123,33 +153,6 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnDecorations: {
-                craftIntent.putExtra("Category", "Decoration");
-                startActivity(craftIntent);
-                break;
-            }
-            case R.id.btnFurniture: {
-                craftIntent.putExtra("Category", "Furniture");
-                startActivity(craftIntent);
-                break;
-            }
-            case R.id.btnProjects: {
-                craftIntent.putExtra("Category", "Projects");
-                startActivity(craftIntent);
-                break;
-            }
-            case R.id.btnAccessories:{
-                craftIntent.putExtra("Category", "Accessories");
-                startActivity(craftIntent);
-                break;
-            }
-
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -160,7 +163,7 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch (item.getItemId()){
             case R.id.menuNotification:
                 startActivity(notificationsPage);
                 break;
@@ -186,11 +189,12 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:
-                if (navMenu.findItem(R.id.buy).getTitle().equals("Buy                                        +")) {
+                if(navMenu.findItem(R.id.buy).getTitle().equals("Buy                                        +")) {
                     navMenu.findItem(R.id.buy_crafted).setVisible(true);
                     navMenu.findItem(R.id.buy_raw).setVisible(true);
                     navMenu.findItem(R.id.buy).setTitle("Buy                                        -");
-                } else {
+                }
+                else{
                     navMenu.findItem(R.id.buy_crafted).setVisible(false);
                     navMenu.findItem(R.id.buy_raw).setVisible(false);
                     navMenu.findItem(R.id.buy).setTitle("Buy                                        +");
@@ -205,11 +209,12 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.sell:
-                if (navMenu.findItem(R.id.sell).getTitle().equals("Sell                                        +")) {
+                if(navMenu.findItem(R.id.sell).getTitle().equals("Sell                                        +")) {
                     navMenu.findItem(R.id.sell_crafted).setVisible(true);
                     navMenu.findItem(R.id.sell_raw).setVisible(true);
                     navMenu.findItem(R.id.sell).setTitle("Sell                                        -");
-                } else {
+                }
+                else{
                     navMenu.findItem(R.id.sell_crafted).setVisible(false);
                     navMenu.findItem(R.id.sell_raw).setVisible(false);
                     navMenu.findItem(R.id.sell).setTitle("Sell                                        +");
@@ -237,7 +242,6 @@ public class Craft_Categories extends AppCompatActivity implements View.OnClickL
         }
         return true;
     }
-
     public void logout() {
 
         buildDialog(this).show();

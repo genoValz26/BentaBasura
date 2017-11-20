@@ -47,7 +47,7 @@ import java.io.File;
 
 public class MyProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage,editprofile,myItems;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,loginpage,editprofile,myItems;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -95,6 +95,7 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
         loginpage = new Intent(MyProfile.this,Login.class);
         editprofile = new Intent(MyProfile.this,MyProfile_Edit.class);
         myItems = new Intent(MyProfile.this,MyItems.class);
+        reservedItems = new Intent(MyProfile.this,ReservedItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -195,6 +196,10 @@ public class MyProfile extends AppCompatActivity implements NavigationView.OnNav
                 break;
             case R.id.nav_my_items:
                 startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_reserved_items:
+                startActivity(reservedItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

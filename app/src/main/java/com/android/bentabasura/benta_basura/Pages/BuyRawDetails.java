@@ -48,7 +48,7 @@ public class BuyRawDetails extends AppCompatActivity implements NavigationView.O
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems,loginpage;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -109,6 +109,8 @@ public class BuyRawDetails extends AppCompatActivity implements NavigationView.O
         historyPage = new Intent(BuyRawDetails.this, BoughtItems.class);
         myItems = new Intent(BuyRawDetails.this, MyItems.class);
         loginpage = new Intent(BuyRawDetails.this, Login.class);
+        reservedItems = new Intent(BuyRawDetails.this, ReservedItems.class);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -179,6 +181,10 @@ public class BuyRawDetails extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_my_items:
                 startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_reserved_items:
+                startActivity(reservedItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

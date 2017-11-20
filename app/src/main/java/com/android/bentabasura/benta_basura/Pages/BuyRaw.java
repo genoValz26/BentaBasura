@@ -49,7 +49,7 @@ import java.util.Collections;
 
 public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
 	FirebaseAuth firebaseAuth;
     private ActionBarDrawerToggle toggle;
@@ -100,6 +100,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         historyPage = new Intent(BuyRaw.this,BoughtItems.class);
         myItems = new Intent(BuyRaw.this,MyItems.class);
         loginpage = new Intent(BuyRaw.this,Login.class);
+        reservedItems = new Intent(BuyRaw.this,ReservedItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -211,6 +212,10 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 break;
             case R.id.nav_my_items:
                 startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_reserved_items:
+                startActivity(reservedItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

@@ -52,7 +52,7 @@ import java.util.ArrayList;
 
 public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,OnScrollListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -102,6 +102,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
         historyPage = new Intent(BuyCrafted.this,BoughtItems.class);
         myItems = new Intent(BuyCrafted.this,MyItems.class);
         loginpage = new Intent(BuyCrafted.this,Login.class);
+        reservedItems = new Intent(BuyCrafted.this,ReservedItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -213,6 +214,10 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
                 break;
             case R.id.nav_my_items:
                 startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_reserved_items:
+                startActivity(reservedItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

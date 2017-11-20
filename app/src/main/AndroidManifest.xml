@@ -75,7 +75,7 @@
             android:theme="@style/customProfileDialog"/>
 
         <activity android:name=".Pages.MyItems" />
-
+        <activity android:name=".Pages.ReservedItems" />
         <activity android:name=".Pages.MyItems_Edit_Craft"
             android:theme="@style/customEditDialog"
             />

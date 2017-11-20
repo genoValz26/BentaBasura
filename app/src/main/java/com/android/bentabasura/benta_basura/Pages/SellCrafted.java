@@ -68,7 +68,7 @@ import java.util.Date;
 
 public class SellCrafted extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -120,6 +120,7 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
         historyPage = new Intent(SellCrafted.this,BoughtItems.class);
         myItems = new Intent(SellCrafted.this,MyItems.class);
         loginpage = new Intent(SellCrafted.this,Login.class);
+        reservedItems = new Intent(SellCrafted.this,ReservedItems.class);
 
         //--------------------------------------------------------------
         spnCraftCategory = (Spinner) findViewById(R.id.spnCraftCategory);
@@ -217,6 +218,10 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
                 break;
             case R.id.nav_my_items:
                 startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_reserved_items:
+                startActivity(reservedItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

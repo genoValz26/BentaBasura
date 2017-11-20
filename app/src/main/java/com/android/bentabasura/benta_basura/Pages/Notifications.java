@@ -45,7 +45,7 @@ import java.util.Date;
 
 public class Notifications extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -84,6 +84,8 @@ public class Notifications extends AppCompatActivity implements NavigationView.O
         historyPage = new Intent(Notifications.this,BoughtItems.class);
         myItems = new Intent(Notifications.this,MyItems.class);
         loginpage = new Intent(Notifications.this,Login.class);
+        reservedItems = new Intent(Notifications.this,ReservedItems.class);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -167,6 +169,10 @@ public class Notifications extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_my_items:
                 startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_reserved_items:
+                startActivity(reservedItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:

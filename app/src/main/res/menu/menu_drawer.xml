@@ -21,6 +21,10 @@
             android:icon="@mipmap/ic_my_items_24dp"
             android:title="My Items" />
 
+        <item android:id="@+id/nav_reserved_items"
+            android:icon="@drawable/ic_save_black_18dp"
+            android:title="Reserved Items" />
+
         <item
             android:id="@+id/history"
             android:icon="@mipmap/ic_history_black_24dp"

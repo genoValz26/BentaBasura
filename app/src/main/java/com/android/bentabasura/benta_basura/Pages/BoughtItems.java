@@ -49,7 +49,7 @@ public class BoughtItems extends AppCompatActivity
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private Intent profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
+    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
@@ -112,6 +112,7 @@ public class BoughtItems extends AppCompatActivity
         historyPage = new Intent(BoughtItems.this,BoughtItems.class);
         myItems = new Intent(BoughtItems.this,MyItems.class);
         loginpage = new Intent(BoughtItems.this,Login.class);
+        reservedItems = new Intent(BoughtItems.this,ReservedItems.class);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -179,6 +180,10 @@ public class BoughtItems extends AppCompatActivity
                 break;
             case R.id.nav_my_items:
                 startActivity(myItems);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.nav_reserved_items:
+                startActivity(reservedItems);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:
