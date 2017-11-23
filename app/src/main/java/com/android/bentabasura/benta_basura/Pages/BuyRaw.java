@@ -19,9 +19,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +49,7 @@ import com.webianks.library.PopupBubble;
 import java.util.ArrayList;
 
 
-public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener {
+public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener, AdapterView.OnItemSelectedListener {
 
     private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
     private DrawerLayout drawer;
@@ -75,7 +78,8 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
     Bundle receivedBundle;
     private GoogleApiClient mGoogleApiClient;
-
+    private Spinner spnFilter;
+    private String selectedFilter;
     PopupBubble popupBubble;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +110,15 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        //---------------------------------------------------------
+        spnFilter = (Spinner) findViewById(R.id.spnr);
+
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(this,R.array.filter_array,android.R.layout.simple_spinner_dropdown_item);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnFilter.setAdapter(adapterCategory);
+        spnFilter.setOnItemSelectedListener(this);
+
+        //----------------------------------------------------------
         //----------------------------------------------------------------
         activeUser = ActiveUser.getInstance();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -427,5 +440,20 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         });
 
         return builder;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Spinner theSpinner = (Spinner) adapterView;
+        switch(theSpinner.getId()){
+            case R.id.spnr:
+                selectedFilter = theSpinner.getItemAtPosition(i).toString();
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
