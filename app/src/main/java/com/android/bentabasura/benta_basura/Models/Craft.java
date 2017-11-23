@@ -5,28 +5,28 @@ package com.android.bentabasura.benta_basura.Models;
  */
 
 public class Craft {
-    private String craftID,craftName,craftQuantity,craftPrice,craftDescription,craftCategory,sellerContact,uploadedBy,uploadedDate,resourcesFrom,imageUrl;
-    private String sold;
-    private String soldTo;
+    private String craftID,craftName,craftQuantity,craftPrice,craftDescription,craftCategory,meetupLocation,uploadedBy,uploadedDate,resourcesFrom,imageUrl;
+    private String flag;
+    private String flagTo;
     private long   reverseDate;
 
     public Craft()
     {
 
     }
-    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String sellerContact, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,String sold, String soldTo, Long reverseDate){
+    public Craft(String craftName,String craftQuantity,String craftPrice,String craftDescription,String craftCategory, String meetupLocation, String uploadedBy,String uploadedDate,String resourcesFrom,String imageUrl,String flag, String flagTo, Long reverseDate){
         this.craftName = craftName;
         this.craftQuantity = craftQuantity;
         this.craftPrice = craftPrice;
         this.craftDescription = craftDescription;
         this.craftCategory = craftCategory;
-        this.sellerContact = sellerContact;
+        this.meetupLocation = meetupLocation;
         this.uploadedBy = uploadedBy;
         this.uploadedDate = uploadedDate;
         this.resourcesFrom = resourcesFrom;
         this.imageUrl = imageUrl;
-        this.sold = sold;
-        this.soldTo = soldTo;
+        this.flag = flag;
+        this.flagTo = flagTo;
         this.reverseDate = reverseDate;
     }
 
@@ -86,12 +86,12 @@ public class Craft {
         this.craftCategory = craftCategory;
     }
 
-    public String getSellerContact() {
-        return sellerContact;
+    public String getmeetupLocation() {
+        return meetupLocation;
     }
 
-    public void setSellerContact(String sellerContact) {
-        this.sellerContact = sellerContact;
+    public void setmeetupLocation(String meetupLocation) {
+        this.meetupLocation = meetupLocation;
     }
 
     public String getResourcesFrom() {
@@ -118,20 +118,20 @@ public class Craft {
         this.craftID = craftID;
     }
 
-    public String getSold() {
-        return sold;
+    public String getflag() {
+        return flag;
     }
 
-    public void setSold(String sold) {
-        this.sold = sold;
+    public void setflag(String flag) {
+        this.flag = flag;
     }
 
-    public String getSoldTo() {
-        return soldTo;
+    public String getflagTo() {
+        return flagTo;
     }
 
-    public void setSoldTo(String soldTo) {
-        this.soldTo = soldTo;
+    public void setflagTo(String flagTo) {
+        this.flagTo = flagTo;
     }
 
     public long getReverseDate() {

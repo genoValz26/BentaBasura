@@ -44,7 +44,6 @@ import com.squareup.picasso.Picasso;
 import com.webianks.library.PopupBubble;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener {
@@ -300,7 +299,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                             Trash trash = postSnapShot.getValue(Trash.class);
 
                             if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                                if (trash.getSold().equals("0")) {
+                                if (trash.getflag().equals("0")) {
 
                                     for (Trash itemTrash : trashArray) {
                                         if (!TextUtils.isEmpty(itemTrash.getTrashId()) && !TextUtils.isEmpty(oldestPostId)) {
@@ -386,7 +385,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
                                 Trash trash = postSnapShot.getValue(Trash.class);
                                 if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                                    if ( trash.getSold().equals("0") ) {
+                                    if ( trash.getflag().equals("0") ) {
                                         trash.setTrashId(postSnapShot.getKey().toString());
                                         trashArray.add(trash);
                                     }

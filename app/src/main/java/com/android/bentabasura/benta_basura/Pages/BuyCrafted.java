@@ -14,7 +14,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +27,6 @@ import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
-import com.android.bentabasura.benta_basura.Models.Trash;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.Utils.RoundedTransformation;
 import com.android.bentabasura.benta_basura.View_Holders.custom_craftlist;
@@ -44,8 +42,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.webianks.library.PopupBubble;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -311,7 +307,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
                                 Craft craft = postSnapShot.getValue(Craft.class);
 
                                 if (craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
-                                    if ( craft.getSold().equals("0") ) {
+                                    if ( craft.getflag().equals("0") ) {
                                         craft.setCraftID(postSnapShot.getKey().toString());
                                         craftArray.add(craft);
                                         customAdapter.notifyDataSetChanged();
@@ -385,7 +381,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
                                 Craft craft = postSnapShot.getValue(Craft.class);
 
                                 if (craft.getCraftCategory().equals(receivedBundle.get("Category"))) {
-                                    if ( craft.getSold().equals("0") ) {
+                                    if ( craft.getflag().equals("0") ) {
                                         craft.setCraftID(postSnapShot.getKey().toString());
                                         craftArray.add(craft);
                                         customAdapter.notifyDataSetChanged();

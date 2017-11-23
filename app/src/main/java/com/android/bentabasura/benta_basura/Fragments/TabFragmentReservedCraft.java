@@ -23,8 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -97,16 +95,11 @@ public class TabFragmentReservedCraft extends Fragment {
 
                             if (!found)
                             {
-                                Craft craft = postSnapShot.getValue(Craft.class);
-
-                                if (craft.getCraftCategory().equals(trashCat.toString()))
-                                {
-                                    if (craft.getUploadedBy().equals(activeUser.getUserId())) {
-
-                                        craft.setCraftID(postSnapShot.getKey().toString());
-                                        craftArray.add(craft);
-                                        customCraftAdapter.notifyDataSetChanged();
-                                    }
+                                final Craft craft = postSnapShot.getValue(Craft.class);
+                                if (craft.getflag().equals("2") && craft.getflagTo().equals(activeUser.getUserId())) {
+                                    craft.setCraftID(oldestPostId);
+                                    craftArray.add(craft);
+                                    customCraftAdapter.notifyDataSetChanged();
                                 }
                             }
                         }

@@ -5,11 +5,37 @@ package com.android.bentabasura.benta_basura.Models;
  */
 
 public class Transaction {
-    private String soldTo, soldQty, craftAmount,transation_Date;
-    public Transaction(String soldTo, String soldQty, String transaction_Date){
-        this.soldTo =  soldTo;
-        this.soldQty = soldQty;
-        this.transation_Date = transaction_Date;
+    private String soldTo, soldQty,sellerId,transaction_Date, itemId;
+
+    public Transaction(String soldTo, String sellerId, String transaction_Date, String itemId) {
+        this.soldTo = soldTo;
+        this.sellerId = sellerId;
+        this.transaction_Date = transaction_Date;
+        this.itemId = itemId;
+    }
+
+    public void setItemId(String itemId) {
+
+        this.itemId = itemId;
+    }
+    public String getItemId() {
+        return itemId;
+    }
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public String getTransaction_Date() {
+        return transaction_Date;
+    }
+
+    public void setTransaction_Date(String transaction_Date) {
+        this.transaction_Date = transaction_Date;
     }
 
     public String getSoldTo() {
@@ -27,11 +53,5 @@ public class Transaction {
     public void setSoldTo(String soldTo) {
         this.soldTo = soldTo;
     }
-    public String getTransation_Date() {
-        return transation_Date;
-    }
 
-    public void setTransation_Date(String transation_Date) {
-        this.transation_Date = transation_Date;
-    }
 }

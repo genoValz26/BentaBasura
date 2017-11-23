@@ -96,16 +96,12 @@ public class TabFragmentReservedTrash extends Fragment {
                             if (!found)
                             {
                                 Trash trash = postSnapShot.getValue(Trash.class);
-
-                                if (trash.getTrashCategory().equals(trashCat.toString()))
-                                {
-                                    if (trash.getUploadedBy().equals(activeUser.getUserId()))
-                                    {
+                                if (trash.getflag().equals("2") && trash.getflagTo().equals(activeUser.getUserId())) {
                                         trash.setTrashId(postSnapShot.getKey().toString());
                                         trashArray.add(trash);
                                         customTrashAdapter.notifyDataSetChanged();
                                     }
-                                }
+
                             }
                         }
                         mProgressDialog.dismiss();

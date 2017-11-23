@@ -20,11 +20,12 @@
         android:id="@+id/submitSold"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_alignStart="@+id/cancelSold"
-        android:layout_below="@+id/editQty"
-        android:layout_marginTop="25dp"
+        android:layout_alignStart="@+id/textView18"
+        android:layout_below="@+id/soldTo"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="29dp"
         android:background="@layout/button_rounded"
-        android:text="Submit" />
+        android:text="Sold" />
 
     <Button
         android:id="@+id/cancelSold"
@@ -46,38 +47,14 @@
         android:text="Sell to Interested Users : Click Below"
         android:textSize="15dp" />
 
-    <EditText
-        android:id="@+id/editQty"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/soldTo"
-        android:textAlignment="center"
-        android:focusable="false"
-        android:textColorHighlight="@color/colorPrimaryAccent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:background="@color/colorBackground2"
-        android:ems="10"
-        android:inputType="phone" />
-
     <Button
-        android:id="@+id/plusQty"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/editQty"
-        android:layout_toEndOf="@+id/editQty"
+        android:id="@+id/reservebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cancelSold"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/submitSold"
         android:background="@layout/button_rounded"
-        android:text="+"
-        android:textSize="30dp" />
-
-    <Button
-        android:id="@+id/minusQty"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignStart="@+id/textView18"
-        android:layout_alignTop="@+id/editQty"
-        android:background="@layout/button_rounded"
-        android:text="-"
-        android:textSize="30dp" />
+        android:text="Reserve" />
 
 </RelativeLayout>

@@ -425,6 +425,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         soldTo = (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
         final Button cancelSold = (Button) dialogView.findViewById(R.id.cancelSold);
+        final Button reservebtn = (Button) dialogView.findViewById(R.id.reservebtn);
         soldTo.setTitle("Interested Users");
         soldTo.setPositiveButton("OK");
         arrInterested = new ArrayList<>();
@@ -487,7 +488,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                     Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();;
                 }
                 else {
-                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("sold").setValue("1");
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("flag").setValue("1");
 
                     for (Map.Entry entry : mapUser.entrySet()) {
                         if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
@@ -496,7 +497,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                         }
                     }
 
-                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("soldTo").setValue(key);
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("flagTo").setValue(key);
                 }
 
                 alertDialog.dismiss();
@@ -525,6 +526,54 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
 
                 databaseReferenceNotif.child(notifId).setValue(newNotif);
 
+            }
+        });
+        reservebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String UploadedDate = sdf.format(currentTime);
+                if (soldTo.getSelectedItem().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("flag").setValue("2");
+                    for (Map.Entry entry : mapUser.entrySet()) {
+                        if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
+                            key = entry.getKey().toString();
+                            break; //breaking because its one to one map
+                        }
+                    }
+
+                    databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("flagTo").setValue(key);
+
+                }
+
+                startActivity(new Intent(MyItems_Edit_Trash.this,Home.class));
+                showMessage("Trash has been Reserved!");
+
+                //Notification
+                String notifId = databaseReferenceNotif.push().getKey();
+                String location = "Craft" + ":" + strTrashCategory + ":" + strTrashId;
+                String message = "Hi " + mapUser.get(key) + " the " + trashName.getText().toString() + " has been reserved to you.";
+                String ownerId =  key;
+                String profileId = strUploadedBy;
+
+                Notification newNotif = new Notification();
+
+                newNotif.setNotifDbLink(location);
+                newNotif.setNotifMessage(message);
+                newNotif.setNotifOwnerId(ownerId);
+                newNotif.setNotifBy(profileId);
+                newNotif.setNotifRead("0");
+                newNotif.setNotifNotify("0");
+                newNotif.setNotifByPic(activeUser.getProfilePicture());
+                newNotif.setNotifDate(UploadedDate);
+
+                databaseReferenceNotif.child(notifId).setValue(newNotif);
             }
         });
         cancelSold.setOnClickListener(new View.OnClickListener() {

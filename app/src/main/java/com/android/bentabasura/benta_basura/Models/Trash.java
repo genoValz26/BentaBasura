@@ -11,12 +11,12 @@ public class Trash {
     private String trashPrice;
     private String trashDescription;
     private String trashCategory;
-    private String sellerContact;
+    private String meetupLocation;
     private String uploadedBy;
     private String uploadedDate;
     private String imageUrl;
-    private String sold;
-    private String soldTo;
+    private String flag;
+    private String flagTo;
 
     private long   reverseDate;
 
@@ -24,19 +24,19 @@ public class Trash {
     {
 
     }
-    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String sellerContact, String uploadedBy,String uploadedDate,String imageUrl, String sold, String soldTo, long reverseDate)
+    public Trash(String trashName,String trashQuantity,String trashPrice,String trashDescription,String trashCategory, String meetupLocation, String uploadedBy,String uploadedDate,String imageUrl, String flag, String flagTo, long reverseDate)
     {
         this.trashName = trashName;
         this.trashQuantity = trashQuantity;
         this.trashPrice = trashPrice;
         this.trashDescription = trashDescription;
         this.trashCategory = trashCategory;
-        this.sellerContact = sellerContact;
+        this.meetupLocation = meetupLocation;
         this.uploadedBy = uploadedBy;
         this.uploadedDate = uploadedDate;
         this.imageUrl = imageUrl;
-        this.sold = sold;
-        this.soldTo = soldTo;
+        this.flag = flag;
+        this.flagTo = flagTo;
         this.reverseDate = reverseDate;
     }
 
@@ -80,12 +80,12 @@ public class Trash {
         this.trashCategory = trashCategory;
     }
 
-    public String getSellerContact() {
-        return sellerContact;
+    public String getmeetupLocation() {
+        return meetupLocation;
     }
 
-    public void setSellerContact(String sellerContact) {
-        this.sellerContact = sellerContact;
+    public void setmeetupLocation(String meetupLocation) {
+        this.meetupLocation = meetupLocation;
     }
 
     public String getUploadedBy() {
@@ -112,12 +112,12 @@ public class Trash {
         this.imageUrl = imageUrl;
     }
 
-    public String getSold() {
-        return sold;
+    public String getflag() {
+        return flag;
     }
 
-    public void setSold(String sold) {
-        this.sold = sold;
+    public void setflag(String flag) {
+        this.flag = flag;
     }
 
     public String getTrashId() {
@@ -128,12 +128,12 @@ public class Trash {
         this.trashId = trashId;
     }
 
-    public String getSoldTo() {
-        return soldTo;
+    public String getflagTo() {
+        return flagTo;
     }
 
-    public void setSoldTo(String soldTo) {
-        this.soldTo = soldTo;
+    public void setflagTo(String flagTo) {
+        this.flagTo = flagTo;
     }
 
     public long getReverseDate() {

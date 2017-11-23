@@ -73,10 +73,14 @@ public class custom_craftlist extends BaseAdapter {
         txtCraftPrice.setText("Php " + craft.get(position).getCraftPrice() + ".00");
 
 
-        if(craft.get(position).getCraftQuantity().equals("0"))
+        if(craft.get(position).getflag().equals("1"))
         {
             btnReadMore.setText("Sold Out - See Details");
             btnReadMore.setBackgroundColor(rowData.getResources().getColor(R.color.colorGoogle));
+        }
+        else if(craft.get(position).getflag().equals("2"))
+        {
+            btnReadMore.setText("Reserved - See Details");
         }
 
         btnReadMore.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +94,7 @@ public class custom_craftlist extends BaseAdapter {
                 detailsIntent.putExtra("CraftQuantity", craft.get(position).getCraftQuantity());
                 detailsIntent.putExtra("CraftCategory", craft.get(position).getCraftCategory());
                 detailsIntent.putExtra("CraftPrice", craft.get(position).getCraftPrice());
-                detailsIntent.putExtra("CraftSeller", craft.get(position).getSellerContact());
+                detailsIntent.putExtra("CraftSeller", craft.get(position).getmeetupLocation());
                 detailsIntent.putExtra("UploadedBy", craft.get(position).getUploadedBy());
                 detailsIntent.putExtra("CraftId", craft.get(position).getCraftID());
                 detailsIntent.putExtra("CraftResource", craft.get(position).getResourcesFrom());

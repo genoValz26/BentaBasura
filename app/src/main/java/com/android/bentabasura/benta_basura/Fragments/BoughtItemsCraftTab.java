@@ -36,7 +36,7 @@ public class BoughtItemsCraftTab extends Fragment {
     ActiveUser activeUser;
     String oldestPostId = "";
     ProgressDialog mProgressDialog;
-    DatabaseReference databaseReferenceCraft;
+    DatabaseReference databaseReferenceCraft,databaseReferenceTransaction;
     custom_craftlist customCraftAdapter;
     ArrayList<Craft> craftArray = new ArrayList<>();
     List<String> craftCategory = Arrays.asList("Decoration", "Furniture", "Projects", "Accessories");
@@ -54,6 +54,7 @@ public class BoughtItemsCraftTab extends Fragment {
         txtEmpty = (TextView) view.findViewById(R.id.txtEmpty);
 
         databaseReferenceCraft  = FirebaseDatabase.getInstance().getReference("Craft");
+        databaseReferenceTransaction = FirebaseDatabase.getInstance().getReference("Transaction").child("Craft");
 
         activeUser = ActiveUser.getInstance();
 
@@ -71,64 +72,58 @@ public class BoughtItemsCraftTab extends Fragment {
 
     private void getCraftDataFromFirebase()
     {
-        for(final String trashCat: craftCategory)
-        {
-            databaseReferenceCraft.child(trashCat.toString()).addValueEventListener(new ValueEventListener()
-            {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot)
-                {
-                    if (dataSnapshot.exists())
-                    {
-                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
-                        {
-                            boolean found = false;
+        for (final String trashCat : craftCategory) {
+                databaseReferenceCraft.child(trashCat.toString()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                                boolean found = false;
 
-                            oldestPostId = postSnapShot.getKey();
+                                oldestPostId = postSnapShot.getKey();
 
-                            mProgressDialog.setMessage("Loading...");
-                            mProgressDialog.show();
+                                mProgressDialog.setMessage("Loading...");
+                                mProgressDialog.show();
 
 
-                            for (Craft itemCraft : craftArray)
-                            {
-                                if (itemCraft.getCraftID().equals(oldestPostId)) {
-                                    found = true;
-                                    break;
+                                for (Craft itemCraft : craftArray) {
+                                    if (itemCraft.getCraftID().equals(oldestPostId)) {
+                                        found = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!found) {
+                                    final Craft craft = postSnapShot.getValue(Craft.class);
+                                    if (craft.getflag().equals("1") && craft.getflagTo().equals(activeUser.getUserId())) {
+                                        craft.setCraftID(oldestPostId);
+
+                                        craftArray.add(craft);
+                                        customCraftAdapter.notifyDataSetChanged();
+                                    }
+
                                 }
                             }
-
-                            if (!found)
-                            {
-                                final Craft craft = postSnapShot.getValue(Craft.class);
-                                craft.setCraftID(oldestPostId);
-
-                                craftArray.add(craft);
-                                customCraftAdapter.notifyDataSetChanged();
-
-                            }
+                            mProgressDialog.dismiss();
                         }
-                        mProgressDialog.dismiss();
-                    }
-                    if(craftArray.size() == 0){
-                        lstMyCraft.setVisibility(View.INVISIBLE);
-                        txtEmpty.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        lstMyCraft.setVisibility(View.VISIBLE);
-                        txtEmpty.setVisibility(View.INVISIBLE);
+                        if (craftArray.size() == 0) {
+                            lstMyCraft.setVisibility(View.INVISIBLE);
+                            txtEmpty.setVisibility(View.VISIBLE);
+                        } else {
+                            lstMyCraft.setVisibility(View.VISIBLE);
+                            txtEmpty.setVisibility(View.INVISIBLE);
+                        }
+
                     }
 
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-        }
+                    }
 
+                });
+            }
     }
 
 

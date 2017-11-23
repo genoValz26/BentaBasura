@@ -458,43 +458,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         soldTo = (SearchableSpinner) dialogView.findViewById(R.id.soldTo);
         final Button submitSold = (Button) dialogView.findViewById(R.id.submitSold);
         final Button cancelSold= (Button) dialogView.findViewById(R.id.cancelSold);
-        final Button plusQty = (Button) dialogView.findViewById(R.id.plusQty);
-        final Button minusQty = (Button) dialogView.findViewById(R.id.minusQty);
-        final EditText editQty = (EditText) dialogView.findViewById(R.id.editQty);
-        editQty.setText(strCraftQty);
-
-        plusQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentqty = Integer.parseInt(editQty.getText().toString());
-                int newQty = currentqty + 1;
-                if(Integer.parseInt(craftQty.getText().toString()) < newQty){
-                    showMessage("Insufficient Quantity!");
-                    return;
-                }
-                else
-                {
-                    editQty.setText(Integer.toString(newQty));
-                    return;
-                }
-            }
-        });
-        minusQty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentqty = Integer.parseInt(editQty.getText().toString());
-                int newQty = currentqty - 1;
-                if(newQty == 0){
-                    editQty.setText(Integer.toString(1));
-                    return;
-                }
-                else{
-                    editQty.setText(Integer.toString(newQty));
-                    return;
-                }
-
-            }
-        });
+        final Button reservebtn = (Button) dialogView.findViewById(R.id.reservebtn);
 
         soldTo.setTitle("Interested Users");
         soldTo.setPositiveButton("OK");
@@ -557,12 +521,14 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 Date currentTime = Calendar.getInstance().getTime();
                 SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                 String UploadedDate = sdf.format(currentTime);
+
                 if (soldTo.getSelectedItem().toString().equals(""))
                 {
                     Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("flag").setValue("1");
                     for (Map.Entry entry : mapUser.entrySet()) {
                         if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
                             key = entry.getKey().toString();
@@ -570,22 +536,9 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                         }
                     }
 
-                   // databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("soldTo").setValue(key);
-
-                    Transaction craftTransaction = new Transaction(key.toString(),editQty.getText().toString(),UploadedDate);
-                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("Transaction").push().setValue(craftTransaction);
-
-                    int currentqty = Integer.parseInt(editQty.getText().toString());
-                    int newQty = Integer.parseInt(strCraftQty) - currentqty;
-                    if(newQty == 0)
-                    {
-                        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("sold").setValue("1");
-                        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("craftQuantity").setValue("0");
-
-                    }
-                    else{
-                        databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("craftQuantity").setValue(newQty);
-                    }
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("flagTo").setValue(key);
+                    Transaction craftTransaction = new Transaction(key.toString(),activeUser.getUserId().toString(),strcraftID,UploadedDate);
+                    databaseReference.child("Transaction").child("Craft").child(strcraftCategory).push().setValue(craftTransaction);
 
                 }
 
@@ -614,6 +567,54 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
 
             }
 
+        });
+        reservebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String UploadedDate = sdf.format(currentTime);
+                if (soldTo.getSelectedItem().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("flag").setValue("2");
+                    for (Map.Entry entry : mapUser.entrySet()) {
+                        if (soldTo.getSelectedItem().toString().equals(entry.getValue())) {
+                            key = entry.getKey().toString();
+                            break; //breaking because its one to one map
+                        }
+                    }
+
+                    databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("flagTo").setValue(key);
+
+                }
+
+                startActivity(new Intent(MyItems_Edit_Craft.this,Home.class));
+                showMessage("Craft has been Reserved!");
+
+                //Notification
+                String notifId = databaseReferenceNotif.push().getKey();
+                String location = "Craft" + ":" + strcraftCategory + ":" + strcraftID;
+                String message = "Hi " + mapUser.get(key) + " the " + craftName.getText().toString() + " has been reserved to you.";
+                String ownerId =  key;
+                String profileId = strUploadedBy;
+
+                Notification newNotif = new Notification();
+
+                newNotif.setNotifDbLink(location);
+                newNotif.setNotifMessage(message);
+                newNotif.setNotifOwnerId(ownerId);
+                newNotif.setNotifBy(profileId);
+                newNotif.setNotifRead("0");
+                newNotif.setNotifNotify("0");
+                newNotif.setNotifByPic(activeUser.getProfilePicture());
+                newNotif.setNotifDate(UploadedDate);
+
+                databaseReferenceNotif.child(notifId).setValue(newNotif);
+            }
         });
 
         cancelSold.setOnClickListener(new View.OnClickListener() {

@@ -70,10 +70,13 @@ public class custom_trashlist extends BaseAdapter {
         txtTrashDescription.setText(trash.get(position).getTrashDescription());
         txtTrashPrice.setText("Php " + trash.get(position).getTrashPrice() + ".00");
 
-        if(trash.get(position).getSold().equals("1"))
+        if(trash.get(position).getflag().equals("1"))
         {
             btnReadMore.setText("Sold Out - See Details");
             btnReadMore.setBackgroundColor(rowData.getResources().getColor(R.color.colorGoogle));
+        }
+        else  if(trash.get(position).getflag().equals("1")) {
+            btnReadMore.setText("Reserved - See Details");
         }
 
         btnReadMore.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +91,7 @@ public class custom_trashlist extends BaseAdapter {
                 detailsIntent.putExtra("TrashQuantity", trash.get(position).getTrashQuantity());
                 detailsIntent.putExtra("TrashCategory", trash.get(position).getTrashCategory());
                 detailsIntent.putExtra("TrashPrice", trash.get(position).getTrashPrice());
-                detailsIntent.putExtra("TrashSeller", trash.get(position).getSellerContact());
+                detailsIntent.putExtra("TrashSeller", trash.get(position).getmeetupLocation());
                 detailsIntent.putExtra("TrashId", trash.get(position).getTrashId());
                 detailsIntent.putExtra("UploadedBy", trash.get(position).getUploadedBy());
 
