@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -64,6 +66,8 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
     TextView navFullName, navEmail, txtEmpty;
     ImageView navImage;
     ActiveUser activeUser;
+    EditText filterTxt;
+    Button filterBtn;
 
     private String oldestPostId;
     private int currentVisibleItemCount;
@@ -177,6 +181,9 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
         });
 
         popupBubble.hide();
+
+        //filterTxt = (EditText) findViewById(R.id.filterTxt);
+       // filterBtn = (Button) findViewById(R.id.filterBtn);
 
     }
 

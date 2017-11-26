@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -68,6 +70,8 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     TextView navFullName, navEmail, txtEmpty;
     ImageView navImage;
     ActiveUser activeUser;
+    EditText filterTxt;
+    Button filterBtn;
 
     private String oldestPostId;
     private int currentVisibleItemCount;
@@ -188,6 +192,21 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         });
 
         popupBubble.hide();
+
+        filterTxt = (EditText) findViewById(R.id.filterTxt);
+        filterBtn = (Button) findViewById(R.id.filterBtn);
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(filterTxt.getText().toString())){
+                    filterTxt.setError("Please input qty!");
+                }
+                else{
+                    getTrashFromDatabasebyQty(filterTxt.getText().toString());
+                }
+
+            }
+        });
 
     }
     public void showMessage(String message){
@@ -454,6 +473,70 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+    public void getTrashFromDatabasebyQty(String qty){
+        final String finalQty = qty;
+        databaseReference.orderByChild("reverseDate").limitToFirst(3).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (trashArray.size() != 0) {
+                    popupBubble.show();
+
+                } else {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+
+                            boolean found = false;
+                            oldestPostId = postSnapShot.getKey();
+
+                            mProgressDialog.setMessage("Loading...");
+                            mProgressDialog.show();
+
+                            Trash trash = postSnapShot.getValue(Trash.class);
+
+                            if (trash.getTrashCategory().equals(receivedBundle.get("Category"))&& trash.getTrashQuantity().equals(finalQty)) {
+                                if (trash.getflag().equals("0")) {
+
+                                    for (Trash itemTrash : trashArray) {
+                                        if (!TextUtils.isEmpty(itemTrash.getTrashId()) && !TextUtils.isEmpty(oldestPostId)) {
+                                            if (itemTrash.getTrashId().equals(oldestPostId)) {
+                                                found = true;
+                                            }
+                                        }
+                                    }
+
+                                    if (!found) {
+                                        trash.setTrashId(postSnapShot.getKey().toString());
+                                        trashArray.add(trash);
+                                        customAdapter.notifyDataSetChanged();
+                                    }
+
+                                }
+                            }
+                        }
+                        mProgressDialog.dismiss();
+                    }
+                    if(trashArray.size() == 0){
+                        lstRecycle.setVisibility(View.INVISIBLE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        lstRecycle.setVisibility(View.VISIBLE);
+                        txtEmpty.setVisibility(View.INVISIBLE);
+                    }
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }

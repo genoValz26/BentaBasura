@@ -87,12 +87,6 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         txtSellerInfo = (TextView) view.findViewById(R.id.textView14);
         txtUploadedBy = (TextView) view.findViewById(R.id.txtSellerInfo);
         ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
-                showMessage(String.valueOf(rating));
-            }
-        });
 
         txtTrashName.setText(receivedBundle.get("TrashName").toString());
         Picasso.with(getActivity().getApplicationContext()).load(receivedBundle.get("TrashPic").toString()).placeholder(R.drawable.progress_animation).fit().into(imgThumbRaw);
@@ -118,6 +112,14 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         updateButtonText();
 
         txtUploadedBy.setVisibility(View.GONE);
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
+                showMessage(String.valueOf(rating));
+                databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").child(activeUser.getUserId()).setValue(String.valueOf(rating));
+            }
+        });
 
 
         return view;

@@ -74,12 +74,6 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         btnEdit = (Button) view.findViewById(R.id.btnEdit);
         btnInterested = (Button) view.findViewById(R.id.btnInterested);
         ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
-                showMessage(String.valueOf(rating));
-            }
-        });
 
         activeUser = ActiveUser.getInstance();
 
@@ -139,7 +133,13 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
         txtUploadedBy.setVisibility(View.GONE);
 
-
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
+                showMessage(String.valueOf(rating));
+                databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).setValue(String.valueOf(rating));
+            }
+        });
         return view;
     }
 
