@@ -77,8 +77,8 @@
             android:layout_height="40dp"
             android:layout_marginStart="295dp"
             android:layout_marginTop="67dp"
-            android:text="@string/Filter"
-            android:textSize="12sp" />
+            android:text="@string/search_hint"
+            android:textSize="10sp" />
  </RelativeLayout>
 
     <ListView
