@@ -40,6 +40,15 @@ public class Trash {
         this.reverseDate = reverseDate;
     }
 
+
+    public Trash(String trashName, String trashPrice, String trashDescription, String uploadedDate, String imageUrl) {
+        this.trashName = trashName;
+        this.trashPrice = trashPrice;
+        this.trashDescription = trashDescription;
+        this.uploadedDate = uploadedDate;
+        this.imageUrl = imageUrl;
+    }
+
     public String getTrashName() {
         return trashName;
     }

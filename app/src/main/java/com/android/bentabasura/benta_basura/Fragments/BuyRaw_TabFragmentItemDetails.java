@@ -117,7 +117,8 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
                 showMessage(String.valueOf(rating));
-                databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").child(activeUser.getUserId()).setValue(String.valueOf(rating));
+                databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").child(activeUser.getUserId()).child("Rate").setValue(String.valueOf(rating));
+                startActivity(getActivity().getIntent());
             }
         });
 

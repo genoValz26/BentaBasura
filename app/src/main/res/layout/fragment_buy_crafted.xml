@@ -231,6 +231,14 @@
                 android:layout_alignBottom="@+id/txtCraftPrice"
                 android:layout_centerHorizontal="true" />
 
+            <TextView
+                android:id="@+id/ratingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv13"
+                android:layout_below="@+id/textView5"
+                android:text="Rating Value" />
+
 
         </RelativeLayout>
     </TableLayout>

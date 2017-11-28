@@ -61,13 +61,14 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="65dp" />
 
-        <EditText
+        <SearchView
             android:id="@+id/filterTxt"
             android:layout_width="160dp"
             android:layout_height="30dp"
             android:layout_alignBaseline="@+id/spnr"
             android:layout_alignBottom="@+id/spnr"
             android:layout_toEndOf="@+id/spnr"
+            android:queryHint="Search"
             android:background="#37474F"
             android:ems="10" />
 

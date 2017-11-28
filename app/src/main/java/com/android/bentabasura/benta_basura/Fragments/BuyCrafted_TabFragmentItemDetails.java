@@ -41,7 +41,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
-    TextView txtCraftName, txtCraftDescription, txtCraftQuantity, txtCraftPrice, txtSellerInfo, txtUploadedBy,txtUrl;
+    TextView txtCraftName, txtCraftDescription, txtCraftQuantity, txtCraftPrice, txtSellerInfo, txtUploadedBy,txtUrl,ratingValue;
     Button btnEdit,btnInterested;
     ImageView imgThumbCraft;
     Bundle receivedBundle;
@@ -129,15 +129,32 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
             }
         });
 
+
         updateButtonText();
 
         txtUploadedBy.setVisibility(View.GONE);
+
+        ratingValue = (TextView) view.findViewById(R.id.ratingValue);
+        databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
                 showMessage(String.valueOf(rating));
-                databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).setValue(String.valueOf(rating));
+                databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).child("Rate").setValue(String.valueOf(rating));
+                startActivity(new Intent(getActivity().getIntent()));
             }
         });
         return view;
