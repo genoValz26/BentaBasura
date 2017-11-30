@@ -140,6 +140,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
                 }
             }
 
@@ -152,9 +153,9 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
-                showMessage(String.valueOf(rating));
+                //showMessage(String.valueOf(rating));
                 databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).child("Rate").setValue(String.valueOf(rating));
-                startActivity(new Intent(getActivity().getIntent()));
+                //startActivity(new Intent(getActivity().getIntent()));
             }
         });
         return view;

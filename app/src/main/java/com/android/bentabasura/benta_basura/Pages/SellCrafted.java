@@ -1,6 +1,7 @@
 package com.android.bentabasura.benta_basura.Pages;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
@@ -23,7 +23,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -39,9 +38,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Craft;
@@ -62,8 +58,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SellCrafted extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -75,7 +71,6 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
     private Menu navMenu;
     private Button uploadbtn,takePhotobtn;
     private ImageButton imageView;
-    private static final int Gallery_Intent = 100;
 
     Uri imageUri;
     FirebaseAuth firebaseAuth;
@@ -83,7 +78,6 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
     String userid;
     DatabaseReference databaseReference;
     StorageReference storageReference;
-    String date;
 
     EditText craftName,craftDesc,craftQty,craftPrice,sellerContact,resourcesFrom;
     Button SubmitCraft;
@@ -97,6 +91,16 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
     public static final String STORAGE_PATH="Products/Crafts/";
     String selectedType,selectedCategory;
     private Spinner spnCraftCategory;
+
+    //keep track of camera capture intent
+    static final int CAMERA_CAPTURE = 1;
+    //keep track of cropping intent
+    final int PIC_CROP = 3;
+    //keep track of gallery intent
+    final int PICK_IMAGE_REQUEST = 2;
+    //captured picture uri
+    private Uri picUri;
+    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,60 +302,59 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {
-        int CAMERA_REQUEST = 0;
+        if (resultCode == RESULT_OK) {
+            //user is returning from capturing an image using the camera
+            if(requestCode == CAMERA_CAPTURE){
+                //get the Uri for the captured image
+                Uri uri = picUri;
+                //carry out the crop operation
+                performCrop();
+                Log.d("picUri", uri.toString());
 
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK)
-        {
-            imageUri = data.getData();
-            if(requestCode == Gallery_Intent)
-            {
+            }
 
-                //imageView.setImageResource(imageUri);
-                InputStream inputStream;
-                try
-                {
-                    inputStream = getContentResolver().openInputStream(imageUri);
-                    int orientation = getOrientation(getApplicationContext(), imageUri);
-                    Bitmap image = rotateBitmap(getApplicationContext(), imageUri, BitmapFactory.decodeStream(inputStream));
-                    setOrientation(getApplicationContext(), imageUri, orientation);
-                    navBack.setImageBitmap(image);
-                }
-                catch (FileNotFoundException e)
-                {
-                    e.printStackTrace();
-                }
+            else if(requestCode == PICK_IMAGE_REQUEST){
+                picUri = data.getData();
+                Log.d("uriGallery", picUri.toString());
+                performCrop();
             }
-            if(requestCode == CAMERA_REQUEST)
-            {
-                Bitmap photo = rotateBitmap(getApplicationContext(), imageUri, ((Bitmap) data.getExtras().get("data")));
-                int orientation = getOrientation(getApplicationContext(), imageUri);
-                setOrientation(getApplicationContext(), imageUri, orientation);
-                navBack.setImageBitmap(photo);
+
+            //user is returning from cropping the image
+            else if(requestCode == PIC_CROP){
+                //get the returned data
+                Bundle extras = data.getExtras();
+                //get the cropped bitmap
+                Bitmap thePic = (Bitmap) extras.get("data");
+                //display the returned cropped image
+                navBack.setImageBitmap(thePic);
             }
+
         }
-        /*super.onActivityResult(requestCode,resultCode,data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);*/
 
     }
     private void onCamera()
     {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent,0);
+        try {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        String imageFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/picture.jpg";
+        File imageFile = new File(imageFilePath);
+        picUri = Uri.fromFile(imageFile); // convert path to Uri
+        takePictureIntent.putExtra( MediaStore.EXTRA_OUTPUT,  picUri );
+        startActivityForResult(takePictureIntent, CAMERA_CAPTURE);
+
+        } catch(ActivityNotFoundException anfe){
+        //display an error message
+        String errorMessage = "Whoops - your device doesn't support capturing images!";
+        Toast.makeText(SellCrafted.this, errorMessage, Toast.LENGTH_SHORT).show();
+     }
     }
     private void onGallery()
     {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = pictureDirectory.getPath();
-        Uri data = Uri.parse(pictureDirectoryPath);
-        photoPickerIntent.setDataAndType(data, "image/*");
-        startActivityForResult(photoPickerIntent, Gallery_Intent);
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        // Start the Intent
+        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
 
-        /*Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, Gallery_Intent);*/
     }
     private void showPictureDialog(){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
@@ -552,6 +555,32 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
         values.put(MediaStore.Images.Media.ORIENTATION, orientation);
         int rowsUpdated = context.getContentResolver().update(fileUri, values, null, null);
         return rowsUpdated > 0;
+    }
+    private void performCrop(){
+        try {
+            //call the standard crop action intent (the user device may not support it)
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            //indicate image type and Uri
+            cropIntent.setDataAndType(picUri, "image/*");
+            //set crop properties
+            cropIntent.putExtra("crop", "true");
+            //indicate aspect of desired crop
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
+            //indicate output X and Y
+            cropIntent.putExtra("outputX", 256);
+            cropIntent.putExtra("outputY", 256);
+            //retrieve data on return
+            cropIntent.putExtra("return-data", true);
+            //start the activity - we handle returning in onActivityResult
+            startActivityForResult(cropIntent, PIC_CROP);
+        }
+        catch(ActivityNotFoundException anfe){
+            //display an error message
+            String errorMessage = "Whoops - your device doesn't support the crop action!";
+            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
 
