@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingBottom="15dp">
+
+    <FrameLayout
+        android:id="@+id/framePic"
+        android:layout_width="280dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="280dp"
+            android:layout_height="150dp"
+            android:background="@drawable/dotted"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/UploadImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/btn_camera"
+            android:scaleType="fitXY"
+            android:layout_gravity="bottom|right"
+            android:layout_alignRight="@id/imageView"/>
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/tipsTitleTxt"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/framePic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="#37474F"/>
+
+    <EditText
+        android:id="@+id/tipsContentTxt"
+        android:layout_width="280dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="33dp"
+        android:inputType="textMultiLine"
+        android:background="#37474F"
+        android:layout_below="@+id/tipsTitleTxt"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tipsContentTxt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="@color/colorAccent"
+        android:text="Post" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:text="Title"
+        android:layout_below="@+id/framePic"
+        android:layout_alignStart="@+id/tipsTitleTxt" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tipsContentTxt"
+        android:layout_below="@+id/tipsTitleTxt"
+        android:layout_marginTop="15dp"
+        android:text="Content" />
+
+</RelativeLayout>

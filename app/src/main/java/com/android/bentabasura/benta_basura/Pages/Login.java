@@ -113,7 +113,7 @@ public class Login extends AppCompatActivity implements OnClickListener {
         emailTxt = (EditText) findViewById(R.id.emailTxt);
         passTxt = (EditText) findViewById(R.id.passTxt);
 
-        homePage = new Intent(Login.this, Home.class);
+        homePage = new Intent(Login.this, Admin_ManageUsers.class);
         registerPage = new Intent(Login.this, Register.class);
 
         login.setOnClickListener(this);

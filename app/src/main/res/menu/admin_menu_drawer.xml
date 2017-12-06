@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group android:id="@+id/manage_divider"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/manage"
+            android:icon="@mipmap/ic_account_circle_black_24dp"
+            android:title="Manage                                        +" />
+
+        <item android:id="@+id/manage_crafted_raw"
+            android:visible="false"
+            android:title="Crafted and Raw Items" />
+
+        <item android:id="@+id/manage_news"
+            android:visible="false"
+            android:title="News"/>
+
+        <item android:id="@+id/manage_tips"
+            android:visible="false"
+            android:title="Tips"/>
+
+        <item android:id="@+id/manage_users"
+            android:visible="false"
+            android:title="Users" />
+
+    </group>
+
+    <group android:id="@+id/others_divider"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/logout"
+            android:icon="@mipmap/ic_logout"
+            android:title="Logout" />
+
+    </group>
+
+</menu>
