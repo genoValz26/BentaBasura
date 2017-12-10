@@ -50,7 +50,7 @@ import static com.android.bentabasura.benta_basura.R.id.loginBtn;
 public class Login extends AppCompatActivity implements OnClickListener {
     Button login, loginGoogle;
     TextView link_register;
-    Intent homePage, registerPage;
+    Intent homePage, registerPage, adminPage;
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseDatabase firebaseDatabase;
@@ -113,8 +113,9 @@ public class Login extends AppCompatActivity implements OnClickListener {
         emailTxt = (EditText) findViewById(R.id.emailTxt);
         passTxt = (EditText) findViewById(R.id.passTxt);
 
-        homePage = new Intent(Login.this, Admin_ManageUsers.class);
+        homePage = new Intent(Login.this, Home.class);
         registerPage = new Intent(Login.this, Register.class);
+        adminPage = new Intent(Login.this, Admin_ManageUsers.class);
 
         login.setOnClickListener(this);
         link_register.setOnClickListener(this);
@@ -312,8 +313,14 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.getValue() != null){
-                                        progressDialog.dismiss();
-                                        startActivity(homePage);
+                                        if(dataSnapshot.child("userType").getValue().toString().equals("Member")) {
+                                            progressDialog.dismiss();
+                                            startActivity(homePage);
+                                        }
+                                        else{
+                                            progressDialog.dismiss();
+                                            startActivity(adminPage);
+                                        }
                                     }
                                     else if(dataSnapshot.getValue() == null){
                                         Intent detailsIntent = new Intent(Login.this, custom_dialog_google_sign_in.class);
