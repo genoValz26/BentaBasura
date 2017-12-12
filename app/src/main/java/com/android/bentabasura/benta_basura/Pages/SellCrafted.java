@@ -309,7 +309,7 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
                 Uri uri = picUri;
                 //carry out the crop operation
                 performCrop();
-                Log.d("picUri", uri.toString());
+                //Log.d("picUri", uri.toString());
 
             }
 

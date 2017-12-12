@@ -304,10 +304,10 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
             //user is returning from capturing an image using the camera
             if(requestCode == CAMERA_CAPTURE){
                 //get the Uri for the captured image
-                Uri uri = picUri;
+                 picUri = data.getData();
                 //carry out the crop operation
                 performCrop();
-                Log.d("picUri", uri.toString());
+                Log.d("picUri", picUri.toString());
 
             }
 

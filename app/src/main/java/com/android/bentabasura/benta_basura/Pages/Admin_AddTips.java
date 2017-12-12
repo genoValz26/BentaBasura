@@ -97,7 +97,7 @@ public class Admin_AddTips extends Admin_Navigation
                 Uri uri = picUri;
                 //carry out the crop operation
                 performCrop();
-                Log.d("picUri", uri.toString());
+                //Log.d("picUri", uri.toString());
 
             }
 
