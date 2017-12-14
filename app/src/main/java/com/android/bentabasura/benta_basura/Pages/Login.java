@@ -376,15 +376,22 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         if (dataSnapshot.getValue() != null) {
                                             if (notVerified != 1) {
-                                                activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
-                                                activeUser.setFullname(dataSnapshot.child("fullname").getValue().toString());
-                                                activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
-                                                activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
-                                                activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
-                                                activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
-                                                activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
-                                                progressDialog.dismiss();
-                                                startActivity(homePage);
+                                                if(dataSnapshot.child("userType").getValue().toString().equals("Member"))
+                                                {
+                                                    activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
+                                                    activeUser.setFullname(dataSnapshot.child("fullname").getValue().toString());
+                                                    activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
+                                                    activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
+                                                    activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
+                                                    activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
+                                                    activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
+                                                    progressDialog.dismiss();
+                                                    startActivity(homePage);
+                                                }
+                                                else
+                                                {
+                                                    startActivity(adminPage);
+                                                }
                                             }
                                         }
 

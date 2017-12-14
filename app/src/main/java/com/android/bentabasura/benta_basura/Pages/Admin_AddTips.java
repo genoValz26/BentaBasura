@@ -1,7 +1,9 @@
 package com.android.bentabasura.benta_basura.Pages;
 
 
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,18 +17,32 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.bentabasura.benta_basura.Models.Tips;
 import com.android.bentabasura.benta_basura.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Admin_AddTips extends Admin_Navigation
 {
@@ -43,6 +59,15 @@ public class Admin_AddTips extends Admin_Navigation
     final int PICK_IMAGE_REQUEST = 2;
     //captured picture uri
     private Uri picUri;
+
+    public static final String STORAGE_PATH="Tips/";
+
+    private ProgressDialog progressDialog;
+    private FirebaseAuth firebaseAuth;
+    StorageReference storageReference;
+    DatabaseReference databaseReference;
+    private FirebaseUser user;
+    String userid;
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -65,29 +90,40 @@ public class Admin_AddTips extends Admin_Navigation
                 showPictureDialog();
             }
         });
+        postbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTips();
+            }
+        });
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
+        progressDialog = new ProgressDialog(this);
     }
     private void showPictureDialog(){
-        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Select Action");
-        String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera" };
-        pictureDialog.setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                onGallery();
-                                break;
-                            case 1:
-                                onCamera();
-                                break;
-                        }
+    AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+    pictureDialog.setTitle("Select Action");
+    String[] pictureDialogItems = {
+            "Select photo from gallery",
+            "Capture photo from camera" };
+    pictureDialog.setItems(pictureDialogItems,
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0:
+                            onGallery();
+                            break;
+                        case 1:
+                            onCamera();
+                            break;
                     }
-                });
-        pictureDialog.show();
-    }
+                }
+            });
+    pictureDialog.show();
+}
     protected void onActivityResult(int requestCode,int resultCode, Intent data)
     {
         if (resultCode == RESULT_OK) {
@@ -202,6 +238,55 @@ public class Admin_AddTips extends Admin_Navigation
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+    private void addTips(){
+        String title = tipsTitleTxt.getText().toString().trim();
+        String content = tipsContentTxt.getText().toString().trim();
+
+        if(TextUtils.isEmpty(title) || TextUtils.isEmpty(content)){
+            tipsTitleTxt.setError("Empty!");
+            tipsContentTxt.setError("Empty!");
+        }
+        else if(TextUtils.isEmpty(title)  && !TextUtils.isEmpty(content)){
+            tipsTitleTxt.setError("Empty");
+        }
+        else if(!TextUtils.isEmpty(title) && TextUtils.isEmpty(content)){
+            tipsContentTxt.setError("Empty!");
+        }
+        progressDialog.setMessage("Posting Tips...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        user = firebaseAuth.getCurrentUser();
+        userid = user.getUid();
+
+        StorageReference path = storageReference.child(STORAGE_PATH).child(System.currentTimeMillis() + "." + getImageExt(picUri));
+        path.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //Adding the additional information on the real-time db
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String UploadedDate = sdf.format(currentTime);
+                Tips newTips = new Tips(tipsTitleTxt.getText().toString(),tipsContentTxt.getText().toString(),UploadedDate, taskSnapshot.getDownloadUrl().toString());
+                databaseReference.child("Tips").push().setValue(newTips);
+                showMessage("Trash Uploaded Successfully");
+                progressDialog.dismiss();
+                startActivity(new Intent(getApplicationContext(),Admin_ManageTips.class));
+
+            }
+        });
+
+    }
+    public void showMessage(String message){
+        Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
+    }
+    public String getImageExt(Uri uri)
+    {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
 }

@@ -59,7 +59,6 @@ public class Register extends AppCompatActivity implements OnClickListener {
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     StorageReference storageReference;
     DatabaseReference databaseReference;
     private FirebaseUser user;

@@ -87,7 +87,7 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
     public static final String STORAGE_PATH="Products/Trash/";
     private GoogleApiClient mGoogleApiClient;
     private Spinner spnTrashCategory;
-    String selectedType,selectedCategory,currentUsername;
+    String selectedCategory;
 
     //keep track of camera capture intent
     static final int CAMERA_CAPTURE = 1;
@@ -97,8 +97,6 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
     final int PICK_IMAGE_REQUEST = 2;
     //captured picture uri
     private Uri picUri;
-
-    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -304,10 +302,10 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
             //user is returning from capturing an image using the camera
             if(requestCode == CAMERA_CAPTURE){
                 //get the Uri for the captured image
-                 picUri = data.getData();
+               Uri uri = picUri;
                 //carry out the crop operation
                 performCrop();
-                Log.d("picUri", picUri.toString());
+                Log.d("picUri", uri.toString());
 
             }
 
