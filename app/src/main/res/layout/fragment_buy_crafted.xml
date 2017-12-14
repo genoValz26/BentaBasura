@@ -80,7 +80,7 @@
                 android:layout_alignStart="@+id/txtCraftDescription"
                 android:layout_below="@+id/txtCraftDescription"
                 android:layout_marginTop="15dp"
-                android:text="About Seller"
+                android:text="Meet-Up:"
                 android:textColor="@color/colorPrimaryAccent"
                 android:textSize="15sp"
                 android:textStyle="bold" />

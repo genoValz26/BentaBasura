@@ -232,6 +232,11 @@ public class Register extends AppCompatActivity implements OnClickListener {
             progressDialog.dismiss();
             return;
         }
+        else if(!isValidEmail(email)){
+            emailtxt.setError("Invalid Email!");
+            progressDialog.dismiss();
+            return;
+        }
 
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
@@ -605,6 +610,13 @@ public class Register extends AppCompatActivity implements OnClickListener {
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
+        }
+    }
+    public static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
     }
 
