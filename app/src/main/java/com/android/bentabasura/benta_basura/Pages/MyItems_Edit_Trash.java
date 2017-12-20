@@ -178,6 +178,24 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
 
             }
         });
+
+        databaseReference.child("Users").child(activeUser.getUserId().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child("userType").getValue().toString().equals("Admin")){
+                    editbtn.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    editbtn.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
@@ -354,8 +372,8 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             startActivity(new Intent(MyItems_Edit_Trash.this, Home.class));
         }
         else {
-            StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(trashName.getText().toString() + "." + getImageExt(imageUri));
-            path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(trashName.getText().toString() + "." + getImageExt(picUri));
+            path.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     //Adding the additional information on the real-time db

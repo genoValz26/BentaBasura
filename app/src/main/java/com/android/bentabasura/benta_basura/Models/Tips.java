@@ -5,13 +5,25 @@ package com.android.bentabasura.benta_basura.Models;
  */
 
 public class Tips {
-    String tipsTitle,tipsDetail,tipsDate,tipsImagepath;
+    String tipsID,tipsTitle,tipsDetail,tipsDate,tipsImagepath;
 
     public Tips(String tipsTitle, String tipsDetail, String tipsDate, String tipsImagepath) {
         this.tipsTitle = tipsTitle;
         this.tipsDetail = tipsDetail;
         this.tipsDate = tipsDate;
         this.tipsImagepath = tipsImagepath;
+    }
+
+    public Tips() {
+
+    }
+
+    public String getTipsID() {
+        return tipsID;
+    }
+
+    public void setTipsID(String tipsID) {
+        this.tipsID = tipsID;
     }
 
     public String getTipsTitle() {

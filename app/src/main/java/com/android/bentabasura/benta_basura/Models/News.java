@@ -5,13 +5,24 @@ package com.android.bentabasura.benta_basura.Models;
  */
 
 public class News {
-    String newsTitle,newsDetail,newsDate,newsImagepath;
+    String newsID,newsTitle,newsDetail,newsDate,newsImagepath;
 
+    public News(){
+
+    }
     public News(String newsTitle, String newsDetail, String newsDate, String newsImagepath) {
         this.newsTitle = newsTitle;
         this.newsDetail = newsDetail;
         this.newsDate = newsDate;
         this.newsImagepath = newsImagepath;
+    }
+
+    public String getNewsID() {
+        return newsID;
+    }
+
+    public void setNewsID(String newsID) {
+        this.newsID = newsID;
     }
 
     public String getNewsTitle() {

@@ -50,6 +50,7 @@
                  android:id="@+id/imageView"
                  android:layout_width="279dp"
                  android:layout_height="150dp"
+                 android:adjustViewBounds="false"
                  android:background="@drawable/dotted"
                  android:scaleType="fitXY"
                  app:layout_constraintEnd_toEndOf="parent"

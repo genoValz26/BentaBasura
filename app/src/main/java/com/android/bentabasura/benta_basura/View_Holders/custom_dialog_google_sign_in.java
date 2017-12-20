@@ -165,8 +165,8 @@ public class custom_dialog_google_sign_in extends AppCompatActivity implements V
                                 }
                             });
                         } else {
-                            StorageReference path = storageReference.child(STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imageUri));
-                            path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            StorageReference path = storageReference.child(STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(picUri));
+                            path.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     Users updateUser = new Users(editFullname.getText().toString(), receivedBundle.get("googleEmail").toString(), "None", taskSnapshot.getDownloadUrl().toString(), "Member", editAddress.getText().toString(), editContact.getText().toString());

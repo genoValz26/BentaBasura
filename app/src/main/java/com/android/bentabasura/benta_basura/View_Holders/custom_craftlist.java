@@ -59,10 +59,10 @@ public class custom_craftlist extends BaseAdapter {
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
         View rowData = inflater.inflate(R.layout.craft_list_feed, null);
-        ImageView imgThumbCraft = (ImageView) rowData.findViewById(R.id.imgThumbCraft);
+        ImageView imgThumbCraft = (ImageView) rowData.findViewById(R.id.imgThumnbTips);
         TextView txtCraftDate = (TextView) rowData.findViewById(R.id.txtCraftDate);
-        TextView txtCraftName = (TextView) rowData.findViewById(R.id.txtCraftName);
-        TextView txtCraftDescription = (TextView) rowData.findViewById(R.id.txtCraftDescription);
+        TextView txtCraftName = (TextView) rowData.findViewById(R.id.tipsTitle);
+        TextView txtCraftDescription = (TextView) rowData.findViewById(R.id.tipsDetail);
         TextView txtCraftPrice = (TextView) rowData.findViewById(R.id.txtCraftPrice);
         Button   btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
 

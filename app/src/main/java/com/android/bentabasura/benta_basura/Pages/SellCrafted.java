@@ -72,7 +72,6 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
     private Button uploadbtn,takePhotobtn;
     private ImageButton imageView;
 
-    Uri imageUri;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     String userid;
@@ -190,6 +189,7 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
     }
 
     @Override
@@ -309,7 +309,7 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
                 Uri uri = picUri;
                 //carry out the crop operation
                 performCrop();
-                //Log.d("picUri", uri.toString());
+                Log.d("picUri", uri.toString());
 
             }
 
@@ -324,9 +324,12 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
                 //get the returned data
                 Bundle extras = data.getExtras();
                 //get the cropped bitmap
-                Bitmap thePic = (Bitmap) extras.get("data");
+                //Bitmap thePic = (Bitmap) extras.get("data");
                 //display the returned cropped image
-                navBack.setImageBitmap(thePic);
+                Bitmap photo = rotateBitmap(getApplicationContext(), picUri, ((Bitmap) data.getExtras().get("data")));
+               int orientation = getOrientation(getApplicationContext(), picUri);
+                setOrientation(getApplicationContext(), picUri, orientation);
+                navBack.setImageBitmap(photo);
             }
 
         }
@@ -456,8 +459,8 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
         }
 
         //Uploading the image on firebase storage
-        StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(craftName.getText().toString() + "." + getImageExt(imageUri));
-        path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(craftName.getText().toString() + "." + getImageExt(picUri));
+        path.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 //Adding the additional information on the real-time db

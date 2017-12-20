@@ -187,6 +187,9 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        //------------------------------------------------------------------------------------------
+
+
     }
 
     @Override
@@ -438,8 +441,8 @@ public class SellRaw extends AppCompatActivity implements NavigationView.OnNavig
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();
 
-        StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(trashName.getText().toString() + "." + getImageExt(imageUri));
-                path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        StorageReference path = storageReference.child(STORAGE_PATH).child(userid).child(trashName.getText().toString() + "." + getImageExt(picUri));
+                path.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                  //Adding the additional information on the real-time db

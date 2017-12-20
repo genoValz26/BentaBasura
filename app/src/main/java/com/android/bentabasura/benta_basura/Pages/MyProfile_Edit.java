@@ -141,8 +141,8 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
                     });
                 }
                 else{
-                    StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(imageUri));
-                    path.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    StorageReference path = storageReference.child(STORAGE_PATH+ System.currentTimeMillis() +"." + getImageExt(picUri));
+                    path.putFile(picUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Users updateUser = new Users(editUsername.getText().toString(), activeUser.getEmail().toString(), activeUser.getGender().toString(), taskSnapshot.getDownloadUrl().toString(), activeUser.getUserType(), editAddress.getText().toString(), editContact.getText().toString());

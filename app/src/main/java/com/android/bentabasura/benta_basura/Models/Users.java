@@ -5,7 +5,7 @@ package com.android.bentabasura.benta_basura.Models;
  */
 
 public class Users {
-    private String fullname,email,firstname,lastname,gender,profile_picture,userType,address,contact_number;
+    private String userid,fullname,email,firstname,lastname,gender,profile_picture,userType,address,contact_number;
     public Users(){
 
     }
@@ -17,6 +17,14 @@ public class Users {
         this.userType = userType;
         this.address = address;
         this.contact_number = contact_number;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public void setFullname(String fullname) {

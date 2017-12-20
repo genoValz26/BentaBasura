@@ -390,6 +390,13 @@ public class Login extends AppCompatActivity implements OnClickListener {
                                                 }
                                                 else
                                                 {
+                                                    activeUser.setEmail(dataSnapshot.child("email").getValue().toString());
+                                                    activeUser.setFullname(dataSnapshot.child("fullname").getValue().toString());
+                                                    activeUser.setContact_number(dataSnapshot.child("contact_number").getValue().toString());
+                                                    activeUser.setAddress(dataSnapshot.child("address").getValue().toString());
+                                                    activeUser.setProfilePicture(dataSnapshot.child("profile_picture").getValue().toString());
+                                                    activeUser.setGender(dataSnapshot.child("gender").getValue().toString());
+                                                    activeUser.setUserType(dataSnapshot.child("userType").getValue().toString());
                                                     startActivity(adminPage);
                                                 }
                                             }

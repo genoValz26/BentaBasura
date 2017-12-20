@@ -62,9 +62,9 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         receiveIntent = getActivity().getIntent();
         receivedBundle = receiveIntent.getExtras();
 
-        txtCraftName = (TextView) view.findViewById(R.id.txtCraftName);
-        imgThumbCraft = (ImageView) view.findViewById(R.id.imgThumbCraft);
-        txtCraftDescription = (TextView) view.findViewById(R.id.txtCraftDescription);
+        txtCraftName = (TextView) view.findViewById(R.id.tipsTitle);
+        imgThumbCraft = (ImageView) view.findViewById(R.id.imgThumnbTips);
+        txtCraftDescription = (TextView) view.findViewById(R.id.tipsDetail);
         txtCraftQuantity = (TextView) view.findViewById(R.id.txtCraftQuantity);
         txtCraftPrice = (TextView) view.findViewById(R.id.txtCraftPrice);
         txtSellerInfo = (TextView) view.findViewById(R.id.tv14);

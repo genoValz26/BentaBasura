@@ -19,11 +19,11 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <TextView
-                android:id="@+id/txtCraftName"
+                android:id="@+id/tipsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/tv8"
-                android:layout_below="@+id/imgThumbCraft"
+                android:layout_below="@+id/imgThumnbTips"
                 android:layout_marginTop="23dp"
                 android:text="Crafted Item Name"
                 android:textColor="@color/colorPrimaryAccent"
@@ -31,7 +31,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imgThumbCraft"
+                android:id="@+id/imgThumnbTips"
                 android:layout_width="fill_parent"
                 android:layout_height="200dp"
                 android:layout_alignParentStart="true"
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/txtCraftName"
+                android:layout_below="@+id/tipsTitle"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="51dp"
                 android:text="Description"
@@ -52,7 +52,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtCraftDescription"
+                android:id="@+id/tipsDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/tv8"
@@ -65,8 +65,8 @@
                 android:id="@+id/txtCraftPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/txtCraftName"
-                android:layout_below="@+id/txtCraftName"
+                android:layout_alignStart="@+id/tipsTitle"
+                android:layout_below="@+id/tipsTitle"
                 android:layout_marginTop="8dp"
                 android:text="$1.00"
                 android:textColor="@color/colorAccent"
@@ -77,8 +77,8 @@
                 android:id="@+id/tv11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/txtCraftDescription"
-                android:layout_below="@+id/txtCraftDescription"
+                android:layout_alignStart="@+id/tipsDetail"
+                android:layout_below="@+id/tipsDetail"
                 android:layout_marginTop="15dp"
                 android:text="Meet-Up:"
                 android:textColor="@color/colorPrimaryAccent"
@@ -115,7 +115,7 @@
                 android:textColor="@color/colorPrimaryAccent"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:layout_above="@+id/txtCraftDescription"
+                android:layout_above="@+id/tipsDetail"
                 android:layout_alignStart="@+id/textView5" />
 
             <TextView

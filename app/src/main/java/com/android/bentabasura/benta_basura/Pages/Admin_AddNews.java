@@ -94,6 +94,13 @@ public class Admin_AddNews extends Admin_Navigation
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
+
+        postbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNews();
+            }
+        });
     }
     private void showPictureDialog(){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
@@ -232,7 +239,7 @@ public class Admin_AddNews extends Admin_Navigation
             toast.show();
         }
     }
-    private void addTips(){
+    private void addNews(){
         String title = newsTitleTxt.getText().toString().trim();
         String content = newsContentTxt.getText().toString().trim();
 
