@@ -97,58 +97,27 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtCraftDescription.setText(receivedBundle.get("CraftDescription").toString());
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText("Php " + receivedBundle.get("CraftPrice").toString() + ".00");
-
-        /*
-        theUrl = receivedBundle.get("CraftResources").toString();
-        txtUrl.setClickable(true);
-        txtUrl.setMovementMethod(LinkMovementMethod.getInstance());
-        if(theUrl.equals("")){
-            txtUrl.setText("Not available");
-            txtUrl.setTextColor(Color.parseColor("#FF0000"));
-        }
-        else {
-            String a = "<a href='",
-                    b = theUrl,
-                    c = "'>",
-                    d = "Available",
-                    e = "</a>",
-                    available = a + b + c + d + e;
-
-            txtUrl.setText(Html.fromHtml(available));
-            txtUrl.setTextColor(Color.parseColor("#32CD32"));
-        }*/
-        databaseReference.child("Users").child(receivedBundle.get("UploadedBy").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                txtSellerInfo.setText(dataSnapshot.child("fullname").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
 
         updateButtonText();
 
         txtUploadedBy.setVisibility(View.GONE);
 
         ratingValue = (TextView) view.findViewById(R.id.ratingValue);
-        databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
+       /* databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
-                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
+                    //ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Ratings").child(activeUser.getUserId()).child("Rate").getValue().toString()));
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                ratingValue.setText("Not Yet Rated");
             }
-        });
+        });*/
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -158,6 +127,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
                 //startActivity(new Intent(getActivity().getIntent()));
             }
         });
+
         return view;
     }
 

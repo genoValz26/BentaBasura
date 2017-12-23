@@ -93,32 +93,21 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         txtTrashDescription.setText(receivedBundle.get("TrashDescription").toString());
         txtTrashQuantity.setText(receivedBundle.get("TrashQuantity").toString());
         txtTrashPrice.setText("Php " + receivedBundle.get("TrashPrice").toString());
+        txtSellerInfo.setText(receivedBundle.get("TrashSeller").toString());
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        databaseReference.child("Users").child(receivedBundle.get("UploadedBy").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                txtSellerInfo.setText(dataSnapshot.child("fullname").getValue().toString());
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         updateButtonText();
 
         txtUploadedBy.setVisibility(View.GONE);
 
-        databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
+        /*databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     //ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
-                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Ratings").child(activeUser.getUserId()).child("Rate").getValue().toString()));
                 }
             }
 
@@ -126,7 +115,7 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

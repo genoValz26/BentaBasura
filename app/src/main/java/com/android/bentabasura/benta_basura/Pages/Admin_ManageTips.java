@@ -70,7 +70,7 @@ public class Admin_ManageTips extends Admin_Navigation
     public void getCraftDataFromFirebase() {
 
 
-        databaseReference.orderByChild("reverseDate").limitToFirst(3).addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByChild("reverseDate").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

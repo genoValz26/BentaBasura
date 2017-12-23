@@ -44,7 +44,7 @@ public class Admin_ManageUsers extends Admin_Navigation
     listView1 = (ListView) findViewById(R.id.listView1);
 
     firebaseDatabase = FirebaseDatabase.getInstance();
-    databaseReference = firebaseDatabase.getReference("Tips");
+    databaseReference = firebaseDatabase.getReference("Users");
     mProgressDialog = new ProgressDialog(this);
 
     getUsersDataFromFirebase();
@@ -55,7 +55,7 @@ public class Admin_ManageUsers extends Admin_Navigation
   public void getUsersDataFromFirebase() {
 
 
-    databaseReference.orderByChild("reverseDate").limitToFirst(3).addValueEventListener(new ValueEventListener() {
+    databaseReference.orderByChild("reverseDate").addValueEventListener(new ValueEventListener() {
 
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
@@ -107,5 +107,6 @@ public class Admin_ManageUsers extends Admin_Navigation
       }
     });
   }
+
 
 }

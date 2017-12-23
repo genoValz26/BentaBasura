@@ -319,32 +319,31 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 } else {
                     if (dataSnapshot.exists()) {
                         for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-
                             boolean found = false;
                             oldestPostId = postSnapShot.getKey();
 
                             mProgressDialog.setMessage("Loading...");
                             mProgressDialog.show();
 
-                            Trash trash = postSnapShot.getValue(Trash.class);
-
-                            if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                                if (trash.getflag().equals("0")) {
-
-                                    for (Trash itemTrash : trashArray) {
-                                        if (!TextUtils.isEmpty(itemTrash.getTrashId()) && !TextUtils.isEmpty(oldestPostId)) {
-                                            if (itemTrash.getTrashId().equals(oldestPostId)) {
-                                                found = true;
-                                            }
-                                        }
+                            for (Trash trashItem : trashArray) {
+                                if (!TextUtils.isEmpty(trashItem.getTrashId()) && !TextUtils.isEmpty(oldestPostId)) {
+                                    if (trashItem.getTrashId().equals(oldestPostId)) {
+                                        found = true;
                                     }
+                                }
+                            }
 
-                                    if (!found) {
+                            if (!found) {
+
+                              Trash trash = postSnapShot.getValue(Trash.class);
+
+                                if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
+                                    if ( trash.getflag().equals("0") ) {
                                         trash.setTrashId(postSnapShot.getKey().toString());
                                         trashArray.add(trash);
                                         customAdapter.notifyDataSetChanged();
-                                    }
 
+                                    }
                                 }
                             }
                         }
@@ -360,8 +359,6 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                         txtEmpty.setVisibility(View.INVISIBLE);
                     }
 
-
-
                 }
             }
 
@@ -370,7 +367,6 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
             }
         });
-
     }
 
 

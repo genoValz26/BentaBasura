@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,14 +22,12 @@ import java.util.ArrayList;
  * Created by gd185082 on 10/6/2017.
  */
 
-public class custom_trashlist extends BaseAdapter implements Filterable {
+public class custom_trashlist extends BaseAdapter {
 
     private Context ctx;
     private ArrayList<Trash> trash;
-    private ArrayList<Trash> filterlist;
     private static LayoutInflater inflater = null;
     Intent  detailsIntent;
-    CustomFilter filter;
 
     public custom_trashlist(Context context, ArrayList<Trash> trash)
     {
@@ -79,7 +75,7 @@ public class custom_trashlist extends BaseAdapter implements Filterable {
             btnReadMore.setText("Sold Out - See Details");
             btnReadMore.setBackgroundColor(rowData.getResources().getColor(R.color.colorGoogle));
         }
-        else  if(trash.get(position).getflag().equals("1")) {
+        else  if(trash.get(position).getflag().equals("2")) {
             btnReadMore.setText("Reserved - See Details");
         }
 
@@ -106,50 +102,6 @@ public class custom_trashlist extends BaseAdapter implements Filterable {
 
 
         return rowData;
-    }
-
-    public Filter getFilter() {
-        if(filter == null)
-        {
-            filter=new CustomFilter();
-        }
-        return filter;
-    }
-    class CustomFilter extends Filter
-    {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            // TODO Auto-generated method stub
-            FilterResults results=new FilterResults();
-            if(constraint != null && constraint.length()>0)
-            {
-                //CONSTARINT TO UPPER
-                constraint=constraint.toString().toUpperCase();
-                ArrayList<Trash> filters=new ArrayList<Trash>();
-                //get specific items
-                for(int i=0;i<filterlist.size();i++)
-                {
-                    if(filterlist.get(i).getTrashName().toUpperCase().contains(constraint))
-                    {
-                        Trash p=new Trash(filterlist.get(i).getTrashName(), filterlist.get(i).getImageUrl(), filterlist.get(i).getTrashDescription(),filterlist.get(i).getTrashPrice(),filterlist.get(i).getUploadedDate());
-                        filters.add(p);
-                    }
-                }
-                results.count=filters.size();
-                results.values=filters;
-            }else
-            {
-                results.count=filterlist.size();
-                results.values=filterlist;
-            }
-            return results;
-        }
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            // TODO Auto-generated method stub
-            trash=(ArrayList<Trash>) results.values;
-            notifyDataSetChanged();
-        }
     }
 
 }

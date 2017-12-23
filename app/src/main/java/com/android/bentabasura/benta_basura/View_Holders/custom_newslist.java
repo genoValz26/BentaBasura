@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.News;
-import com.android.bentabasura.benta_basura.Pages.BuyCraftedDetails;
+import com.android.bentabasura.benta_basura.Pages.Admin_EditNews;
 import com.android.bentabasura.benta_basura.R;
 import com.squareup.picasso.Picasso;
 
@@ -72,7 +72,7 @@ public class custom_newslist extends BaseAdapter {
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailsIntent = new Intent(parent.getContext(), BuyCraftedDetails.class);
+                detailsIntent = new Intent(parent.getContext(), Admin_EditNews.class);
                 detailsIntent.putExtra("NewsTitle", news.get(position).getNewsTitle());
                 detailsIntent.putExtra("NewsDetail", news.get(position).getNewsDetail());
                 detailsIntent.putExtra("NewsDate", news.get(position).getNewsDate());

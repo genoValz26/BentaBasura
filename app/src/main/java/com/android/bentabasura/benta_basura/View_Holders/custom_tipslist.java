@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.Tips;
-import com.android.bentabasura.benta_basura.Pages.BuyCraftedDetails;
+import com.android.bentabasura.benta_basura.Pages.Admin_EditTips;
 import com.android.bentabasura.benta_basura.R;
 import com.squareup.picasso.Picasso;
 
@@ -64,7 +64,7 @@ public class custom_tipslist extends BaseAdapter {
         Button btnReadMore = (Button) rowData.findViewById(R.id.btnReadMore);
 
         Picasso.with(ctx).load(tips.get(position).getTipsImagepath()).placeholder(R.drawable.progress_animation).fit().into(imgThumbTips);
-       tipsTitle.setText(tips.get(position).getTipsTitle());
+        tipsTitle.setText(tips.get(position).getTipsTitle());
         tipsDate.setText(tips.get(position).getTipsDate());
         tipsDetail.setText(tips.get(position).getTipsDetail());
 
@@ -72,7 +72,7 @@ public class custom_tipslist extends BaseAdapter {
         btnReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailsIntent = new Intent(parent.getContext(), BuyCraftedDetails.class);
+                detailsIntent = new Intent(parent.getContext(), Admin_EditTips.class);
                 detailsIntent.putExtra("TipsTitle", tips.get(position).getTipsTitle());
                 detailsIntent.putExtra("TipsDetail", tips.get(position).getTipsDetail());
                 detailsIntent.putExtra("TipsDate", tips.get(position).getTipsDate());
