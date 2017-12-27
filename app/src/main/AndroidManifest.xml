@@ -101,13 +101,16 @@
         <activity android:name=".Pages.Admin_ManageUsers"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Pages.Admin_ManageCraft"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Pages.Admin_ManageTrash"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Pages.Admin_ManageNews"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Pages.Admin_ManageTips"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Pages.Admin_ManageTrashCraft"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Pages.Admin_AddNews"
@@ -121,6 +124,7 @@
         <activity android:name=".Pages.Admin_EditNews"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+
 
     </application>
 

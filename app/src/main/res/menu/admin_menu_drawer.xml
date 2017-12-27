@@ -9,9 +9,13 @@
             android:icon="@mipmap/ic_account_circle_black_24dp"
             android:title="Manage                                        +" />
 
-        <item android:id="@+id/manage_crafted_raw"
+        <item android:id="@+id/manage_crafted"
             android:visible="false"
-            android:title="Crafted and Raw Items" />
+            android:title="Crafted" />
+
+        <item android:id="@+id/manage_raw"
+            android:visible="false"
+            android:title="Raw" />
 
         <item android:id="@+id/manage_news"
             android:visible="false"

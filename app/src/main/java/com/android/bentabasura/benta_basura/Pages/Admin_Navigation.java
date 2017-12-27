@@ -38,7 +38,7 @@ public class Admin_Navigation extends AppCompatActivity implements NavigationVie
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private Menu navMenu;
-    private Intent manageUsers,manageNews,manageCraftTrash,manageTips;
+    private Intent manageUsers,manageNews,manageCraft,manageTrash,manageTips;
     private GoogleApiClient mGoogleApiClient;
     ActiveUser activeUser;
     FirebaseAuth firebaseAuth;
@@ -77,7 +77,8 @@ public class Admin_Navigation extends AppCompatActivity implements NavigationVie
         manageUsers = new Intent(this,Admin_ManageUsers.class);
         manageNews = new Intent(this,Admin_ManageNews.class);
         manageTips = new Intent(this,Admin_ManageTips.class);
-        manageCraftTrash = new Intent(this,Admin_ManageTrashCraft.class);
+        manageCraft = new Intent(this,Admin_ManageCraft.class);
+        manageTrash = new Intent(this,Admin_ManageTrash.class);
 
         firebaseAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -143,14 +144,16 @@ public class Admin_Navigation extends AppCompatActivity implements NavigationVie
         switch (item.getItemId()) {
             case R.id.manage:
                 if(navMenu.findItem(R.id.manage).getTitle().equals("Manage                                        +")) {
-                    navMenu.findItem(R.id.manage_crafted_raw).setVisible(true);
+                    navMenu.findItem(R.id.manage_crafted).setVisible(true);
+                    navMenu.findItem(R.id.manage_raw).setVisible(true);
                     navMenu.findItem(R.id.manage_users).setVisible(true);
                     navMenu.findItem(R.id.manage_news).setVisible(true);
                     navMenu.findItem(R.id.manage_tips).setVisible(true);
                     navMenu.findItem(R.id.manage).setTitle("Manage                                        -");
                 }
                 else{
-                    navMenu.findItem(R.id.manage_crafted_raw).setVisible(false);
+                    navMenu.findItem(R.id.manage_crafted).setVisible(false);
+                    navMenu.findItem(R.id.manage_raw).setVisible(false);
                     navMenu.findItem(R.id.manage_users).setVisible(false);
                     navMenu.findItem(R.id.manage_news).setVisible(false);
                     navMenu.findItem(R.id.manage_tips).setVisible(false);
@@ -161,8 +164,12 @@ public class Admin_Navigation extends AppCompatActivity implements NavigationVie
                 startActivity(manageUsers);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.manage_crafted_raw:
-                startActivity(manageCraftTrash);
+            case R.id.manage_crafted:
+                startActivity(manageCraft);
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case R.id.manage_raw:
+                startActivity(manageTrash);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.manage_news:
