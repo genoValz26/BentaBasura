@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BentaBasura.iml" filepath="$PROJECT_DIR$/BentaBasura.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Capstone.iml" filepath="$PROJECT_DIR$/Capstone.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../Geno/Desktop/BentaBasura/Capstone.iml" filepath="$PROJECT_DIR$/../../../Geno/Desktop/BentaBasura/Capstone.iml" />
+      <module fileurl="file://C:\Users\Geno\Desktop\BentaBasura\Capstone.iml" filepath="C:\Users\Geno\Desktop\BentaBasura\Capstone.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

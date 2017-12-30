@@ -77,8 +77,8 @@ public class Admin_Navigation extends AppCompatActivity implements NavigationVie
         manageUsers = new Intent(this,Admin_ManageUsers.class);
         manageNews = new Intent(this,Admin_ManageNews.class);
         manageTips = new Intent(this,Admin_ManageTips.class);
-        manageCraft = new Intent(this,Admin_ManageCraft.class);
-        manageTrash = new Intent(this,Admin_ManageTrash.class);
+        manageCraft = new Intent(this,Admin_Craft_Categories.class);
+        manageTrash = new Intent(this,Admin_Trash_Categories.class);
 
         firebaseAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
