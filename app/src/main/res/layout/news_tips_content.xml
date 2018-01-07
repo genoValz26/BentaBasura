@@ -55,92 +55,31 @@
                     android:layout_below="@+id/textView2"
                     android:layout_alignStart="@+id/textViewA" />
 
+                <ListView
+                    android:id="@+id/newslist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView31" />
+
                 <TextView
-                    android:id="@+id/textView32"
+                    android:id="@+id/Tips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/textView31"
                     android:layout_alignStart="@+id/textView31"
-                    android:layout_below="@+id/textView31"
-                    android:textColor="@color/colorPrimaryAccent"
-                    android:layout_marginTop="15dp"
-                    android:textSize="15sp"
-                    android:textStyle="normal|bold"
-                    android:text="The Perils of Peanut Butter" />
-
-                <TextView
-                    android:id="@+id/textView33"
-                    android:layout_width="500dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/textView32"
-                    android:layout_below="@+id/textView32"
-                    android:layout_marginTop="15dp"
-                    android:textSize="10sp"
-                    android:textStyle="normal"
-                    android:text="A recycling information site maintained by the Resource and Waste Recovery Division of Santa Barbara County, Calif., describes a way to clean a peanut butter jar that uses less energy and water than traditional dishwashing methods." />
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:layout_below="@+id/newslist"
                     android:text="Tips"
-                    android:textColor="@color/colorPrimaryAccent"
-                    android:layout_below="@+id/textView4"
-                    android:layout_alignStart="@+id/textView3" />
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/textView33"
-                    android:layout_below="@+id/textView33"
-                    android:layout_marginTop="20dp"
-                    android:textStyle="normal|bold"
-                    android:textSize="15sp"
-                    android:textColor="@color/colorPrimaryAccent"
-                    android:text="Cleaning up waste complaints in real time" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:textSize="10sp"
-                    android:textStyle="normal"
-                    android:text="Waste issues have been high up on the national news agenda this year, with the three-month Birmingham refuse worker strike and ongoing controversy over the regularity of some collections hitting the headlines. However, concerns with waste collection go beyond the purely local, and specific kinds of collections."
-                    android:layout_below="@+id/textView3"
-                    android:layout_alignStart="@+id/textView3" />
+                <ListView
+                    android:id="@+id/tipslist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/Tips" />
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="300dp"
-                    android:layout_height="250dp"
-                    android:layout_below="@+id/textView34"
-                    android:layout_centerHorizontal="true"
-                    android:scaleType="fitXY"
-                    android:layout_marginTop="10dp"
-                    app:srcCompat="@drawable/recycling_tips" />
-
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="300dp"
-                    android:layout_height="250dp"
-                    android:layout_below="@+id/imageView6"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/tips3" />
-
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="300dp"
-                    android:layout_height="250dp"
-                    android:layout_below="@+id/imageView7"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/tips2" />
 
             </RelativeLayout>
         </ScrollView>

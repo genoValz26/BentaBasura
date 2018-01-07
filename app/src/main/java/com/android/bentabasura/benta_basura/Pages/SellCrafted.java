@@ -324,12 +324,9 @@ public class SellCrafted extends AppCompatActivity implements NavigationView.OnN
                 //get the returned data
                 Bundle extras = data.getExtras();
                 //get the cropped bitmap
-                //Bitmap thePic = (Bitmap) extras.get("data");
+                Bitmap thePic = (Bitmap) extras.get("data");
                 //display the returned cropped image
-                Bitmap photo = rotateBitmap(getApplicationContext(), picUri, ((Bitmap) data.getExtras().get("data")));
-               int orientation = getOrientation(getApplicationContext(), picUri);
-                setOrientation(getApplicationContext(), picUri, orientation);
-                navBack.setImageBitmap(photo);
+                navBack.setImageBitmap(thePic);
             }
 
         }

@@ -10,25 +10,29 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
+import com.android.bentabasura.benta_basura.Models.News;
+import com.android.bentabasura.benta_basura.Models.Tips;
 import com.android.bentabasura.benta_basura.R;
 import com.android.bentabasura.benta_basura.Utils.BadgeDrawable;
 import com.android.bentabasura.benta_basura.Utils.RoundedTransformation;
+import com.android.bentabasura.benta_basura.View_Holders.home_news_list;
+import com.android.bentabasura.benta_basura.View_Holders.home_tips_list;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -43,6 +47,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -70,6 +76,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     ActiveUser activeUser;
     ScrollView scrollView;
     private GoogleApiClient mGoogleApiClient;
+
+    private ListView newslist,tipslist;
+    String oldestPostId = "";
+    ProgressDialog mProgressDialog;
+    ArrayList<News> newsArray =new ArrayList<>();
+    ArrayList<Tips> tipsArray =new ArrayList<>();
+    private home_news_list customnewsAdapter;
+    private home_tips_list customtipsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +156,19 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        mProgressDialog = new ProgressDialog(this);
+        newslist = (ListView) findViewById(R.id.newslist);
+        tipslist = (ListView) findViewById(R.id.tipslist);
+
+        getNewsDataFromFirebase();
+
+        customnewsAdapter = new home_news_list(this, newsArray);
+        newslist.setAdapter(customnewsAdapter);
+
+        getTipsDataFromFirebase();
+        customtipsAdapter = new home_tips_list(this, tipsArray);
+        tipslist.setAdapter(customtipsAdapter);
     }
 
     @Override
@@ -321,6 +348,115 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         badge.setCount(count);
         icon.mutate();
         icon.setDrawableByLayerId(R.id.ic_badge, badge);
+    }
+    public void getNewsDataFromFirebase() {
+
+
+        databaseReferenceNot.child("News").orderByChild("reverseDate").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                        boolean found = false;
+                        oldestPostId = postSnapShot.getKey();
+
+                        mProgressDialog.setMessage("Loading...");
+                        mProgressDialog.show();
+
+                        for (News newsItem : newsArray) {
+                            if (!TextUtils.isEmpty(newsItem.getNewsID()) && !TextUtils.isEmpty(oldestPostId)) {
+                                if (newsItem.getNewsID().equals(oldestPostId)) {
+                                    found = true;
+                                }
+                            }
+                        }
+
+                        if (!found) {
+
+                            News news = postSnapShot.getValue(News.class);
+                            news.setNewsID(postSnapShot.getKey().toString());
+                            newsArray.add(news);
+                            customnewsAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                    mProgressDialog.dismiss();
+                }
+                if(newsArray.size() == 0){
+                    newslist.setVisibility(View.INVISIBLE);
+                    newslist.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    newslist.setVisibility(View.VISIBLE);
+                    //txtEmpty.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void getTipsDataFromFirebase() {
+
+
+        databaseReferenceNot.child("Tips").orderByChild("reverseDate").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                        boolean found = false;
+                        oldestPostId = postSnapShot.getKey();
+
+                        mProgressDialog.setMessage("Loading...");
+                        mProgressDialog.show();
+
+                        for (Tips tipsItem : tipsArray) {
+                            if (!TextUtils.isEmpty(tipsItem.getTipsID()) && !TextUtils.isEmpty(oldestPostId)) {
+                                if (tipsItem.getTipsID().equals(oldestPostId)) {
+                                    found = true;
+                                }
+                            }
+                        }
+
+                        if (!found) {
+
+                            Tips tips = postSnapShot.getValue(Tips.class);
+
+                            tips.setTipsID(postSnapShot.getKey().toString());
+                            tipsArray.add(tips);
+                            customtipsAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                    mProgressDialog.dismiss();
+                }
+                if(tipsArray.size() == 0){
+                    tipslist.setVisibility(View.INVISIBLE);
+                    tipslist.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    tipslist.setVisibility(View.VISIBLE);
+                    //txtEmpty.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

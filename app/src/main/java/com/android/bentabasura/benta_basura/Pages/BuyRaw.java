@@ -19,13 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,9 +47,9 @@ import com.webianks.library.PopupBubble;
 import java.util.ArrayList;
 
 
-public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener, AdapterView.OnItemSelectedListener {
+public class BuyRaw extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ListView.OnScrollListener {
 
-    private Intent reservedItems,profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw,notificationsPage,homePage,cartPage,historyPage,myItems,loginpage;
+    private Intent reservedItems, profilePage, buyCrafted, buyRaw, sellCrafted, sellRaw, notificationsPage, homePage, cartPage, historyPage, myItems, loginpage;
     private DrawerLayout drawer;
     FirebaseAuth firebaseAuth;
     private ActionBarDrawerToggle toggle;
@@ -65,13 +61,11 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     private int counter = 3;
 
     DatabaseReference databaseReference;
-    ArrayList<Trash> trashArray =new ArrayList<>();
+    ArrayList<Trash> trashArray = new ArrayList<>();
 
     TextView navFullName, navEmail, txtEmpty;
     ImageView navImage;
     ActiveUser activeUser;
-    SearchView filterTxt;
-    Button filterBtn;
 
     private String oldestPostId;
     private int currentVisibleItemCount;
@@ -85,6 +79,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
     private Spinner spnFilter;
     private String selectedFilter;
     PopupBubble popupBubble;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,12 +97,12 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         sellCrafted = new Intent(BuyRaw.this, SellCrafted.class);
         sellRaw = new Intent(BuyRaw.this, SellRaw.class);
         notificationsPage = new Intent(BuyRaw.this, Notifications.class);
-        homePage = new Intent(BuyRaw.this,Home.class);
-        cartPage = new Intent(BuyRaw.this,Cart.class);
-        historyPage = new Intent(BuyRaw.this,BoughtItems.class);
-        myItems = new Intent(BuyRaw.this,MyItems.class);
-        loginpage = new Intent(BuyRaw.this,Login.class);
-        reservedItems = new Intent(BuyRaw.this,ReservedItems.class);
+        homePage = new Intent(BuyRaw.this, Home.class);
+        cartPage = new Intent(BuyRaw.this, Cart.class);
+        historyPage = new Intent(BuyRaw.this, BoughtItems.class);
+        myItems = new Intent(BuyRaw.this, MyItems.class);
+        loginpage = new Intent(BuyRaw.this, Login.class);
+        reservedItems = new Intent(BuyRaw.this, ReservedItems.class);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -115,14 +110,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         //---------------------------------------------------------
-        spnFilter = (Spinner) findViewById(R.id.spnr);
 
-        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(this,R.array.filter_array,android.R.layout.simple_spinner_dropdown_item);
-        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnFilter.setAdapter(adapterCategory);
-        spnFilter.setOnItemSelectedListener(this);
-
-        //----------------------------------------------------------
         //----------------------------------------------------------------
         activeUser = ActiveUser.getInstance();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -144,7 +132,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         Intent receivedIntent = getIntent();
         receivedBundle = receivedIntent.getExtras();
 
-        databaseReference= FirebaseDatabase.getInstance().getReference("Trash").child(receivedBundle.get("Category").toString());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Trash").child(receivedBundle.get("Category").toString());
 
         mProgressDialog = new ProgressDialog(this);
 
@@ -179,7 +167,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 int duration = 500;  //miliseconds
                 int offset = 0;      //fromListTop
 
-                lstRecycle.smoothScrollToPositionFromTop(0,offset,duration);
+                lstRecycle.smoothScrollToPositionFromTop(0, offset, duration);
 
                 trashArray.clear();
                 customAdapter.notifyDataSetChanged();
@@ -193,22 +181,11 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
         popupBubble.hide();
 
-        filterTxt = (SearchView) findViewById(R.id.filterTxt);
-        filterTxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                //customAdapter.getFilter().filter(s);
-                return false;
-            }
-        });
     }
-    public void showMessage(String message){
-        Toast.makeText(getApplicationContext(), message , Toast.LENGTH_LONG).show();
+
+    public void showMessage(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -222,7 +199,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menuNotification:
                 startActivity(notificationsPage);
                 break;
@@ -248,12 +225,11 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.buy:
-                if(navMenu.findItem(R.id.buy).getTitle().equals("Buy                                        +")) {
+                if (navMenu.findItem(R.id.buy).getTitle().equals("Buy                                        +")) {
                     navMenu.findItem(R.id.buy_crafted).setVisible(true);
                     navMenu.findItem(R.id.buy_raw).setVisible(true);
                     navMenu.findItem(R.id.buy).setTitle("Buy                                        -");
-                }
-                else{
+                } else {
                     navMenu.findItem(R.id.buy_crafted).setVisible(false);
                     navMenu.findItem(R.id.buy_raw).setVisible(false);
                     navMenu.findItem(R.id.buy).setTitle("Buy                                        +");
@@ -268,12 +244,11 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case R.id.sell:
-                if(navMenu.findItem(R.id.sell).getTitle().equals("Sell                                        +")) {
+                if (navMenu.findItem(R.id.sell).getTitle().equals("Sell                                        +")) {
                     navMenu.findItem(R.id.sell_crafted).setVisible(true);
                     navMenu.findItem(R.id.sell_raw).setVisible(true);
                     navMenu.findItem(R.id.sell).setTitle("Sell                                        -");
-                }
-                else{
+                } else {
                     navMenu.findItem(R.id.sell_crafted).setVisible(false);
                     navMenu.findItem(R.id.sell_raw).setVisible(false);
                     navMenu.findItem(R.id.sell).setTitle("Sell                                        +");
@@ -301,12 +276,14 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         }
         return true;
     }
+
     public void logout() {
 
         buildDialog(this).show();
         return;
 
     }
+
     public void getTrashDataFromFirebase() {
 
         databaseReference.orderByChild("reverseDate").limitToFirst(3).addValueEventListener(new ValueEventListener() {
@@ -335,7 +312,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
                             if (!found) {
 
-                              Trash trash = postSnapShot.getValue(Trash.class);
+                                Trash trash = postSnapShot.getValue(Trash.class);
 
                                 if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
                                     if ( trash.getflag().equals("0") ) {
@@ -407,11 +384,11 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
                                 if (found) {
                                     continue;
                                 }
-                                Log.i("Fetching data","Loading...");
+                                Log.i("Fetching data", "Loading...");
 
                                 Trash trash = postSnapShot.getValue(Trash.class);
                                 if (trash.getTrashCategory().equals(receivedBundle.get("Category"))) {
-                                    if ( trash.getflag().equals("0") ) {
+                                    if (trash.getflag().equals("0")) {
                                         trash.setTrashId(postSnapShot.getKey().toString());
                                         trashArray.add(trash);
                                     }
@@ -431,6 +408,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
             }
         }
     }
+
     public AlertDialog.Builder buildDialog(Context c) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
@@ -454,19 +432,5 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
         return builder;
     }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Spinner theSpinner = (Spinner) adapterView;
-        switch(theSpinner.getId()){
-            case R.id.spnr:
-                selectedFilter = theSpinner.getItemAtPosition(i).toString();
-                break;
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }
+
