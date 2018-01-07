@@ -102,12 +102,12 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
 
         txtUploadedBy.setVisibility(View.GONE);
 
-        /*databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     //ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
-                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Ratings").child(activeUser.getUserId()).child("Rate").getValue().toString()));
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
                 }
             }
 
@@ -115,7 +115,7 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });*/
+        });
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

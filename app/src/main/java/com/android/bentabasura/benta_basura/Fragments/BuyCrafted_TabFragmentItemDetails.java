@@ -104,12 +104,12 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtUploadedBy.setVisibility(View.GONE);
 
         ratingValue = (TextView) view.findViewById(R.id.ratingValue);
-       /* databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    //ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
-                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Ratings").child(activeUser.getUserId()).child("Rate").getValue().toString()));
+                    ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
                 }
             }
 
@@ -117,7 +117,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
             public void onCancelled(DatabaseError databaseError) {
                 ratingValue.setText("Not Yet Rated");
             }
-        });*/
+        });
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
