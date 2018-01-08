@@ -563,7 +563,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                     }
 
                     databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("flagTo").setValue(key);
-                    Transaction craftTransaction = new Transaction(key.toString(),activeUser.getUserId().toString(),strcraftID,UploadedDate);
+                    Transaction craftTransaction = new Transaction(key.toString(),activeUser.getUserId().toString(),UploadedDate,strcraftID);
                     databaseReference.child("Transaction").child("Craft").child(strcraftCategory).push().setValue(craftTransaction);
 
                 }

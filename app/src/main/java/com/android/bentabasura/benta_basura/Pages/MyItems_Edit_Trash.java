@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
 import com.android.bentabasura.benta_basura.Models.Notification;
+import com.android.bentabasura.benta_basura.Models.Transaction;
 import com.android.bentabasura.benta_basura.Models.Trash;
 import com.android.bentabasura.benta_basura.R;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -511,6 +512,10 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
             @Override
             public void onClick(View view) {
 
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
+                String UploadedDate = sdf.format(currentTime);
+
                 if (soldTo.getSelectedItem().toString().equals(""))
                 {
                     Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();;
@@ -526,9 +531,11 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                     }
 
                     databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("flagTo").setValue(key);
+                    Transaction trashTransaction = new Transaction(key.toString(),activeUser.getUserId().toString(),UploadedDate,strTrashId);
+                    databaseReference.child("Transaction").child("Trash").child(strTrashCategory).push().setValue(trashTransaction);
                 }
-
-                alertDialog.dismiss();
+                startActivity(new Intent(MyItems_Edit_Trash.this,Home.class));
+                showMessage("Trash has been Sold!");
 
                 //Notification
                 String notifId = databaseReferenceNotif.push().getKey();
@@ -537,9 +544,6 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 String ownerId =  key;
                 String profileId = strUploadedBy;
 
-                Date currentTime = Calendar.getInstance().getTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
-                String UploadedDate = sdf.format(currentTime);
 
                 Notification newNotif = new Notification();
 
