@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background">
+
+    <ImageView
+        android:id="@+id/imgThumbTips"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_light" />
+
+    <TextView
+        android:id="@+id/tipsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgThumbTips"
+        android:layout_below="@+id/imgThumbTips"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textStyle="normal|bold"
+        android:textSize="20sp"
+        android:text="Tips Title" />
+
+    <TextView
+        android:id="@+id/tipsDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Tips Detail"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:layout_below="@+id/tipsTitle"
+        android:layout_alignStart="@+id/tipsTitle" />
+
+    <TextView
+        android:id="@+id/tipsDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Tips Date"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:layout_below="@+id/tipsDetail"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
