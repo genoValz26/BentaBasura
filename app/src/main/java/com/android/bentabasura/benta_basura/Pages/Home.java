@@ -74,7 +74,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     TextView navFullName, navEmail,tvTop;
     ImageView navImage;
     ActiveUser activeUser;
-    ScrollView scrollView;
+
     private GoogleApiClient mGoogleApiClient;
 
     private ListView newslist,tipslist;
@@ -97,8 +97,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         setSupportActionBar(toolbar);
 
         tvTop = (TextView) findViewById(R.id.textViewA);
-        scrollView = (ScrollView) findViewById(R.id.sv);
-        scrollView.smoothScrollTo(0,tvTop.getTop());
+
         progressDialog = new ProgressDialog(this);
         profilePage = new Intent(Home.this, MyProfile.class);
         buyCrafted = new Intent(Home.this, Craft_Categories.class);

@@ -13,7 +13,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +48,8 @@ import com.squareup.picasso.Picasso;
 import com.webianks.library.PopupBubble;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 
 public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,OnScrollListener {
@@ -66,8 +70,8 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
     TextView navFullName, navEmail, txtEmpty;
     ImageView navImage;
     ActiveUser activeUser;
-    EditText filterTxt;
-    Button filterBtn;
+    EditText searchTxt;
+    Button searchbtn;
 
     private String oldestPostId;
     private int currentVisibleItemCount;
@@ -161,7 +165,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
 
         popupBubble = (PopupBubble) findViewById(R.id.popup_bubble);
 
-        popupBubble.setPopupBubbleListener(new PopupBubble.PopupBubbleClickListener() {
+        /*popupBubble.setPopupBubbleListener(new PopupBubble.PopupBubbleClickListener() {
             @Override
             public void bubbleClicked(Context context) {
 
@@ -178,12 +182,20 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
 
                 popupBubble.hide();
             }
-        });
+        });*/
 
         popupBubble.hide();
 
-        //filterTxt = (EditText) findViewById(R.id.filterTxt);
-       // filterBtn = (Button) findViewById(R.id.filterBtn);
+        searchTxt = (EditText) findViewById(R.id.searchTxt);
+        searchbtn = (Button) findViewById(R.id.searchbtn);
+        searchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
 
     }
 

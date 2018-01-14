@@ -83,7 +83,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/searchTxt"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginStart="25dp"
@@ -93,15 +93,15 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:textSize="12sp"
-            android:layout_marginStart="10dp"
-            android:text="@string/search_hint"
-            android:layout_alignBaseline="@+id/editText"
-            android:layout_alignBottom="@+id/editText"
-            android:layout_toEndOf="@+id/editText" />
+    <Button
+        android:id="@+id/searchbtn"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/searchTxt"
+        android:layout_alignBottom="@+id/searchTxt"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/searchTxt"
+        android:text="@string/search_hint"
+        android:textSize="12sp" />
 </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

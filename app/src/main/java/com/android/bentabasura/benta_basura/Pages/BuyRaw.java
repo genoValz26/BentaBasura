@@ -160,7 +160,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
         popupBubble = (PopupBubble) findViewById(R.id.popup_bubble);
 
-        popupBubble.setPopupBubbleListener(new PopupBubble.PopupBubbleClickListener() {
+        /*popupBubble.setPopupBubbleListener(new PopupBubble.PopupBubbleClickListener() {
             @Override
             public void bubbleClicked(Context context) {
 
@@ -177,7 +177,7 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
                 popupBubble.hide();
             }
-        });
+        });*/
 
         popupBubble.hide();
 
