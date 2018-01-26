@@ -16,6 +16,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="6dp"
+        android:layout_marginTop="50dp"
         android:text="About BentaBasura"
         android:textColor="@color/colorPrimaryAccent"
         android:textSize="20sp"
@@ -23,13 +24,14 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="500dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView31"
+        android:layout_alignStart="@+id/textViewA"
         android:layout_below="@+id/textViewA"
         android:layout_marginTop="13dp"
-        android:text="Benta Basura was developed by the team called Brogrammers of University of Cebu Lapu-Lapu and Mandaue to gain awareness of segregation and recycling, with this system users can gain income through collecting garbage and uploading them in the system."
-        android:textSize="10sp"
+        android:layout_marginLeft="5dp"
+        android:text="Benta Basura was developed to gain awareness on segregation and recycling, users can gain income through collecting garbage and uploading them in the system."
+        android:textSize="12sp"
         android:textStyle="normal" />
 
 
@@ -45,10 +47,10 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-
     <ListView
         android:id="@+id/newslist"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
         android:layout_height="213dp"
         android:scrollIndicators="bottom"
         android:scrollbars="horizontal" />
@@ -68,6 +70,7 @@
         android:id="@+id/tipslist"
         android:layout_width="match_parent"
         android:layout_height="207dp"
+        android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="243dp"
