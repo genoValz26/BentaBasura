@@ -97,7 +97,7 @@ public class FirebaseNotificationService extends Service {
                                                     trashIntent.putExtra("TrashQuantity", dataSnapshot.child("trashQuantity").getValue().toString());
                                                     trashIntent.putExtra("TrashCategory", dataSnapshot.child("trashCategory").getValue().toString());
                                                     trashIntent.putExtra("TrashPrice", dataSnapshot.child("trashPrice").getValue().toString());
-                                                    trashIntent.putExtra("TrashSeller", dataSnapshot.child("sellerContact").getValue().toString());
+                                                    trashIntent.putExtra("TrashSeller", dataSnapshot.child("meetupLocation").getValue().toString());
                                                     trashIntent.putExtra("TrashId", dataSnapshot.getKey());
                                                     trashIntent.putExtra("UploadedBy", dataSnapshot.child("uploadedBy").getValue().toString());
 
@@ -145,7 +145,7 @@ public class FirebaseNotificationService extends Service {
                                                     craftIntent.putExtra("CraftQuantity", dataSnapshot.child("craftQuantity").getValue().toString());
                                                     craftIntent.putExtra("CraftCategory", dataSnapshot.child("craftCategory").getValue().toString());
                                                     craftIntent.putExtra("CraftPrice", dataSnapshot.child("craftPrice").getValue().toString());
-                                                    craftIntent.putExtra("CraftSeller", dataSnapshot.child("sellerContact").getValue().toString());
+                                                    craftIntent.putExtra("CraftSeller", dataSnapshot.child("meetupLocation").getValue().toString());
                                                     craftIntent.putExtra("CraftId", dataSnapshot.getKey());
                                                     craftIntent.putExtra("UploadedBy", dataSnapshot.child("uploadedBy").getValue().toString());
 
