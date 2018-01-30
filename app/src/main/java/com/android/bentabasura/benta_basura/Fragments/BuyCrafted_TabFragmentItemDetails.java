@@ -165,7 +165,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
     }
 
     public void showMessage(String message){
-        Toast.makeText(getActivity().getApplicationContext(), message , Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), message , Toast.LENGTH_SHORT).show();
     }
 
     public void addNotification()

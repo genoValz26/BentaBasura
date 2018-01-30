@@ -159,7 +159,7 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         }
     }
     public void showMessage(String message){
-        Toast.makeText(getActivity().getApplicationContext(), message , Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), message , Toast.LENGTH_SHORT).show();
     }
     public void addNotification()
     {
