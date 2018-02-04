@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,8 +71,7 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
     TextView navFullName, navEmail, txtEmpty;
     ImageView navImage;
     ActiveUser activeUser;
-    EditText searchTxt;
-    Button searchbtn;
+    SearchView searchTxt;
 
     private String oldestPostId;
     private int currentVisibleItemCount;
@@ -186,15 +186,21 @@ public class BuyCrafted extends AppCompatActivity implements NavigationView.OnNa
 
         popupBubble.hide();
 
-        searchTxt = (EditText) findViewById(R.id.searchTxt);
-        searchbtn = (Button) findViewById(R.id.searchbtn);
-        searchbtn.setOnClickListener(new View.OnClickListener() {
+        searchTxt = (SearchView) findViewById(R.id.searchTxt);
+        searchTxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onQueryTextSubmit(String s) {
+                customAdapter.getFilter().filter(s);
+                return false;
+            }
 
-
+            @Override
+            public boolean onQueryTextChange(String s) {
+                customAdapter.getFilter().filter(s);
+                return false;
             }
         });
+
 
 
     }

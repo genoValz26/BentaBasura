@@ -520,6 +520,10 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
                 {
                     Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();;
                 }
+                else if(TextUtils.isEmpty(soldTo.getSelectedItem().toString())){
+
+                    showMessage("No selected interested users!");
+                }
                 else {
                     databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).child("flag").setValue("1");
 

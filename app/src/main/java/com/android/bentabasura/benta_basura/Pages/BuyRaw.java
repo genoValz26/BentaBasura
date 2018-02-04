@@ -22,6 +22,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,9 +77,9 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
 
     Bundle receivedBundle;
     private GoogleApiClient mGoogleApiClient;
-    private Spinner spnFilter;
-    private String selectedFilter;
     PopupBubble popupBubble;
+
+    SearchView searchtxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +181,21 @@ public class BuyRaw extends AppCompatActivity implements NavigationView.OnNaviga
         });*/
 
         popupBubble.hide();
+
+        searchtxt = (SearchView) findViewById(R.id.searchTxt);
+        searchtxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                customAdapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                customAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
 
 
     }

@@ -4,12 +4,14 @@ package com.android.bentabasura.benta_basura.Fragments;
  */
 
 import android.app.ProgressDialog;
+import android.app.SearchableInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
@@ -40,6 +42,7 @@ public class TabFragmentCraft extends Fragment {
     ArrayList<Craft> craftArray = new ArrayList<>();
     List<String> craftCategory = Arrays.asList("Decoration", "Furniture", "Projects", "Accessories");
     TextView txtEmpty;
+    SearchView searchTxt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class TabFragmentCraft extends Fragment {
         lstMyCraft = (ListView) view.findViewById(R.id.lstMyCraft);
         mProgressDialog = new ProgressDialog(container.getContext());
         txtEmpty = (TextView) view.findViewById(R.id.txtEmpty);
+        searchTxt = (SearchView) view.findViewById(R.id.searchTxt);
 
         databaseReferenceCraft  = FirebaseDatabase.getInstance().getReference("Craft");
 
@@ -62,6 +66,20 @@ public class TabFragmentCraft extends Fragment {
 
         //LoadTrash
         getCraftDataFromFirebase();
+
+        searchTxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                customCraftAdapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                customCraftAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
 
         return view;
     }

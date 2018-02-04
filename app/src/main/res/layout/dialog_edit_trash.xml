@@ -175,14 +175,14 @@
                 android:id="@+id/soldbtn"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
+                android:layout_alignEnd="@+id/trashName"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="21dp"
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
                 android:paddingLeft="5dp"
-                android:text="Sold"
-                android:textSize="12sp"
-                android:layout_alignParentTop="true"
-                android:layout_alignEnd="@+id/trashName"
-                android:layout_marginTop="21dp" />
+                android:text="Mark"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/deletebtn"

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class custom_craftlist extends BaseAdapter {
 
     private Context ctx;
     private ArrayList<Craft> craft;
+    private ArrayList<Craft> orig;
     private static LayoutInflater inflater = null;
     Intent  detailsIntent;
 
@@ -105,5 +107,36 @@ public class custom_craftlist extends BaseAdapter {
 
 
         return rowData;
+    }
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<Craft> results = new ArrayList<Craft>();
+                if (orig == null)
+                    orig = craft;
+                if (constraint != null) {
+                    if (orig != null && orig.size() > 0) {
+                        for (final Craft g : orig) {
+                            if (g.getCraftName().toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                craft = (ArrayList<Craft>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

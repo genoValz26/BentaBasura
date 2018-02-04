@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.Models.Trash;
 import com.android.bentabasura.benta_basura.Pages.BuyRawDetails;
 import com.android.bentabasura.benta_basura.R;
@@ -28,6 +30,7 @@ public class custom_trashlist extends BaseAdapter {
     private ArrayList<Trash> trash;
     private static LayoutInflater inflater = null;
     Intent  detailsIntent;
+    private ArrayList<Trash> orig;
 
     public custom_trashlist(Context context, ArrayList<Trash> trash)
     {
@@ -102,6 +105,37 @@ public class custom_trashlist extends BaseAdapter {
 
 
         return rowData;
+    }
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<Trash> results = new ArrayList<Trash>();
+                if (orig == null)
+                    orig = trash;
+                if (constraint != null) {
+                    if (orig != null && orig.size() > 0) {
+                        for (final Trash g : orig) {
+                            if (g.getTrashName().toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                trash = (ArrayList<Trash>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 }

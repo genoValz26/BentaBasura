@@ -185,7 +185,7 @@
                 android:background="@layout/button_rounded"
                 android:drawableLeft="@drawable/ic_remove_shopping_cart_white_18dp"
                 android:paddingLeft="5dp"
-                android:text="Sold / Reserve"
+                android:text="Mark"
                 android:textSize="12sp" />
 
             <Button
