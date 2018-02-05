@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.Craft;
+import com.android.bentabasura.benta_basura.Models.Trash;
 import com.android.bentabasura.benta_basura.Pages.Admin_ManageUsers;
 import com.android.bentabasura.benta_basura.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +34,7 @@ public class custom_admin_craft_list extends BaseAdapter {
     private ArrayList<Craft> craft;
     private static LayoutInflater inflater = null;
     Intent detailsIntent;
+    private ArrayList<Craft> orig;
 
     public custom_admin_craft_list(Context context, ArrayList<Craft>  craft) {
         this.ctx = context;
@@ -111,5 +114,36 @@ public class custom_admin_craft_list extends BaseAdapter {
 
 
         return rowData;
+    }
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<Craft> results = new ArrayList<Craft>();
+                if (orig == null)
+                    orig = craft;
+                if (constraint != null) {
+                    if (orig != null && orig.size() > 0) {
+                        for (final Craft g : orig) {
+                            if (g.getCraftName().toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                craft = (ArrayList<Craft>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

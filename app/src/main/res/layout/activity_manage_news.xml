@@ -13,10 +13,28 @@
         android:layout_marginTop="65dp"
         android:background="@color/colorAccent"
         android:text="Add News" />
+
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnAddNews" />
+        android:layout_below="@+id/btnAddNews"
+        android:layout_marginTop="39dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <SearchView
+            android:id="@+id/searchTxt"
+            android:layout_width="400dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="109dp"
+            android:ems="10"
+            android:hint="@string/craftName"
+            android:visibility="visible" />
+
+    </RelativeLayout>
 </RelativeLayout>

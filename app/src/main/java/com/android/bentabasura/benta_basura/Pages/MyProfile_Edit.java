@@ -125,7 +125,7 @@ public class MyProfile_Edit extends AppCompatActivity implements View.OnClickLis
 
                 progressDialog.setMessage("Updating your Information...");
                 progressDialog.show();
-                if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+                if (imageUri == null) {
 
                     Users updateUser = new Users(editUsername.getText().toString(), activeUser.getEmail().toString(), activeUser.getGender().toString(), activeUser.getProfilePicture(), activeUser.getUserType(),editAddress.getText().toString(), editContact.getText().toString());
                     databaseReference.child("Users").child(userid).setValue(updateUser).addOnSuccessListener(new OnSuccessListener<Void>() {

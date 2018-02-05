@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.R;
@@ -31,6 +32,7 @@ public class Admin_ManageUsers extends Admin_Navigation
   ProgressDialog mProgressDialog;
   ArrayList<Users> usersArray =new ArrayList<>();
   private custom_userslist customAdapter;
+  SearchView searchTxt;
 
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -43,6 +45,8 @@ public class Admin_ManageUsers extends Admin_Navigation
 
     listView1 = (ListView) findViewById(R.id.listView1);
 
+    searchTxt = (SearchView) findViewById(R.id.searchTxt);
+
     firebaseDatabase = FirebaseDatabase.getInstance();
     databaseReference = firebaseDatabase.getReference("Users");
     mProgressDialog = new ProgressDialog(this);
@@ -51,6 +55,20 @@ public class Admin_ManageUsers extends Admin_Navigation
 
     customAdapter = new custom_userslist(this, usersArray);
     listView1.setAdapter(customAdapter);
+
+    searchTxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+      @Override
+      public boolean onQueryTextSubmit(String s) {
+        customAdapter.getFilter().filter(s);
+        return false;
+      }
+
+      @Override
+      public boolean onQueryTextChange(String s) {
+        customAdapter.getFilter().filter(s);
+        return false;
+      }
+    });
   }
   public void getUsersDataFromFirebase() {
 

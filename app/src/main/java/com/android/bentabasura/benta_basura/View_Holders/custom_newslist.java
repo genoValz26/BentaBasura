@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.News;
+import com.android.bentabasura.benta_basura.Models.Tips;
+import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.Pages.Admin_EditNews;
 import com.android.bentabasura.benta_basura.R;
 import com.squareup.picasso.Picasso;
@@ -27,6 +30,7 @@ public class custom_newslist extends BaseAdapter {
     private ArrayList<News> news;
     private static LayoutInflater inflater = null;
     Intent detailsIntent;
+    private ArrayList<News> orig;
 
     public custom_newslist(Context context, ArrayList<News> news) {
         this.ctx = context;
@@ -85,4 +89,36 @@ public class custom_newslist extends BaseAdapter {
 
         return rowData;
     }
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<News> results = new ArrayList<News>();
+                if (orig == null)
+                    orig = news;
+                if (constraint != null) {
+                    if (orig != null && orig.size() > 0) {
+                        for (final News g : orig) {
+                            if (g.getNewsTitle().toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                news = (ArrayList<News>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 }

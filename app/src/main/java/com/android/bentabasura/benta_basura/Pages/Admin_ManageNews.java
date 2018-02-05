@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.android.bentabasura.benta_basura.Models.News;
 import com.android.bentabasura.benta_basura.R;
@@ -35,6 +36,7 @@ public class Admin_ManageNews extends Admin_Navigation
     ProgressDialog mProgressDialog;
     ArrayList<News> newsArray =new ArrayList<>();
     private custom_newslist customAdapter;
+    SearchView searchTxt;
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,7 @@ public class Admin_ManageNews extends Admin_Navigation
 
         addNewsBtn = (Button) findViewById(R.id.btnAddNews);
         listView1 = (ListView) findViewById(R.id.listView1);
+        searchTxt = (SearchView) findViewById(R.id.searchTxt);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("News");
@@ -62,6 +65,20 @@ public class Admin_ManageNews extends Admin_Navigation
             @Override
             public void onClick(View view) {
                 startActivity(addNewsPage);
+            }
+        });
+
+        searchTxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                customAdapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                customAdapter.getFilter().filter(s);
+                return false;
             }
         });
 

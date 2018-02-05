@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.bentabasura.benta_basura.Models.Trash;
 import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.Pages.Admin_ManageUsers;
 import com.android.bentabasura.benta_basura.R;
@@ -32,6 +34,7 @@ public class custom_userslist extends BaseAdapter {
     private ArrayList<Users> users;
     private static LayoutInflater inflater = null;
     Intent detailsIntent;
+    private ArrayList<Users> orig;
 
     public custom_userslist(Context context, ArrayList<Users>  users) {
         this.ctx = context;
@@ -111,5 +114,36 @@ public class custom_userslist extends BaseAdapter {
 
 
         return rowData;
+    }
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<Users> results = new ArrayList<Users>();
+                if (orig == null)
+                    orig = users;
+                if (constraint != null) {
+                    if (orig != null && orig.size() > 0) {
+                        for (final Users g : orig) {
+                            if (g.getFullname().toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                users = (ArrayList<Users>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.bentabasura.benta_basura.Models.Tips;
+import com.android.bentabasura.benta_basura.Models.Users;
 import com.android.bentabasura.benta_basura.Pages.Admin_EditTips;
 import com.android.bentabasura.benta_basura.R;
 import com.squareup.picasso.Picasso;
@@ -27,6 +29,7 @@ public class custom_tipslist extends BaseAdapter {
     private ArrayList<Tips> tips;
     private static LayoutInflater inflater = null;
     Intent detailsIntent;
+    private ArrayList<Tips> orig;
 
     public custom_tipslist(Context context, ArrayList<Tips> tips) {
         this.ctx = context;
@@ -84,5 +87,36 @@ public class custom_tipslist extends BaseAdapter {
 
 
         return rowData;
+    }
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<Tips> results = new ArrayList<Tips>();
+                if (orig == null)
+                    orig = tips;
+                if (constraint != null) {
+                    if (orig != null && orig.size() > 0) {
+                        for (final Tips g : orig) {
+                            if (g.getTipsTitle().toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                tips = (ArrayList<Tips>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class custom_admin_trash_list extends BaseAdapter {
     private ArrayList<Trash> trash;
     private static LayoutInflater inflater = null;
     Intent detailsIntent;
+    private ArrayList<Trash> orig;
 
     public custom_admin_trash_list(Context context, ArrayList<Trash>  trash) {
         this.ctx = context;
@@ -111,6 +113,37 @@ public class custom_admin_trash_list extends BaseAdapter {
 
 
         return rowData;
+    }
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<Trash> results = new ArrayList<Trash>();
+                if (orig == null)
+                    orig = trash;
+                if (constraint != null) {
+                    if (orig != null && orig.size() > 0) {
+                        for (final Trash g : orig) {
+                            if (g.getTrashName().toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                trash = (ArrayList<Trash>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 }
