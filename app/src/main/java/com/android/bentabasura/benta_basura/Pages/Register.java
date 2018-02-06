@@ -250,7 +250,7 @@ public class Register extends AppCompatActivity implements OnClickListener {
                             userid = user.getUid();
                             //Insert Image to Storage
 
-                            if (imageUri == null || Uri.EMPTY.equals(imageUri))
+                            if ( picUri == null || Uri.EMPTY.equals(picUri))
                             {
                                 String gender = "";
                                 if (malebtn.isChecked()) {

@@ -364,7 +364,7 @@ public class MyItems_Edit_Trash extends AppCompatActivity  implements View.OnCli
         userid = user.getUid();
 
 
-        if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+        if (picUri == null || Uri.EMPTY.equals(picUri)) {
 
             Trash newTrash = new Trash(trashName.getText().toString(), trashQty.getText().toString(), trashPrice.getText().toString(), trashDesc.getText().toString(), selectedCategory, sellerContact.getText().toString(), userid, strUploadedDate, strImageUrl, "0", "", reverseDate);
             databaseReference.child("Trash").child(strTrashCategory).child(strTrashId).setValue(newTrash);

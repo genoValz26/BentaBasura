@@ -379,7 +379,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         progressDialog.show();
         user = firebaseAuth.getCurrentUser();
         userid = user.getUid();
-        if (imageUri == null || Uri.EMPTY.equals(imageUri)) {
+        if ( picUri == null || Uri.EMPTY.equals(picUri)) {
             if (resourcesFrom.getText().toString().equals("")) {
                 resourcesFrom.setText("None");
             }
