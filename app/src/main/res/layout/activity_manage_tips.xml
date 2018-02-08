@@ -2,40 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnAddTips"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="65dp"
-        android:background="@color/colorAccent"
-        android:text="Add Tips" />
+
 
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/searchTxt" />
+        android:layout_marginTop="115dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnAddTips">
+        android:layout_height="match_parent">
+
+        <SearchView
+            android:id="@+id/searchTxt"
+            android:layout_width="400dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/cardview_dark_background"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="70dp"
+            android:ems="10"
+            android:hint="@string/craftName"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
-    <SearchView
-        android:id="@+id/searchTxt"
-        android:layout_width="400dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/btnAddTips"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="@string/craftName"
-        android:visibility="visible" />
 
 </RelativeLayout>

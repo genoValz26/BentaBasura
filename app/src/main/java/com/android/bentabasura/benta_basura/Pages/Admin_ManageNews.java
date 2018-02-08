@@ -4,10 +4,13 @@ package com.android.bentabasura.benta_basura.Pages;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -24,21 +27,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Admin_ManageNews extends Admin_Navigation
-{
+public class Admin_ManageNews extends Admin_Navigation {
     protected DrawerLayout mDrawer;
     private Intent addNewsPage;
-    private Button addNewsBtn;
     private ListView listView1;
     String oldestPostId = "";
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     ProgressDialog mProgressDialog;
-    ArrayList<News> newsArray =new ArrayList<>();
+    ArrayList<News> newsArray = new ArrayList<>();
     private custom_newslist customAdapter;
     SearchView searchTxt;
-    protected void onCreate(Bundle savedInstanceState)
-    {
+
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,9 +47,8 @@ public class Admin_ManageNews extends Admin_Navigation
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer.addView(contentView, 0);
 
-        addNewsPage = new Intent(Admin_ManageNews.this,Admin_AddNews.class);
+        addNewsPage = new Intent(Admin_ManageNews.this, Admin_AddNews.class);
 
-        addNewsBtn = (Button) findViewById(R.id.btnAddNews);
         listView1 = (ListView) findViewById(R.id.listView1);
         searchTxt = (SearchView) findViewById(R.id.searchTxt);
 
@@ -61,12 +61,6 @@ public class Admin_ManageNews extends Admin_Navigation
         customAdapter = new custom_newslist(this, newsArray);
         listView1.setAdapter(customAdapter);
 
-        addNewsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(addNewsPage);
-            }
-        });
 
         searchTxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -82,6 +76,19 @@ public class Admin_ManageNews extends Admin_Navigation
             }
         });
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.admin_menu_action_bar, menu);
+    return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add:
+                startActivity(addNewsPage);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     public void getCraftDataFromFirebase() {
 

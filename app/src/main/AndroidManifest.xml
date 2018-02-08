@@ -117,6 +117,10 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".Pages.Admin_AddTips"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".Pages.Admin_EditTips"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />

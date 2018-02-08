@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,7 +30,6 @@ public class Admin_ManageTips extends Admin_Navigation
 {
     protected DrawerLayout mDrawer;
     private Intent addTipsPage;
-    private Button addTipsBtn;
     private ListView listView1;
     String oldestPostId = "";
     FirebaseDatabase firebaseDatabase;
@@ -48,7 +49,6 @@ public class Admin_ManageTips extends Admin_Navigation
 
         addTipsPage = new Intent(Admin_ManageTips.this,Admin_AddTips.class);
 
-        addTipsBtn = (Button) findViewById(R.id.btnAddTips);
 
         listView1 = (ListView) findViewById(R.id.listView1);
 
@@ -63,12 +63,6 @@ public class Admin_ManageTips extends Admin_Navigation
         customAdapter = new custom_tipslist(this, tipsArray);
         listView1.setAdapter(customAdapter);
 
-        addTipsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(addTipsPage);
-            }
-        });
         searchTxt.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -83,6 +77,18 @@ public class Admin_ManageTips extends Admin_Navigation
             }
         });
 
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.admin_menu_action_bar, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add:
+                startActivity(addTipsPage);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     public void getCraftDataFromFirebase() {
 
