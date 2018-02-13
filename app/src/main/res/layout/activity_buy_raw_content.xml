@@ -58,9 +58,11 @@
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="55dp"
-            android:ems="10"
-            android:hint="@string/craftName"
+            android:background="@color/colorBackground3"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="60dp"
+            android:hint="@string/trashName"
             android:visibility="visible" />
 
     </RelativeLayout>

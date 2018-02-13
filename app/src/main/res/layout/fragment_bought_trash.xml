@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:drawablePadding="5dp"
         android:gravity="center"
         android:text="No Trash Bought yet"
@@ -21,8 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtEmpty"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="45dp">
 
     </ListView>
 
@@ -36,6 +35,10 @@
             android:id="@+id/searchTxt"
             android:layout_width="400dp"
             android:layout_height="40dp"
+            android:background="@color/colorBackground3"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
     </RelativeLayout>
