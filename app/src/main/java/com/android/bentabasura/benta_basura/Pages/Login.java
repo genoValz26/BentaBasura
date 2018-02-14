@@ -246,7 +246,6 @@ public class Login extends AppCompatActivity implements OnClickListener {
 
     public void onStart() {
         super.onStart();
-        ;
         firebaseAuth.addAuthStateListener(mAuthListener);
 
     }

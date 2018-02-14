@@ -47,7 +47,6 @@ public class custom_dialog_disclaimer extends AppCompatActivity implements View.
         sellerdetailsIntent =  new Intent(custom_dialog_disclaimer.this,custom_dialog_contact_seller.class);
         sellerdetailsIntent.putExtra("UserId",receivedBundle.get("UserId").toString());
         startActivity(sellerdetailsIntent);
-        this.finishAndRemoveTask();
     }
 
 }
