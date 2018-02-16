@@ -128,6 +128,8 @@ public class custom_userslist extends BaseAdapter {
                     if (orig != null && orig.size() > 0) {
                         for (final Users g : orig) {
                             if (g.getFullname().toLowerCase()
+                                    .contains(constraint.toString()) || g.getEmail().toLowerCase()
+                                    .contains(constraint.toString()) || g.getAddress().toLowerCase()
                                     .contains(constraint.toString()))
                                 results.add(g);
                         }

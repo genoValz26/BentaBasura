@@ -98,18 +98,19 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText("Php " + receivedBundle.get("CraftPrice").toString() + ".00");
         txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
+        txtUrl.setText(receivedBundle.get("CraftResource").toString());
 
         updateButtonText();
 
         txtUploadedBy.setVisibility(View.GONE);
 
         ratingValue = (TextView) view.findViewById(R.id.ratingValue);
-       /* databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
+       databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
-                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
+                    //ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Rate").getValue().toString()));
                 }
             }
 
@@ -117,12 +118,12 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
             public void onCancelled(DatabaseError databaseError) {
                 ratingValue.setText("Not Yet Rated");
             }
-        });*/
+        });
 
        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
-                showMessage(String.valueOf(rating));
+                //showMessage(String.valueOf(rating));
                 databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).child("Rate").setValue(String.valueOf(rating));
                 //startActivity(new Intent(getActivity().getIntent()));
             }

@@ -205,7 +205,7 @@
                 android:layout_alignTop="@+id/tv11"
                 android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/textView9"
-                android:text="Status"
+                android:text="None"
                 android:textSize="10sp" />
 
             <RatingBar
@@ -237,7 +237,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/tv13"
                 android:layout_below="@+id/textView5"
-                android:text="Rating Value" />
+                android:text="Rating Value"
+                android:visibility="invisible" />
 
 
         </RelativeLayout>
