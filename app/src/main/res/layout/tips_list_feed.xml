@@ -70,7 +70,7 @@
                         <TextView
                             android:id="@+id/tipsDetail"
                             android:layout_width="match_parent"
-                            android:layout_height="49dp"
+                            android:layout_height="match_parent"
                             android:text="Tips Detail"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:textColor="@color/material_grey_600"

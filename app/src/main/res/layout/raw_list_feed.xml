@@ -82,7 +82,7 @@
                         <TextView
                             android:id="@+id/txtTrashDescription"
                             android:layout_width="match_parent"
-                            android:layout_height="49dp"
+                            android:layout_height="match_parent"
                             android:text="Block 1 Lot 3"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:textColor="@color/material_grey_600"
