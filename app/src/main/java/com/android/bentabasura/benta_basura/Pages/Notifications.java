@@ -376,6 +376,7 @@ public class Notifications extends AppCompatActivity implements NavigationView.O
                     craftIntent.putExtra("CraftPrice", dataSnapshot.child("craftPrice").getValue().toString());
                     craftIntent.putExtra("CraftSeller", dataSnapshot.child("meetupLocation").getValue().toString());
                     craftIntent.putExtra("CraftId", dataSnapshot.getKey());
+                    craftIntent.putExtra("CraftResource", dataSnapshot.child("resourcesFrom").getValue().toString());
                     craftIntent.putExtra("UploadedBy", dataSnapshot.child("uploadedBy").getValue().toString());
 
                     startActivity(craftIntent);

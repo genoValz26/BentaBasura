@@ -104,7 +104,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
     Map<String,String> mapUser;
     ArrayAdapter<String> dataAdapter;
     SearchableSpinner soldTo;
-    String key = "";
+    String key = "", strflag="";
 
     //keep track of camera capture intent
     static final int CAMERA_CAPTURE = 1;
@@ -181,6 +181,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 strUploadedDate = dataSnapshot.child("uploadedDate").getValue().toString();
                 reverseDate = Long.parseLong(dataSnapshot.child("reverseDate").getValue().toString());
                 strUploadedBy = dataSnapshot.child("uploadedBy").getValue().toString();
+                strflag = dataSnapshot.child("flag").getValue().toString();
             }
 
             @Override
@@ -192,7 +193,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         databaseReference.child("Users").child(activeUser.getUserId().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("userType").getValue().toString().equals("Admin")){
+                if(dataSnapshot.child("userType").getValue().toString().equals("Admin") || strflag.equals("1")){
                     soldtbtn.setVisibility(View.INVISIBLE);
                 }
                 else{
@@ -494,6 +495,13 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
         mapUser = new HashMap<>();
         dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrInterestedNames);
 
+        /*if(strflag.equals("2")){
+            reservebtn.setVisibility(View.INVISIBLE);
+        }
+        else{
+            reservebtn.setVisibility(View.VISIBLE);
+        }*/
+
         databaseReference.child("Craft").child(strcraftCategory).child(strcraftID).child("Interested").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -548,7 +556,7 @@ public class MyItems_Edit_Craft extends AppCompatActivity implements  View.OnCli
                 SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd yyyy hh:mm a");
                 String UploadedDate = sdf.format(currentTime);
 
-                if (soldTo.getSelectedItem().toString().equals(""))
+                if (soldTo.getSelectedItem().toString().equals("") || TextUtils.isEmpty(soldTo.getSelectedItem().toString()))
                 {
                     Toast.makeText(getApplicationContext(), "No selected interested users", Toast.LENGTH_SHORT).show();
                 }

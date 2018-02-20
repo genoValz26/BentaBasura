@@ -98,7 +98,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtCraftQuantity.setText(receivedBundle.get("CraftQuantity").toString());
         txtCraftPrice.setText("Php " + receivedBundle.get("CraftPrice").toString() + ".00");
         txtSellerInfo.setText(receivedBundle.get("CraftSeller").toString());
-        txtUrl.setText(receivedBundle.get("CraftResource").toString());
+        //txtUrl.setText(receivedBundle.get("CraftResource").toString());
 
         updateButtonText();
 
