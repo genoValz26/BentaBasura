@@ -84,19 +84,15 @@ public class BoughtItemsTrashTab extends Fragment {
 
     }
 
+
     private void getTrashDataFromFirebase()
     {
-        for(final String trashCat: trashCategory)
-        {
-            databaseReferenceTrash.child(trashCat.toString()).addValueEventListener(new ValueEventListener()
-            {
+        for (final String trashCat : trashCategory) {
+            databaseReferenceTrash.child(trashCat.toString()).addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot)
-                {
-                    if (dataSnapshot.exists())
-                    {
-                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren())
-                        {
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
                             boolean found = false;
 
                             oldestPostId = postSnapShot.getKey();
@@ -104,51 +100,44 @@ public class BoughtItemsTrashTab extends Fragment {
                             mProgressDialog.setMessage("Loading...");
                             mProgressDialog.show();
 
-                            for (Trash itemTrash : trashArray)
-                            {
-                                if (itemTrash.getTrashId().equals(oldestPostId)) {
+
+                            for (Trash itemCraft : trashArray) {
+                                if (itemCraft.getTrashId().equals(oldestPostId)) {
                                     found = true;
                                     break;
                                 }
                             }
 
-                            if (!found)
-                            {
-                                Trash trash = postSnapShot.getValue(Trash.class);
+                            if (!found) {
+                                final Trash trash = postSnapShot.getValue(Trash.class);
+                                if (trash.getflag().equals("1") && trash.getflagTo().equals(activeUser.getUserId())) {
+                                    trash.setTrashId(oldestPostId);
 
-                                if (trash.getTrashCategory().equals(trashCat.toString()))
-                                {
-                                    if (trash.getflag().equals("1") && trash.getflag().equals(activeUser.getUserId()))
-                                    {
-                                        trash.setTrashId(postSnapShot.getKey().toString());
-                                        trashArray.add(trash);
-                                        customTrashAdapter.notifyDataSetChanged();
-
-                                    }
+                                    trashArray.add(trash);
+                                    customTrashAdapter.notifyDataSetChanged();
                                 }
+
                             }
                         }
                         mProgressDialog.dismiss();
                     }
-
-                    if(trashArray.size() == 0){
+                    if (trashArray.size() == 0) {
                         lstMyTrash.setVisibility(View.INVISIBLE);
                         txtEmpty.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
+                    } else {
                         lstMyTrash.setVisibility(View.VISIBLE);
                         txtEmpty.setVisibility(View.INVISIBLE);
                     }
 
                 }
 
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
+
             });
         }
-
     }
 }
