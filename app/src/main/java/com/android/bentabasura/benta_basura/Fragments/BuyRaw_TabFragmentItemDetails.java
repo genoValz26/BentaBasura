@@ -102,12 +102,12 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
 
         txtUploadedBy.setVisibility(View.GONE);
 
-        databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").child(activeUser.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     //ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
-                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Rate").getValue().toString()));
+                    //ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Rate").getValue().toString()));
                 }
             }
 
@@ -121,7 +121,7 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
                  //showMessage(String.valueOf(rating));
-                databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").child(activeUser.getUserId()).child("Rate").setValue(String.valueOf(rating));
+                databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").child(activeUser.getUserId()).setValue(String.valueOf(rating));
                 //startActivity(getActivity().getIntent());
             }
         });

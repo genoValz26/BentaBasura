@@ -92,7 +92,7 @@ public class custom_admin_craft_list extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        databaseReference.child("Users").child(craft.get(position).getCraftCategory()).child(craft.get(position).getCraftID()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        databaseReference.child("Craft").child(craft.get(position).getCraftCategory()).child(craft.get(position).getCraftID()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 parent.getContext().startActivity(detailsIntent);

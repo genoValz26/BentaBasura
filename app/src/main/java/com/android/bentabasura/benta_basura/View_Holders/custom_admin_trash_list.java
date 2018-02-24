@@ -91,7 +91,7 @@ public class custom_admin_trash_list extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        databaseReference.child("Users").child(trash.get(position).getTrashCategory()).child(trash.get(position).getTrashId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        databaseReference.child("Trash").child(trash.get(position).getTrashCategory()).child(trash.get(position).getTrashId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 parent.getContext().startActivity(detailsIntent);

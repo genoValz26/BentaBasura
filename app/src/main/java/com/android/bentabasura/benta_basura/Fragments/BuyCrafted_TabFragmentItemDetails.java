@@ -19,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bentabasura.benta_basura.Models.ActiveUser;
+import com.android.bentabasura.benta_basura.Models.Craft;
 import com.android.bentabasura.benta_basura.Models.Notification;
+import com.android.bentabasura.benta_basura.Models.Ratings;
 import com.android.bentabasura.benta_basura.Pages.Login;
 import com.android.bentabasura.benta_basura.Pages.MyItems_Edit_Craft;
 import com.android.bentabasura.benta_basura.R;
@@ -33,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -50,6 +53,9 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
     Boolean found = false;
     String theUrl;
     RatingBar ratingBar;
+    int sum= 0, average = 0;
+    ArrayList<Ratings> ratingsArray =new ArrayList<>();
+    String oldestPostId = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_crafted, container, false);
@@ -105,15 +111,15 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
         txtUploadedBy.setVisibility(View.GONE);
 
         ratingValue = (TextView) view.findViewById(R.id.ratingValue);
-       databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        ratingValue.setVisibility(View.VISIBLE);
+       databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    //ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
-                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Rate").getValue().toString()));
+                if (dataSnapshot.hasChildren()) {
+                    sum += Integer.parseInt(dataSnapshot.getChildren().toString());
+                    ratingValue.setText(sum);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 ratingValue.setText("Not Yet Rated");
@@ -124,7 +130,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
                 //showMessage(String.valueOf(rating));
-                databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).child("Rate").setValue(String.valueOf(rating));
+                databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).setValue(String.valueOf(rating));
                 //startActivity(new Intent(getActivity().getIntent()));
             }
         });
