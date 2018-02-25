@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/tv13"
                 android:layout_below="@+id/textView5"
-                android:text="Rating Value"
+                android:text="Average rating is 0"
                 android:visibility="invisible" />
 
 

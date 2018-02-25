@@ -35,13 +35,14 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnClickListener {
 
 
     ActiveUser activeUser;
     ProgressDialog mProgressDialog;
-    TextView txtTrashName, txtTrashDescription, txtTrashQuantity, txtTrashPrice, txtSellerInfo, txtUploadedBy;
+    TextView txtTrashName, txtTrashDescription, txtTrashQuantity, txtTrashPrice, txtSellerInfo, txtUploadedBy, ratingValue;
     Button btnEdit,btnInterested;
     ImageView imgThumbRaw;
     Intent receiveIntent,editTrashPage,detailsIntent,sellerdetailsIntent;
@@ -49,6 +50,7 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
     DatabaseReference databaseReference;
     Boolean found = false;
     RatingBar ratingBar;
+    Double sum= Double.valueOf(0), average = Double.valueOf(0);
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_buy_raw, container, false);
@@ -101,13 +103,21 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
         updateButtonText();
 
         txtUploadedBy.setVisibility(View.GONE);
+        ratingValue = (TextView) view.findViewById(R.id.ratingValue);
 
         databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    //ratingValue.setText(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString());
-                    //ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Rate").getValue().toString()));
+                if(dataSnapshot.exists()) {
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        Map<String, Object> map = (Map<String, Object>) postSnapshot.getValue();
+                        Object rate = map.get("Rate");
+                        Double rateVal = Double.parseDouble(String.valueOf(rate));
+                        sum += rateVal;
+                        average = sum/dataSnapshot.getChildrenCount();
+                        ratingValue.setText("Average rating is "+ String.valueOf(average));
+                    }
                 }
             }
 
@@ -121,7 +131,7 @@ public class BuyRaw_TabFragmentItemDetails extends Fragment implements View.OnCl
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
                  //showMessage(String.valueOf(rating));
-                databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").child(activeUser.getUserId()).setValue(String.valueOf(rating));
+                databaseReference.child("Trash").child(receivedBundle.get("TrashCategory").toString()).child(receivedBundle.get("TrashId").toString()).child("Ratings").child(activeUser.getUserId()).child("Rate").setValue(String.valueOf(rating));
                 //startActivity(getActivity().getIntent());
             }
         });

@@ -195,6 +195,14 @@
                 android:scaleY=".5"
                 android:stepSize=".5" />
 
+            <TextView
+                android:id="@+id/ratingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView13"
+                android:layout_below="@+id/textView10"
+                android:text="Average rating is 0" />
+
         </RelativeLayout>
     </TableLayout>
 </ScrollView>

@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.OnClickListener{
 
@@ -53,7 +54,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
     Boolean found = false;
     String theUrl;
     RatingBar ratingBar;
-    int sum= 0, average = 0;
+    Double sum= Double.valueOf(0), average = Double.valueOf(0);
     ArrayList<Ratings> ratingsArray =new ArrayList<>();
     String oldestPostId = "";
     @Override
@@ -115,9 +116,16 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
        databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-                    sum += Integer.parseInt(dataSnapshot.getChildren().toString());
-                    ratingValue.setText(sum);
+                if(dataSnapshot.exists()) {
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        Map<String, Object> map = (Map<String, Object>) postSnapshot.getValue();
+                        Object rate = map.get("Rate");
+                        Double rateVal = Double.parseDouble(String.valueOf(rate));
+                        sum += rateVal;
+                        average = sum/dataSnapshot.getChildrenCount();
+                        ratingValue.setText("Average rating is "+ String.valueOf(average));
+                    }
                 }
             }
             @Override
@@ -130,7 +138,7 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean b) {
                 //showMessage(String.valueOf(rating));
-                databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).setValue(String.valueOf(rating));
+                databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).child("Rate").setValue(String.valueOf(rating));
                 //startActivity(new Intent(getActivity().getIntent()));
             }
         });
