@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -113,18 +114,33 @@ public class BuyCrafted_TabFragmentItemDetails extends Fragment implements View.
 
         ratingValue = (TextView) view.findViewById(R.id.ratingValue);
         ratingValue.setVisibility(View.VISIBLE);
-       databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").child(activeUser.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
+                    ratingBar.setRating(Float.parseFloat(dataSnapshot.child("Rate").getValue().toString()));
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseReference.child("Craft").child(receivedBundle.get("CraftCategory").toString()).child(receivedBundle.get("CraftId").toString()).child("Ratings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    //ratingBar.setRating(Float.parseFloat(dataSnapshot.child(activeUser.getUserId()).child("Rate").getValue().toString()));
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         Map<String, Object> map = (Map<String, Object>) postSnapshot.getValue();
                         Object rate = map.get("Rate");
                         Double rateVal = Double.parseDouble(String.valueOf(rate));
                         sum += rateVal;
                         average = sum/dataSnapshot.getChildrenCount();
-                        ratingValue.setText("Average rating is "+ String.valueOf(average));
+                        DecimalFormat numberFormat = new DecimalFormat("#.0");
+                        ratingValue.setText("Average rating is "+ String.valueOf(numberFormat.format(average)));
                     }
                 }
             }
